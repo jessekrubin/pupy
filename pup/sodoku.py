@@ -3,8 +3,8 @@
 # JESSE RUBIN - Biblioteca
 from itertools import chain
 
-from pupy import xrange
-from pupy.decorations import cash_it
+from pup import xrange
+from pup.decorations import cash_it
 
 
 class SodokuError(ValueError):

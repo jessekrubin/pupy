@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from pupy.decorations import tictoc
+from pup.decorations import tictoc
 
 
 def test_ftime_seconds():

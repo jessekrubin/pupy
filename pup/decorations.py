@@ -7,7 +7,7 @@ from functools import wraps
 from inspect import getfile
 from time import time
 
-from pupy import xrange
+from pup import xrange
 
 
 def cash_it(funk):

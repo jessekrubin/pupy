@@ -9,7 +9,7 @@ http://sudopedia.enjoysudoku.com/Invalid_Test_Cases.html
 http://sudopedia.enjoysudoku.com/Valid_Test_Cases.html
 """
 
-from pupy.sodoku import SodokuError, Sodoku
+from pup.sodoku import SodokuError, Sodoku
 from pytest import raises
 
 

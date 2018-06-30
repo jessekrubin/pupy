@@ -5,9 +5,9 @@ from collections import Counter
 from math import pi, sqrt, acos, factorial
 from operator import floordiv, methodcaller, truediv, add, sub
 
-from pupy import xrange
-from pupy.decorations import cash_it
-from pupy.listless import iter_product
+from pup import xrange
+from pup.decorations import cash_it
+from pup.listless import iter_product
 
 
 def partitions_gen(numero, min_p=1, max_p=None):

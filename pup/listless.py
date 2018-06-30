@@ -4,7 +4,7 @@
 from functools import reduce
 from operator import mul
 from collections import Counter, deque
-from pupy import xrange
+from pup import xrange
 
 
 def chunks(list, chunk_size):

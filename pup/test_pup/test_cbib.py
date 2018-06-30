@@ -3,9 +3,9 @@ from __future__ import division, print_function
 import pyximport
 
 pyximport.install()
-# import pupy.cy_maths
-from pupy.amazon_prime import prime_gen as py_prime_gen
-from pupy.decorations import tictoc
+# import pup.cy_maths
+from pup.amazon_prime import prime_gen as py_prime_gen
+from pup.decorations import tictoc
 
 
 

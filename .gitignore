@@ -1,0 +1,3 @@
+# P(retty) U(seful) PY(thon) ~ PUPY
+
+./test_pupy/.pytest_cache/** # cache dir

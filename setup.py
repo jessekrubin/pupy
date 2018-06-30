@@ -4,7 +4,7 @@ from distutils.core import setup
 # from sys import argv
 #
 # setup(name='pyEuler',
-#       packages=['pupy'],
+#       packages=['pup'],
 #       author='jessekrubin',
 #       author_email='jessekrubin@gmail.com',
 #       description='Pretty_Useful_Python',
@@ -15,17 +15,16 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name="pupy",
+    name="pup",
     version="1.0.3",
     author="jessekrubin",
     author_email="author@example.com",
     description="pretty useful python",
     long_description="PUP",
     long_description_content_type="text/markdown",
-    # url="https://github.com/jessekrubin/pup",
-    url='https://upload.pypi.org/legacy/',
-
-    packages=setuptools.find_packages(),
+    url="https://github.com/jessekrubin/pup",
+    # url='https://upload.pypi.org/legacy/',
+    packages=setuptools.find_packages('pup'),
     classifiers=(
         # "Programming Language :: Python :: 3",
     ),

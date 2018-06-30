@@ -3,7 +3,7 @@
 """
 testing the toople class I have made
 """
-from pupy.maths import Vuple
+from pup.maths import Vuple
 
 
 class Test_Vuple(object):

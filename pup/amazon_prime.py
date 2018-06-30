@@ -5,9 +5,9 @@ from bisect import bisect_right, bisect
 from itertools import count
 from math import sqrt
 
-from pupy import xrange
-from pupy.maths import divisors_gen
-from pupy.decorations import cash_it
+from pup import xrange
+from pup.maths import divisors_gen
+from pup.decorations import cash_it
 
 
 def prime_gen(plim=0, kprimes=None):

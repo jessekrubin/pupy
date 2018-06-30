@@ -2,12 +2,12 @@
 from __future__ import division, print_function
 import pyximport; pyximport.install()
 from time import time
-from pupy.decorations import tictoc
+from pup.decorations import tictoc
 
 l = [i for i in range(1, 100000)]
 #
 # def _bib_test():
-#     from pupy.maths import iter_product
+#     from pup.maths import iter_product
 #     ti = time()
 #     iter_product(l)
 #     te = time()
