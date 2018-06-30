@@ -1,0 +1,7 @@
+README.md
+setup.py
+pupy.egg-info/PKG-INFO
+pupy.egg-info/SOURCES.txt
+pupy.egg-info/dependency_links.txt
+pupy.egg-info/requires.txt
+pupy.egg-info/top_level.txt

@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 # from sys import argv
 #
 # setup(name='pyEuler',
-#       packages=['pup'],
+#       packages=['pupy'],
 #       author='jessekrubin',
 #       author_email='jessekrubin@gmail.com',
 #       description='Pretty_Useful_Python',
@@ -16,7 +16,7 @@ from setuptools import setup, find_packages
 #     long_description = fh.read()
 
 # setup(
-#     name="pup",
+#     name="pupy",
 #     version="1.0.4",
 #     author="jessekrubin",
 #     author_email="jessekrubin@gmail.com",
@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 #     long_description_content_type="text/markdown",
 #     url="https://github.com/jessekrubin/pup",
 #     # url='https://upload.pypi.org/legacy/',
-#     packages=['pup', 'test_pup'],
+#     packages=['pupy', 'test_pupy'],
 #     classifiers=(
 #         # "Programming Language :: Python :: 3",
 #         # "License :: OSI Approved :: MIT License",
@@ -36,9 +36,9 @@ from setuptools import setup, find_packages
 # )
 from setuptools import setup, find_packages
 setup(
-    name="pup",
+    name="pupy",
     version="1.0.6",
-    packages=find_packages('pup'),
+    packages=find_packages('pupy'),
     # scripts=['pu.py'],
 
     # Project uses reStructuredText, so ensure that the docutils get
@@ -58,7 +58,7 @@ setup(
     description="This is a package",
     license="MIT",
     keywords="pretty useful python",
-    url="http://github.com/jessekrubin/pup/",   # project home page, if any
+    url="http://github.com/jessekrubin/pupy/",   # project home page, if any
     project_urls={
         # "Documentation": "https://github.com/HelloWorld/",
         # "Source Code": "https://github.example.com/HelloWorld/",

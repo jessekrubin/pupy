@@ -1,3 +1,3 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# JESSE RUBIN - pup == Biblioteca
+# JESSE RUBIN - pupy == Biblioteca
