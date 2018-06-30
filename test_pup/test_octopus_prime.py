@@ -47,7 +47,7 @@ class TestPrimeSieve(object):
 
     def test_prime_seive_gen(self):
         """
-        test_pupy if can generate primes below 100
+        test_pup if can generate primes below 100
         """
         assert p_lt100 == [p for p in prime_gen(100)]
 
@@ -69,6 +69,6 @@ class TestPrimeSieve(object):
 
     def test_small_ub_large_known_primes(self):
         """
-        test_pupy handling an upper_bound < max prime
+        test_pup handling an upper_bound < max prime
         """
         assert list(prime_gen(50, kprimes=p_lt100)) == p_lt50

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Jesse Rubin - py_euler sodoku.pyx test_pupy
+# Jesse Rubin - py_euler sodoku.pyx test_pup
 """
 testing my sodoku.pyx solver
 
