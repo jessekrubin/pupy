@@ -5,7 +5,6 @@ from bisect import bisect_right, bisect
 from itertools import count
 from math import sqrt
 
-from pup import xrange
 from pup.maths import divisors_gen
 from pup.decorations import cash_it
 
@@ -63,7 +62,7 @@ def prime_gen(plim=0, kprimes=None):
     start = kprimes[-1] + 2  # max prime + 2 (make sure it is odd)
     if start == 13: yield 2; yield 3; yield 5; yield 7; yield 11
     # use count or range depending on if generator is infinite
-    it = count(start, 2) if plim == 0 else xrange(start, plim, 2)
+    it = count(start, 2) if plim == 0 else range(start, plim, 2)
     for num in it:
         prime_div = divz.pop(num, None)
         if prime_div:
@@ -140,7 +139,7 @@ def is_prime(number):
     if number < 2 or number % 2 == 0: return False
     if number < 9: return True
     if number % 3 == 0: return False
-    for step in xrange(5, int(sqrt(number)) + 1, 6):
+    for step in range(5, int(sqrt(number)) + 1, 6):
         if step >= number: break
         if number % step == 0: return False
         if number % (step + 2) == 0: return False
