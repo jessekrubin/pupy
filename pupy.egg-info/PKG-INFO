@@ -1,0 +1,14 @@
+Metadata-Version: 1.1
+Name: pupy
+Version: 2.0.1a0
+Summary: pretty useful python
+Home-page: https://upload.pypi.org/legacy/
+Author: jesse r
+Author-email: jessekrubin@gmail.com
+License: MIT
+Description: coming soon
+Keywords: pretty useful python
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7

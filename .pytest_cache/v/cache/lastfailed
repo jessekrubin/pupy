@@ -1,0 +1,8 @@
+{
+  "test_pupy/test_cbib.py": true,
+  "test_pupy/test_sodoku.py::TestValidCases::()": true,
+  "test_pupy/test_sodoku.py::Test_Duplicate::()": true,
+  "test_pupy/test_sodoku.py::Test_Not_Enough_Info::()": true,
+  "test_pupy/test_sodoku.py::Test_SodokuMethods::()": true,
+  "test_pupy/test_sodoku.py::Test_Unsolvable::()": true
+}
