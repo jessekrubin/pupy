@@ -52,7 +52,7 @@ class Jasm(object):
 
         def savings_n_loads(*args, **kwargs):
             """Jasm funk (w)rapper"""
-            if len(args)==0: save_key = "None"
+            if len(args) == 0: save_key = "None"
             else: save_key = str((args, kwargs.items()))
             try:
                 with open(fp) as f:

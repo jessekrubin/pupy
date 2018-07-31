@@ -148,6 +148,5 @@ def iter_product(l):
         24
         >>> iter_product([-1, -2, -3, 4])
         -24
-
     """
     return reduce(mul, l)

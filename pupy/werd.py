@@ -28,7 +28,7 @@ def string_score(strang):
         >>> string_score('gregory')
         95
     """
-    return sum((ord(character)-96 for character in strang.lower()))
+    return sum((ord(character) - 96 for character in strang.lower()))
 
 
 def is_palindrome(strang):
@@ -41,5 +41,5 @@ def is_palindrome(strang):
         False
     """
     for index, character in enumerate(strang):
-        if character != strang[-index-1]: return False
+        if character != strang[-index - 1]: return False
     return True

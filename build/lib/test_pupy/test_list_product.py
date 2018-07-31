@@ -1,6 +1,5 @@
 # coding=utf-8
 from __future__ import division, print_function
-import pyximport; pyximport.install()
 from time import time
 from pupy.decorations import tictoc
 

@@ -7,9 +7,7 @@ from pupy.decorations import cash_it
 
 
 class SodokuError(ValueError):
-    """
-
-    """
+    """simple Sodoku error"""
 
     def __init__(self, message, row=None, col=None):
         self.message = message

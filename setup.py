@@ -19,7 +19,7 @@ setup(name='pupy',
       license='MIT',
       packages=find_packages(),
       install_requires=[
-          'tqdm>=4'
+          'tqdm>=4', 'pytest'
       ],
       include_package_data=True,
       zip_safe=False)
