@@ -6,8 +6,6 @@ python:
   - "pypy3.5"
 # command to install dependencies
 install:
-  - pip install cython
-  - pip install tqdm
-  - pip install .
+  - python setup.py install
 # command to run tests
 script: pytest
