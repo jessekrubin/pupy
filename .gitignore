@@ -4,3 +4,4 @@ test_pupy/.pytest_cache/** # cache dir
 dist/**
 build/**
 .pytest_cache/**
+.tox/**

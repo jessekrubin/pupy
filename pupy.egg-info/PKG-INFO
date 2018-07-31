@@ -10,5 +10,6 @@ Description: coming soon
 Keywords: pretty useful python
 Platform: UNKNOWN
 Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.5
 Classifier: Programming Language :: Python :: 3.6
 Classifier: Programming Language :: Python :: 3.7

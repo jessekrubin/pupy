@@ -7,11 +7,11 @@ setup(name='pupy',
       long_description='coming soon',
       classifiers=[
         'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
       ],
       keywords='pretty useful python',
-      # url='http://github.com/jessekrubin/pupy/',
       repository='https://upload.pypi.org/legacy/',
       url='https://upload.pypi.org/legacy/',
       author='jessekrubin',
@@ -23,5 +23,3 @@ setup(name='pupy',
       ],
       include_package_data=True,
       zip_safe=False)
-
-
