@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # JESSE RUBIN - Biblioteca
+from __future__ import division
 from collections import Counter
 from math import pi, sqrt, acos, factorial
 from operator import floordiv, methodcaller, truediv, add, sub
