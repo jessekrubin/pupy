@@ -209,6 +209,20 @@ def pytriple_gen(max_c):
                     yield (imag, real, sea) if real > imag else (real, imag, sea)
 
 
+def repermutations(toop):
+    c = Counter(n for n in toop)
+    a = list(factorial(nc) for nc in c.values())
+    ans = factorial(len(toop)) // iter_product(a)
+    return ans
+
+
+def disjoint(a, b):
+    return not any(ae in b for ae in a)
+
+
+def n_choose_r(n, r):
+    return factorial(n) // factorial(r) // factorial(n - r)
+
 def pytriple_gen_2():
     diagonal_size = 3
     cur_x = 1
@@ -251,11 +265,8 @@ class Trigon(object):
     def from_points(cls, pts):
         """
 
-        Args:
-            pts:
-
-        Returns:
-
+        :param pts:
+        :return:
         """
         if len(pts) == 3:
             return Trigon(*pts)
@@ -327,8 +338,8 @@ class Trigon(object):
         Returns:
 
         """
-        return abs(truediv(Vuple.cproduct(self.pt1 - self.pt2,
-                                          self.pt3 - self.pt2), 2))
+        return abs(truediv(Vuple.cross(self.pt1 - self.pt2,
+                                       self.pt3 - self.pt2), 2))
 
     @staticmethod
     def area_from_points(pt1, pt2, pt3):
@@ -342,22 +353,8 @@ class Trigon(object):
         Returns:
 
         """
-        return abs(truediv(Vuple.cproduct(pt1 - pt2, pt3 - pt2), 2))
+        return abs(truediv(Vuple.cross(pt1 - pt2, pt3 - pt2), 2))
 
-
-def repermutations(toop):
-    c = Counter(n for n in toop)
-    a = list(factorial(nc) for nc in c.values())
-    ans = factorial(len(toop)) // iter_product(a)
-    return ans
-
-
-def disjoint(a, b):
-    return not any(ae in b for ae in a)
-
-
-def n_choose_r(n, r):
-    return factorial(n) // factorial(r) // factorial(n - r)
 
 
 class Vuple(tuple):
@@ -374,8 +371,16 @@ class Vuple(tuple):
     def __gt__(self, other):
         return Vuple.mag_sqrd(self) > Vuple.mag_sqrd(other)
 
-    def __add__(self, other):
-        return Vuple(map(add, self, other))
+    def __eq__(self, other):
+        return all(a == b for a, b in zip(self, other))
+
+    def __add__(self, k):
+        if type(k) is int or type(k) is float:
+            return Vuple((k + el for el in self))
+        elif type(k) is Vuple:
+            if len(self) != len(k):
+                raise ValueError("Dimensions do NOT match")
+            return Vuple(map(add, self, k))
 
     def __sub__(self, other):
         return Vuple(map(sub, self, other))
@@ -383,7 +388,6 @@ class Vuple(tuple):
     def __mul__(self, k):
         if type(k) is int or type(k) is float:
             return self._mul_scalar(k)
-        # return Vuple(map(sub, self, k))
 
     def __imul__(self, k):
         if type(k) is int or type(k) is float:
@@ -396,18 +400,26 @@ class Vuple(tuple):
         if type(k) is int or type(k) is float:
             return self._truediv_scalar(k)
 
-    def __itruediv__(self, k):
-        if type(k) is int or type(k) is float:
-            return self._truediv_scalar(k)
-
     def _truediv_scalar(self, k):
         return Vuple((el / k for el in self))
 
+    def __itruediv__(self, k):
+        return self.__truediv__(k)
+
+    def __floordiv__(self, k):
+        if type(k) is int or type(k) is float:
+            return self._floordiv_scalar_int(k)
+
+    def __ifloordiv__(self, k):
+        return self.__floordiv__(k)
+
+    def _floordiv_scalar_int(self, k):
+        return Vuple((el // k for el in self))
+
     def normalize(self):
-        """
+        """Normalizes the Vuple ST self.magnitude == 1
 
-        Returns:
-
+        :return: Unit Vuple
         """
         return Vuple.unit_vuple(self)
 
@@ -464,7 +476,7 @@ class Vuple(tuple):
         return sqrt(Vuple.mag_sqrd(voop))
 
     @staticmethod
-    def dproduct(a, b):
+    def dot(a, b):
         """
 
         Args:
@@ -477,18 +489,20 @@ class Vuple(tuple):
         return sum(va * vb for va, vb in zip(a, b))
 
     @staticmethod
-    def cproduct(v1, v2):
+    def cross(v1, v2):
         """Cross product of two 2d vectors
 
         :param v1: first vector
         :param v2: second vector
-        :return: cproduct product
+        :return: cross product of v1 and v2
         """
         if len(v1) == 2 and len(v2) == 2:
             return (v1[0] * v2[1]) - (v1[1] * v2[0])
+        else:
+            raise ValueError("cross product gt 2d not implemented")
 
     @staticmethod
-    def angle(v1, v2, radians=True):
+    def angle(v1, v2, radians=False):
         """
 
         Args:
@@ -501,17 +515,15 @@ class Vuple(tuple):
         """
         # return acos(Vuple.dproduct(v1, v2)/(Vuple.mag(v1)*Vuple.mag(v2)))
         q = 1 if radians else 180 / pi
-        return q * acos(Vuple.dproduct(Vuple.unit_vuple(v1),
-                                       Vuple.unit_vuple(v2)))
+        return q * acos(Vuple.dot(Vuple.unit_vuple(v1),
+                                  Vuple.unit_vuple(v2)))
 
     def is_disjoint(self, them):
         return len(set(self) & set(them)) == 0
 
     def product(self):
-        return iter_product(self)
+        """Multiplies all elements in the Vuple
 
-# class SortedVuple(Vuple):
-#
-#     def __new__(self, toop, presorted=True):
-#         if presorted: return tuple.__new__(SortedVuple, toop)
-#         else: return tuple.__new__(SortedVuple, sorted(toop))
+        :return:
+        """
+        return iter_product(self)

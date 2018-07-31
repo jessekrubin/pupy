@@ -3,7 +3,8 @@
 """
 testing the toople class I have made
 """
-from pupy.maths import Vuple
+from __future__ import division
+from pupy import Vuple
 
 
 class Test_Vuple(object):
@@ -13,10 +14,22 @@ class Test_Vuple(object):
         b = Vuple((7, 5))
         assert a > b
 
+    def test_equal(self):
+        a = Vuple((12, 3))
+        b = Vuple((12, 3))
+        assert a == b
+        b = Vuple((3, 4))
+        assert a != b
+
     def test_add(self):
         a = Vuple((12, 3))
         b = Vuple((7, 5))
         assert Vuple((19, 8)) == a+b
+
+    def test_add_scalar(self):
+        a = Vuple((12, 3))
+        assert Vuple((16, 7)) == a+4
+
 
     def test_sub(self):
         a = Vuple((12, 3))
@@ -56,7 +69,7 @@ class Test_Vuple(object):
     def test_angle_radians(self):
         v1 = Vuple((10, 10))
         v2 = Vuple((1, 0))
-        assert 3.1415926535897936 == (4*Vuple.angle(v1, v2))
+        assert 180 == int(round((4*Vuple.angle(v1, v2))))
 
     def test_angle_degrees(self):
         v1 = Vuple((10, 10))

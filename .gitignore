@@ -5,3 +5,8 @@ dist/**
 build/**
 .pytest_cache/**
 .tox/**
+.DS_store
+.idea/**
+test_pupy/__pycache__/
+.idea/inspectionProfiles/
+*.pyc

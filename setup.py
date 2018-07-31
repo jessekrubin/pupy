@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(name='pupy',
-      version='2.0.1a',
+      version='1.3.0',
       description='pretty useful python',
       long_description='coming soon',
       classifiers=[
@@ -12,7 +12,7 @@ setup(name='pupy',
         'Programming Language :: Python :: 3.7',
       ],
       keywords='pretty useful python',
-      repository='https://upload.pypi.org/legacy/',
+      repository='https://github.com/jessekrubin/pupy',
       url='https://upload.pypi.org/legacy/',
       author='jessekrubin',
       author_email='jessekrubin@gmail.com',
