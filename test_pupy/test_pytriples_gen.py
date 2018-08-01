@@ -3,7 +3,7 @@
 """
 testing the pytriplets function/gen I made
 """
-from pupy.maths import pytriple_gen, pytriple_gen_2
+from pupy.maths import pytriple_gen
 
 lt100 = {(3, 4, 5), (5, 12, 13), (8, 15, 17), (7, 24, 25), (20, 21, 29),
          (9, 40, 41), (12, 35, 37), (11, 60, 61), (28, 45, 53), (33, 56, 65),
@@ -21,22 +21,18 @@ gt100_lt300 = {(20, 99, 101), (60, 91, 109), (15, 112, 113), (44, 117, 125),
 
 lt300 = set.union(lt100, gt100_lt300)
 
-
 def test_pytriplets_c_lt100():
     """Testing pytriples with c values less than 100"""
     assert {t for t in pytriple_gen(100)} == lt100
-
 
 def test_pytriplets_c_lt300():
     """Testing pytriples with c values less than 100"""
     p_set = {t for t in pytriple_gen(300)}
     assert lt300 == p_set
 
-
 def test_pytriplets_2_c_lt100():
     """Testing pytriples with c values less than 100"""
     assert lt100 == set(pytriple_gen(100))
-
 
 def test_pytriplets_2_c_lt300():
     """Testing pytriples with c values less than 100"""
@@ -45,7 +41,6 @@ def test_pytriplets_2_c_lt300():
     while len(vals) < len(lt300):
         vals.add(next(gen))
     assert vals == lt300
-
 
 # test_pytriplets_2_c_lt100()
 # test_pytriplets_2_c_lt300()

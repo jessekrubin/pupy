@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# JESSE RUBIN - Biblioteca
-from __future__ import division
+# ~ Jesse K. Rubin ~ Pretty Useful Python
+from __future__ import division, print_function
 from collections import Counter
 from math import pi, sqrt, acos, factorial
 from operator import floordiv, methodcaller, truediv, add, sub
-
 from pupy.decorations import cash_it
 from pupy.listless import iter_product
-
 
 def partitions_gen(numero, min_p=1, max_p=None):
     """Partitions generator
@@ -39,7 +37,6 @@ def partitions_gen(numero, min_p=1, max_p=None):
         for p in partitions_gen(numero - i, i, max_p):
             yield (i,) + p
 
-
 @cash_it
 def rfactorial(n):
     """Recursive factorial function
@@ -55,16 +52,13 @@ def rfactorial(n):
     else:
         return rfactorial(n - 1) * n
 
-
 def radians_2_degrees(rads):
     """Converts radians to degrees"""
     return 180 * rads / pi
 
-
 def degrees_2_radians(degs):
     """Converts degrees to radians"""
     return degs * pi / 180
-
 
 def power_mod(number, exponent, mod):
     """
@@ -83,7 +77,6 @@ def power_mod(number, exponent, mod):
         return power_mod(number, floordiv(exponent, 2), mod) * number
     else:
         return 1
-
 
 def divisors_gen(n):
     """Divisors generator
@@ -104,13 +97,11 @@ def divisors_gen(n):
     for divisor in reversed(large_divisors):
         yield divisor
 
-
 def gcd_it(a, b):
     """iterative gcd"""
     while a:
         a, b = b % a, a
     return b
-
 
 @cash_it
 def gcd_r(a, b):
@@ -121,7 +112,6 @@ def gcd_r(a, b):
     if r == 0:
         return b
     return gcd_r(r, b)
-
 
 def reverse(n):
     """Reverses a number
@@ -140,7 +130,6 @@ def reverse(n):
         reversed += n % 10
         n //= 10
     return reversed
-
 
 @cash_it
 def fib_r(n):
@@ -162,7 +151,6 @@ def fib_r(n):
     """
     return n if n < 3 else fib_r(n - 1) + fib_r(n - 2)
 
-
 def expo(d, n):
     """greatest exponent for a divisor of n
 
@@ -181,7 +169,6 @@ def expo(d, n):
         c //= d
         divs += 1
     return divs
-
 
 def pytriple_gen(max_c):
     """primative pythagorean triples generator
@@ -208,17 +195,14 @@ def pytriple_gen(max_c):
                 else:
                     yield (imag, real, sea) if real > imag else (real, imag, sea)
 
-
 def repermutations(toop):
     c = Counter(n for n in toop)
     a = list(factorial(nc) for nc in c.values())
     ans = factorial(len(toop)) // iter_product(a)
     return ans
 
-
 def disjoint(a, b):
     return not any(ae in b for ae in a)
-
 
 def n_choose_r(n, r):
     return factorial(n) // factorial(r) // factorial(n - r)
@@ -241,7 +225,6 @@ def pytriple_gen_2():
             continue
         yield to_yield
 
-
 def get_pythag_triple(real, imag):
     comp = complex(real, imag)
     sea = int((comp * comp.conjugate()).real)
@@ -249,7 +232,6 @@ def get_pythag_triple(real, imag):
     real = abs(int(sqrd.real))
     imag = abs(int(sqrd.imag))
     return min(imag, real), max(imag, real), sea
-
 
 class Trigon(object):
     """
@@ -355,8 +337,6 @@ class Trigon(object):
         """
         return abs(truediv(Vuple.cross(pt1 - pt2, pt3 - pt2), 2))
 
-
-
 class Vuple(tuple):
     """VUPLE == Vector+Tuple"""
 
@@ -382,8 +362,8 @@ class Vuple(tuple):
                 raise ValueError("Dimensions do NOT match")
             return Vuple(map(add, self, k))
 
-    def __sub__(self, other):
-        return Vuple(map(sub, self, other))
+    def __sub__(self, k):
+        return Vuple(map(sub, self, k))
 
     def __mul__(self, k):
         if type(k) is int or type(k) is float:

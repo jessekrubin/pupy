@@ -1,7 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# ~ Jesse K. Rubin ~ Pretty Useful Python
+
 def binary_string(number: int) -> str: ...
-
-
 def string_score(strang: str) -> int: ...
-
-
 def is_palindrome(strang: str) -> bool: ...

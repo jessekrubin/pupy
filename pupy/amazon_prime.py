@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# JESSE RUBIN - Biblioteca
+# ~ Jesse K. Rubin ~ Pretty Useful Python
+from __future__ import division, print_function
+from pupy.maths import divisors_gen
+from pupy.decorations import cash_it
 from bisect import bisect_right, bisect
 from itertools import count
 from math import sqrt
-
-from pupy.maths import divisors_gen
-from pupy.decorations import cash_it
-
+from collections import MutableSequence
 
 def prime_gen(plim=0, kprimes=None):
     """Infinite (within reason) prime number generator
@@ -73,7 +73,6 @@ def prime_gen(plim=0, kprimes=None):
             divz[num * num] = num
             yield num
 
-
 def prime_factorization_gen(n):
     """generates all numbers in the prime factorization of n
 
@@ -96,7 +95,6 @@ def prime_factorization_gen(n):
             n //= factor
             yield factor
 
-
 def prime_factors_gen(n):
     """prime factors generator
 
@@ -114,7 +112,6 @@ def prime_factors_gen(n):
 
     """
     return (p for p in divisors_gen(n) if is_prime(p))
-
 
 @cash_it
 def is_prime(number):
@@ -145,11 +142,11 @@ def is_prime(number):
         if number % (step + 2) == 0: return False
     return True
 
-
-class OctopusPrime(list):
+# class OctopusPrime(list):
+class OctopusPrime(MutableSequence):
     """OctopusPrime, the 8-leg autobot, here to help you find PRIMES"""
 
-    def __init__(self, plim=100):
+    def __init__(self, plim=100, verbose=False):
         """______OCTOPUS_PRIME ACTIVATE______
            ░░░░░░░▄▄▄▄█████████████▄▄▄░░░░░░░
            ████▄▀████████▀▀▀▀▀▀████████▀▄████
@@ -171,17 +168,22 @@ class OctopusPrime(list):
         Args:
             plim (int): starting max limit to generate primes below
         """
-        list.__init__(self, list(prime_gen(plim=plim)))
-        self.max_loaded = self[-1]
+        # list.__init__(self, list(prime_gen(plim=plim)))
+        # super(OctopusPrime, self).__init__()
+        p = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
+             43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+        if plim == 100:
+            self._list = p[:]
+        elif plim < 100:
+            self._list = list(filter(lambda n: n <= plim, p))
+        else:
+            self._list = list(prime_gen(plim, p))
+        self.max_loaded = self._list[-1]
 
     def _transform(self, n=None):
         """TRANSFORM / grow the list"""
-        n = n if n is not None else self[-1] * 10
-        self.extend(list(prime_gen(plim=n, kprimes=self)))
-
-    def __contains__(self, item):
-        if self[bisect(self, item) - 1] == item: return True
-        return False
+        n = n if n is not None else self._list[-1] * 10
+        self._list.extend(list(prime_gen(plim=n, kprimes=self._list)))
 
     def primes_below(self, upper_bound):
         """Lists primes, p, such that  p < upper_bound
@@ -206,5 +208,27 @@ class OctopusPrime(list):
             (list): primes between lower_bound and upper_bound
 
         """
-        if upper_bound > self[-1]: self._transform(upper_bound)
+        if upper_bound > self[-1]:
+            self._transform(upper_bound)
         return self[bisect_right(self, lower_bound):bisect(self, upper_bound)]
+
+    def __len__(self):
+        return len(self._list)
+
+    def __getitem__(self, i):
+        return self._list[i]
+
+    def __delitem__(self, i):
+        del self._list[i]
+
+    def __setitem__(self, key, value):
+        self._list[key] = value
+
+    def insert(self, index, object):
+        self._list.insert(index, object)
+
+    def __str__(self):
+        return str(self._list)
+
+    def __repr__(self):
+        return str(self._list)

@@ -1,7 +1,5 @@
 # coding=utf-8
 from __future__ import division, print_function
-from time import time
-from pupy.decorations import tictoc
 
 l = [i for i in range(1, 100000)]
 #

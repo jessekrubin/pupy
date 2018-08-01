@@ -8,5 +8,6 @@ build/**
 .DS_store
 .idea/**
 test_pupy/__pycache__/
-.idea/inspectionProfiles/
 *.pyc
+out/**
+.mypy_cache/**

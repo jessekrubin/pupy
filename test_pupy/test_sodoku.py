@@ -12,18 +12,17 @@ http://sudopedia.enjoysudoku.com/Valid_Test_Cases.html
 from pupy.sodoku import SodokuError, Sodoku
 from pytest import raises
 
-
 class Test_SodokuMethods(object):
 
     def test_neighbors(self):
-        a = {0: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 72, 18, 19, 20, 27, 36, 45, 54, 63},
-             13:{3, 4, 5, 67, 9, 10, 11, 12, 76, 14, 15, 16, 17, 21, 22, 23, 31, 40, 49, 58},
-             14:{3, 4, 5, 68, 9, 10, 11, 12, 13, 77, 15, 16, 17, 21, 22, 23, 32, 41, 50, 59},
-             22:{3, 4, 5, 67, 12, 13, 14, 76, 18, 19, 20, 21, 23, 24, 25, 26, 31, 40, 49, 58},
-             23:{3, 4, 5, 68, 12, 13, 14, 77, 18, 19, 20, 21, 22, 24, 25, 26, 32, 41, 50, 59},
-             35:{71, 8, 80, 17, 26, 27, 28, 29, 30, 31, 32, 33, 34, 42, 43, 44, 51, 52, 53, 62},
-             43:{70, 7, 79, 16, 25, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 51, 52, 53, 61},
-             52:{70, 7, 79, 16, 25, 33, 34, 35, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 53, 61}}
+        a = {0 : {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 72, 18, 19, 20, 27, 36, 45, 54, 63},
+             13: {3, 4, 5, 67, 9, 10, 11, 12, 76, 14, 15, 16, 17, 21, 22, 23, 31, 40, 49, 58},
+             14: {3, 4, 5, 68, 9, 10, 11, 12, 13, 77, 15, 16, 17, 21, 22, 23, 32, 41, 50, 59},
+             22: {3, 4, 5, 67, 12, 13, 14, 76, 18, 19, 20, 21, 23, 24, 25, 26, 31, 40, 49, 58},
+             23: {3, 4, 5, 68, 12, 13, 14, 77, 18, 19, 20, 21, 22, 24, 25, 26, 32, 41, 50, 59},
+             35: {71, 8, 80, 17, 26, 27, 28, 29, 30, 31, 32, 33, 34, 42, 43, 44, 51, 52, 53, 62},
+             43: {70, 7, 79, 16, 25, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 51, 52, 53, 61},
+             52: {70, 7, 79, 16, 25, 33, 34, 35, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 53, 61}}
 
         for k, v in a.items():
             assert Sodoku.neighbors(k) == v
@@ -34,7 +33,6 @@ class Test_SodokuMethods(object):
         #     print(b[i*9:i*9+9])
 
     # def test_get_row(self):
-
 
 class Test_Not_Enough_Info(object):
 
@@ -59,7 +57,6 @@ class Test_Not_Enough_Info(object):
         with raises(SodokuError):
             s.solve()
 
-
 class Test_Duplicate(object):
 
     def test_duplicate_col(self):
@@ -79,7 +76,6 @@ class Test_Duplicate(object):
         with raises(SodokuError):
             sbb = Sodoku(badbox)
             sbb.solve()
-
 
 class Test_Unsolvable(object):
 
@@ -108,7 +104,6 @@ class Test_Unsolvable(object):
             # sbc = Sodoku.from_oneline_str(badcol)
             sodo.solve()
 
-
 class TestValidCases(object):
 
     def test_already_solved(self):
@@ -129,23 +124,23 @@ class TestValidCases(object):
         # assert
 
     def test_hidden_singles(self):
-        test_board = '..2.3...8'\
-                     '.....8...'\
-                     '.31.2....'\
-                     '.6..5.27.'\
-                     '.1.....5.'\
-                     '2.4.6..31'\
-                     '....8.6.5'\
-                     '.......13'\
+        test_board = '..2.3...8' \
+                     '.....8...' \
+                     '.31.2....' \
+                     '.6..5.27.' \
+                     '.1.....5.' \
+                     '2.4.6..31' \
+                     '....8.6.5' \
+                     '.......13' \
                      '..531.4..'
-        test_solution = '672435198'\
-                        '549178362'\
-                        '831629547'\
-                        '368951274'\
-                        '917243856'\
-                        '254867931'\
-                        '193784625'\
-                        '486592713'\
+        test_solution = '672435198' \
+                        '549178362' \
+                        '831629547' \
+                        '368951274' \
+                        '917243856' \
+                        '254867931' \
+                        '193784625' \
+                        '486592713' \
                         '725316489'
         assert len(test_board) == len(test_solution)
         s = Sodoku(test_board)

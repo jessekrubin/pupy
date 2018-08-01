@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# JESSE RUBIN - Biblioteca
+# ~ Jesse K. Rubin ~ Pretty Useful Python
+from __future__ import division, print_function
 import json as jasm
 from cProfile import Profile
 from functools import wraps
 from inspect import getfile
 from time import time
-
 
 def cash_it(funk):
     """for when you want that lru cach money but are working w py2
@@ -38,7 +38,6 @@ def cash_it(funk):
             return rv
 
     return cash_wrap
-
 
 class Jasm(object):
     """Jasm the Grundle Bug"""
@@ -95,7 +94,6 @@ class Jasm(object):
         with open(fpath, 'wb') as f:
             jasm.dump(obj, fpath, encoding='utf8', indent=4, sort_keys=True)
 
-
 def cprof(funk):
     """"cProfiling decorator
 
@@ -115,7 +113,6 @@ def cprof(funk):
         return ret_val
 
     return profiled_funk
-
 
 class tictoc(object):
     """Timing decorator object
@@ -153,7 +150,7 @@ class tictoc(object):
             for i in range(self.runs):
                 result = time_funk(*args, **kwargs)
             te = time()
-            t_total = (te-ts)/self.runs
+            t_total = (te - ts) / self.runs
             if printing: print(self.__str__(t_total, time_funk, str(args)))
             return result
 
@@ -174,10 +171,10 @@ class tictoc(object):
             (str): formated time string
 
         """
-        if t2 is not None: return tictoc.ftime((t2-t1))
+        if t2 is not None: return tictoc.ftime((t2 - t1))
         elif t1 == 0.0: return "~0.0~"
-        elif t1 >= 1: return "%.3f s"%t1
-        elif 1 > t1 >= 0.001: return "%.3f ms"%((10**3)*t1)
-        elif 0.001 > t1 >= 0.000001: return "%.3f μs"%((10**6)*t1)
-        elif 0.000001 > t1 >= 0.000000001: return "%.3f ns"%((10**9)*t1)
-        else: return tictoc.ftime((t2-t1))
+        elif t1 >= 1: return "%.3f s" % t1
+        elif 1 > t1 >= 0.001: return "%.3f ms" % ((10 ** 3) * t1)
+        elif 0.001 > t1 >= 0.000001: return "%.3f μs" % ((10 ** 6) * t1)
+        elif 0.000001 > t1 >= 0.000000001: return "%.3f ns" % ((10 ** 9) * t1)
+        else: return tictoc.ftime((t2 - t1))

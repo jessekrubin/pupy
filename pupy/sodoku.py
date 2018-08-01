@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# JESSE RUBIN - Biblioteca
+# ~ Jesse K. Rubin ~ Pretty Useful Python
+from __future__ import division, print_function
 from itertools import chain
-
 from pupy.decorations import cash_it
-
 
 class SodokuError(ValueError):
     """simple Sodoku error"""
@@ -14,9 +13,8 @@ class SodokuError(ValueError):
         self.row, self.col = row, col
         super(SodokuError, self).__init__(message, row, col)
 
-
 class Sodoku(object):
-    """Sodoku class
+    """Sodoku
 
     [ 0,  1,  2,  3,  4,  5,  6,  7,  8]
     [ 9, 10, 11, 12, 13, 14, 15, 16, 17]
@@ -40,9 +38,9 @@ class Sodoku(object):
         if 17 > sum(1 for n in self.board if n != '0'):
             raise SodokuError("not enough info")
         full_set = '123456789'
-        d = {i:("".join(c for c in full_set)
-                if self.board[i] == '0'
-                else self.board[i])
+        d = {i: ("".join(c for c in full_set)
+                 if self.board[i] == '0'
+                 else self.board[i])
              for i in range(81)}
         d = Sodoku.update_dictionary(d)
         tf, d = Sodoku.reduce_dictionary(d)
@@ -98,16 +96,16 @@ class Sodoku(object):
         Returns:
 
         """
-        nd = {k:v for k, v in d.items()}
+        nd = {k: v for k, v in d.items()}
         for rcb in range(9):
-            box = {str(n):[ind for ind in Sodoku.ibox(*divmod(rcb, 3))
-                           if str(n) in d[ind]]
+            box = {str(n): [ind for ind in Sodoku.ibox(*divmod(rcb, 3))
+                            if str(n) in d[ind]]
                    for n in range(1, 10)}
-            row = {str(n):[ind for ind in Sodoku.irow(rcb)
-                           if str(n) in d[ind]]
+            row = {str(n): [ind for ind in Sodoku.irow(rcb)
+                            if str(n) in d[ind]]
                    for n in range(1, 10)}
-            col = {str(n):[ind for ind in Sodoku.icolumn(rcb)
-                           if str(n) in d[ind] or str(n) == d[ind]]
+            col = {str(n): [ind for ind in Sodoku.icolumn(rcb)
+                            if str(n) in d[ind] or str(n) == d[ind]]
                    for n in range(1, 10)}
             if Sodoku.unsolvable(box) or Sodoku.unsolvable(row) or Sodoku.unsolvable(col):
                 raise SodokuError("UNSOLVABLE")
@@ -123,7 +121,7 @@ class Sodoku(object):
         Returns:
 
         """
-        nd = {k:v for k, v in d.items()}
+        nd = {k: v for k, v in d.items()}
         for i in range(81):
             if len(nd[i]) == 1:
                 for nay in Sodoku.neighbors(i):
@@ -155,7 +153,7 @@ class Sodoku(object):
             if Sodoku.hasdup(d): return False, d
             return Sodoku.reduce_dictionary(d)
         for poss in d[fz]:
-            nd = {k:v for k, v in d.items()}
+            nd = {k: v for k, v in d.items()}
             nd[fz] = str(poss)
             if not Sodoku.hasdup(nd):
                 valid, ret = Sodoku.reduce_dictionary(nd)
@@ -183,6 +181,7 @@ class Sodoku(object):
     #         bot_boxes, bot_border
     #         ]
     #     return "\n".join(strings)
+
     @staticmethod
     def hasdup(d):
         """
@@ -234,7 +233,7 @@ class Sodoku(object):
         Returns:
 
         """
-        return {i for i in range(n*bsize, n*bsize+bsize)}
+        return {i for i in range(n * bsize, n * bsize + bsize)}
 
     @staticmethod
     def icolumn(n, bsize=9):
@@ -247,7 +246,7 @@ class Sodoku(object):
         Returns:
 
         """
-        return {i for i in range(n, bsize**2, bsize)}
+        return {i for i in range(n, bsize ** 2, bsize)}
 
     @staticmethod
     def ibox(box_r, box_c, bsize=9):
@@ -261,9 +260,9 @@ class Sodoku(object):
         Returns:
 
         """
-        return {i*bsize+j
-                for i in range((box_r*3), (box_r*3)+3)
-                for j in range((box_c*3), (box_c*3)+3)}
+        return {i * bsize + j
+                for i in range((box_r * 3), (box_r * 3) + 3)
+                for j in range((box_c * 3), (box_c * 3) + 3)}
 
     @staticmethod
     @cash_it

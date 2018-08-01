@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# JESSE RUBIN - Biblioteca
+# ~ Jesse K. Rubin ~ Pretty Useful Python
+from __future__ import print_function, division
 from functools import reduce
 from operator import mul
 from collections import Counter, deque
-
 
 def chunks(list, chunk_size):
     """Yields chunks of a list with length == chunk_size
@@ -22,8 +22,7 @@ def chunks(list, chunk_size):
         >>> list(chunks([1, 2, 3, 4, 5, 6], 2))
         [[1, 2], [3, 4], [5, 6]]
     """
-    for i in range(0, len(list), chunk_size): yield list[i:i+chunk_size]
-
+    for i in range(0, len(list), chunk_size): yield list[i:i + chunk_size]
 
 def is_permutation(a, b):
     """
@@ -43,7 +42,6 @@ def is_permutation(a, b):
     if type(b) == int:
         b = digits_list(b)
     return len(a) == len(b) and Counter(a) == Counter(b)
-
 
 def rotate(rlist, rn=1, left_rotate=True):
     """Rotate a list (rlist) by rn indices to the left or right
@@ -67,13 +65,12 @@ def rotate(rlist, rn=1, left_rotate=True):
     """
 
     def _left_rotate(l, n=1):
-        return l[n:]+l[:n]
+        return l[n:] + l[:n]
 
     def _right_rotate(l, n=1):
-        return l[-n:]+l[:-n]
+        return l[-n:] + l[:-n]
 
     return _left_rotate(rlist, rn) if left_rotate else _right_rotate(rlist, rn)
-
 
 def rotations_gen(rlist):
     """Yields all rotations of a list
@@ -82,8 +79,7 @@ def rotations_gen(rlist):
         rlist:
     """
     for i in range(len(rlist)):
-        yield (rlist[-i:]+rlist[:-i])
-
+        yield (rlist[-i:] + rlist[:-i])
 
 def digits_list(number):
     """Returns a list of the digits in num
@@ -111,7 +107,6 @@ def digits_list(number):
         digits.appendleft(r)
     return list(digits)
 
-
 def int_from_digits(dlist):
     """Convert digits list or tuple to integer
 
@@ -129,8 +124,7 @@ def int_from_digits(dlist):
         >>> int_from_digits([1, 2, 3])
         123
     """
-    return sum(dlist[len(dlist)-i-1]*10**i for i in range(0, len(dlist), 1))
-
+    return sum(dlist[len(dlist) - i - 1] * 10 ** i for i in range(0, len(dlist), 1))
 
 def iter_product(l):
     """Product of all the elements in a list or tuple

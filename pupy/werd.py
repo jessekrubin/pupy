@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# JESSE RUBIN - Biblioteca
+# ~ Jesse K. Rubin ~ Pretty Useful Python
 """
 String Methods
 """
 
-
 def binary_string(number):
     """Number to binary string"""
     return bin(number)[2:]
-
 
 def string_score(strang):
     """Sum of letter values where a==1 and z == 26
@@ -29,7 +27,6 @@ def string_score(strang):
         95
     """
     return sum((ord(character) - 96 for character in strang.lower()))
-
 
 def is_palindrome(strang):
     """True a string is a palindrome; False if string is not a palindrome.
