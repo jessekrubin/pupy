@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(name='pupy',
-      version='1.4.0',
+      version='1.5.0',
       description='pretty useful python',
       long_description='coming soon',
       classifiers=[
