@@ -8,6 +8,10 @@ from bisect import bisect_right, bisect
 from itertools import count
 from math import sqrt
 from collections import MutableSequence
+from sys import version_info
+if version_info[0]==2: range = xrange
+
+
 
 def prime_gen(plim=0, kprimes=None):
     """Infinite (within reason) prime number generator
