@@ -11,3 +11,5 @@ test_pupy/__pycache__/
 *.pyc
 out/**
 .mypy_cache/**
+/Pipfile.lock
+/pupy.egg-info/
