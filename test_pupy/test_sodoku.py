@@ -27,12 +27,11 @@ class Test_SodokuMethods(object):
         for k, v in a.items():
             assert Sodoku.neighbors(k) == v
 
-        # print(Sodoku.neighbors(0))
-        # b = [i for i in range(81)]
-        # for i in range(9):
-        #     print(b[i*9:i*9+9])
+    def test_board_str(self):
 
-    # def test_get_row(self):
+        full_board = '365427819487931526129856374852793641613248957974165283241389765538674192796512438'
+        s = Sodoku(full_board)
+        print(s)
 
 class Test_Not_Enough_Info(object):
 
