@@ -19,11 +19,23 @@ def safe_path(filepath):
     return filepath
 
 def savings(filepath, string, safe_save=False):
+    """Save s(tring) to filepath as txt file
+
+    :param filepath:
+    :param string:
+    :param safe_save:
+    :return:
+    """
     with open(safe_path(filepath) if safe_save else filepath, 'wb') as file:
         file.write(string.encode('utf-8'))
 
 
 def loads(filepath):
+    """Load a (txt) file as a string
+
+    :param filepath:
+    :return:
+    """
     if path.exists(filepath):
         with open(filepath, encoding='utf-8') as file:
             return file.read()
@@ -32,6 +44,15 @@ def loads(filepath):
 
 
 def save_jasm(filepath, data, safe_save=False):
+    """Save a python object as json file
+
+    :param filepath: path w/ which 2 save the file
+    :param data: some python text object that is hashable
+    :param safe_save:
+    :return: None
+    :rtype: None
+    """
+
     with open(safe_path(filepath) if safe_save else filepath, 'wb') as file:
         dump(data, getwriter('utf-8')(file),
              indent=4,
@@ -39,5 +60,10 @@ def save_jasm(filepath, data, safe_save=False):
              ensure_ascii=False)
 
 def load_jasm(filepath):
+    """
+
+    :param filepath: path to the jasm (Jason Greenberg) file you want to load
+    :return:
+    """
     with open(filepath) as infile:
         return load(infile)
