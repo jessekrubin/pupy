@@ -366,12 +366,22 @@ class Vuple(tuple):
         return Vuple(map(sub, self, k))
 
     def __mul__(self, k):
+        """
+
+        >>> a = Vuple((1, 2, 3))
+        >>> a * a
+        14
+        """
+
         if type(k) is int or type(k) is float:
             return self._mul_scalar(k)
+        elif type(k) is Vuple:
+            if len(k) != len(self):
+                raise ValueError("Sizes do not match!")
+            return Vuple.dot(self, k)
 
     def __imul__(self, k):
-        if type(k) is int or type(k) is float:
-            return self._mul_scalar(k)
+        return self.__mul__(k)
 
     def _mul_scalar(self, k):
         return Vuple((k * el for el in self))
@@ -507,3 +517,4 @@ class Vuple(tuple):
         :return:
         """
         return iter_product(self)
+

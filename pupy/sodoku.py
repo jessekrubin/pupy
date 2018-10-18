@@ -161,26 +161,25 @@ class Sodoku(object):
                     return valid, ret
         return False, d
 
-    # def __str__(self):
-    #
-    #     header = "  S   O   D   O   K   U  "
-    #     top_border = "╔═══════╦═══════╦═══════╗"
-    #     mid_border = "╠═══════╬═══════╬═══════╣"
-    #     bot_border = "╚═══════╩═══════╩═══════╝"
-    #     top_boxes = "\n".join(
-    #             "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(*self.row(l))
-    #             for l in range(0, 3))
-    #     mid_boxes = "\n".join(
-    #             "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(*self.row(l))
-    #             for l in range(3, 6))
-    #     bot_boxes = "\n".join(
-    #             "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(*self.row(l))
-    #             for l in range(6, 9))
-    #     strings = [
-    #         header, top_border, top_boxes, mid_border, mid_boxes, mid_border,
-    #         bot_boxes, bot_border
-    #         ]
-    #     return "\n".join(strings)
+    def __str__(self):
+        header = "  S   O   D   O   K   U  "
+        top_border = "╔═══════╦═══════╦═══════╗"
+        mid_border = "╠═══════╬═══════╬═══════╣"
+        bot_border = "╚═══════╩═══════╩═══════╝"
+        top_boxes = "\n".join(
+            "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(*self.board[l * 9:l * 9 + 9])
+            for l in range(0, 3))
+        mid_boxes = "\n".join(
+            "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(*self.board[l * 9:l * 9 + 9])
+            for l in range(3, 6))
+        bot_boxes = "\n".join(
+            "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(*self.board[l * 9:l * 9 + 9])
+            for l in range(6, 9))
+        strings = [
+            header, top_border, top_boxes, mid_border, mid_boxes, mid_border,
+            bot_boxes, bot_border
+            ]
+        return "\n".join(strings)
 
     @staticmethod
     def hasdup(d):
