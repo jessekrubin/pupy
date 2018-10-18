@@ -91,8 +91,6 @@ class Jasm(object):
             fpath (str): filepath
             obj (object): data/object to be saved
         """
-        with open(fpath, 'wb') as f:
-            jasm.dump(obj, fpath, encoding='utf8', indent=4, sort_keys=True)
 
 def cprof(funk):
     """"cProfiling decorator

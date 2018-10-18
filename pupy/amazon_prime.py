@@ -150,7 +150,7 @@ def is_prime(number):
 class OctopusPrime(MutableSequence):
     """OctopusPrime, the 8-leg autobot, here to help you find PRIMES"""
 
-    def __init__(self, plim=100, verbose=False):
+    def __init__(self, plim=100):
         """______OCTOPUS_PRIME ACTIVATE______
            ░░░░░░░▄▄▄▄█████████████▄▄▄░░░░░░░
            ████▄▀████████▀▀▀▀▀▀████████▀▄████
