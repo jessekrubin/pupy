@@ -7,7 +7,7 @@ from pupy.decorations import cash_it
 from bisect import bisect_right, bisect
 from itertools import count
 from math import sqrt
-from collections import MutableSequence
+import collections
 from sys import version_info
 if version_info[0]==2: range = xrange
 
@@ -147,7 +147,7 @@ def is_prime(number):
     return True
 
 # class OctopusPrime(list):
-class OctopusPrime(MutableSequence):
+class OctopusPrime(collections.MutableSequence):
     """OctopusPrime, the 8-leg autobot, here to help you find PRIMES"""
 
     def __init__(self, plim=100):

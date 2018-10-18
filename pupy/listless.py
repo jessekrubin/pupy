@@ -77,6 +77,14 @@ def rotations_gen(rlist):
 
     Args:
         rlist:
+    Examples:
+        >>> for rot in rotations_gen((1, 2, 3, 4)):
+        ...     print(rot)
+        ...
+        (1, 2, 3, 4)
+        (4, 1, 2, 3)
+        (3, 4, 1, 2)
+        (2, 3, 4, 1)
     """
     for i in range(len(rlist)):
         yield (rlist[-i:] + rlist[:-i])
