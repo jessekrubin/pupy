@@ -9,7 +9,10 @@ from inspect import getfile
 from time import time
 
 def cash_it(funk):
-    """for when you want that lru cach money but are working w py2
+    """args-2-return value cache.
+
+    This function is particularly useful for when you want that lru-cache,
+    but you/one is working with python two.
 
     Args:
         funk (function): function to be cached

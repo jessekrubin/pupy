@@ -22,7 +22,8 @@ def chunks(list, chunk_size):
         >>> list(chunks([1, 2, 3, 4, 5, 6], 2))
         [[1, 2], [3, 4], [5, 6]]
     """
-    for i in range(0, len(list), chunk_size): yield list[i:i + chunk_size]
+    for i in range(0, len(list), chunk_size):
+        yield list[i:i + chunk_size]
 
 def is_permutation(a, b):
     """
@@ -152,3 +153,7 @@ def iter_product(l):
         -24
     """
     return reduce(mul, l)
+
+if __name__ == '__main__':
+    from doctest import testmod
+    testmod()
