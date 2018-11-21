@@ -17,11 +17,14 @@ p_gt50_lt200 = [53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109,
                 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179,
                 181, 191, 193, 197, 199]
 
+
 def test_is_prime():
     assert all(is_prime(n) for n in p_lt200)
 
+
 def test_pfactors_gen():
     assert [pf for pf in prime_factors_gen(12)] == [2, 3]
+
 
 class TestOctopusPrimeMethods(object):
 
@@ -36,7 +39,7 @@ class TestOctopusPrimeMethods(object):
     def test_contains(self):
         from bisect import bisect
         op = OctopusPrime(plim=100)
-        ib = (bisect(op, 41))
+
 
 class TestPrimeSieve(object):
 

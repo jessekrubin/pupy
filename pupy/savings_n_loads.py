@@ -9,7 +9,13 @@ from json import load, dump
 from codecs import getwriter
 from itertools import count
 
+
 def safe_path(filepath):
+    """
+
+    :param filepath: 
+
+    """
     if path.exists(filepath):
         f_bn, f_ext = path.splitext(filepath)
         for n in count(1):
@@ -18,13 +24,14 @@ def safe_path(filepath):
                 return safe_save_path
     return filepath
 
+
 def savings(filepath, string, safe_save=False):
     """Save s(tring) to filepath as txt file
 
-    :param filepath:
-    :param string:
-    :param safe_save:
-    :return:
+    :param filepath: param string:
+    :param safe_save: return: (Default value = False)
+    :param string: 
+
     """
     with open(safe_path(filepath) if safe_save else filepath, 'wb') as file:
         file.write(string.encode('utf-8'))
@@ -33,8 +40,8 @@ def savings(filepath, string, safe_save=False):
 def loads(filepath):
     """Load a (txt) file as a string
 
-    :param filepath:
-    :return:
+    :param filepath: return:
+
     """
     if path.exists(filepath):
         with open(filepath, encoding='utf-8') as file:
@@ -48,9 +55,10 @@ def save_jasm(filepath, data, safe_save=False):
 
     :param filepath: path w/ which 2 save the file
     :param data: some python text object that is hashable
-    :param safe_save:
-    :return: None
+    :param safe_save: return: None (Default value = False)
+    :returns: None
     :rtype: None
+
     """
 
     with open(safe_path(filepath) if safe_save else filepath, 'wb') as file:
@@ -59,11 +67,12 @@ def save_jasm(filepath, data, safe_save=False):
              sort_keys=True,
              ensure_ascii=False)
 
+
 def load_jasm(filepath):
     """
 
     :param filepath: path to the jasm (Jason Greenberg) file you want to load
-    :return:
+
     """
     with open(filepath) as infile:
         return load(infile)

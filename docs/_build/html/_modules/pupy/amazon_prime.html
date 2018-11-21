@@ -43,30 +43,27 @@
 <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span>
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">version_info</span>
-<span class="k">if</span> <span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span> <span class="nb">range</span> <span class="o">=</span> <span class="n">xrange</span>
+
+<span class="k">if</span> <span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="nb">range</span> <span class="o">=</span> <span class="n">xrange</span>
 
 
-
-<div class="viewcode-block" id="prime_gen"><a class="viewcode-back" href="../../index.html#pupy.prime_gen">[docs]</a><span class="k">def</span> <span class="nf">prime_gen</span><span class="p">(</span><span class="n">plim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">kprimes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="prime_gen"><a class="viewcode-back" href="../../index.html#pupy.amazon_prime.prime_gen">[docs]</a><span class="k">def</span> <span class="nf">prime_gen</span><span class="p">(</span><span class="n">plim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">kprimes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Infinite (within reason) prime number generator</span>
-
+<span class="sd">    </span>
 <span class="sd">    My big modification is the pdiv_dictionary() function that recreats the</span>
 <span class="sd">    dictionary of divisors so that you can continue to generate prime numbers</span>
 <span class="sd">    from a (sorted) list of prime numbers.</span>
-
+<span class="sd">    </span>
 <span class="sd">    Based on:</span>
 <span class="sd">        eratosthenes by David Eppstein, UC Irvine, 28 Feb 2002</span>
 <span class="sd">        http://code.activestate.com/recipes/117119/ and the thread at the url</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        plim (int): prime_limit; default=0 makes for an infinite generator</span>
-<span class="sd">        kprimes (iter): known_primes as an iterable</span>
+<span class="sd">    :param plim: prime_limit; default=0 makes for an infinite generator</span>
+<span class="sd">    :type plim: int</span>
+<span class="sd">    :param kprimes: known_primes as an iterable (Default value = None)</span>
+<span class="sd">    :type kprimes: iter</span>
 
-<span class="sd">    Yields:</span>
-<span class="sd">        (int): prime numbers</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; list(prime_gen(50))</span>
+<span class="sd">    &gt;&gt;&gt; list(prime_gen(50))</span>
 <span class="sd">        [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]</span>
 <span class="sd">        &gt;&gt;&gt; list(prime_gen(10))</span>
 <span class="sd">        [2, 3, 5, 7]</span>
@@ -79,8 +76,10 @@
         <span class="n">div_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">pdiv</span> <span class="ow">in</span> <span class="n">kprimes</span><span class="p">:</span>
             <span class="n">multiple</span> <span class="o">=</span> <span class="n">kprimes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">pdiv</span> <span class="o">*</span> <span class="n">pdiv</span>
-            <span class="k">if</span> <span class="n">multiple</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">multiple</span> <span class="o">+=</span> <span class="n">pdiv</span>
-            <span class="k">else</span><span class="p">:</span> <span class="n">multiple</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pdiv</span>
+            <span class="k">if</span> <span class="n">multiple</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">multiple</span> <span class="o">+=</span> <span class="n">pdiv</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">multiple</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pdiv</span>
             <span class="k">while</span> <span class="n">multiple</span> <span class="ow">in</span> <span class="n">div_dict</span><span class="p">:</span> <span class="n">multiple</span> <span class="o">+=</span> <span class="n">pdiv</span> <span class="o">*</span> <span class="mi">2</span>
             <span class="n">div_dict</span><span class="p">[</span><span class="n">multiple</span><span class="p">]</span> <span class="o">=</span> <span class="n">pdiv</span>
         <span class="k">return</span> <span class="n">div_dict</span>
@@ -111,21 +110,17 @@
             <span class="n">divz</span><span class="p">[</span><span class="n">num</span> <span class="o">*</span> <span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span>
             <span class="k">yield</span> <span class="n">num</span></div>
 
-<div class="viewcode-block" id="prime_factorization_gen"><a class="viewcode-back" href="../../index.html#pupy.prime_factorization_gen">[docs]</a><span class="k">def</span> <span class="nf">prime_factorization_gen</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+
+<div class="viewcode-block" id="prime_factorization_gen"><a class="viewcode-back" href="../../index.html#pupy.amazon_prime.prime_factorization_gen">[docs]</a><span class="k">def</span> <span class="nf">prime_factorization_gen</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;generates all numbers in the prime factorization of n</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        n (int): number to be factored</span>
+<span class="sd">    :param n: number to be factored</span>
+<span class="sd">    :type n: int</span>
 
-<span class="sd">    Yields:</span>
-<span class="sd">        (int): prime factors w/ repeats</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; list(prime_factorization_gen(12))</span>
+<span class="sd">    &gt;&gt;&gt; list(prime_factorization_gen(12))</span>
 <span class="sd">        [2, 2, 3]</span>
 <span class="sd">        &gt;&gt;&gt; list(prime_factorization_gen(16))</span>
 <span class="sd">        [2, 2, 2, 2]</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="n">prime_factors_gen</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span> <span class="k">break</span>
@@ -133,37 +128,31 @@
             <span class="n">n</span> <span class="o">//=</span> <span class="n">factor</span>
             <span class="k">yield</span> <span class="n">factor</span></div>
 
-<div class="viewcode-block" id="prime_factors_gen"><a class="viewcode-back" href="../../index.html#pupy.prime_factors_gen">[docs]</a><span class="k">def</span> <span class="nf">prime_factors_gen</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+
+<div class="viewcode-block" id="prime_factors_gen"><a class="viewcode-back" href="../../index.html#pupy.amazon_prime.prime_factors_gen">[docs]</a><span class="k">def</span> <span class="nf">prime_factors_gen</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;prime factors generator</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        n (int): number to be factorized</span>
+<span class="sd">    :param n: number to be factorized</span>
+<span class="sd">    :type n: int</span>
 
-<span class="sd">    Yields:</span>
-<span class="sd">        (int): prime factors w/o repeats</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; list(prime_factors_gen(12))</span>
+<span class="sd">    &gt;&gt;&gt; list(prime_factors_gen(12))</span>
 <span class="sd">        [2, 3]</span>
 <span class="sd">        &gt;&gt;&gt; list(prime_factors_gen(16))</span>
 <span class="sd">        [2]</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">divisors_gen</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_prime</span><span class="p">(</span><span class="n">p</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="is_prime"><a class="viewcode-back" href="../../index.html#pupy.is_prime">[docs]</a><span class="nd">@cash_it</span>
+
+<div class="viewcode-block" id="is_prime"><a class="viewcode-back" href="../../index.html#pupy.amazon_prime.is_prime">[docs]</a><span class="nd">@cash_it</span>
 <span class="k">def</span> <span class="nf">is_prime</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Checks if a number is prime</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        number (int): number to check if is prime</span>
+<span class="sd">    :param number: number to check if is prime</span>
+<span class="sd">    :type number: int</span>
+<span class="sd">    :returns: -&gt; True if number is prime</span>
+<span class="sd">    :rtype: bool</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        (bool): True if number is prime</span>
-<span class="sd">        (bool): False if number is not prime</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; is_prime(37)</span>
+<span class="sd">    &gt;&gt;&gt; is_prime(37)</span>
 <span class="sd">        True</span>
 <span class="sd">        &gt;&gt;&gt; is_prime(100)</span>
 <span class="sd">        False</span>
@@ -180,32 +169,12 @@
         <span class="k">if</span> <span class="n">number</span> <span class="o">%</span> <span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
     <span class="k">return</span> <span class="kc">True</span></div>
 
+
 <span class="c1"># class OctopusPrime(list):</span>
-<div class="viewcode-block" id="OctopusPrime"><a class="viewcode-back" href="../../index.html#pupy.OctopusPrime">[docs]</a><span class="k">class</span> <span class="nc">OctopusPrime</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">MutableSequence</span><span class="p">):</span>
+<div class="viewcode-block" id="OctopusPrime"><a class="viewcode-back" href="../../index.html#pupy.amazon_prime.OctopusPrime">[docs]</a><span class="k">class</span> <span class="nc">OctopusPrime</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">MutableSequence</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;OctopusPrime, the 8-leg autobot, here to help you find PRIMES&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plim</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;______OCTOPUS_PRIME ACTIVATE______</span>
-<span class="sd">           ░░░░░░░▄▄▄▄█████████████▄▄▄░░░░░░░</span>
-<span class="sd">           ████▄▀████████▀▀▀▀▀▀████████▀▄████</span>
-<span class="sd">           ▀████░▀██████▄▄░░░░▄▄██████▀░████▀</span>
-<span class="sd">           ░███▀▀█▄▄░▀▀██████████▀▀░▄▄█▀▀███░</span>
-<span class="sd">           ░████▄▄▄▀▀█▄░░░▀▀▀▀░░░▄█▀▀▄▄▄████░</span>
-<span class="sd">           ░░██▄▄░▀▀████░██▄▄██░████▀▀░▄▄██░░</span>
-<span class="sd">           ░░░▀████▄▄▄██░██████░██▄▄▄████▀░░░</span>
-<span class="sd">           ░░██▄▀▀▀▀▀▀▀▀░░████░░▀▀▀▀▀▀▀▀▄██░░</span>
-<span class="sd">           ░░░██░░░░░░░░░░████░░░░░░░░░░██░░░</span>
-<span class="sd">           ░░░███▄▄░░░░▄█░████░█▄░░░░▄▄███░░░</span>
-<span class="sd">           ░░░███████░███░████░███░███████░░░</span>
-<span class="sd">           ░░░███████░███░▀▀▀▀░███░███████░░░</span>
-<span class="sd">           ░░░███████░████████████░███████░░░</span>
-<span class="sd">           ░░░░▀█████░███░▄▄▄▄░███░█████▀░░░░</span>
-<span class="sd">           ░░░░░░░░▀▀░██▀▄████▄░██░▀▀░░░░░░░░</span>
-<span class="sd">           ░░░░░░░░░░░░▀░██████░▀░░░░░░░░░░░░</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            plim (int): starting max limit to generate primes below</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># list.__init__(self, list(prime_gen(plim=plim)))</span>
         <span class="c1"># super(OctopusPrime, self).__init__()</span>
         <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span>
@@ -219,31 +188,34 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">max_loaded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;TRANSFORM / grow the list&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;TRANSFORM / grow the list</span>
+
+<span class="sd">        :param n:  (Default value = None)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">prime_gen</span><span class="p">(</span><span class="n">plim</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">kprimes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">)))</span>
 
-<div class="viewcode-block" id="OctopusPrime.primes_below"><a class="viewcode-back" href="../../index.html#pupy.OctopusPrime.primes_below">[docs]</a>    <span class="k">def</span> <span class="nf">primes_below</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">):</span>
+<div class="viewcode-block" id="OctopusPrime.primes_below"><a class="viewcode-back" href="../../index.html#pupy.amazon_prime.OctopusPrime.primes_below">[docs]</a>    <span class="k">def</span> <span class="nf">primes_below</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Lists primes, p, such that  p &lt; upper_bound</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            upper_bound (int): exclusive upper bound</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            (list): primes less than upper_bound</span>
+<span class="sd">        :param upper_bound: exclusive upper bound</span>
+<span class="sd">        :type upper_bound: int</span>
+<span class="sd">        :returns: -&gt; primes less than upper_bound</span>
+<span class="sd">        :rtype: list</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">primes_between</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="OctopusPrime.primes_between"><a class="viewcode-back" href="../../index.html#pupy.OctopusPrime.primes_between">[docs]</a>    <span class="k">def</span> <span class="nf">primes_between</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">):</span>
+<div class="viewcode-block" id="OctopusPrime.primes_between"><a class="viewcode-back" href="../../index.html#pupy.amazon_prime.OctopusPrime.primes_between">[docs]</a>    <span class="k">def</span> <span class="nf">primes_between</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Lists primes, p, such that, lower_bound &lt; p &lt; upper_bound</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            lower_bound (int): exclusive lower bound</span>
-<span class="sd">            upper_bound (int): exclusive upper bound</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            (list): primes between lower_bound and upper_bound</span>
+<span class="sd">        :param lower_bound: exclusive lower bound</span>
+<span class="sd">        :type lower_bound: int</span>
+<span class="sd">        :param upper_bound: exclusive upper bound</span>
+<span class="sd">        :type upper_bound: int</span>
+<span class="sd">        :returns: -&gt; primes between lower_bound and upper_bound</span>
+<span class="sd">        :rtype: list</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">upper_bound</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
@@ -262,7 +234,13 @@
     <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="OctopusPrime.insert"><a class="viewcode-back" href="../../index.html#pupy.OctopusPrime.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="OctopusPrime.insert"><a class="viewcode-back" href="../../index.html#pupy.amazon_prime.OctopusPrime.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param index: </span>
+<span class="sd">        :param object: </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">object</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

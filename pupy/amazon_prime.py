@@ -9,29 +9,26 @@ from itertools import count
 from math import sqrt
 import collections
 from sys import version_info
-if version_info[0]==2: range = xrange
 
+if version_info[0] == 2: range = xrange
 
 
 def prime_gen(plim=0, kprimes=None):
     """Infinite (within reason) prime number generator
-
+    
     My big modification is the pdiv_dictionary() function that recreats the
     dictionary of divisors so that you can continue to generate prime numbers
     from a (sorted) list of prime numbers.
-
+    
     Based on:
         eratosthenes by David Eppstein, UC Irvine, 28 Feb 2002
         http://code.activestate.com/recipes/117119/ and the thread at the url
 
-    Args:
-        plim (int): prime_limit; default=0 makes for an infinite generator
-        kprimes (iter): known_primes as an iterable
+    :param plim: prime_limit; default=0 makes for an infinite generator
+    :type plim: int
+    :param kprimes: known_primes as an iterable (Default value = None)
+    :type kprimes: iter
 
-    Yields:
-        (int): prime numbers
-
-    Examples:
         >>> list(prime_gen(50))
         [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
         >>> list(prime_gen(10))
@@ -45,8 +42,10 @@ def prime_gen(plim=0, kprimes=None):
         div_dict = {}
         for pdiv in kprimes:
             multiple = kprimes[-1] // pdiv * pdiv
-            if multiple % 2 == 0: multiple += pdiv
-            else: multiple += 2 * pdiv
+            if multiple % 2 == 0:
+                multiple += pdiv
+            else:
+                multiple += 2 * pdiv
             while multiple in div_dict: multiple += pdiv * 2
             div_dict[multiple] = pdiv
         return div_dict
@@ -77,21 +76,17 @@ def prime_gen(plim=0, kprimes=None):
             divz[num * num] = num
             yield num
 
+
 def prime_factorization_gen(n):
     """generates all numbers in the prime factorization of n
 
-    Args:
-        n (int): number to be factored
+    :param n: number to be factored
+    :type n: int
 
-    Yields:
-        (int): prime factors w/ repeats
-
-    Examples:
         >>> list(prime_factorization_gen(12))
         [2, 2, 3]
         >>> list(prime_factorization_gen(16))
         [2, 2, 2, 2]
-
     """
     for factor in prime_factors_gen(n):
         if n <= 1: break
@@ -99,36 +94,31 @@ def prime_factorization_gen(n):
             n //= factor
             yield factor
 
+
 def prime_factors_gen(n):
     """prime factors generator
 
-    Args:
-        n (int): number to be factorized
+    :param n: number to be factorized
+    :type n: int
 
-    Yields:
-        (int): prime factors w/o repeats
-
-    Examples:
+    .. doctest::
         >>> list(prime_factors_gen(12))
         [2, 3]
         >>> list(prime_factors_gen(16))
         [2]
-
     """
     return (p for p in divisors_gen(n) if is_prime(p))
+
 
 @cash_it
 def is_prime(number):
     """Checks if a number is prime
 
-    Args:
-        number (int): number to check if is prime
+    :param number: number to check if is prime
+    :type number: int
+    :returns: -> True if number is prime
+    :rtype: bool
 
-    Returns:
-        (bool): True if number is prime
-        (bool): False if number is not prime
-
-    Examples:
         >>> is_prime(37)
         True
         >>> is_prime(100)
@@ -146,32 +136,12 @@ def is_prime(number):
         if number % (step + 2) == 0: return False
     return True
 
+
 # class OctopusPrime(list):
 class OctopusPrime(collections.MutableSequence):
     """OctopusPrime, the 8-leg autobot, here to help you find PRIMES"""
 
     def __init__(self, plim=100):
-        """______OCTOPUS_PRIME ACTIVATE______
-           ░░░░░░░▄▄▄▄█████████████▄▄▄░░░░░░░
-           ████▄▀████████▀▀▀▀▀▀████████▀▄████
-           ▀████░▀██████▄▄░░░░▄▄██████▀░████▀
-           ░███▀▀█▄▄░▀▀██████████▀▀░▄▄█▀▀███░
-           ░████▄▄▄▀▀█▄░░░▀▀▀▀░░░▄█▀▀▄▄▄████░
-           ░░██▄▄░▀▀████░██▄▄██░████▀▀░▄▄██░░
-           ░░░▀████▄▄▄██░██████░██▄▄▄████▀░░░
-           ░░██▄▀▀▀▀▀▀▀▀░░████░░▀▀▀▀▀▀▀▀▄██░░
-           ░░░██░░░░░░░░░░████░░░░░░░░░░██░░░
-           ░░░███▄▄░░░░▄█░████░█▄░░░░▄▄███░░░
-           ░░░███████░███░████░███░███████░░░
-           ░░░███████░███░▀▀▀▀░███░███████░░░
-           ░░░███████░████████████░███████░░░
-           ░░░░▀█████░███░▄▄▄▄░███░█████▀░░░░
-           ░░░░░░░░▀▀░██▀▄████▄░██░▀▀░░░░░░░░
-           ░░░░░░░░░░░░▀░██████░▀░░░░░░░░░░░░
-
-        Args:
-            plim (int): starting max limit to generate primes below
-        """
         # list.__init__(self, list(prime_gen(plim=plim)))
         # super(OctopusPrime, self).__init__()
         p = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
@@ -185,18 +155,21 @@ class OctopusPrime(collections.MutableSequence):
         self.max_loaded = self._list[-1]
 
     def _transform(self, n=None):
-        """TRANSFORM / grow the list"""
+        """TRANSFORM / grow the list
+
+        :param n:  (Default value = None)
+
+        """
         n = n if n is not None else self._list[-1] * 10
         self._list.extend(list(prime_gen(plim=n, kprimes=self._list)))
 
     def primes_below(self, upper_bound):
         """Lists primes, p, such that  p < upper_bound
 
-        Args:
-            upper_bound (int): exclusive upper bound
-
-        Returns:
-            (list): primes less than upper_bound
+        :param upper_bound: exclusive upper bound
+        :type upper_bound: int
+        :returns: -> primes less than upper_bound
+        :rtype: list
 
         """
         return self.primes_between(1, upper_bound)
@@ -204,12 +177,12 @@ class OctopusPrime(collections.MutableSequence):
     def primes_between(self, lower_bound, upper_bound):
         """Lists primes, p, such that, lower_bound < p < upper_bound
 
-        Args:
-            lower_bound (int): exclusive lower bound
-            upper_bound (int): exclusive upper bound
-
-        Returns:
-            (list): primes between lower_bound and upper_bound
+        :param lower_bound: exclusive lower bound
+        :type lower_bound: int
+        :param upper_bound: exclusive upper bound
+        :type upper_bound: int
+        :returns: -> primes between lower_bound and upper_bound
+        :rtype: list
 
         """
         if upper_bound > self[-1]:
@@ -229,6 +202,12 @@ class OctopusPrime(collections.MutableSequence):
         self._list[key] = value
 
     def insert(self, index, object):
+        """
+
+        :param index: 
+        :param object: 
+
+        """
         self._list.insert(index, object)
 
     def __str__(self):
@@ -236,3 +215,8 @@ class OctopusPrime(collections.MutableSequence):
 
     def __repr__(self):
         return str(self._list)
+
+if __name__ == '__main__':
+    from doctest import testmod
+    testmod()
+

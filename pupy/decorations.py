@@ -8,17 +8,17 @@ from functools import wraps
 from inspect import getfile
 from time import time
 
+
 def cash_it(funk):
     """args-2-return value cache.
-
+    
     This function is particularly useful for when you want that lru-cache,
     but you/one is working with python two.
 
-    Args:
-        funk (function): function to be cached
-
-    Returns:
-        function: wrapped function
+    :param funk: function to be cached
+    :type funk: function
+    :returns: wrapped function
+    :rtype: function
 
     """
     cash_money = {}
@@ -26,11 +26,6 @@ def cash_it(funk):
     @wraps(funk)
     def cash_wrap(*argz):
         """
-
-        Args:
-            *argz:
-
-        Returns:
 
         """
         if argz in cash_money:
@@ -41,6 +36,7 @@ def cash_it(funk):
             return rv
 
     return cash_wrap
+
 
 class Jasm(object):
     """Jasm the Grundle Bug"""
@@ -53,9 +49,13 @@ class Jasm(object):
         fp = self.file_path
 
         def savings_n_loads(*args, **kwargs):
-            """Jasm funk (w)rapper"""
-            if len(args) == 0: save_key = "None"
-            else: save_key = str((args, kwargs.items()))
+            """Jasm funk (w)rapper
+
+            """
+            if len(args) == 0:
+                save_key = "None"
+            else:
+                save_key = str((args, kwargs.items()))
             try:
                 with open(fp) as f:
                     dat_data = jasm.load(f)
@@ -77,11 +77,11 @@ class Jasm(object):
     def read(fpath):
         """Jasm load static method
 
-        Args:
-            fpath(str): filepath
+        :param fpath: filepath
+        :type fpath: str
+        :returns: object/data stored in the json file
+        :rtype: object
 
-        Returns:
-            object: object/data stored in the json file
         """
         with open(fpath) as f:
             return jasm.load(f)
@@ -90,19 +90,28 @@ class Jasm(object):
     def write(fpath, obj):
         """Jasm dump static method
 
-        Args:
-            fpath (str): filepath
-            obj (object): data/object to be saved
+        :param fpath: filepath
+        :type fpath: str
+        :param obj: data/object to be saved
+        :type obj: object
+
         """
+
 
 def cprof(funk):
     """"cProfiling decorator
-
+    
     src: https://zapier.com/engineering/profiling-python-boss/
+
+    :param funk: 
+
     """
 
     @wraps(funk)
     def profiled_funk(*args, **kwargs):
+        """
+
+        """
         profile = Profile()
         try:
             profile.enable()
@@ -115,11 +124,12 @@ def cprof(funk):
 
     return profiled_funk
 
+
 class tictoc(object):
     """Timing decorator object
 
-    Args:
-        runs: # of runs to time over (defaults to 1)
+    :param runs: # of runs to time over (defaults to 1)
+
     """
 
     def __init__(self, runs=1):
@@ -139,12 +149,6 @@ class tictoc(object):
         def time_wrapper(*args, **kwargs):
             """
 
-            Args:
-                *args:
-                **kwargs:
-
-            Returns:
-
             """
             self.args = str(args)
             ts = time()
@@ -160,22 +164,29 @@ class tictoc(object):
     @staticmethod
     def ftime(t1, t2=None):
         """Formats time string
-
+        
         Formats t1 if t2 is None as a string; Calculates the time and formats
         the time t2-t1 if t2 is not None.
 
-        Args:
-            t1 (double): time 1
-            t2 (None or double): time 2
-
-        Returns:
-            (str): formated time string
+        :param t1: time 1
+        :type t1: double
+        :param t2: time 2 (Default value = None)
+        :type t2: None or double
+        :returns: -> formated time string
+        :rtype: str
 
         """
-        if t2 is not None: return tictoc.ftime((t2 - t1))
-        elif t1 == 0.0: return "~0.0~"
-        elif t1 >= 1: return "%.3f s" % t1
-        elif 1 > t1 >= 0.001: return "%.3f ms" % ((10 ** 3) * t1)
-        elif 0.001 > t1 >= 0.000001: return "%.3f μs" % ((10 ** 6) * t1)
-        elif 0.000001 > t1 >= 0.000000001: return "%.3f ns" % ((10 ** 9) * t1)
-        else: return tictoc.ftime((t2 - t1))
+        if t2 is not None:
+            return tictoc.ftime((t2 - t1))
+        elif t1 == 0.0:
+            return "~0.0~"
+        elif t1 >= 1:
+            return "%.3f s" % t1
+        elif 1 > t1 >= 0.001:
+            return "%.3f ms" % ((10 ** 3) * t1)
+        elif 0.001 > t1 >= 0.000001:
+            return "%.3f μs" % ((10 ** 6) * t1)
+        elif 0.000001 > t1 >= 0.000000001:
+            return "%.3f ns" % ((10 ** 9) * t1)
+        else:
+            return tictoc.ftime((t2 - t1))

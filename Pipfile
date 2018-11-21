@@ -9,6 +9,7 @@ tox = "*"
 tqdm = "*"
 bumpversion = "*"
 twine = "*"
+tox-pipenv = "*"
 
 [dev-packages]
 

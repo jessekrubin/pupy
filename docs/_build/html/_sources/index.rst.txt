@@ -19,5 +19,16 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. automodule:: pupy.amazon_prime
+   :members:
+
+.. automodule:: pupy.decorations
+   :members:
+.. automodule:: pupy.listless
+   :members:
+.. automodule:: pupy.maths
+   :members:
+.. automodule:: pupy.maths
+   :members:
 .. automodule:: pupy
    :members:

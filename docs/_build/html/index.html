@@ -43,6 +43,1345 @@
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
+<span class="target" id="module-pupy.amazon_prime"></span><dl class="class">
+<dt id="pupy.amazon_prime.OctopusPrime">
+<em class="property">class </em><code class="descclassname">pupy.amazon_prime.</code><code class="descname">OctopusPrime</code><span class="sig-paren">(</span><em>plim=100</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/amazon_prime.html#OctopusPrime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.amazon_prime.OctopusPrime" title="Permalink to this definition">¶</a></dt>
+<dd><p>OctopusPrime, the 8-leg autobot, here to help you find PRIMES</p>
+<dl class="method">
+<dt id="pupy.amazon_prime.OctopusPrime.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>index</em>, <em>object</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/amazon_prime.html#OctopusPrime.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.amazon_prime.OctopusPrime.insert" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – </li>
+<li><strong>object</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pupy.amazon_prime.OctopusPrime.primes_below">
+<code class="descname">primes_below</code><span class="sig-paren">(</span><em>upper_bound</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/amazon_prime.html#OctopusPrime.primes_below"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.amazon_prime.OctopusPrime.primes_below" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists primes, p, such that  p &lt; upper_bound</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>upper_bound</strong> (<em>int</em>) – exclusive upper bound</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">-&gt; primes less than upper_bound</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pupy.amazon_prime.OctopusPrime.primes_between">
+<code class="descname">primes_between</code><span class="sig-paren">(</span><em>lower_bound</em>, <em>upper_bound</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/amazon_prime.html#OctopusPrime.primes_between"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.amazon_prime.OctopusPrime.primes_between" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists primes, p, such that, lower_bound &lt; p &lt; upper_bound</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>lower_bound</strong> (<em>int</em>) – exclusive lower bound</li>
+<li><strong>upper_bound</strong> (<em>int</em>) – exclusive upper bound</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">-&gt; primes between lower_bound and upper_bound</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.amazon_prime.is_prime">
+<code class="descclassname">pupy.amazon_prime.</code><code class="descname">is_prime</code><span class="sig-paren">(</span><em>number</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/amazon_prime.html#is_prime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.amazon_prime.is_prime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a number is prime</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>number</strong> (<em>int</em>) – number to check if is prime</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">-&gt; True if number is prime</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
+<span class="go">    True</span>
+<span class="go">    &gt;&gt;&gt; is_prime(100)</span>
+<span class="go">    False</span>
+<span class="go">    &gt;&gt;&gt; is_prime(89)</span>
+<span class="go">    True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.amazon_prime.prime_factorization_gen">
+<code class="descclassname">pupy.amazon_prime.</code><code class="descname">prime_factorization_gen</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/amazon_prime.html#prime_factorization_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.amazon_prime.prime_factorization_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>generates all numbers in the prime factorization of n</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – number to be factored</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">prime_factorization_gen</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+<span class="go">    [2, 2, 3]</span>
+<span class="go">    &gt;&gt;&gt; list(prime_factorization_gen(16))</span>
+<span class="go">    [2, 2, 2, 2]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.amazon_prime.prime_factors_gen">
+<code class="descclassname">pupy.amazon_prime.</code><code class="descname">prime_factors_gen</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/amazon_prime.html#prime_factors_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.amazon_prime.prime_factors_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>prime factors generator</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – number to be factorized</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">prime_factors_gen</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+<span class="go">    [2, 3]</span>
+<span class="go">    &gt;&gt;&gt; list(prime_factors_gen(16))</span>
+<span class="go">    [2]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.amazon_prime.prime_gen">
+<code class="descclassname">pupy.amazon_prime.</code><code class="descname">prime_gen</code><span class="sig-paren">(</span><em>plim=0</em>, <em>kprimes=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/amazon_prime.html#prime_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.amazon_prime.prime_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infinite (within reason) prime number generator</p>
+<p>My big modification is the pdiv_dictionary() function that recreats the
+dictionary of divisors so that you can continue to generate prime numbers
+from a (sorted) list of prime numbers.</p>
+<dl class="docutils">
+<dt>Based on:</dt>
+<dd>eratosthenes by David Eppstein, UC Irvine, 28 Feb 2002
+<a class="reference external" href="http://code.activestate.com/recipes/117119/">http://code.activestate.com/recipes/117119/</a> and the thread at the url</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>plim</strong> (<em>int</em>) – prime_limit; default=0 makes for an infinite generator</li>
+<li><strong>kprimes</strong> (<em>iter</em>) – known_primes as an iterable (Default value = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">prime_gen</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+<span class="go">    [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]</span>
+<span class="go">    &gt;&gt;&gt; list(prime_gen(10))</span>
+<span class="go">    [2, 3, 5, 7]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<span class="target" id="module-pupy.decorations"></span><dl class="class">
+<dt id="pupy.decorations.Jasm">
+<em class="property">class </em><code class="descclassname">pupy.decorations.</code><code class="descname">Jasm</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/decorations.html#Jasm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.decorations.Jasm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jasm the Grundle Bug</p>
+<dl class="staticmethod">
+<dt id="pupy.decorations.Jasm.read">
+<em class="property">static </em><code class="descname">read</code><span class="sig-paren">(</span><em>fpath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/decorations.html#Jasm.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.decorations.Jasm.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jasm load static method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fpath</strong> (<em>str</em>) – filepath</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">object/data stored in the json file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pupy.decorations.Jasm.write">
+<em class="property">static </em><code class="descname">write</code><span class="sig-paren">(</span><em>fpath</em>, <em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/decorations.html#Jasm.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.decorations.Jasm.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jasm dump static method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fpath</strong> (<em>str</em>) – filepath</li>
+<li><strong>obj</strong> (<em>object</em>) – data/object to be saved</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.decorations.cash_it">
+<code class="descclassname">pupy.decorations.</code><code class="descname">cash_it</code><span class="sig-paren">(</span><em>funk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/decorations.html#cash_it"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.decorations.cash_it" title="Permalink to this definition">¶</a></dt>
+<dd><p>for when you want that lru cach money but are working w py2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>funk</strong> (<em>function</em>) – function to be cached</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">wrapped function</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">function</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.decorations.cprof">
+<code class="descclassname">pupy.decorations.</code><code class="descname">cprof</code><span class="sig-paren">(</span><em>funk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/decorations.html#cprof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.decorations.cprof" title="Permalink to this definition">¶</a></dt>
+<dd><p>“cProfiling decorator</p>
+<p>src: <a class="reference external" href="https://zapier.com/engineering/profiling-python-boss/">https://zapier.com/engineering/profiling-python-boss/</a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pupy.decorations.tictoc">
+<em class="property">class </em><code class="descclassname">pupy.decorations.</code><code class="descname">tictoc</code><span class="sig-paren">(</span><em>runs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/decorations.html#tictoc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.decorations.tictoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Timing decorator object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>runs</strong> – # of runs to time over (defaults to 1)</td>
+</tr>
+</tbody>
+</table>
+<dl class="staticmethod">
+<dt id="pupy.decorations.tictoc.ftime">
+<em class="property">static </em><code class="descname">ftime</code><span class="sig-paren">(</span><em>t1</em>, <em>t2=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/decorations.html#tictoc.ftime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.decorations.tictoc.ftime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats time string</p>
+<p>Formats t1 if t2 is None as a string; Calculates the time and formats
+the time t2-t1 if t2 is not None.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>t1</strong> (<em>double</em>) – time 1</li>
+<li><strong>t2</strong> (<em>None</em><em> or </em><em>double</em>) – time 2</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">formated time string</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(str)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pupy.listless"></span><dl class="function">
+<dt id="pupy.listless.chunks">
+<code class="descclassname">pupy.listless.</code><code class="descname">chunks</code><span class="sig-paren">(</span><em>list</em>, <em>chunk_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/listless.html#chunks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.listless.chunks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields chunks of a list with length == chunk_size</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>list</strong> (<em>list</em><em> or </em><em>tuple</em>) – list to be broken up</li>
+<li><strong>chunk_size</strong> (<em>int</em>) – size of the chunks</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last"><em>(list)</em> – chunk with length == chunk_size from list</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">chunks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+<span class="go">[[1, 2, 3], [4, 5, 6]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">chunks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">[[1, 2], [3, 4], [5, 6]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.listless.digits_list">
+<code class="descclassname">pupy.listless.</code><code class="descname">digits_list</code><span class="sig-paren">(</span><em>number</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/listless.html#digits_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.listless.digits_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of the digits in num</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>number</strong> (<em>int</em>) – number w/ digits to be listsed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">digits in a list</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(list)</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">digits_list</span><span class="p">(</span><span class="mi">1111</span><span class="p">)</span>
+<span class="go">[1, 1, 1, 1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">digits_list</span><span class="p">(</span><span class="mi">982</span><span class="p">)</span>
+<span class="go">[9, 8, 2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">digits_list</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
+<span class="go">[1, 0, 1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">digits_list</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="go">[1, 2, 3]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.listless.int_from_digits">
+<code class="descclassname">pupy.listless.</code><code class="descname">int_from_digits</code><span class="sig-paren">(</span><em>dlist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/listless.html#int_from_digits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.listless.int_from_digits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert digits list or tuple to integer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dlist</strong> (<em>list</em><em> or </em><em>tuple</em>) – digits to be converted</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">number</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(int)</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">int_from_digits</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">321</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">int_from_digits</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="go">111123</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">int_from_digits</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="go">123</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.listless.is_permutation">
+<code class="descclassname">pupy.listless.</code><code class="descname">is_permutation</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/listless.html#is_permutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.listless.is_permutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if two integers or lists are permutations lists are permutations</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> (<em>int</em><em> or </em><em>list</em>) – possible perumtation of b</li>
+<li><strong>b</strong> (<em>int</em><em> or </em><em>list</em>) – possible perumtation of a</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if a and b are permutations of one another; False otherwise</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.listless.iter_product">
+<code class="descclassname">pupy.listless.</code><code class="descname">iter_product</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/listless.html#iter_product"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.listless.iter_product" title="Permalink to this definition">¶</a></dt>
+<dd><p>Product of all the elements in a list or tuple</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>l</strong> – list with integer elements</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">product of all the elements in a list</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">iter_product</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="go">24</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iter_product</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]))</span>
+<span class="go">24</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iter_product</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="go">-24</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.listless.rotate">
+<code class="descclassname">pupy.listless.</code><code class="descname">rotate</code><span class="sig-paren">(</span><em>rlist</em>, <em>rn=1</em>, <em>left_rotate=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/listless.html#rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.listless.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate a list (rlist) by rn indices to the left or right</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rlist</strong> (<em>list</em><em> or </em><em>tuple</em>) – list/toople or slicable to be rotated</li>
+<li><strong>rn</strong> (<em>int</em>) – steps bywhich to rotate</li>
+<li><strong>left_rotate</strong> (<em>bool</em>) – True (default) left rotates; False right rotates.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">rotated list</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(list)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rotate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">left_rotate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[2, 3, 4, 1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rotate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">left_rotate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[4, 1, 2, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rotate</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">rn</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">left_rotate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[1, 2, 3, 4]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.listless.rotations_gen">
+<code class="descclassname">pupy.listless.</code><code class="descname">rotations_gen</code><span class="sig-paren">(</span><em>rlist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/listless.html#rotations_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.listless.rotations_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields all rotations of a list</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rlist</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">rot</span> <span class="ow">in</span> <span class="n">rotations_gen</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">rot</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">(1, 2, 3, 4)</span>
+<span class="go">(4, 1, 2, 3)</span>
+<span class="go">(3, 4, 1, 2)</span>
+<span class="go">(2, 3, 4, 1)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<span class="target" id="module-pupy.maths"></span><dl class="class">
+<dt id="pupy.maths.Trigon">
+<em class="property">class </em><code class="descclassname">pupy.maths.</code><code class="descname">Trigon</code><span class="sig-paren">(</span><em>pt1</em>, <em>pt2</em>, <em>pt3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Trigon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trigon object composed of three points connected by lines.</p>
+<dl class="method">
+<dt id="pupy.maths.Trigon.area">
+<code class="descname">area</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Trigon.area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pupy.maths.Trigon.area_from_points">
+<em class="property">static </em><code class="descname">area_from_points</code><span class="sig-paren">(</span><em>pt1</em>, <em>pt2</em>, <em>pt3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.area_from_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Trigon.area_from_points" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pt1</strong> – </li>
+<li><strong>pt2</strong> – </li>
+<li><strong>pt3</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pupy.maths.Trigon.contains_origin">
+<code class="descname">contains_origin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.contains_origin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Trigon.contains_origin" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the origin (0,0) lies within the Triangle</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="pupy.maths.Trigon.from_points">
+<em class="property">classmethod </em><code class="descname">from_points</code><span class="sig-paren">(</span><em>pts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.from_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Trigon.from_points" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pts</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pupy.maths.Trigon.inner_triangles">
+<code class="descname">inner_triangles</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.inner_triangles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Trigon.inner_triangles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triangle funk that returns the three triangles w/ a point</p>
+<p>The point (p) is connected to each point of a triangle. with points,
+a, b, and c. The three triangles are t1=(a, b, p), t2=(a, c, p), and
+t3 = (b, c, p).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>point</strong> (<em>tuple</em><em> or </em><a class="reference internal" href="#pupy.maths.Vuple" title="pupy.maths.Vuple"><em>Vuple</em></a>) – point to connect to Triangle Vertices</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Three triangles</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">t1, t2, t3 (<a class="reference internal" href="#pupy.maths.Trigon" title="pupy.maths.Trigon">Trigon</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pupy.maths.Trigon.is_perimeter_point">
+<code class="descname">is_perimeter_point</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.is_perimeter_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Trigon.is_perimeter_point" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>point</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pupy.maths.Trigon.points">
+<code class="descname">points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Trigon.points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pupy.maths.Vuple">
+<em class="property">class </em><code class="descclassname">pupy.maths.</code><code class="descname">Vuple</code><a class="reference internal" href="_modules/pupy/maths.html#Vuple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>VUPLE == Vector+Tuple</p>
+<dl class="staticmethod">
+<dt id="pupy.maths.Vuple.angle">
+<em class="property">static </em><code class="descname">angle</code><span class="sig-paren">(</span><em>v1</em>, <em>v2</em>, <em>radians=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple.angle" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>v1</strong> – </li>
+<li><strong>v2</strong> – </li>
+<li><strong>radians</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pupy.maths.Vuple.cross">
+<em class="property">static </em><code class="descname">cross</code><span class="sig-paren">(</span><em>v1</em>, <em>v2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.cross"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple.cross" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cross product of two 2d vectors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>v1</strong> – first vector</li>
+<li><strong>v2</strong> – second vector</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">cross product of v1 and v2</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pupy.maths.Vuple.dot">
+<em class="property">static </em><code class="descname">dot</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.dot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple.dot" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>a</strong> – </li>
+<li><strong>b</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pupy.maths.Vuple.get_mag">
+<code class="descname">get_mag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.get_mag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple.get_mag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pupy.maths.Vuple.get_mag_sqrd">
+<code class="descname">get_mag_sqrd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.get_mag_sqrd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple.get_mag_sqrd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pupy.maths.Vuple.mag">
+<em class="property">static </em><code class="descname">mag</code><span class="sig-paren">(</span><em>voop</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.mag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple.mag" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>voop</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pupy.maths.Vuple.mag_sqrd">
+<em class="property">static </em><code class="descname">mag_sqrd</code><span class="sig-paren">(</span><em>voop</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.mag_sqrd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple.mag_sqrd" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>voop</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pupy.maths.Vuple.normalize">
+<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalizes the Vuple ST self.magnitude == 1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Unit Vuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pupy.maths.Vuple.product">
+<code class="descname">product</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.product"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple.product" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiplies all elements in the Vuple</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pupy.maths.Vuple.unit_vuple">
+<em class="property">static </em><code class="descname">unit_vuple</code><span class="sig-paren">(</span><em>voop</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.unit_vuple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.Vuple.unit_vuple" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>voop</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.degrees_2_radians">
+<code class="descclassname">pupy.maths.</code><code class="descname">degrees_2_radians</code><span class="sig-paren">(</span><em>degs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#degrees_2_radians"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.degrees_2_radians" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts degrees to radians</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.divisors_gen">
+<code class="descclassname">pupy.maths.</code><code class="descname">divisors_gen</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#divisors_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.divisors_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divisors generator</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – number w/ divisors to be generated</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><em>int</em> – divisors</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.expo">
+<code class="descclassname">pupy.maths.</code><code class="descname">expo</code><span class="sig-paren">(</span><em>d</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#expo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.expo" title="Permalink to this definition">¶</a></dt>
+<dd><p>greatest exponent for a divisor of n</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>d</strong> (<em>int</em>) – divisor</li>
+<li><strong>n</strong> (<em>int</em>) – number be divided</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">number of times a divisor divides n</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.fib_r">
+<code class="descclassname">pupy.maths.</code><code class="descname">fib_r</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#fib_r"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.fib_r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively the nth fibonacci number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – nth fibonacci sequence number</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the nth fibonacci number</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fib_r</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fib_r</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fib_r</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="go">13</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.gcd_it">
+<code class="descclassname">pupy.maths.</code><code class="descname">gcd_it</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#gcd_it"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.gcd_it" title="Permalink to this definition">¶</a></dt>
+<dd><p>iterative gcd</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.gcd_r">
+<code class="descclassname">pupy.maths.</code><code class="descname">gcd_r</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#gcd_r"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.gcd_r" title="Permalink to this definition">¶</a></dt>
+<dd><p>recursive greatest common divisor</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.partitions_gen">
+<code class="descclassname">pupy.maths.</code><code class="descname">partitions_gen</code><span class="sig-paren">(</span><em>numero</em>, <em>min_p=1</em>, <em>max_p=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#partitions_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.partitions_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Partitions generator</p>
+<dl class="docutils">
+<dt>Adapted from:</dt>
+<dd><p class="first">code.activestate.com/recipes/218332-generator-for-integer-partitions/
+Adaptions:</p>
+<blockquote class="last">
+<div>min_p: minimum partition value</div></blockquote>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>numero</strong> (<em>int</em>) – number for which to yield partiton tuples</li>
+<li><strong>min_p</strong> (<em>int</em>) – smallest part size</li>
+<li><strong>max_p</strong> (<em>int</em>) – largest part size</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last"><em>tuple</em> – partition of max_p with smallest partition being min_p</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">partitions_gen</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">[(4,), (1, 3), (1, 1, 2), (1, 1, 1, 1), (2, 2)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">partitions_gen</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">min_p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_p</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="go">[(1, 1, 2), (1, 1, 1, 1), (2, 2)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.power_mod">
+<code class="descclassname">pupy.maths.</code><code class="descname">power_mod</code><span class="sig-paren">(</span><em>number</em>, <em>exponent</em>, <em>mod</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#power_mod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.power_mod" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>number</strong> – </li>
+<li><strong>exponent</strong> – </li>
+<li><strong>mod</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.pytriple_gen">
+<code class="descclassname">pupy.maths.</code><code class="descname">pytriple_gen</code><span class="sig-paren">(</span><em>max_c</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#pytriple_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.pytriple_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>primative pythagorean triples generator</p>
+<p>special thanks to 3Blue1Brown’s video on pythagorean triples
+<a class="reference external" href="https://www.youtube.com/watch?v=QJYmyhnaaek&amp;t=300s">https://www.youtube.com/watch?v=QJYmyhnaaek&amp;t=300s</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_c</strong> (<em>int</em>) – max value of c to yeild triples up to</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><em>tuple</em> – pythagorean triple (a, b, c)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.radians_2_degrees">
+<code class="descclassname">pupy.maths.</code><code class="descname">radians_2_degrees</code><span class="sig-paren">(</span><em>rads</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#radians_2_degrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.radians_2_degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts radians to degrees</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.reverse">
+<code class="descclassname">pupy.maths.</code><code class="descname">reverse</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#reverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.reverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverses a number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – number to be reversed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">reversed of a number</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pupy.maths.rfactorial">
+<code class="descclassname">pupy.maths.</code><code class="descname">rfactorial</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#rfactorial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.maths.rfactorial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursive factorial function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<span class="target" id="module-pupy.maths"></span><dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pupy.maths.</code><code class="descname">Trigon</code><span class="sig-paren">(</span><em>pt1</em>, <em>pt2</em>, <em>pt3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Trigon object composed of three points connected by lines.</p>
+<dl class="method">
+<dt>
+<code class="descname">area</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.area"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">area_from_points</code><span class="sig-paren">(</span><em>pt1</em>, <em>pt2</em>, <em>pt3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.area_from_points"><span class="viewcode-link">[source]</span></a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pt1</strong> – </li>
+<li><strong>pt2</strong> – </li>
+<li><strong>pt3</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">contains_origin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.contains_origin"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>True if the origin (0,0) lies within the Triangle</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt>
+<em class="property">classmethod </em><code class="descname">from_points</code><span class="sig-paren">(</span><em>pts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.from_points"><span class="viewcode-link">[source]</span></a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pts</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">inner_triangles</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.inner_triangles"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Triangle funk that returns the three triangles w/ a point</p>
+<p>The point (p) is connected to each point of a triangle. with points,
+a, b, and c. The three triangles are t1=(a, b, p), t2=(a, c, p), and
+t3 = (b, c, p).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>point</strong> (<em>tuple</em><em> or </em><a class="reference internal" href="#pupy.maths.Vuple" title="pupy.maths.Vuple"><em>Vuple</em></a>) – point to connect to Triangle Vertices</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Three triangles</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">t1, t2, t3 (<a class="reference internal" href="#pupy.maths.Trigon" title="pupy.maths.Trigon">Trigon</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">is_perimeter_point</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.is_perimeter_point"><span class="viewcode-link">[source]</span></a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>point</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Trigon.points"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">pupy.maths.</code><code class="descname">Vuple</code><a class="reference internal" href="_modules/pupy/maths.html#Vuple"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>VUPLE == Vector+Tuple</p>
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">angle</code><span class="sig-paren">(</span><em>v1</em>, <em>v2</em>, <em>radians=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.angle"><span class="viewcode-link">[source]</span></a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>v1</strong> – </li>
+<li><strong>v2</strong> – </li>
+<li><strong>radians</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">cross</code><span class="sig-paren">(</span><em>v1</em>, <em>v2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.cross"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Cross product of two 2d vectors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>v1</strong> – first vector</li>
+<li><strong>v2</strong> – second vector</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">cross product of v1 and v2</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">dot</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.dot"><span class="viewcode-link">[source]</span></a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>a</strong> – </li>
+<li><strong>b</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">get_mag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.get_mag"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">get_mag_sqrd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.get_mag_sqrd"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">mag</code><span class="sig-paren">(</span><em>voop</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.mag"><span class="viewcode-link">[source]</span></a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>voop</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">mag_sqrd</code><span class="sig-paren">(</span><em>voop</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.mag_sqrd"><span class="viewcode-link">[source]</span></a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>voop</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.normalize"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Normalizes the Vuple ST self.magnitude == 1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Unit Vuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">product</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.product"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Multiplies all elements in the Vuple</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">unit_vuple</code><span class="sig-paren">(</span><em>voop</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#Vuple.unit_vuple"><span class="viewcode-link">[source]</span></a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>voop</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">degrees_2_radians</code><span class="sig-paren">(</span><em>degs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#degrees_2_radians"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Converts degrees to radians</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">divisors_gen</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#divisors_gen"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Divisors generator</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – number w/ divisors to be generated</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><em>int</em> – divisors</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">expo</code><span class="sig-paren">(</span><em>d</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#expo"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>greatest exponent for a divisor of n</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>d</strong> (<em>int</em>) – divisor</li>
+<li><strong>n</strong> (<em>int</em>) – number be divided</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">number of times a divisor divides n</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">fib_r</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#fib_r"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Recursively the nth fibonacci number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – nth fibonacci sequence number</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the nth fibonacci number</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fib_r</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fib_r</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fib_r</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="go">13</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">gcd_it</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#gcd_it"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>iterative gcd</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">gcd_r</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#gcd_r"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>recursive greatest common divisor</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">partitions_gen</code><span class="sig-paren">(</span><em>numero</em>, <em>min_p=1</em>, <em>max_p=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#partitions_gen"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Partitions generator</p>
+<dl class="docutils">
+<dt>Adapted from:</dt>
+<dd><p class="first">code.activestate.com/recipes/218332-generator-for-integer-partitions/
+Adaptions:</p>
+<blockquote class="last">
+<div>min_p: minimum partition value</div></blockquote>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>numero</strong> (<em>int</em>) – number for which to yield partiton tuples</li>
+<li><strong>min_p</strong> (<em>int</em>) – smallest part size</li>
+<li><strong>max_p</strong> (<em>int</em>) – largest part size</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last"><em>tuple</em> – partition of max_p with smallest partition being min_p</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">partitions_gen</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">[(4,), (1, 3), (1, 1, 2), (1, 1, 1, 1), (2, 2)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">partitions_gen</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">min_p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_p</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="go">[(1, 1, 2), (1, 1, 1, 1), (2, 2)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">power_mod</code><span class="sig-paren">(</span><em>number</em>, <em>exponent</em>, <em>mod</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#power_mod"><span class="viewcode-link">[source]</span></a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>number</strong> – </li>
+<li><strong>exponent</strong> – </li>
+<li><strong>mod</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">pytriple_gen</code><span class="sig-paren">(</span><em>max_c</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#pytriple_gen"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>primative pythagorean triples generator</p>
+<p>special thanks to 3Blue1Brown’s video on pythagorean triples
+<a class="reference external" href="https://www.youtube.com/watch?v=QJYmyhnaaek&amp;t=300s">https://www.youtube.com/watch?v=QJYmyhnaaek&amp;t=300s</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_c</strong> (<em>int</em>) – max value of c to yeild triples up to</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><em>tuple</em> – pythagorean triple (a, b, c)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">radians_2_degrees</code><span class="sig-paren">(</span><em>rads</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#radians_2_degrees"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Converts radians to degrees</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">reverse</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#reverse"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Reverses a number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – number to be reversed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">reversed of a number</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descclassname">pupy.maths.</code><code class="descname">rfactorial</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/maths.html#rfactorial"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Recursive factorial function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> – </td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
 <span class="target" id="module-pupy"></span><dl class="class">
 <dt id="pupy.Jasm">
 <em class="property">class </em><code class="descclassname">pupy.</code><code class="descname">Jasm</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/decorations.html#Jasm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.Jasm" title="Permalink to this definition">¶</a></dt>
@@ -92,7 +1431,18 @@
 <dl class="method">
 <dt id="pupy.OctopusPrime.insert">
 <code class="descname">insert</code><span class="sig-paren">(</span><em>index</em>, <em>object</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pupy/amazon_prime.html#OctopusPrime.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pupy.OctopusPrime.insert" title="Permalink to this definition">¶</a></dt>
-<dd><p>S.insert(index, value) – insert value before index</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – </li>
+<li><strong>object</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -105,9 +1455,9 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>upper_bound</strong> (<em>int</em>) – exclusive upper bound</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">primes less than upper_bound</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">-&gt; primes less than upper_bound</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(list)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
 </tr>
 </tbody>
 </table>
@@ -127,10 +1477,10 @@
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">primes between lower_bound and upper_bound</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">-&gt; primes between lower_bound and upper_bound</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(list)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
 </td>
 </tr>
 </tbody>
@@ -201,11 +1551,11 @@ t3 = (b, c, p).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>point</strong> (<em>tuple</em><em> or </em><a class="reference internal" href="#pupy.Vuple" title="pupy.Vuple"><em>Vuple</em></a>) – point to connect to Triangle Vertices</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>point</strong> (<em>tuple</em><em> or </em><a class="reference internal" href="#pupy.maths.Vuple" title="pupy.maths.Vuple"><em>Vuple</em></a>) – point to connect to Triangle Vertices</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Three triangles</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">t1, t2, t3 (<a class="reference internal" href="#pupy.Trigon" title="pupy.Trigon">Trigon</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">t1, t2, t3 (<a class="reference internal" href="#pupy.maths.Trigon" title="pupy.maths.Trigon">Trigon</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -626,20 +1976,18 @@ t3 = (b, c, p).</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>number</strong> (<em>int</em>) – number to check if is prime</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if number is prime
-(bool): False if number is not prime</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">-&gt; True if number is prime</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(bool)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
-<span class="go">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="go">False</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">89</span><span class="p">)</span>
-<span class="go">True</span>
+<span class="go">    True</span>
+<span class="go">    &gt;&gt;&gt; is_prime(100)</span>
+<span class="go">    False</span>
+<span class="go">    &gt;&gt;&gt; is_prime(89)</span>
+<span class="go">    True</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -768,15 +2116,12 @@ Adaptions:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – number to be factored</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><em>(int)</em> – prime factors w/ repeats</td>
-</tr>
 </tbody>
 </table>
-<p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">prime_factorization_gen</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
-<span class="go">[2, 2, 3]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">prime_factorization_gen</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
-<span class="go">[2, 2, 2, 2]</span>
+<span class="go">    [2, 2, 3]</span>
+<span class="go">    &gt;&gt;&gt; list(prime_factorization_gen(16))</span>
+<span class="go">    [2, 2, 2, 2]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -791,15 +2136,12 @@ Adaptions:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – number to be factorized</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><em>(int)</em> – prime factors w/o repeats</td>
-</tr>
 </tbody>
 </table>
-<p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">prime_factors_gen</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
-<span class="go">[2, 3]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">prime_factors_gen</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
-<span class="go">[2]</span>
+<span class="go">    [2, 3]</span>
+<span class="go">    &gt;&gt;&gt; list(prime_factors_gen(16))</span>
+<span class="go">    [2]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -820,22 +2162,18 @@ from a (sorted) list of prime numbers.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>plim</strong> (<em>int</em>) – prime_limit; default=0 makes for an infinite generator</li>
-<li><strong>kprimes</strong> (<em>iter</em>) – known_primes as an iterable</li>
+<li><strong>kprimes</strong> (<em>iter</em>) – known_primes as an iterable (Default value = None)</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last"><em>(int)</em> – prime numbers</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">prime_gen</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
-<span class="go">[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">prime_gen</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-<span class="go">[2, 3, 5, 7]</span>
+<span class="go">    [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]</span>
+<span class="go">    &gt;&gt;&gt; list(prime_gen(10))</span>
+<span class="go">    [2, 3, 5, 7]</span>
 </pre></div>
 </div>
 </dd></dl>

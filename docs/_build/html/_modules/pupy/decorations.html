@@ -42,7 +42,8 @@
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">getfile</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">time</span>
 
-<div class="viewcode-block" id="cash_it"><a class="viewcode-back" href="../../index.html#pupy.cash_it">[docs]</a><span class="k">def</span> <span class="nf">cash_it</span><span class="p">(</span><span class="n">funk</span><span class="p">):</span>
+
+<div class="viewcode-block" id="cash_it"><a class="viewcode-back" href="../../index.html#pupy.decorations.cash_it">[docs]</a><span class="k">def</span> <span class="nf">cash_it</span><span class="p">(</span><span class="n">funk</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;for when you want that lru cach money but are working w py2</span>
 
 <span class="sd">    Args:</span>
@@ -73,7 +74,8 @@
 
     <span class="k">return</span> <span class="n">cash_wrap</span></div>
 
-<div class="viewcode-block" id="Jasm"><a class="viewcode-back" href="../../index.html#pupy.Jasm">[docs]</a><span class="k">class</span> <span class="nc">Jasm</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Jasm"><a class="viewcode-back" href="../../index.html#pupy.decorations.Jasm">[docs]</a><span class="k">class</span> <span class="nc">Jasm</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Jasm the Grundle Bug&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
@@ -85,8 +87,10 @@
 
         <span class="k">def</span> <span class="nf">savings_n_loads</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;Jasm funk (w)rapper&quot;&quot;&quot;</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">save_key</span> <span class="o">=</span> <span class="s2">&quot;None&quot;</span>
-            <span class="k">else</span><span class="p">:</span> <span class="n">save_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">save_key</span> <span class="o">=</span> <span class="s2">&quot;None&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">save_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">dat_data</span> <span class="o">=</span> <span class="n">jasm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -104,7 +108,7 @@
 
         <span class="k">return</span> <span class="n">savings_n_loads</span>
 
-<div class="viewcode-block" id="Jasm.read"><a class="viewcode-back" href="../../index.html#pupy.Jasm.read">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Jasm.read"><a class="viewcode-back" href="../../index.html#pupy.decorations.Jasm.read">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">fpath</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Jasm load static method</span>
 
@@ -117,7 +121,7 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">jasm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Jasm.write"><a class="viewcode-back" href="../../index.html#pupy.Jasm.write">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Jasm.write"><a class="viewcode-back" href="../../index.html#pupy.decorations.Jasm.write">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Jasm dump static method</span>
 
@@ -126,7 +130,8 @@
 <span class="sd">            obj (object): data/object to be saved</span>
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
 
-<div class="viewcode-block" id="cprof"><a class="viewcode-back" href="../../index.html#pupy.cprof">[docs]</a><span class="k">def</span> <span class="nf">cprof</span><span class="p">(</span><span class="n">funk</span><span class="p">):</span>
+
+<div class="viewcode-block" id="cprof"><a class="viewcode-back" href="../../index.html#pupy.decorations.cprof">[docs]</a><span class="k">def</span> <span class="nf">cprof</span><span class="p">(</span><span class="n">funk</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;&quot;cProfiling decorator</span>
 
 <span class="sd">    src: https://zapier.com/engineering/profiling-python-boss/</span>
@@ -146,7 +151,8 @@
 
     <span class="k">return</span> <span class="n">profiled_funk</span></div>
 
-<div class="viewcode-block" id="tictoc"><a class="viewcode-back" href="../../index.html#pupy.tictoc">[docs]</a><span class="k">class</span> <span class="nc">tictoc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="tictoc"><a class="viewcode-back" href="../../index.html#pupy.decorations.tictoc">[docs]</a><span class="k">class</span> <span class="nc">tictoc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Timing decorator object</span>
 
 <span class="sd">    Args:</span>
@@ -188,7 +194,7 @@
 
         <span class="k">return</span> <span class="n">time_wrapper</span>
 
-<div class="viewcode-block" id="tictoc.ftime"><a class="viewcode-back" href="../../index.html#pupy.tictoc.ftime">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="tictoc.ftime"><a class="viewcode-back" href="../../index.html#pupy.decorations.tictoc.ftime">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">ftime</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Formats time string</span>
 
@@ -203,13 +209,20 @@
 <span class="sd">            (str): formated time string</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">t2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span> <span class="n">tictoc</span><span class="o">.</span><span class="n">ftime</span><span class="p">((</span><span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">t1</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;~0.0~&quot;</span>
-        <span class="k">elif</span> <span class="n">t1</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2"> s&quot;</span> <span class="o">%</span> <span class="n">t1</span>
-        <span class="k">elif</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="n">t1</span> <span class="o">&gt;=</span> <span class="mf">0.001</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2"> ms&quot;</span> <span class="o">%</span> <span class="p">((</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">t1</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="mf">0.001</span> <span class="o">&gt;</span> <span class="n">t1</span> <span class="o">&gt;=</span> <span class="mf">0.000001</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2"> μs&quot;</span> <span class="o">%</span> <span class="p">((</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="n">t1</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="mf">0.000001</span> <span class="o">&gt;</span> <span class="n">t1</span> <span class="o">&gt;=</span> <span class="mf">0.000000001</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2"> ns&quot;</span> <span class="o">%</span> <span class="p">((</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">9</span><span class="p">)</span> <span class="o">*</span> <span class="n">t1</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="n">tictoc</span><span class="o">.</span><span class="n">ftime</span><span class="p">((</span><span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span><span class="p">))</span></div></div>
+        <span class="k">if</span> <span class="n">t2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tictoc</span><span class="o">.</span><span class="n">ftime</span><span class="p">((</span><span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">t1</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;~0.0~&quot;</span>
+        <span class="k">elif</span> <span class="n">t1</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2"> s&quot;</span> <span class="o">%</span> <span class="n">t1</span>
+        <span class="k">elif</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="n">t1</span> <span class="o">&gt;=</span> <span class="mf">0.001</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2"> ms&quot;</span> <span class="o">%</span> <span class="p">((</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">t1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="mf">0.001</span> <span class="o">&gt;</span> <span class="n">t1</span> <span class="o">&gt;=</span> <span class="mf">0.000001</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2"> μs&quot;</span> <span class="o">%</span> <span class="p">((</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="n">t1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="mf">0.000001</span> <span class="o">&gt;</span> <span class="n">t1</span> <span class="o">&gt;=</span> <span class="mf">0.000000001</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2"> ns&quot;</span> <span class="o">%</span> <span class="p">((</span><span class="mi">10</span> <span class="o">**</span> <span class="mi">9</span><span class="p">)</span> <span class="o">*</span> <span class="n">t1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tictoc</span><span class="o">.</span><span class="n">ftime</span><span class="p">((</span><span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span><span class="p">))</span></div></div>
 </pre></div>
 
           </div>

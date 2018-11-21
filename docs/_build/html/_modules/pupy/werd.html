@@ -39,9 +39,11 @@
 <span class="sd">String Methods</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+
 <div class="viewcode-block" id="binary_string"><a class="viewcode-back" href="../../index.html#pupy.binary_string">[docs]</a><span class="k">def</span> <span class="nf">binary_string</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Number to binary string&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">bin</span><span class="p">(</span><span class="n">number</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span></div>
+
 
 <div class="viewcode-block" id="string_score"><a class="viewcode-back" href="../../index.html#pupy.string_score">[docs]</a><span class="k">def</span> <span class="nf">string_score</span><span class="p">(</span><span class="n">strang</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Sum of letter values where a==1 and z == 26</span>
@@ -61,6 +63,7 @@
 <span class="sd">        95</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">character</span><span class="p">)</span> <span class="o">-</span> <span class="mi">96</span> <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">strang</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span></div>
+
 
 <div class="viewcode-block" id="is_palindrome"><a class="viewcode-back" href="../../index.html#pupy.is_palindrome">[docs]</a><span class="k">def</span> <span class="nf">is_palindrome</span><span class="p">(</span><span class="n">strang</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;True a string is a palindrome; False if string is not a palindrome.</span>

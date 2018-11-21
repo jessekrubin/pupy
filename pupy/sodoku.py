@@ -5,6 +5,7 @@ from __future__ import division, print_function
 from itertools import chain
 from pupy.decorations import cash_it
 
+
 class SodokuError(ValueError):
     """simple Sodoku error"""
 
@@ -12,6 +13,7 @@ class SodokuError(ValueError):
         self.message = message
         self.row, self.col = row, col
         super(SodokuError, self).__init__(message, row, col)
+
 
 class Sodoku(object):
     """Sodoku
@@ -265,7 +267,7 @@ class Sodoku(object):
 
     @staticmethod
     @cash_it
-    def box_box(index, bsize=9):
+    def box_box(index):
         """
 
         Args:
