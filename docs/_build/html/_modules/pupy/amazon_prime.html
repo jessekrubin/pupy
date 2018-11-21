@@ -63,10 +63,13 @@
 <span class="sd">    :param kprimes: known_primes as an iterable (Default value = None)</span>
 <span class="sd">    :type kprimes: iter</span>
 
-<span class="sd">    &gt;&gt;&gt; list(prime_gen(50))</span>
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; list(prime_gen(50))</span>
 <span class="sd">        [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]</span>
 <span class="sd">        &gt;&gt;&gt; list(prime_gen(10))</span>
 <span class="sd">        [2, 3, 5, 7]</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">kprimes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">kprimes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
@@ -117,10 +120,13 @@
 <span class="sd">    :param n: number to be factored</span>
 <span class="sd">    :type n: int</span>
 
-<span class="sd">    &gt;&gt;&gt; list(prime_factorization_gen(12))</span>
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; list(prime_factorization_gen(12))</span>
 <span class="sd">        [2, 2, 3]</span>
 <span class="sd">        &gt;&gt;&gt; list(prime_factorization_gen(16))</span>
 <span class="sd">        [2, 2, 2, 2]</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="n">prime_factors_gen</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span> <span class="k">break</span>
@@ -135,10 +141,13 @@
 <span class="sd">    :param n: number to be factorized</span>
 <span class="sd">    :type n: int</span>
 
-<span class="sd">    &gt;&gt;&gt; list(prime_factors_gen(12))</span>
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; list(prime_factors_gen(12))</span>
 <span class="sd">        [2, 3]</span>
 <span class="sd">        &gt;&gt;&gt; list(prime_factors_gen(16))</span>
 <span class="sd">        [2]</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">divisors_gen</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_prime</span><span class="p">(</span><span class="n">p</span><span class="p">))</span></div>
 
@@ -152,12 +161,15 @@
 <span class="sd">    :returns: -&gt; True if number is prime</span>
 <span class="sd">    :rtype: bool</span>
 
-<span class="sd">    &gt;&gt;&gt; is_prime(37)</span>
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; is_prime(37)</span>
 <span class="sd">        True</span>
 <span class="sd">        &gt;&gt;&gt; is_prime(100)</span>
 <span class="sd">        False</span>
 <span class="sd">        &gt;&gt;&gt; is_prime(89)</span>
 <span class="sd">        True</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> <span class="k">return</span> <span class="kc">True</span>
     <span class="k">if</span> <span class="n">number</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
@@ -248,6 +260,11 @@
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">)</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">doctest</span> <span class="k">import</span> <span class="n">testmod</span>
+    <span class="n">testmod</span><span class="p">()</span>
+
 </pre></div>
 
           </div>

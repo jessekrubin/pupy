@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 from __future__ import division, print_function
-from pupy.maths import divisors_gen
 from pupy.decorations import cash_it
 from bisect import bisect_right, bisect
 from itertools import count
 from math import sqrt
 import collections
 from sys import version_info
+from pupy.maths import divisors_gen
 
 if version_info[0] == 2: range = xrange
 
@@ -29,10 +29,13 @@ def prime_gen(plim=0, kprimes=None):
     :param kprimes: known_primes as an iterable (Default value = None)
     :type kprimes: iter
 
+    .. doctest::
+
         >>> list(prime_gen(50))
         [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
         >>> list(prime_gen(10))
         [2, 3, 5, 7]
+
     """
 
     if kprimes is None: kprimes = [2, 3, 5, 7, 11]
@@ -83,10 +86,13 @@ def prime_factorization_gen(n):
     :param n: number to be factored
     :type n: int
 
+    .. doctest::
+
         >>> list(prime_factorization_gen(12))
         [2, 2, 3]
         >>> list(prime_factorization_gen(16))
         [2, 2, 2, 2]
+
     """
     for factor in prime_factors_gen(n):
         if n <= 1: break
@@ -102,10 +108,12 @@ def prime_factors_gen(n):
     :type n: int
 
     .. doctest::
+
         >>> list(prime_factors_gen(12))
         [2, 3]
         >>> list(prime_factors_gen(16))
         [2]
+
     """
     return (p for p in divisors_gen(n) if is_prime(p))
 
@@ -119,12 +127,15 @@ def is_prime(number):
     :returns: -> True if number is prime
     :rtype: bool
 
+    .. doctest::
+
         >>> is_prime(37)
         True
         >>> is_prime(100)
         False
         >>> is_prime(89)
         True
+
     """
     if number == 2 or number == 3: return True
     if number < 2 or number % 2 == 0: return False
@@ -217,6 +228,5 @@ class OctopusPrime(collections.MutableSequence):
         return str(self._list)
 
 if __name__ == '__main__':
-    from doctest import testmod
-    testmod()
-
+    # from doctest import testmod
+    # testmod()

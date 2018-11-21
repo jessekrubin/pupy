@@ -45,21 +45,20 @@
 
 <div class="viewcode-block" id="partitions_gen"><a class="viewcode-back" href="../../index.html#pupy.maths.partitions_gen">[docs]</a><span class="k">def</span> <span class="nf">partitions_gen</span><span class="p">(</span><span class="n">numero</span><span class="p">,</span> <span class="n">min_p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_p</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Partitions generator</span>
-
+<span class="sd">    </span>
 <span class="sd">    Adapted from:</span>
 <span class="sd">        code.activestate.com/recipes/218332-generator-for-integer-partitions/</span>
 <span class="sd">        Adaptions:</span>
 <span class="sd">            min_p: minimum partition value</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        numero (int): number for which to yield partiton tuples</span>
-<span class="sd">        min_p (int): smallest part size</span>
-<span class="sd">        max_p (int): largest part size</span>
+<span class="sd">    :param numero: number for which to yield partiton tuples</span>
+<span class="sd">    :type numero: int</span>
+<span class="sd">    :param min_p: smallest part size (Default value = 1)</span>
+<span class="sd">    :type min_p: int</span>
+<span class="sd">    :param max_p: largest part size (Default value = None)</span>
+<span class="sd">    :type max_p: int</span>
 
-<span class="sd">    Yields:</span>
-<span class="sd">        tuple: partition of max_p with smallest partition being min_p</span>
-
-<span class="sd">    Examples:</span>
+<span class="sd">    .. docstring::python</span>
 <span class="sd">        &gt;&gt;&gt; list(partitions_gen(4))</span>
 <span class="sd">        [(4,), (1, 3), (1, 1, 2), (1, 1, 1, 1), (2, 2)]</span>
 <span class="sd">        &gt;&gt;&gt; list(partitions_gen(4, min_p=1, max_p=2))</span>
@@ -77,10 +76,7 @@
 <span class="k">def</span> <span class="nf">rfactorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Recursive factorial function</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        n:</span>
-
-<span class="sd">    Returns:</span>
+<span class="sd">    :param n: </span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -90,24 +86,29 @@
 
 
 <div class="viewcode-block" id="radians_2_degrees"><a class="viewcode-back" href="../../index.html#pupy.maths.radians_2_degrees">[docs]</a><span class="k">def</span> <span class="nf">radians_2_degrees</span><span class="p">(</span><span class="n">rads</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Converts radians to degrees&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Converts radians to degrees</span>
+
+<span class="sd">    :param rads: </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">rads</span> <span class="o">/</span> <span class="n">pi</span></div>
 
 
 <div class="viewcode-block" id="degrees_2_radians"><a class="viewcode-back" href="../../index.html#pupy.maths.degrees_2_radians">[docs]</a><span class="k">def</span> <span class="nf">degrees_2_radians</span><span class="p">(</span><span class="n">degs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Converts degrees to radians&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Converts degrees to radians</span>
+
+<span class="sd">    :param degs: </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">degs</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span></div>
 
 
 <div class="viewcode-block" id="power_mod"><a class="viewcode-back" href="../../index.html#pupy.maths.power_mod">[docs]</a><span class="k">def</span> <span class="nf">power_mod</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">exponent</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        number:</span>
-<span class="sd">        exponent:</span>
-<span class="sd">        mod:</span>
-
-<span class="sd">    Returns:</span>
+<span class="sd">    :param number: </span>
+<span class="sd">    :param exponent: </span>
+<span class="sd">    :param mod: </span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">exponent</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -121,11 +122,8 @@
 <div class="viewcode-block" id="divisors_gen"><a class="viewcode-back" href="../../index.html#pupy.maths.divisors_gen">[docs]</a><span class="k">def</span> <span class="nf">divisors_gen</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Divisors generator</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        n (int): number w/ divisors to be generated</span>
-
-<span class="sd">    Yields:</span>
-<span class="sd">        int: divisors</span>
+<span class="sd">    :param n: number w/ divisors to be generated</span>
+<span class="sd">    :type n: int</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">large_divisors</span> <span class="o">=</span> <span class="p">[]</span>
@@ -139,7 +137,12 @@
 
 
 <div class="viewcode-block" id="gcd_it"><a class="viewcode-back" href="../../index.html#pupy.maths.gcd_it">[docs]</a><span class="k">def</span> <span class="nf">gcd_it</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;iterative gcd&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;iterative gcd</span>
+
+<span class="sd">    :param a: </span>
+<span class="sd">    :param b: </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">while</span> <span class="n">a</span><span class="p">:</span>
         <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">%</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span>
     <span class="k">return</span> <span class="n">b</span></div>
@@ -147,7 +150,12 @@
 
 <div class="viewcode-block" id="gcd_r"><a class="viewcode-back" href="../../index.html#pupy.maths.gcd_r">[docs]</a><span class="nd">@cash_it</span>
 <span class="k">def</span> <span class="nf">gcd_r</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;recursive greatest common divisor&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;recursive greatest common divisor</span>
+
+<span class="sd">    :param a: </span>
+<span class="sd">    :param b: </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">gcd_r</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span>
@@ -159,11 +167,10 @@
 <div class="viewcode-block" id="reverse"><a class="viewcode-back" href="../../index.html#pupy.maths.reverse">[docs]</a><span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reverses a number</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        n (int): number to be reversed</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        int: reversed of a number</span>
+<span class="sd">    :param n: number to be reversed</span>
+<span class="sd">    :type n: int</span>
+<span class="sd">    :returns: reversed of a number</span>
+<span class="sd">    :rtype: int</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -179,13 +186,12 @@
 <span class="k">def</span> <span class="nf">fib_r</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Recursively the nth fibonacci number</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        n (int): nth fibonacci sequence number</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        int: the nth fibonacci number</span>
-
+<span class="sd">    :param n: nth fibonacci sequence number</span>
+<span class="sd">    :type n: int</span>
+<span class="sd">    :returns: the nth fibonacci number</span>
 <span class="sd">    Examples:</span>
+<span class="sd">    :rtype: int</span>
+
 <span class="sd">        &gt;&gt;&gt; fib_r(1)</span>
 <span class="sd">        1</span>
 <span class="sd">        &gt;&gt;&gt; fib_r(2)</span>
@@ -199,12 +205,13 @@
 <div class="viewcode-block" id="expo"><a class="viewcode-back" href="../../index.html#pupy.maths.expo">[docs]</a><span class="k">def</span> <span class="nf">expo</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;greatest exponent for a divisor of n</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        d (int): divisor</span>
-<span class="sd">        n (int): number be divided</span>
+<span class="sd">    :param d: divisor</span>
+<span class="sd">    :type d: int</span>
+<span class="sd">    :param n: number be divided</span>
+<span class="sd">    :type n: int</span>
+<span class="sd">    :returns: number of times a divisor divides n</span>
+<span class="sd">    :rtype: int</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        int: number of times a divisor divides n</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">:</span>  <span class="c1"># flip</span>
         <span class="n">d</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="p">,</span> <span class="n">d</span>
@@ -218,15 +225,13 @@
 
 <div class="viewcode-block" id="pytriple_gen"><a class="viewcode-back" href="../../index.html#pupy.maths.pytriple_gen">[docs]</a><span class="k">def</span> <span class="nf">pytriple_gen</span><span class="p">(</span><span class="n">max_c</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;primative pythagorean triples generator</span>
-
+<span class="sd">    </span>
 <span class="sd">    special thanks to 3Blue1Brown&#39;s video on pythagorean triples</span>
 <span class="sd">    https://www.youtube.com/watch?v=QJYmyhnaaek&amp;t=300s</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        max_c (int): max value of c to yeild triples up to</span>
+<span class="sd">    :param max_c: max value of c to yeild triples up to</span>
+<span class="sd">    :type max_c: int</span>
 
-<span class="sd">    Yields:</span>
-<span class="sd">        tuple: pythagorean triple (a, b, c)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">real_pts</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">max_c</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">imag_pts</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">real_pts</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">real_pts</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
@@ -242,22 +247,40 @@
                     <span class="k">yield</span> <span class="p">(</span><span class="n">imag</span><span class="p">,</span> <span class="n">real</span><span class="p">,</span> <span class="n">sea</span><span class="p">)</span> <span class="k">if</span> <span class="n">real</span> <span class="o">&gt;</span> <span class="n">imag</span> <span class="k">else</span> <span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">,</span> <span class="n">sea</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">repermutations</span><span class="p">(</span><span class="n">toop</span><span class="p">):</span>
+<div class="viewcode-block" id="repermutations"><a class="viewcode-back" href="../../index.html#pupy.maths.repermutations">[docs]</a><span class="k">def</span> <span class="nf">repermutations</span><span class="p">(</span><span class="n">toop</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param toop: </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">toop</span><span class="p">)</span>
     <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="n">nc</span><span class="p">)</span> <span class="k">for</span> <span class="n">nc</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
     <span class="n">ans</span> <span class="o">=</span> <span class="n">factorial</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">toop</span><span class="p">))</span> <span class="o">//</span> <span class="n">iter_product</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ans</span>
+    <span class="k">return</span> <span class="n">ans</span></div>
 
 
-<span class="k">def</span> <span class="nf">disjoint</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">ae</span> <span class="ow">in</span> <span class="n">b</span> <span class="k">for</span> <span class="n">ae</span> <span class="ow">in</span> <span class="n">a</span><span class="p">)</span>
+<div class="viewcode-block" id="disjoint"><a class="viewcode-back" href="../../index.html#pupy.maths.disjoint">[docs]</a><span class="k">def</span> <span class="nf">disjoint</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param a: </span>
+<span class="sd">    :param b: </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">ae</span> <span class="ow">in</span> <span class="n">b</span> <span class="k">for</span> <span class="n">ae</span> <span class="ow">in</span> <span class="n">a</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">n_choose_r</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">//</span> <span class="n">factorial</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">//</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span>
+<div class="viewcode-block" id="n_choose_r"><a class="viewcode-back" href="../../index.html#pupy.maths.n_choose_r">[docs]</a><span class="k">def</span> <span class="nf">n_choose_r</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param n: </span>
+<span class="sd">    :param r: </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">//</span> <span class="n">factorial</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">//</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">pytriple_gen_2</span><span class="p">():</span>
+<div class="viewcode-block" id="pytriple_gen_2"><a class="viewcode-back" href="../../index.html#pupy.maths.pytriple_gen_2">[docs]</a><span class="k">def</span> <span class="nf">pytriple_gen_2</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
     <span class="n">diagonal_size</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">cur_x</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">cur_y</span> <span class="o">=</span> <span class="mi">2</span>
@@ -273,22 +296,26 @@
         <span class="n">cur_y</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">gcd_it</span><span class="p">(</span><span class="n">to_yield</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">to_yield</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="k">yield</span> <span class="n">to_yield</span>
+        <span class="k">yield</span> <span class="n">to_yield</span></div>
 
 
-<span class="k">def</span> <span class="nf">get_pythag_triple</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">):</span>
+<div class="viewcode-block" id="get_pythag_triple"><a class="viewcode-back" href="../../index.html#pupy.maths.get_pythag_triple">[docs]</a><span class="k">def</span> <span class="nf">get_pythag_triple</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param real: </span>
+<span class="sd">    :param imag: </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">comp</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">)</span>
     <span class="n">sea</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">comp</span> <span class="o">*</span> <span class="n">comp</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
     <span class="n">sqrd</span> <span class="o">=</span> <span class="n">comp</span> <span class="o">*</span> <span class="n">comp</span>
     <span class="n">real</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sqrd</span><span class="o">.</span><span class="n">real</span><span class="p">))</span>
     <span class="n">imag</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sqrd</span><span class="o">.</span><span class="n">imag</span><span class="p">))</span>
-    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">imag</span><span class="p">,</span> <span class="n">real</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">imag</span><span class="p">,</span> <span class="n">real</span><span class="p">),</span> <span class="n">sea</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">imag</span><span class="p">,</span> <span class="n">real</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">imag</span><span class="p">,</span> <span class="n">real</span><span class="p">),</span> <span class="n">sea</span></div>
 
 
 <div class="viewcode-block" id="Trigon"><a class="viewcode-back" href="../../index.html#pupy.maths.Trigon">[docs]</a><span class="k">class</span> <span class="nc">Trigon</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Trigon object composed of three points connected by lines.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Trigon object composed of three points connected by lines.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">pt3</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pt1</span> <span class="o">=</span> <span class="n">Vuple</span><span class="p">(</span><span class="n">pt1</span><span class="p">)</span>
@@ -299,8 +326,8 @@
     <span class="k">def</span> <span class="nf">from_points</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pts</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        :param pts:</span>
-<span class="sd">        :return:</span>
+<span class="sd">        :param pts: return:</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Trigon</span><span class="p">(</span><span class="o">*</span><span class="n">pts</span><span class="p">)</span>
@@ -319,16 +346,14 @@
 
 <div class="viewcode-block" id="Trigon.inner_triangles"><a class="viewcode-back" href="../../index.html#pupy.maths.Trigon.inner_triangles">[docs]</a>    <span class="k">def</span> <span class="nf">inner_triangles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Triangle funk that returns the three triangles w/ a point</span>
-
+<span class="sd">        </span>
 <span class="sd">        The point (p) is connected to each point of a triangle. with points,</span>
 <span class="sd">        a, b, and c. The three triangles are t1=(a, b, p), t2=(a, c, p), and</span>
 <span class="sd">        t3 = (b, c, p).</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            point (tuple or Vuple): point to connect to Triangle Vertices</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            t1, t2, t3 (Trigon): Three triangles</span>
+<span class="sd">        :param point: point to connect to Triangle Vertices</span>
+<span class="sd">        :type point: tuple or Vuple</span>
+<span class="sd">        :returns: t1, t2, t3-&gt; Three triangles</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">t1</span> <span class="o">=</span> <span class="n">Trigon</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt3</span><span class="p">)</span>
@@ -339,10 +364,7 @@
 <div class="viewcode-block" id="Trigon.is_perimeter_point"><a class="viewcode-back" href="../../index.html#pupy.maths.Trigon.is_perimeter_point">[docs]</a>    <span class="k">def</span> <span class="nf">is_perimeter_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            point:</span>
-
-<span class="sd">        Returns:</span>
+<span class="sd">        :param point: </span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Vuple</span><span class="p">:</span>
@@ -351,27 +373,15 @@
                    <span class="nb">map</span><span class="p">(</span><span class="n">methodcaller</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_triangles</span><span class="p">(</span><span class="n">point</span><span class="p">)))</span></div>
 
 <div class="viewcode-block" id="Trigon.points"><a class="viewcode-back" href="../../index.html#pupy.maths.Trigon.points">[docs]</a>    <span class="k">def</span> <span class="nf">points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        Returns:</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt3</span></div>
 
 <div class="viewcode-block" id="Trigon.contains_origin"><a class="viewcode-back" href="../../index.html#pupy.maths.Trigon.contains_origin">[docs]</a>    <span class="k">def</span> <span class="nf">contains_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;True if the origin (0,0) lies within the Triangle</span>
-
-<span class="sd">        Returns:</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;True if the origin (0,0) lies within the Triangle&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Trigon.area"><a class="viewcode-back" href="../../index.html#pupy.maths.Trigon.area">[docs]</a>    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        Returns:</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">truediv</span><span class="p">(</span><span class="n">Vuple</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pt1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt2</span><span class="p">,</span>
                                        <span class="bp">self</span><span class="o">.</span><span class="n">pt3</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt2</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span></div>
 
@@ -379,12 +389,9 @@
     <span class="k">def</span> <span class="nf">area_from_points</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">pt3</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            pt1:</span>
-<span class="sd">            pt2:</span>
-<span class="sd">            pt3:</span>
-
-<span class="sd">        Returns:</span>
+<span class="sd">        :param pt1: </span>
+<span class="sd">        :param pt2: </span>
+<span class="sd">        :param pt3: </span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">truediv</span><span class="p">(</span><span class="n">Vuple</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">pt1</span> <span class="o">-</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">pt3</span> <span class="o">-</span> <span class="n">pt2</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span></div></div>
@@ -408,6 +415,14 @@
         <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">            &gt;&gt;&gt; va = Vuple((8, 13))</span>
+<span class="sd">            &gt;&gt;&gt; vb = Vuple((26, 7))</span>
+<span class="sd">            &gt;&gt;&gt; va + vb</span>
+<span class="sd">            (34, 20)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Vuple</span><span class="p">((</span><span class="n">k</span> <span class="o">+</span> <span class="n">el</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">))</span>
         <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Vuple</span><span class="p">:</span>
@@ -415,15 +430,28 @@
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dimensions do NOT match&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">Vuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
 
+    <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Vuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__isub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__sub__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
-<span class="sd">        &gt;&gt;&gt; a = Vuple((1, 2, 3))</span>
-<span class="sd">        &gt;&gt;&gt; a * a</span>
-<span class="sd">        14</span>
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Multiply by a scalar for each element or cross product if also iterable of same length</span>
+
+<span class="sd">        :param k: scalar ot other iterable to do the cross producting with</span>
+<span class="sd">        :return: A Vuple or a sum as a cost product</span>
+
+<span class="sd">            &gt;&gt;&gt; a = Vuple((1, 2, 3))</span>
+<span class="sd">            &gt;&gt;&gt; a * a</span>
+<span class="sd">            14</span>
+<span class="sd">            &gt;&gt;&gt; a = Vuple((1, 1, 1))</span>
+<span class="sd">            &gt;&gt;&gt; a * 4</span>
+<span class="sd">            (4, 4, 4)</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
@@ -437,6 +465,11 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_mul_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param k: </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vuple</span><span class="p">((</span><span class="n">k</span> <span class="o">*</span> <span class="n">el</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
@@ -444,6 +477,11 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_truediv_scalar</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_truediv_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param k: </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vuple</span><span class="p">((</span><span class="n">el</span> <span class="o">/</span> <span class="n">k</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__itruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
@@ -457,12 +495,19 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__floordiv__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_floordiv_scalar_int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param k: </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vuple</span><span class="p">((</span><span class="n">el</span> <span class="o">//</span> <span class="n">k</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">))</span>
 
 <div class="viewcode-block" id="Vuple.normalize"><a class="viewcode-back" href="../../index.html#pupy.maths.Vuple.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Normalizes the Vuple ST self.magnitude == 1</span>
-
+<span class="sd">        </span>
 <span class="sd">        :return: Unit Vuple</span>
+
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vuple</span><span class="o">.</span><span class="n">unit_vuple</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
@@ -470,50 +515,35 @@
     <span class="k">def</span> <span class="nf">unit_vuple</span><span class="p">(</span><span class="n">voop</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            voop:</span>
-
-<span class="sd">        Returns:</span>
+<span class="sd">        :param voop: </span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vuple</span><span class="p">(</span><span class="n">voop</span><span class="p">)</span> <span class="o">/</span> <span class="n">Vuple</span><span class="o">.</span><span class="n">mag</span><span class="p">(</span><span class="n">voop</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Vuple.get_mag_sqrd"><a class="viewcode-back" href="../../index.html#pupy.maths.Vuple.get_mag_sqrd">[docs]</a>    <span class="k">def</span> <span class="nf">get_mag_sqrd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        Returns:</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vuple</span><span class="o">.</span><span class="n">mag_sqrd</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Vuple.mag_sqrd"><a class="viewcode-back" href="../../index.html#pupy.maths.Vuple.mag_sqrd">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">mag_sqrd</span><span class="p">(</span><span class="n">voop</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            voop:</span>
-
-<span class="sd">        Returns:</span>
+<span class="sd">        :param voop: </span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">el</span> <span class="o">*</span> <span class="n">el</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">voop</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Vuple.get_mag"><a class="viewcode-back" href="../../index.html#pupy.maths.Vuple.get_mag">[docs]</a>    <span class="k">def</span> <span class="nf">get_mag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        Returns:</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Vuple</span><span class="o">.</span><span class="n">mag</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Vuple.mag"><a class="viewcode-back" href="../../index.html#pupy.maths.Vuple.mag">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">mag</span><span class="p">(</span><span class="n">voop</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            voop:</span>
+<span class="sd">        :param voop:</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">            &gt;&gt;&gt; v = Vuple((3, 4, 5))</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Vuple</span><span class="o">.</span><span class="n">mag_sqrd</span><span class="p">(</span><span class="n">voop</span><span class="p">))</span></div>
@@ -522,11 +552,8 @@
     <span class="k">def</span> <span class="nf">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            a:</span>
-<span class="sd">            b:</span>
-
-<span class="sd">        Returns:</span>
+<span class="sd">        :param a: </span>
+<span class="sd">        :param b: </span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">va</span> <span class="o">*</span> <span class="n">vb</span> <span class="k">for</span> <span class="n">va</span><span class="p">,</span> <span class="n">vb</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span></div>
@@ -537,7 +564,8 @@
 
 <span class="sd">        :param v1: first vector</span>
 <span class="sd">        :param v2: second vector</span>
-<span class="sd">        :return: cross product of v1 and v2</span>
+<span class="sd">        :returns: cross product of v1 and v2</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -548,12 +576,9 @@
     <span class="k">def</span> <span class="nf">angle</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">radians</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            v1:</span>
-<span class="sd">            v2:</span>
-<span class="sd">            radians:</span>
-
-<span class="sd">        Returns:</span>
+<span class="sd">        :param v1: </span>
+<span class="sd">        :param v2: </span>
+<span class="sd">        :param radians:  (Default value = False)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># return acos(Vuple.dproduct(v1, v2)/(Vuple.mag(v1)*Vuple.mag(v2)))</span>
@@ -561,15 +586,27 @@
         <span class="k">return</span> <span class="n">q</span> <span class="o">*</span> <span class="n">acos</span><span class="p">(</span><span class="n">Vuple</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Vuple</span><span class="o">.</span><span class="n">unit_vuple</span><span class="p">(</span><span class="n">v1</span><span class="p">),</span>
                                   <span class="n">Vuple</span><span class="o">.</span><span class="n">unit_vuple</span><span class="p">(</span><span class="n">v2</span><span class="p">)))</span></div>
 
-    <span class="k">def</span> <span class="nf">is_disjoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">them</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">them</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
+<div class="viewcode-block" id="Vuple.is_disjoint"><a class="viewcode-back" href="../../index.html#pupy.maths.Vuple.is_disjoint">[docs]</a>    <span class="k">def</span> <span class="nf">is_disjoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">them</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param them: </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">them</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span></div>
 
 <div class="viewcode-block" id="Vuple.product"><a class="viewcode-back" href="../../index.html#pupy.maths.Vuple.product">[docs]</a>    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Multiplies all elements in the Vuple</span>
-
+<span class="sd">        </span>
 <span class="sd">        :return:</span>
+
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">iter_product</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+
 </pre></div>
 
           </div>
