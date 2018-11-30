@@ -45,9 +45,9 @@ Overview
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/pupy
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/jessekrubin/python-pupy/v1.0.0.svg
+.. |commits-since| image:: https://img.shields.io/github/commits-since/jessekrubin/python-pupy/v2.0.0.svg
     :alt: Commits since latest release
-    :target: https://github.com/jessekrubin/python-pupy/compare/v1.0.0...master
+    :target: https://github.com/jessekrubin/python-pupy/compare/v2.0.0...master
 
 .. |wheel| image:: https://img.shields.io/pypi/wheel/pupy.svg
     :alt: PyPI Wheel

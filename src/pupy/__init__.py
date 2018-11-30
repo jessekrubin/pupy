@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 from __future__ import print_function, division, with_statement
-__version__ = '1.0.0'
+__version__ = '2.0.0'
 try:
     range
 except NameError:
