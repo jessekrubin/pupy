@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 # Jesse Rubin - Project Euler Tests
 
-from pupy.amazon_prime import *
+from pupy.amazon_prime import OctopusPrime
+from pupy.amazon_prime import is_prime
+from pupy.amazon_prime import prime_factors_gen
+from pupy.amazon_prime import prime_gen
 
 p_lt50 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
 p_lt100 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
@@ -47,14 +50,6 @@ class TestOctopusPrimeMethods(object):
         """
         op = OctopusPrime(plim=100)
         assert p_gt50_lt200 == op.primes_between(50, 200)
-
-    def test_contains(self):
-        """
-
-        """
-        from bisect import bisect
-        op = OctopusPrime(plim=100)
-
 
 class TestPrimeSieve(object):
 

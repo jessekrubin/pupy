@@ -44,7 +44,7 @@ def partitions_gen(numero, min_p=1, max_p=None):
 def rfactorial(n):
     """Recursive factorial function
 
-    :param n: 
+    :param n:
 
     """
     if n == 1:
@@ -312,8 +312,9 @@ class Trigon(object):
     def __contains__(self, point):
         if type(point) is not Vuple:
             point = Vuple(point)
-        return self.area() == sum(map(methodcaller('area'),
-                                      self.inner_triangles(point)))
+        return self.area() == sum(
+            map(methodcaller("area"), self.inner_triangles(point))
+        )
 
     def inner_triangles(self, point):
         """Triangle funk that returns the three triangles w/ a point
@@ -340,8 +341,10 @@ class Trigon(object):
         """
         if type(point) is not Vuple:
             point = Vuple(point)
-        return any(tri_area == 0 for tri_area in
-                   map(methodcaller('area'), self.inner_triangles(point)))
+        return any(
+            tri_area == 0
+            for tri_area in map(methodcaller("area"), self.inner_triangles(point))
+        )
 
     def points(self):
         """ """
@@ -353,8 +356,7 @@ class Trigon(object):
 
     def area(self):
         """ """
-        return abs(truediv(Vuple.cross(self.pt1 - self.pt2,
-                                       self.pt3 - self.pt2), 2))
+        return abs(truediv(Vuple.cross(self.pt1 - self.pt2, self.pt3 - self.pt2), 2))
 
     @staticmethod
     def area_from_points(pt1, pt2, pt3):
@@ -560,8 +562,7 @@ class Vuple(tuple):
         """
         # return acos(Vuple.dproduct(v1, v2)/(Vuple.mag(v1)*Vuple.mag(v2)))
         q = 1 if radians else 180 / pi
-        return q * acos(Vuple.dot(Vuple.unit_vuple(v1),
-                                  Vuple.unit_vuple(v2)))
+        return q * acos(Vuple.dot(Vuple.unit_vuple(v1), Vuple.unit_vuple(v2)))
 
     def is_disjoint(self, them):
         """
@@ -581,7 +582,7 @@ class Vuple(tuple):
         return iter_product(self)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import doctest
 
     doctest.testmod()

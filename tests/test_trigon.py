@@ -38,7 +38,7 @@ class TestTrigon(object):
         """
         tri = Trigon((-175, 41), (-421, -714), (574, -645))
         assert Vuple((0, 0)) not in tri
-        assert tri.contains_origin() == False
+        assert not tri.contains_origin()
 
 
 class TestPytriplesGen(object):
