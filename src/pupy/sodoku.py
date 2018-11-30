@@ -180,7 +180,7 @@ class Sodoku(object):
         strings = [
             header, top_border, top_boxes, mid_border, mid_boxes, mid_border,
             bot_boxes, bot_border
-            ]
+        ]
         return "\n".join(strings)
 
     @staticmethod

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Module that contains the command line app.
 
@@ -22,5 +23,9 @@ parser.add_argument('names', metavar='NAME', nargs=argparse.ZERO_OR_MORE,
 
 
 def main(args=None):
+    """
+
+    :param args:
+    """
     args = parser.parse_args(args=args)
     print(args.names)

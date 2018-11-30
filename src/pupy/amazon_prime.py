@@ -227,6 +227,8 @@ class OctopusPrime(collections.MutableSequence):
     def __repr__(self):
         return str(self._list)
 
+
 if __name__ == '__main__':
     from doctest import testmod
+
     testmod()

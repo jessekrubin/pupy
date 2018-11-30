@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 AppVeyor will at least have few Pythons around so there's no point of implementing a bootstrapper in PowerShell.
 
@@ -39,10 +40,22 @@ INSTALL_CMD = {
 
 
 def download_file(url, path):
+    """
+
+    :param url:
+    :param path:
+    :return:
+    """
     print("Downloading: {} (into {})".format(url, path))
     progress = [0, 0]
 
     def report(count, size, total):
+        """
+
+        :param count:
+        :param size:
+        :param total:
+        """
         progress[0] = count * size
         if progress[0] - progress[1] > 1000000:
             progress[1] = progress[0]
@@ -53,6 +66,13 @@ def download_file(url, path):
 
 
 def install_python(version, arch, home):
+    """
+
+    :param version:
+    :param arch:
+    :param home:
+    :return:
+    """
     print("Installing Python", version, "for", arch, "bit architecture to", home)
     if exists(home):
         return
@@ -79,6 +99,12 @@ def install_python(version, arch, home):
 
 
 def download_python(version, arch):
+    """
+
+    :param version:
+    :param arch:
+    :return:
+    """
     for _ in range(3):
         try:
             return download_file(URLS[version, arch], "installer.exe")
@@ -88,6 +114,10 @@ def download_python(version, arch):
 
 
 def install_pip(home):
+    """
+
+    :param home:
+    """
     pip_path = home + "/Scripts/pip.exe"
     python_path = home + "/python.exe"
     if exists(pip_path):
@@ -100,6 +130,11 @@ def install_pip(home):
 
 
 def install_packages(home, *packages):
+    """
+
+    :param home:
+    :param packages:
+    """
     cmd = [home + "/Scripts/pip.exe", "install"]
     cmd.extend(packages)
     check_call(cmd)

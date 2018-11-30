@@ -9,21 +9,33 @@ from pupy.maths import pytriple_gen, Trigon, Vuple
 class TestTrigon(object):
 
     def test_triangle_area_half(self):
+        """
+
+        """
         t2 = [(1, 0), (0, 1), (0, 0)]
         assert 0.5 == Trigon(*t2).area()
 
     def test_origin_in_triangle(self):
+        """
+
+        """
         pts = [(-340, 495), (-153, -910), (835, -947)]
         tri = Trigon.from_points(pts)
         assert (0, 0) in tri
         assert tri.contains_origin()
 
     def test_point_on_perimeter(self):
+        """
+
+        """
         pts = [(-340, 495), (-153, -910), (835, -947)]
         tri = Trigon.from_points(pts)
         assert tri.is_perimeter_point(pts[0])
 
     def test_origin_not_in_triangle(self):
+        """
+
+        """
         tri = Trigon((-175, 41), (-421, -714), (574, -645))
         assert Vuple((0, 0)) not in tri
         assert tri.contains_origin() == False
@@ -56,5 +68,8 @@ class TestPytriplesGen(object):
         assert self.lt100 == p_set
 
     def test_pytriplets_c_lt300(self):
+        """
+
+        """
         p_set = {t for t in pytriple_gen(300)}
         assert self.lt300 == p_set

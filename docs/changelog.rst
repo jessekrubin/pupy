@@ -1,1 +1,1 @@
-.. include:: ../CHANGELOG.rst
+# -*- coding: utf-8 -*-.. include:: ../CHANGELOG.rst

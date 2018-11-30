@@ -19,24 +19,39 @@ p_gt50_lt200 = [53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109,
 
 
 def test_is_prime():
+    """
+
+    """
     assert all(is_prime(n) for n in p_lt200)
 
 
 def test_pfactors_gen():
+    """
+
+    """
     assert [pf for pf in prime_factors_gen(12)] == [2, 3]
 
 
 class TestOctopusPrimeMethods(object):
 
     def test_lt100_no_save_load(self):
+        """
+
+        """
         op = OctopusPrime(plim=100)
         assert all(a == b for a, b in zip(p_lt100, op))
 
     def test_primes_gt50_lt200(self):
+        """
+
+        """
         op = OctopusPrime(plim=100)
         assert p_gt50_lt200 == op.primes_between(50, 200)
 
     def test_contains(self):
+        """
+
+        """
         from bisect import bisect
         op = OctopusPrime(plim=100)
 

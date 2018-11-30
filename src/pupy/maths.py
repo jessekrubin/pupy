@@ -25,10 +25,12 @@ def partitions_gen(numero, min_p=1, max_p=None):
     :type max_p: int
 
     .. docstring::python
+
         >>> list(partitions_gen(4))
         [(4,), (1, 3), (1, 1, 2), (1, 1, 1, 1), (2, 2)]
         >>> list(partitions_gen(4, min_p=1, max_p=2))
         [(1, 1, 2), (1, 1, 1, 1), (2, 2)]
+
     """
     if max_p is None or max_p >= numero:
         yield (numero,)
@@ -158,12 +160,15 @@ def fib_r(n):
     Examples:
     :rtype: int
 
+    .. docstring::python
+
         >>> fib_r(1)
         1
         >>> fib_r(2)
         2
         >>> fib_r(6)
         13
+
     """
     return n if n < 3 else fib_r(n - 1) + fib_r(n - 2)
 
@@ -383,6 +388,8 @@ class Vuple(tuple):
     def __add__(self, k):
         """
 
+        .. docstring::python
+
             >>> va = Vuple((8, 13))
             >>> vb = Vuple((26, 7))
             >>> va + vb
@@ -410,6 +417,8 @@ class Vuple(tuple):
 
         :param k: scalar ot other iterable to do the cross producting with
         :return: A Vuple or a sum as a cost product
+
+        .. docstring::python
 
             >>> a = Vuple((1, 2, 3))
             >>> a * a
@@ -509,6 +518,8 @@ class Vuple(tuple):
 
         :param voop:
 
+        .. docstring::python
+
             >>> v = Vuple((3, 4, 5))
 
         """
@@ -569,7 +580,8 @@ class Vuple(tuple):
         """
         return iter_product(self)
 
+
 if __name__ == '__main__':
     import doctest
-    doctest.testmod()
 
+    doctest.testmod()

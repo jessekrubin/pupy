@@ -15,10 +15,13 @@ def chunks(list, chunk_size):
     :param chunk_size: size of the chunks
     :type chunk_size: int
 
+    .. docstring::python
+
         >>> list(chunks([1, 2, 3, 4, 5, 6], 3))
         [[1, 2, 3], [4, 5, 6]]
         >>> list(chunks([1, 2, 3, 4, 5, 6], 2))
         [[1, 2], [3, 4], [5, 6]]
+
     """
     for i in range(0, len(list), chunk_size):
         yield list[i:i + chunk_size]
@@ -52,9 +55,10 @@ def rotate(rlist, rn=1, left_rotate=True):
     :type rn: int
     :param left_rotate: True (default) left rotates; False right rotates.
     :type left_rotate: bool
-    :returns: -> rotated list
-    Examples:
+    :returns: rotated list
     :rtype: list
+
+    .. doctest::python
 
         >>> rotate([1, 2, 3, 4], left_rotate=True)
         [2, 3, 4, 1]
@@ -62,6 +66,7 @@ def rotate(rlist, rn=1, left_rotate=True):
         [4, 1, 2, 3]
         >>> rotate([1, 2, 3, 4], rn=4, left_rotate=False)
         [1, 2, 3, 4]
+
     """
 
     def _left_rotate(l, n=1):
@@ -88,7 +93,9 @@ def rotate(rlist, rn=1, left_rotate=True):
 def rotations_gen(rlist):
     """Yields all rotations of a list
 
-    :param rlist: Examples:
+    :param rlist:
+
+    .. doctest::python
 
         >>> for rot in rotations_gen((1, 2, 3, 4)):
         ...     print(rot)
@@ -97,6 +104,7 @@ def rotations_gen(rlist):
         (4, 1, 2, 3)
         (3, 4, 1, 2)
         (2, 3, 4, 1)
+
     """
     return ((rlist[-i:] + rlist[:-i])
             for i in range(len(rlist)))
@@ -108,8 +116,9 @@ def digits_list(number):
     :param number: number w/ digits to be listsed
     :type number: int
     :returns: -> digits in a list
-    Examples:
     :rtype: list
+
+    .. doctest::python
 
         >>> digits_list(1111)
         [1, 1, 1, 1]
@@ -119,6 +128,7 @@ def digits_list(number):
         [1, 0, 1]
         >>> digits_list(123)
         [1, 2, 3]
+
     """
 
     digits = deque()
@@ -135,12 +145,15 @@ def int_from_digits(digits):
 
     :rtype: int
 
+    .. doctest::python
+
         >>> int_from_digits([3, 2, 1])
         321
         >>> int_from_digits([1, 1, 1, 1, 2, 3])
         111123
         >>> int_from_digits([1, 2, 3])
         123
+
     """
     return sum(digits[len(digits) - i - 1] * 10 ** i for i in range(0, len(digits), 1))
 
@@ -153,15 +166,20 @@ def iter_product(l):
     Examples:
     :rtype: int
 
+    .. doctest::python
+
         >>> iter_product([1, 2, 3, 4])
         24
         >>> iter_product(tuple([1, 2, 3, 4]))
         24
         >>> iter_product([-1, -2, -3, 4])
         -24
+
     """
     return reduce(mul, l)
 
+
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

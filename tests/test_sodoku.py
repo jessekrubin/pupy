@@ -16,6 +16,9 @@ from pytest import raises
 class Test_SodokuMethods(object):
 
     def test_neighbors(self):
+        """
+
+        """
         a = {0: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 72, 18, 19, 20, 27, 36, 45, 54, 63},
              13: {3, 4, 5, 67, 9, 10, 11, 12, 76, 14, 15, 16, 17, 21, 22, 23, 31, 40, 49, 58},
              14: {3, 4, 5, 68, 9, 10, 11, 12, 13, 77, 15, 16, 17, 21, 22, 23, 32, 41, 50, 59},
@@ -29,6 +32,9 @@ class Test_SodokuMethods(object):
             assert Sodoku.neighbors(k) == v
 
     def test_board_str(self):
+        """
+
+        """
         full_board = ['365427819',
                       '487931526',
                       '129856374',
@@ -56,6 +62,9 @@ class Test_SodokuMethods(object):
         assert '\n'.join(split_board) == s.__str__()
 
     def test_board_str(self):
+        """
+
+        """
         full_board = ['365427819',
                       '487931526',
                       '129856374',
@@ -83,6 +92,9 @@ class Test_SodokuMethods(object):
         assert '\n'.join(split_board) == s.__str__()
 
     def test_str_too(self):
+        """
+
+        """
         so_do_ku = ['123456789',
                     '123456789',
                     '123456789',
@@ -113,6 +125,9 @@ class Test_SodokuMethods(object):
     class Test_Not_Enough_Info(object):
 
         def test_empty_board(self):
+            """
+
+            """
             # empty board
             test_board = '.................................................................................'
             s = Sodoku(test_board)
@@ -120,6 +135,9 @@ class Test_SodokuMethods(object):
                 s.solve()
 
         def test_one_cell_given(self):
+            """
+
+            """
             # one cell
             test_board = '........................................1........................................'
             s = Sodoku(test_board)
@@ -127,6 +145,9 @@ class Test_SodokuMethods(object):
                 s.solve()
 
         def test_lt16_cells_given(self):
+            """
+
+            """
             # less than 16 values
             test_board = '...........5....9...4....1.2....3.5....7.....438...2......9.....1.4...6..........'
             s = Sodoku(test_board)
@@ -136,18 +157,27 @@ class Test_SodokuMethods(object):
     class Test_Duplicate(object):
 
         def test_duplicate_col(self):
+            """
+
+            """
             badcol = '6.159.....9..1............4.7.314..6.24.....5..3....1...6.....3...9.2.4......16..'
             with raises(SodokuError):
                 sbc = Sodoku(badcol)
                 sbc.solve()
 
         def test_duplicate_row(self):
+            """
+
+            """
             badrow = '.4.1..35.............2.5......4.89..26.....12.5.3....7..4...16.6....7....1..8..2.'
             with raises(SodokuError):
                 sbr = Sodoku(badrow)
                 sbr.solve()
 
         def test_duplicate_box(self):
+            """
+
+            """
             badbox = '..9.7...5..21..9..1...28....7...5..1..851.....5....3.......3..68........21.....87'
             with raises(SodokuError):
                 sbb = Sodoku(badbox)
@@ -156,24 +186,36 @@ class Test_SodokuMethods(object):
     class Test_Unsolvable(object):
 
         def test_row_unsolvable(self):
+            """
+
+            """
             test_b = '9..1....4.14.3.8....3....9....7.8..18....3..........3..21....7...9.4.5..5...16..3'
             sodo = Sodoku(test_b)
             with raises(SodokuError):
                 sodo.solve()
 
         def test_col_unsolvable(self):
+            """
+
+            """
             test_b = '....41....6.....2...2......32.6.........5..417.......2......23..48......5.1..2...'
             sodo = Sodoku(test_b)
             with raises(SodokuError):
                 sodo.solve()
 
         def test_box_unsolvable(self):
+            """
+
+            """
             test_b = '.9.3....1....8..46......8..4.5.6..3...32756...6..1.9.4..1......58..2....2....7.6.'
             sodo = Sodoku(test_b)
             with raises(SodokuError):
                 sodo.solve()
 
         def test_square_unsolvable(self):
+            """
+
+            """
             test_b = '..9.287..8.6..4..5..3.....46.........2.71345.........23.....5..9..4..8.7..125.3..'
             sodo = Sodoku(test_b)
             with raises(SodokuError):
@@ -183,6 +225,9 @@ class Test_SodokuMethods(object):
     class TestValidCases(object):
 
         def test_already_solved(self):
+            """
+
+            """
             test_board = '974236158638591742125487936316754289742918563589362417867125394253649871491873625'
             s = Sodoku(test_board)
             s.solve()
@@ -190,6 +235,9 @@ class Test_SodokuMethods(object):
             assert s_solved == test_board
 
         def test_one_empty_square(self):
+            """
+
+            """
             test_board = '2564891733746159829817234565932748617128.6549468591327635147298127958634849362715'
             test_solution = '256489173374615982981723456593274861712836549468591327635147298127958634849362715'
             assert len(test_board) == len(test_solution)
@@ -200,6 +248,9 @@ class Test_SodokuMethods(object):
             # assert
 
         def test_hidden_singles(self):
+            """
+
+            """
             test_board = '..2.3...8' \
                          '.....8...' \
                          '.31.2....' \
@@ -225,6 +276,9 @@ class Test_SodokuMethods(object):
             assert s_solved == test_solution
 
         def test_naked_singles(self):
+            """
+
+            """
             test_board = '3.542.81.' \
                          '4879.15.6' \
                          '.29.56374' \

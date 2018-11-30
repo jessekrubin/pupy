@@ -1,8 +1,11 @@
-
+# -*- coding: utf-8 -*-
 from pupy.cli import main
 
 
 def test_main():
+    """
+
+    """
     main([])
 
 

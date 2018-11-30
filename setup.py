@@ -27,6 +27,12 @@ except ImportError:
 
 
 def read(*names, **kwargs):
+    """
+
+    :param names:
+    :param kwargs:
+    :return:
+    """
     with io.open(
         join(dirname(__file__), *names),
         encoding=kwargs.get('encoding', 'utf8')
@@ -44,6 +50,9 @@ if 'TOXENV' in os.environ and 'SETUPPY_CFLAGS' in os.environ:
 class optional_build_ext(build_ext):
     """Allow the building of C extensions to fail."""
     def run(self):
+        """
+
+        """
         try:
             build_ext.run(self)
         except Exception as e:

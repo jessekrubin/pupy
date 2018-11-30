@@ -1,4 +1,4 @@
-Reference
+# -*- coding: utf-8 -*-Reference
 =========
 
 .. toctree::

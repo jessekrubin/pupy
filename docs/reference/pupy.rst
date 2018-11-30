@@ -1,4 +1,4 @@
-pupy
+# -*- coding: utf-8 -*-pupy
 ====
 
 .. testsetup::
