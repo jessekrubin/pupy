@@ -76,7 +76,7 @@ class optional_build_ext(build_ext):
 
 setup(
     name='pupy',
-    version='0.1.0',
+    version='1.0.0',
     license='BSD 2-Clause License',
     description='Pretty Useful Python',
     long_description='%s\n%s' % (
