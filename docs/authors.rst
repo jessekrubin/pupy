@@ -1,1 +1,1 @@
-# -*- coding: utf-8 -*-.. include:: ../AUTHORS.rst
+.. include:: ../AUTHORS.rst
