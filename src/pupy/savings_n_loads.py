@@ -4,6 +4,7 @@
 
 from __future__ import with_statement, print_function
 from os import path
+from datetime import datetime
 from io import open
 from json import load, dump
 from codecs import getwriter
@@ -43,30 +44,33 @@ def loads(filepath):
     :param filepath: return:
 
     """
-    if path.exists(filepath):
-        with open(filepath, encoding='utf-8') as file:
-            return file.read()
-    else:
-        raise FileNotFoundError("FILE NOT FOUND: {}".format(filepath))
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            return f.read()
+    except UnicodeDecodeError as e:
+        with open(filepath, 'r', encoding='latin2') as f:
+            return f.read()
 
+def save_jasm(filepath, data, min=False):
+    """Save json-serial-ize-able data to a specific filepath.
 
-def save_jasm(filepath, data, safe_save=False):
-    """Save a python object as json file
-
-    :param filepath: path w/ which 2 save the file
-    :param data: some python text object that is hashable
-    :param safe_save: return: None (Default value = False)
-    :returns: None
-    :rtype: None
-
+    :param filepath: save filepath
+    :param data: json ready data
+    :param min: minified format flag
+    :return: None
     """
-
-    with open(safe_path(filepath) if safe_save else filepath, 'wb') as file:
-        dump(data, getwriter('utf-8')(file),
-             indent=4,
-             sort_keys=True,
-             ensure_ascii=False)
-
+    if type(data) == dict and any(type(val) == bytes for val in data.values()):
+        data = {k: str(v, encoding='utf-8') for k, v in data.items()}
+    if min and '.min.json' not in filepath:
+        filepath = filepath.replace('.json', '.min.json')
+    with open(filepath, 'wb') as jsonfile:
+        if min:
+            dump(data, getwriter('utf-8')(jsonfile), ensure_ascii=False)
+        else:
+            dump(data, getwriter('utf-8')(jsonfile),
+                      indent=4,
+                      sort_keys=True,
+                      ensure_ascii=False)
 
 def load_jasm(filepath):
     """
@@ -76,3 +80,15 @@ def load_jasm(filepath):
     """
     with open(filepath) as infile:
         return load(infile)
+
+
+def timestamp():
+    """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS
+
+    :return: timestamp string
+    """
+    """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS"""
+    return datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
+
+if __name__ == '__main__':
+    pass
