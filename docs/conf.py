@@ -26,7 +26,7 @@ project = 'pupy'
 year = '2018'
 author = 'jesse k rubin'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '2.1.2'
+version = release = '2.1.3'
 
 pygments_style = 'trac'
 templates_path = ['.']
