@@ -35,15 +35,16 @@ def string_score(strang):
 
 def is_palindrome(string):
     """True a string is a palindrome; False if string is not a palindrome.
-    
-    Examples:
 
     :param string: 
 
-    >>> is_palindrome("racecar")
+    .. doctest::python
+
+        >>> is_palindrome("racecar")
         True
         >>> is_palindrome("greg")
         False
+
     """
     return all(
         character == string[-index - 1] for index, character in enumerate(string)
