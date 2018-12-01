@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-from typing import Any, Optional
+from typing import Any
+from typing import Optional
+
 
 class SodokuError(ValueError):
     message: str = ...
-    def __init__(self, message: str,
-                 row: Optional[int] = ...,
-                 col: Optional[int] = ...) -> None: ...
+    def __init__(
+        self, message: str, row: Optional[int] = ..., col: Optional[int] = ...
+    ) -> None: ...
 
 class Sodoku:
     is_solved: bool = ...

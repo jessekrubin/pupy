@@ -2,7 +2,12 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from typing import Any, Generator, List, Union, Iterable
+from typing import Any
+from typing import Generator
+from typing import Iterable
+from typing import List
+from typing import Union
+
 
 def chunks(list: List[Any], chunk_size: int) -> Generator: ...
 def is_permutation(a: Union[Iterable[Any], int], b: Union[Iterable[Any], int]): ...

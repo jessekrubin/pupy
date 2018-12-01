@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-from typing import Any, Optional, Callable, Dict
+from typing import Any
+from typing import Callable
+from typing import Dict
+from typing import Optional
+
 
 def cash_it(funk: Callable): ...
 
@@ -22,4 +26,4 @@ class tictoc(object):
     args: Any = ...
     def __call__(self, time_funk: Callable, printing: bool = ...): ...
     @staticmethod
-    def ftime(t1: float, t2: Optional[float]= ...): ...
+    def ftime(t1: float, t2: Optional[float] = ...): ...

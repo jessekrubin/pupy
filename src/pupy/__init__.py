@@ -5,8 +5,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import with_statement
 
-__version__ = "2.0.0"
-
 from pupy.amazon_prime import OctopusPrime
 from pupy.amazon_prime import is_prime
 from pupy.amazon_prime import prime_factorization_gen

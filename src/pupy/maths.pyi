@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-from typing import Any, Generator, Iterable, List, Sequence, Union
+from typing import Any
+from typing import Generator
+from typing import Iterable
+from typing import List
+from typing import Sequence
+from typing import Union
 
 Flint = Union[int, float]
 
@@ -72,4 +77,6 @@ class Vuple(tuple):
     @staticmethod
     def cross(v1: Any, v2: Any): ...
     @staticmethod
-    def angle(v1: Union[Vuple, tuple], v2: Union[Vuple, tuple], radians: bool = ...): ...
+    def angle(
+        v1: Union[Vuple, tuple], v2: Union[Vuple, tuple], radians: bool = ...
+    ): ...

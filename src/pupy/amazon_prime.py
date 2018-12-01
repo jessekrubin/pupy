@@ -1,17 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-from __future__ import division, print_function
-from pupy.decorations import cash_it
-from bisect import bisect_right, bisect
+from __future__ import division
+from __future__ import print_function
+
+import collections
+from bisect import bisect
+from bisect import bisect_right
 from itertools import count
 from math import sqrt
-import collections
 from sys import version_info
+
+from pupy.decorations import cash_it
 from pupy.maths import divisors_gen
 
-if version_info[0] == 2: range = xrange
-
+if version_info[0] == 2:
+    range = xrange
 
 def prime_gen(plim=0, kprimes=None):
     """Infinite (within reason) prime number generator
@@ -38,8 +42,8 @@ def prime_gen(plim=0, kprimes=None):
 
     """
 
-    if kprimes is None: kprimes = [2, 3, 5, 7, 11]
-
+    if kprimes is None:
+        kprimes = [2, 3, 5, 7, 11]
     def _dictionary():
         """Recreates the prime divisors dictionary used by the generator"""
         div_dict = {}
@@ -49,10 +53,10 @@ def prime_gen(plim=0, kprimes=None):
                 multiple += pdiv
             else:
                 multiple += 2 * pdiv
-            while multiple in div_dict: multiple += pdiv * 2
+            while multiple in div_dict:
+                multiple += pdiv * 2
             div_dict[multiple] = pdiv
         return div_dict
-
     # [1]
     # See if the upper bound is greater than the known primes
     if 0 < plim <= kprimes[-1]:
@@ -66,19 +70,24 @@ def prime_gen(plim=0, kprimes=None):
     # Set start and yield first 4 primes
     divz = _dictionary()
     start = kprimes[-1] + 2  # max prime + 2 (make sure it is odd)
-    if start == 13: yield 2; yield 3; yield 5; yield 7; yield 11
+    if start == 13:
+        yield 2
+        yield 3
+        yield 5
+        yield 7
+        yield 11
     # use count or range depending on if generator is infinite
     it = count(start, 2) if plim == 0 else range(start, plim, 2)
     for num in it:
         prime_div = divz.pop(num, None)
         if prime_div:
             multiple = (2 * prime_div) + num
-            while multiple in divz: multiple += (2 * prime_div)
+            while multiple in divz:
+                multiple += 2 * prime_div
             divz[multiple] = prime_div
         else:
             divz[num * num] = num
             yield num
-
 
 def prime_factorization_gen(n):
     """generates all numbers in the prime factorization of n
@@ -95,11 +104,11 @@ def prime_factorization_gen(n):
 
     """
     for factor in prime_factors_gen(n):
-        if n <= 1: break
+        if n <= 1:
+            break
         while n % factor == 0:
             n //= factor
             yield factor
-
 
 def prime_factors_gen(n):
     """prime factors generator
@@ -116,7 +125,6 @@ def prime_factors_gen(n):
 
     """
     return (p for p in divisors_gen(n) if is_prime(p))
-
 
 @cash_it
 def is_prime(number):
@@ -137,16 +145,22 @@ def is_prime(number):
         True
 
     """
-    if number == 2 or number == 3: return True
-    if number < 2 or number % 2 == 0: return False
-    if number < 9: return True
-    if number % 3 == 0: return False
+    if number == 2 or number == 3:
+        return True
+    if number < 2 or number % 2 == 0:
+        return False
+    if number < 9:
+        return True
+    if number % 3 == 0:
+        return False
     for step in range(5, int(sqrt(number)) + 1, 6):
-        if step >= number: break
-        if number % step == 0: return False
-        if number % (step + 2) == 0: return False
+        if step >= number:
+            break
+        if number % step == 0:
+            return False
+        if number % (step + 2) == 0:
+            return False
     return True
-
 
 # class OctopusPrime(list):
 class OctopusPrime(collections.MutableSequence):
@@ -155,8 +169,33 @@ class OctopusPrime(collections.MutableSequence):
     def __init__(self, plim=100):
         # list.__init__(self, list(prime_gen(plim=plim)))
         # super(OctopusPrime, self).__init__()
-        p = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
-             43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+        p = [
+            2,
+            3,
+            5,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47,
+            53,
+            59,
+            61,
+            67,
+            71,
+            73,
+            79,
+            83,
+            89,
+            97,
+        ]
         if plim == 100:
             self._list = p[:]
         elif plim < 100:
@@ -164,7 +203,6 @@ class OctopusPrime(collections.MutableSequence):
         else:
             self._list = list(prime_gen(plim, p))
         self.max_loaded = self._list[-1]
-
     def _transform(self, n=None):
         """TRANSFORM / grow the list
 
@@ -173,7 +211,6 @@ class OctopusPrime(collections.MutableSequence):
         """
         n = n if n is not None else self._list[-1] * 10
         self._list.extend(list(prime_gen(plim=n, kprimes=self._list)))
-
     def primes_below(self, upper_bound):
         """Lists primes, p, such that  p < upper_bound
 
@@ -184,7 +221,6 @@ class OctopusPrime(collections.MutableSequence):
 
         """
         return self.primes_between(1, upper_bound)
-
     def primes_between(self, lower_bound, upper_bound):
         """Lists primes, p, such that, lower_bound < p < upper_bound
 
@@ -198,20 +234,15 @@ class OctopusPrime(collections.MutableSequence):
         """
         if upper_bound > self[-1]:
             self._transform(upper_bound)
-        return self[bisect_right(self, lower_bound):bisect(self, upper_bound)]
-
+        return self[bisect_right(self, lower_bound) : bisect(self, upper_bound)]
     def __len__(self):
         return len(self._list)
-
     def __getitem__(self, i):
         return self._list[i]
-
     def __delitem__(self, i):
         del self._list[i]
-
     def __setitem__(self, key, value):
         self._list[key] = value
-
     def insert(self, index, object):
         """
 
@@ -220,15 +251,12 @@ class OctopusPrime(collections.MutableSequence):
 
         """
         self._list.insert(index, object)
-
     def __str__(self):
         return str(self._list)
-
     def __repr__(self):
         return str(self._list)
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     from doctest import testmod
 
     testmod()

@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from __future__ import with_statement, print_function
-from os import path
+from __future__ import print_function
+from __future__ import with_statement
+
+from codecs import getwriter
 from datetime import datetime
 from io import open
-from json import load, dump
-from codecs import getwriter
 from itertools import count
+from json import dump
+from json import load
+from os import path
 
 
 def safe_path(filepath):
@@ -25,7 +28,6 @@ def safe_path(filepath):
                 return safe_save_path
     return filepath
 
-
 def savings(filepath, string, safe_save=False):
     """Save s(tring) to filepath as txt file
 
@@ -34,9 +36,8 @@ def savings(filepath, string, safe_save=False):
     :param string: 
 
     """
-    with open(safe_path(filepath) if safe_save else filepath, 'wb') as file:
-        file.write(string.encode('utf-8'))
-
+    with open(safe_path(filepath) if safe_save else filepath, "wb") as file:
+        file.write(string.encode("utf-8"))
 
 def loads(filepath):
     """Load a (txt) file as a string
@@ -45,10 +46,10 @@ def loads(filepath):
 
     """
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, "r", encoding="utf-8") as f:
             return f.read()
     except UnicodeDecodeError as e:
-        with open(filepath, 'r', encoding='latin2') as f:
+        with open(filepath, "r", encoding="latin2") as f:
             return f.read()
 
 def save_jasm(filepath, data, min=False):
@@ -60,17 +61,20 @@ def save_jasm(filepath, data, min=False):
     :return: None
     """
     if type(data) == dict and any(type(val) == bytes for val in data.values()):
-        data = {k: str(v, encoding='utf-8') for k, v in data.items()}
-    if min and '.min.json' not in filepath:
-        filepath = filepath.replace('.json', '.min.json')
-    with open(filepath, 'wb') as jsonfile:
+        data = {k: str(v, encoding="utf-8") for k, v in data.items()}
+    if min and ".min.json" not in filepath:
+        filepath = filepath.replace(".json", ".min.json")
+    with open(filepath, "wb") as jsonfile:
         if min:
-            dump(data, getwriter('utf-8')(jsonfile), ensure_ascii=False)
+            dump(data, getwriter("utf-8")(jsonfile), ensure_ascii=False)
         else:
-            dump(data, getwriter('utf-8')(jsonfile),
-                      indent=4,
-                      sort_keys=True,
-                      ensure_ascii=False)
+            dump(
+                data,
+                getwriter("utf-8")(jsonfile),
+                indent=4,
+                sort_keys=True,
+                ensure_ascii=False,
+            )
 
 def load_jasm(filepath):
     """
@@ -81,7 +85,6 @@ def load_jasm(filepath):
     with open(filepath) as infile:
         return load(infile)
 
-
 def timestamp():
     """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS
 
@@ -90,5 +93,5 @@ def timestamp():
     """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS"""
     return datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass
