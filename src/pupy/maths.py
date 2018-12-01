@@ -22,10 +22,7 @@ from pupy.listless import iter_product
 def partitions_gen(numero, min_p=1, max_p=None):
     """Partitions generator
     
-    Adapted from:
-        code.activestate.com/recipes/218332-generator-for-integer-partitions/
-        Adaptions:
-            min_p: minimum partition value
+    Adapted from: code.activestate.com/recipes/218332-generator-for-integer-partitions/min_p
 
     :param numero: number for which to yield partiton tuples
     :type numero: int
@@ -158,7 +155,6 @@ def fib_r(n):
     :param n: nth fibonacci sequence number
     :type n: int
     :returns: the nth fibonacci number
-    Examples:
     :rtype: int
 
     .. docstring::python

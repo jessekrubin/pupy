@@ -156,7 +156,6 @@ def iter_product(l):
 
     :param l: list with integer elements
     :returns: product of all the elements in a list
-    Examples:
     :rtype: int
 
     .. doctest::python

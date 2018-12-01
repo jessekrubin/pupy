@@ -26,7 +26,7 @@ project = 'pupy'
 year = '2018'
 author = 'jesse k rubin'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '2.1.1'
+version = release = '2.1.2'
 
 pygments_style = 'trac'
 templates_path = ['.']
@@ -35,7 +35,7 @@ extlinks = {
     'pr': ('https://github.com/jessekrubin/python-pupy/pull/%s', 'PR #'),
 }
 # on_rtd is whether we are on readthedocs.org
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+on_rtd = os.environ.get('READTHEDOCS', None) == 'False'
 
 if not on_rtd:  # only set the theme if we're building docs locally
     html_theme = 'sphinx_rtd_theme'

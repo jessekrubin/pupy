@@ -19,7 +19,6 @@ def string_score(strang):
     :param strang: string to be scored
     :type strang: str
     :returns: -> score of the string
-    Examples:
     :rtype: int
 
     .. doctest::python

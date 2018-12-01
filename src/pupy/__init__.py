@@ -48,7 +48,7 @@ from pupy.werd import binary_string
 from pupy.werd import is_palindrome
 from pupy.werd import string_score
 
-__version__ = "__version__ = '2.1.1'"
+__version__ = "__version__ = '2.1.2'"
 
 try:
     range
