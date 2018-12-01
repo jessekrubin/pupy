@@ -9,7 +9,7 @@ Overview
     * - docs
       - |docs|
     * - tests
-      - | |travis| |appveyor| |requires|
+      - | |travis| |requires|
         | |coveralls| |codecov|
     * - package
       - | |version| |wheel| |supported-versions| |supported-implementations|
@@ -21,10 +21,6 @@ Overview
 .. |travis| image:: https://travis-ci.org/jessekrubin/python-pupy.svg?branch=master
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/jessekrubin/python-pupy
-
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/jessekrubin/python-pupy?branch=master&svg=true
-    :alt: AppVeyor Build Status
-    :target: https://ci.appveyor.com/project/jessekrubin/python-pupy
 
 .. |requires| image:: https://requires.io/github/jessekrubin/python-pupy/requirements.svg?branch=master
     :alt: Requirements Status
