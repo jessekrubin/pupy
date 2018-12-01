@@ -13,12 +13,10 @@ Overview
         | |coveralls| |codecov|
     * - package
       - | |version| |wheel| |supported-versions| |supported-implementations|
-        | |commits-since|
 
 .. |docs| image:: https://readthedocs.org/projects/python-pupy/badge/?style=flat
-    :target: https://readthedocs.org/projects/python-pupy
+    :target: https://python-pupy.readthedocs.io/en/latest/index.html
     :alt: Documentation Status
-
 
 .. |travis| image:: https://travis-ci.org/jessekrubin/python-pupy.svg?branch=master
     :alt: Travis-CI Build Status
@@ -34,7 +32,7 @@ Overview
 
 .. |coveralls| image:: https://coveralls.io/repos/jessekrubin/python-pupy/badge.svg?branch=master&service=github
     :alt: Coverage Status
-    :target: https://coveralls.io/r/jessekrubin/python-pupy
+    :target: https://coveralls.io/github/jessekrubin/python-pupy
 
 .. |codecov| image:: https://codecov.io/github/jessekrubin/python-pupy/coverage.svg?branch=master
     :alt: Coverage Status
@@ -42,23 +40,19 @@ Overview
 
 .. |version| image:: https://img.shields.io/pypi/v/pupy.svg
     :alt: PyPI Package latest release
-    :target: https://pypi.python.org/pypi/pupy
-
-.. |commits-since| image:: https://img.shields.io/github/commits-since/jessekrubin/python-pupy/v2.1.3.svg
-    :alt: Commits since latest release
-    :target: https://github.com/jessekrubin/python-pupy/compare/v2.1.3...master
+    :target: https://pypi.org/project/pupy
 
 .. |wheel| image:: https://img.shields.io/pypi/wheel/pupy.svg
     :alt: PyPI Wheel
-    :target: https://pypi.python.org/pypi/pupy
+    :target: https://pypi.org/project/pupy
 
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/pupy.svg
     :alt: Supported versions
-    :target: https://pypi.python.org/pypi/pupy
+    :target: https://pypi.org/project/pupy
 
 .. |supported-implementations| image:: https://img.shields.io/pypi/implementation/pupy.svg
     :alt: Supported implementations
-    :target: https://pypi.python.org/pypi/pupy
+    :target: https://pypi.org/project/pupy
 
 
 .. end-badges
