@@ -1,5 +1,9 @@
-Overview
-========
+Pretty Useful Python / pupy
+===========================
+
+
+Hows it doin
+------------
 
 .. start-badges
 
@@ -57,41 +61,45 @@ Pretty Useful Python
 
 * Free software: BSD 2-Clause License
 
-Installation
-============
+Installin'
+----------
+
+Installing is EZPZ
 
 ::
 
     pip install pupy
 
-Documentation
-=============
+Testin'
+-------
 
-
-https://python-pupy.readthedocs.io/
-
-
-Development
-===========
-
-To run the all tests run::
+Testing is also EZPZ::
 
     tox
 
-Note, to combine the coverage data from all the tox environments run:
+Where the Docs?
+---------------
 
-.. list-table::
-    :widths: 10 90
-    :stub-columns: 1
+https://python-pupy.readthedocs.io/
 
-    - - Windows
-      - ::
+Contributin'
+------------
 
-            set PYTEST_ADDOPTS=--cov-append
-            tox
+Contributions are helpful. Send me a thingy request on ghub (not grubhub).
 
-    - - Other
-      - ::
 
-            PYTEST_ADDOPTS=--cov-append tox
+Modules
+=======
 
+amazon_prime
+------------
+
+.. automodule:: pupy.amazon_prime
+    :members:
+
+
+maths
+-----
+
+.. automodule:: pupy.maths
+    :members:

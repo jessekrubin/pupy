@@ -16,7 +16,7 @@ from operator import sub
 from operator import truediv
 
 from pupy.decorations import cash_it
-from pupy.listless import iter_product
+from pupy.foreign import iter_product
 
 
 def partitions_gen(numero, min_p=1, max_p=None):

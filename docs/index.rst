@@ -1,16 +1,11 @@
-========
-Contents
-========
+=========
+pupy docs
+=========
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
 
    readme
-   installation
-   usage
-   reference/index
-   contributing
-   authors
    changelog
 
 Indices and tables
@@ -20,4 +15,3 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-.. automodule:: pupy
