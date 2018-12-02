@@ -11,7 +11,7 @@ from operator import mul
 
 
 def chunks(list, chunk_size):
-    """Yields chunks of a list with length == chunk_size
+    """Yields chunks of something slicable with length <= chunk_size
 
     :param list: list to be broken up
     :type list: list or tuple
@@ -24,10 +24,13 @@ def chunks(list, chunk_size):
         [[1, 2, 3], [4, 5, 6]]
         >>> list(chunks([1, 2, 3, 4, 5, 6], 2))
         [[1, 2], [3, 4], [5, 6]]
+        >>> list(chunks('abcdefghijklmnopqrstuvwxyz', 2))
+        ['ab', 'cd', 'ef', 'gh', 'ij', 'kl', 'mn', 'op', 'qr', 'st', 'uv', 'wx', 'yz']
+        >>> list(chunks('abcdefghijklmnopqrstuvwxyz', 13))
+        ['abcdefghijklm', 'nopqrstuvwxyz']
 
     """
-    for i in range(0, len(list), chunk_size):
-        yield list[i : i + chunk_size]
+    return (list[i : i + chunk_size] for i in range(0, len(list), chunk_size))
 
 def is_permutation(a, b):
     """Checks if two integers or lists are permutations lists are permutations
