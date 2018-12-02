@@ -87,19 +87,3 @@ Contributin'
 
 Contributions are helpful. Send me a thingy request on ghub (not grubhub).
 
-
-Modules
-=======
-
-amazon_prime
-------------
-
-.. automodule:: pupy.amazon_prime
-    :members:
-
-
-maths
------
-
-.. automodule:: pupy.maths
-    :members:

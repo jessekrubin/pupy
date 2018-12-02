@@ -6,6 +6,7 @@ pupy docs
    :maxdepth: 4
 
    readme
+   modules
    changelog
 
 Indices and tables

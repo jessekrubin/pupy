@@ -26,6 +26,7 @@ def dirs_gen(dirpath: str = getcwd(), abs=True):
     :param dirpath: Directory path to walking down/through.
     :param abs: Yield the absolute path
     :return:
+
     """
     return (
         fpath if abs else fpath.replace(dirpath, "").strip(sep)
