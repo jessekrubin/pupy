@@ -4,6 +4,7 @@
 *.so
 
 # Packages
+*.lock
 *.egg
 *.egg-info
 dist
