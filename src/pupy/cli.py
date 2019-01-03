@@ -16,16 +16,51 @@ Why does this file exist, and why not put this in __main__?
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
 import argparse
+from os import listdir
+import os
+import codecs
+from pupy.yieldz import files_gen, dirs_gen
+
+import codecs
+
+
+def unescaped_str(arg_str):
+    return codecs.decode(str(arg_str), "unicode_escape")
+
 
 parser = argparse.ArgumentParser(description="Command description.")
 parser.add_argument(
-    "names", metavar="NAME", nargs=argparse.ZERO_OR_MORE, help="A name of something."
+    "-r", "--replace", metavar="PAT", nargs=2, help="Rename all things in."
 )
+
+parser.add_argument(
+    "--rm-pattern",
+    metavar="PAT",
+    type=unescaped_str,
+    nargs=argparse.ZERO_OR_MORE,
+    help="REPLACE pattern with a space.",
+)
+
 
 def main(args=None):
     """
 
     :param args:
     """
+
     args = parser.parse_args(args=args)
-    print(args.names)
+    if args.replace:
+        frum, two = args.replace
+        print("Replacing:", frum)
+        print("With:", two)
+        for f in listdir("."):
+            print("For f/d:", f)
+            os.rename(f, f.replace(frum, two))
+
+    if args.rm_pattern:
+        for pattern in args.rm_pattern:
+            print("Removing pattern:", pattern)
+            for f in listdir("."):
+                print("For f/d:", f)
+                os.rename(f, f.replace(pattern, ""))
+
