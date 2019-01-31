@@ -1,6 +1,8 @@
 Pretty Useful Python / pupy
 ===========================
 
+v2.1.3
+
 
 Hows it doin
 ------------
@@ -69,21 +71,4 @@ Installing is EZPZ
 ::
 
     pip install pupy
-
-Testin'
--------
-
-Testing is also EZPZ::
-
-    tox
-
-Where the Docs?
----------------
-
-https://python-pupy.readthedocs.io/
-
-Contributin'
-------------
-
-Contributions are helpful. Send me a thingy request on ghub (not grubhub).
 
