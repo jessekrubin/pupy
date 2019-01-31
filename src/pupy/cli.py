@@ -49,7 +49,7 @@ def main(args=None):
 
     args = parser.parse_args(args=args)
     if args.version:
-        print(__version__)
+        print("Pupy version: {}".format(__version__))
     if args.replace:
         frum, two = args.replace
         print("Replacing:", frum)
