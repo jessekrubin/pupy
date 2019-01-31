@@ -9,10 +9,14 @@ from codecs import getwriter
 from datetime import datetime
 from io import open
 from itertools import count
-from json import dump
-from json import load
-from os import path
 
+try:
+    from ujson import dump
+    from ujson import load
+except:
+    from json import dump
+    from json import load
+from os import path
 
 def safe_path(filepath):
     """
@@ -79,7 +83,7 @@ def save_jasm(filepath, data, min=False):
 def load_jasm(filepath):
     """
 
-    :param filepath: path to the jasm (Jason Greenberg) file you want to load
+    :param filepath: path to the jasm file you want to load
 
     """
     with open(filepath) as infile:

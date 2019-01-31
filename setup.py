@@ -115,7 +115,8 @@ setup(
         'tewls'
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
-    install_requires=[],
+    install_requires=['logzero', 'pupy', 'numpy', 'notebook', 'psutil', 'pytest', 'h5py', 'halo', 'requests',
+                      'markdown2'],
     extras_require={
         # eg:
         #   'rst': ['docutils>=0.11'],

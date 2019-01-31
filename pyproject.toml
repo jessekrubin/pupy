@@ -1,12 +1,13 @@
 [tool.poetry]
 name = "pupy"
-version = "2.1.5"
+version = "2.2.0"
 description = "pretty useful python"
 authors = ["jessekrubin <jessekrubin@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^2.7"
+python = "^3.7"
+toml = "^0.10.0"
 
 [tool.poetry.dev-dependencies]
 
