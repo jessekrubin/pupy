@@ -12,11 +12,19 @@ from os.path import dirname
 from os.path import join
 from os.path import relpath
 from os.path import splitext
-
 from setuptools import Extension
 from setuptools import find_packages
 from setuptools import setup
 from setuptools.command.build_ext import build_ext
+from toml import loads
+from pathlib import Path
+
+def get_version():
+    path = Path(__file__).resolve().parents[0] / 'pyproject.toml'
+    pyproject = loads(open(str(path)).read())
+    return pyproject['tool']['poetry']['version']
+
+pupy_vesion = get_version()
 
 try:
     # Allow installing package without any Cython available. This
@@ -24,7 +32,6 @@ try:
     import Cython
 except ImportError:
     Cython = None
-
 
 def read(*names, **kwargs):
     """
@@ -39,16 +46,15 @@ def read(*names, **kwargs):
     ) as fh:
         return fh.read()
 
-
 # Enable code coverage for C code: we can't use CFLAGS=-coverage in tox.ini, since that may mess with compiling
 # dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
 # deps have been safely installed).
 if 'TOXENV' in os.environ and 'SETUPPY_CFLAGS' in os.environ:
     os.environ['CFLAGS'] = os.environ['SETUPPY_CFLAGS']
 
-
 class optional_build_ext(build_ext):
     """Allow the building of C extensions to fail."""
+
     def run(self):
         """
 
@@ -73,10 +79,9 @@ class optional_build_ext(build_ext):
         print('    ' + repr(e))
         print('*' * 80)
 
-
 setup(
     name='pupy',
-    version='2.1.3',
+    version=pupy_vesion,
     license='BSD 2-Clause License',
     description='Pretty Useful Python',
     long_description='%s\n%s' % (
@@ -116,7 +121,7 @@ setup(
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
     install_requires=['logzero', 'pupy', 'numpy', 'notebook', 'psutil', 'pytest', 'h5py', 'halo', 'requests',
-                      'markdown2'],
+                      'markdown2', 'toml'],
     extras_require={
         # eg:
         #   'rst': ['docutils>=0.11'],

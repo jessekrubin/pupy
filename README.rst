@@ -1,7 +1,6 @@
 Pretty Useful Python / pupy
 ===========================
 
-v2.1.3
 
 
 Hows it doin

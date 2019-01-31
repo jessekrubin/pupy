@@ -15,32 +15,31 @@ Why does this file exist, and why not put this in __main__?
 
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
-import argparse
+from argparse import ArgumentParser
+from argparse import ZERO_OR_MORE
+from codecs import decode
 from os import listdir
-import os
-import codecs
-from pupy.yieldz import files_gen, dirs_gen
+from os import rename
 
-import codecs
-
+from pupy._version import __version__
 
 def unescaped_str(arg_str):
-    return codecs.decode(str(arg_str), "unicode_escape")
+    return decode(str(arg_str), "unicode_escape")
 
-
-parser = argparse.ArgumentParser(description="Command description.")
+parser = ArgumentParser(description="Command description.")
 parser.add_argument(
     "-r", "--replace", metavar="PAT", nargs=2, help="Rename all things in."
 )
-
+parser.add_argument(
+    "-V", "--version", action="store_true", help="Print pupy version."
+)
 parser.add_argument(
     "--rm-pattern",
     metavar="PAT",
     type=unescaped_str,
-    nargs=argparse.ZERO_OR_MORE,
+    nargs=ZERO_OR_MORE,
     help="REPLACE pattern with a space.",
 )
-
 
 def main(args=None):
     """
@@ -49,18 +48,19 @@ def main(args=None):
     """
 
     args = parser.parse_args(args=args)
+    if args.version:
+        print(__version__)
     if args.replace:
         frum, two = args.replace
         print("Replacing:", frum)
         print("With:", two)
         for f in listdir("."):
             print("For f/d:", f)
-            os.rename(f, f.replace(frum, two))
+            rename(f, f.replace(frum, two))
 
     if args.rm_pattern:
         for pattern in args.rm_pattern:
             print("Removing pattern:", pattern)
             for f in listdir("."):
                 print("For f/d:", f)
-                os.rename(f, f.replace(pattern, ""))
-
+                rename(f, f.replace(pattern, ""))
