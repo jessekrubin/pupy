@@ -4,8 +4,7 @@
 testing the toople class I have made
 """
 from __future__ import division
-from pupy import Vuple
-
+from pupy.maths import Vuple
 
 class Test_Vuple(object):
 

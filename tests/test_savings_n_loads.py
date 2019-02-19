@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 from os import remove
-from pupy.savings_n_loads import save_jasm, load_jasm
+import pytest
+
+from pupy.savings_n_loads import load_jasm, lpak, spak
+from pupy.savings_n_loads import save_jasm
 
 JASM_DICT = {"Jason": ["Green",
                        "Berg"],
-             "Jasm": ["Grundle",
-                      "Bug"]}
+             "Jasm":  ["Grundle",
+                       "Bug"]}
 
-
-def test_jasm():
+def test_ljson_n_sjson():
     """
 
     """
@@ -19,3 +21,14 @@ def test_jasm():
     print(loaded_data)
     assert loaded_data == JASM_DICT
     remove('jasm_dict.json')
+
+def test_spak_n_lpak():
+    """
+
+    """
+    spak('data.pak', JASM_DICT)
+    loaded_data = lpak('data.pak')
+    assert loaded_data == JASM_DICT
+    remove('data.pak')
+
+

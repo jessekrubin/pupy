@@ -17,6 +17,16 @@ except:
     from json import dump
     from json import load
 from os import path
+from msgpack import pack
+from msgpack import unpack
+
+def timestamp():
+    """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS
+
+    :return: timestamp string
+    """
+    """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS"""
+    return datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
 
 def safe_path(filepath):
     """
@@ -56,7 +66,7 @@ def loads(filepath):
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
 
-def save_jasm(filepath, data, min=False):
+def sjson(filepath, data, min=False):
     """Save json-serial-ize-able data to a specific filepath.
 
     :param filepath: save filepath
@@ -66,8 +76,6 @@ def save_jasm(filepath, data, min=False):
     """
     if type(data) == dict and any(type(val) == bytes for val in data.values()):
         data = {k: str(v, encoding="utf-8") for k, v in data.items()}
-    if min and ".min.json" not in filepath:
-        filepath = filepath.replace(".json", ".min.json")
     with open(filepath, "wb") as jsonfile:
         if min:
             dump(data, getwriter("utf-8")(jsonfile), ensure_ascii=False)
@@ -80,22 +88,31 @@ def save_jasm(filepath, data, min=False):
                 ensure_ascii=False,
             )
 
-def load_jasm(filepath):
-    """
+def save_jasm(filepath, data, min=False):
+    """Alias for sjson"""
+    return sjson(filepath, data, min)
+
+def ljson(filepath):
+    """Load a json file given a filepath and return the file-data
 
     :param filepath: path to the jasm file you want to load
-
+    :return: Loaded file contents
     """
+
     with open(filepath) as infile:
         return load(infile)
 
-def timestamp():
-    """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS
+def load_jasm(filepath):
+    """Alias for ljson"""
+    return ljson(filepath)
 
-    :return: timestamp string
-    """
-    """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS"""
-    return datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
+def spak(filepath, data):
+    with open(filepath, 'wb') as pakfile:
+        pack(data, pakfile)
+
+def lpak(filepath):
+    with open(filepath, 'rb') as pakfile:
+        return unpack(pakfile, raw=False)
 
 if __name__ == "__main__":
     pass
