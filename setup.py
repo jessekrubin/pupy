@@ -16,15 +16,10 @@ from setuptools import Extension
 from setuptools import find_packages
 from setuptools import setup
 from setuptools.command.build_ext import build_ext
-from toml import loads
 from pathlib import Path
+from pupy._version import __version__
 
-def get_version():
-    path = Path(__file__).resolve().parents[0] / 'pyproject.toml'
-    pyproject = loads(open(str(path)).read())
-    return pyproject['tool']['poetry']['version']
-
-pupy_vesion = get_version()
+pupy_vesion = __version__
 
 try:
     # Allow installing package without any Cython available. This
@@ -46,9 +41,6 @@ def read(*names, **kwargs):
     ) as fh:
         return fh.read()
 
-# Enable code coverage for C code: we can't use CFLAGS=-coverage in tox.ini, since that may mess with compiling
-# dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
-# deps have been safely installed).
 if 'TOXENV' in os.environ and 'SETUPPY_CFLAGS' in os.environ:
     os.environ['CFLAGS'] = os.environ['SETUPPY_CFLAGS']
 
@@ -118,12 +110,9 @@ setup(
         'pretty',
         'useful',
         'tewls'
-        # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
     install_requires=[
-        'logzero',
         'pytest',
-        'toml',
         'ujson'
     ],
     extras_require={
