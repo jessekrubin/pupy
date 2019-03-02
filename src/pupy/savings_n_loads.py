@@ -9,6 +9,8 @@ from codecs import getwriter
 from datetime import datetime
 from io import open
 from itertools import count
+from sys import stderr
+from time import sleep
 
 try:
     from ujson import dump
@@ -17,6 +19,7 @@ except:
     from json import dump
     from json import load
 from os import path
+from os import remove
 from msgpack import pack
 from msgpack import unpack
 
@@ -42,16 +45,33 @@ def safe_path(filepath):
                 return safe_save_path
     return filepath
 
-def savings(filepath, string, safe_save=False):
+def ensure_save(filepath, n=0):
+    try:
+        assert path.exists(filepath)
+        return True
+    except AssertionError:
+        sleep(1)
+        if n > 5:
+            return False
+        return ensure_save(filepath, n + 1)
+
+def savings(filepath, string, clobber=True):
     """Save s(tring) to filepath as txt file
 
     :param filepath: param string:
-    :param safe_save: return: (Default value = False)
+    :param clobber: return: (Default value = False)
     :param string: 
 
     """
-    with open(safe_path(filepath) if safe_save else filepath, "wb") as file:
-        file.write(string.encode("utf-8"))
+    if not clobber and path.exists(filepath):
+        filepath = safe_path(filepath)
+    elif path.exists(filepath):
+        remove(filepath)
+    try:
+        with open(safe_path(filepath) if clobber else filepath, "wb") as file:
+            file.write(string.encode("utf-8"))
+    except Exception as e:
+        raise e
 
 def loads(filepath):
     """Load a (txt) file as a string
@@ -86,7 +106,7 @@ def sjson(filepath, data, min=False):
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-            )
+                )
 
 def save_jasm(filepath, data, min=False):
     """Alias for sjson"""
