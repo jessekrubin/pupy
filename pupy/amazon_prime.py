@@ -123,7 +123,7 @@ def prime_factors_gen(n):
     :param n: number to be factorized
     :type n: int
 
-    .. doctest::
+    .. doctest:: python
 
         >>> list(prime_factors_gen(12))
         [2, 3]
@@ -143,7 +143,7 @@ def is_prime(number):
     :returns: -> True if number is prime
     :rtype: bool
 
-    .. doctest::
+    .. doctest:: python
 
         >>> is_prime(37)
         True

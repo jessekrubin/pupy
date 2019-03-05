@@ -19,7 +19,19 @@ from setuptools.command.build_ext import build_ext
 from pupy._version import __version__
 
 pupy_vesion = __version__
-
+from itertools import count
+with open('pyproject.toml') as f:
+    lines = f.read().split('\n')
+deps = []
+for i in count(1+lines.index('[tool.poetry.dependencies]')):
+    if lines[i] == '':
+        break
+    try:
+        dep = lines[i].split('=')[0].strip(' ')
+        if dep not in ('python'):
+            deps.append(dep)
+    except:
+        pass
 try:
     # Allow installing package without any Cython available. This
     # assumes you are going to include the .c files in your sdist.
@@ -109,10 +121,7 @@ setup(
         'useful',
         'tewls'
     ],
-    install_requires=[
-        'pytest',
-        'ujson'
-    ],
+    install_requires=deps,
     extras_require={
         # eg:
         #   'rst': ['docutils>=0.11'],

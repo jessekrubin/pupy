@@ -227,7 +227,9 @@ def pytriple_gen(max_c):
 def repermutations(toop):
     """
 
-    :param toop: 
+    :param toop:
+
+
 
     """
     c = Counter(n for n in toop)
@@ -240,7 +242,23 @@ def disjoint(a, b):
     """
 
     :param a: 
-    :param b: 
+    :param b:
+
+    .. doctest:: python
+
+        >>> a = [1, 2, 3, 4]
+        >>> b = [2, 3, 4, 5]
+        >>> disjoint(a, b)
+        False
+        >>> a = [1, 2, 3, 4]
+        >>> b = [5, 6, 7, 8]
+        >>> disjoint(a, b)
+        True
+        >>> a = ['joe', 'frank', 3, 4]
+        >>> b = [5, 6, 7, 'frank']
+        >>> disjoint(a, b)
+        False
+
 
     """
     return not any(ae in b for ae in a)
@@ -406,10 +424,9 @@ class Vuple(tuple):
         """
         if type(k) is int or type(k) is float:
             return Vuple((k + el for el in self))
-        elif type(k) is Vuple:
-            if len(self) != len(k):
-                raise ValueError("Dimensions do NOT match")
+        elif type(k) is Vuple and len(self) == len(k):
             return Vuple(map(add, self, k))
+        raise ValueError("huh idk")
 
     def __iadd__(self, k):
         return self.__add__(k)
@@ -576,12 +593,24 @@ class Vuple(tuple):
         :param them: 
 
         """
-        return len(set(self) & set(them)) == 0
+        return disjoint(self, them)
 
     def product(self):
         """Multiplies all elements in the Vuple
         
         :return:
+
+        .. doctest:: pythonm
+
+            >>> v = Vuple((1, 2, 3, 4))
+            >>> v.product()
+            24
+            >>> v = Vuple((100, 1, -1, 2))
+            >>> v.product()
+            -200
+            >>> v = Vuple((100, -1, -1, 2))
+            >>> v.product()
+            200
 
 
         """
