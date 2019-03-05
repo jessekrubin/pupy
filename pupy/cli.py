@@ -23,16 +23,16 @@ from os import rename
 
 from pupy._version import __version__
 
+
 def unescaped_str(arg_str):
     return decode(str(arg_str), "unicode_escape")
+
 
 parser = ArgumentParser(description="Command description.")
 parser.add_argument(
     "-r", "--replace", metavar="PAT", nargs=2, help="Rename all things in."
 )
-parser.add_argument(
-    "-V", "--version", action="store_true", help="Print pupy version."
-)
+parser.add_argument("-V", "--version", action="store_true", help="Print pupy version.")
 parser.add_argument(
     "--rm-pattern",
     metavar="PAT",
@@ -40,6 +40,7 @@ parser.add_argument(
     nargs=ZERO_OR_MORE,
     help="REPLACE pattern with a space.",
 )
+
 
 def main(args=None):
     """
@@ -64,4 +65,6 @@ def main(args=None):
             for f in listdir("."):
                 print("For f/d:", f)
                 rename(f, f.replace(pattern, ""))
+
+
 # http://192.168.1.225:5984/

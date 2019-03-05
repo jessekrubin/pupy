@@ -24,6 +24,7 @@ def cash_it(funk):
 
     """
     cash_money = {}
+
     @wraps(funk)
     def cash_wrap(*argz):
         """
@@ -35,16 +36,20 @@ def cash_it(funk):
             rv = funk(*argz)
             cash_money[argz] = rv
             return rv
+
     return cash_wrap
+
 
 class Jasm(object):
     """Jasm the Grundle Bug"""
 
     def __init__(self, path):
         self.file_path = path
+
     def __call__(self, funk):
         """Json saving and loading"""
         fp = self.file_path
+
         def savings_n_loads(*args, **kwargs):
             """Jasm funk (w)rapper
 
@@ -67,7 +72,9 @@ class Jasm(object):
                 with open(fp, "wb") as f:
                     jasm.dump(dat_data, f, encoding="utf8", sort_keys=True)
             return dat_data[save_key]
+
         return savings_n_loads
+
     @staticmethod
     def read(fpath):
         """Jasm load static method
@@ -80,6 +87,7 @@ class Jasm(object):
         """
         with open(fpath) as f:
             return jasm.load(f)
+
     @staticmethod
     def write(fpath, obj):
         """Jasm dump static method
@@ -91,6 +99,7 @@ class Jasm(object):
 
         """
 
+
 def cprof(funk):
     """"cProfiling decorator
     
@@ -99,6 +108,7 @@ def cprof(funk):
     :param funk: 
 
     """
+
     @wraps(funk)
     def profiled_funk(*args, **kwargs):
         """
@@ -113,7 +123,9 @@ def cprof(funk):
             print("__CPROFILE__")
             profile.print_stats()
         return ret_val
+
     return profiled_funk
+
 
 class tictoc(object):
     """Timing decorator object
@@ -124,6 +136,7 @@ class tictoc(object):
 
     def __init__(self, runs=1):
         self.runs = runs
+
     def __str__(self, t_total, funk, args_string):
         str_list = [
             "__TICTOC__",
@@ -134,6 +147,7 @@ class tictoc(object):
             "    runs: {}".format(self.runs),
         ]
         return "\n".join(str_list)
+
     def __call__(self, time_funk, printing=True):
         @wraps(time_funk)
         def time_wrapper(*args, **kwargs):
@@ -149,7 +163,9 @@ class tictoc(object):
             if printing:
                 print(self.__str__(t_total, time_funk, str(args)))
             return result
+
         return time_wrapper
+
     @staticmethod
     def ftime(t1, t2=None):
         """Formats time string

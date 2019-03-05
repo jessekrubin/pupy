@@ -20,6 +20,7 @@ def files_gen(dirpath: str = getcwd(), abs=True):
         )
     )
 
+
 def dirs_gen(dirpath: str = getcwd(), abs=True):
     """Yields paths beneath dirpath param; dirpath defaults to os.getcwd()
 

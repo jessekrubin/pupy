@@ -23,6 +23,7 @@ from os import remove
 from msgpack import pack
 from msgpack import unpack
 
+
 def timestamp():
     """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS
 
@@ -30,6 +31,7 @@ def timestamp():
     """
     """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS"""
     return datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
+
 
 def safe_path(filepath):
     """
@@ -45,6 +47,7 @@ def safe_path(filepath):
                 return safe_save_path
     return filepath
 
+
 def ensure_save(filepath, n=0):
     try:
         assert path.exists(filepath)
@@ -54,6 +57,7 @@ def ensure_save(filepath, n=0):
         if n > 5:
             return False
         return ensure_save(filepath, n + 1)
+
 
 def savings(filepath, string, clobber=True):
     """Save s(tring) to filepath as txt file
@@ -73,6 +77,7 @@ def savings(filepath, string, clobber=True):
     except Exception as e:
         raise e
 
+
 def loads(filepath):
     """Load a (txt) file as a string
 
@@ -85,6 +90,7 @@ def loads(filepath):
     except UnicodeDecodeError as e:
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
+
 
 def sjson(filepath, data, min=False):
     """Save json-serial-ize-able data to a specific filepath.
@@ -106,11 +112,13 @@ def sjson(filepath, data, min=False):
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-                )
+            )
+
 
 def save_jasm(filepath, data, min=False):
     """Alias for sjson"""
     return sjson(filepath, data, min)
+
 
 def ljson(filepath):
     """Load a json file given a filepath and return the file-data
@@ -122,17 +130,21 @@ def ljson(filepath):
     with open(filepath) as infile:
         return load(infile)
 
+
 def load_jasm(filepath):
     """Alias for ljson"""
     return ljson(filepath)
 
+
 def spak(filepath, data):
-    with open(filepath, 'wb') as pakfile:
+    with open(filepath, "wb") as pakfile:
         pack(data, pakfile)
 
+
 def lpak(filepath):
-    with open(filepath, 'rb') as pakfile:
+    with open(filepath, "rb") as pakfile:
         return unpack(pakfile, raw=False)
+
 
 if __name__ == "__main__":
     pass

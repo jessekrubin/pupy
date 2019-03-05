@@ -17,6 +17,7 @@ class SodokuError(ValueError):
         self.row, self.col = row, col
         super(SodokuError, self).__init__(message, row, col)
 
+
 class Sodoku(object):
     """Sodoku
 
@@ -34,6 +35,7 @@ class Sodoku(object):
     def __init__(self, board):
         self.is_solved = False
         self.board = board.replace(".", "0")
+
     def solve(self):
         """
 
@@ -52,6 +54,7 @@ class Sodoku(object):
         a = [d[ind] for ind in range(81)]
         self.board = "".join(a)
         self.is_solved = True
+
     def euler_096_three_digit_number(self):
         """
 
@@ -61,6 +64,7 @@ class Sodoku(object):
         if not self.is_solved:
             self.solve()
         return int(self.board[0:3])
+
     @staticmethod
     def first_unknown(d):
         """
@@ -74,6 +78,7 @@ class Sodoku(object):
         for i in range(81):
             if len(d[i]) > 1:
                 return i
+
     @staticmethod
     def unsolvable(rcbd):
         """
@@ -85,6 +90,7 @@ class Sodoku(object):
 
         """
         return any(len(v) == 0 for v in rcbd.values())
+
     @staticmethod
     def check_unsolvable(d):
         """
@@ -122,6 +128,7 @@ class Sodoku(object):
             ):
                 raise SodokuError("UNSOLVABLE")
         return nd
+
     @staticmethod
     def update_dictionary(d):
         """
@@ -139,6 +146,7 @@ class Sodoku(object):
                     if len(nd[nay]) != 1 and nd[i] in nd[nay]:
                         nd[nay] = nd[nay].replace(nd[i], "")
         return nd
+
     @staticmethod
     def reduce_dictionary(d):
         """
@@ -171,6 +179,7 @@ class Sodoku(object):
                 if valid:
                     return valid, ret
         return False, d
+
     def __str__(self):
         header = "  S   O   D   O   K   U  "
         top_border = "╔═══════╦═══════╦═══════╗"
@@ -199,6 +208,7 @@ class Sodoku(object):
             bot_border,
         ]
         return "\n".join(strings)
+
     @staticmethod
     def hasdup(d):
         """
@@ -215,6 +225,7 @@ class Sodoku(object):
                     if d[n] == d[i]:
                         return True
         return False
+
     def get_oneline_str(self):
         """
 
@@ -222,6 +233,7 @@ class Sodoku(object):
 
         """
         return self.board
+
     @staticmethod
     def neighbors(index, size=9):
         """
@@ -241,6 +253,7 @@ class Sodoku(object):
                 Sodoku.box_box(index),
             )
         } - {index}
+
     @staticmethod
     def irow(n, bsize=9):
         """
@@ -253,6 +266,7 @@ class Sodoku(object):
 
         """
         return {i for i in range(n * bsize, n * bsize + bsize)}
+
     @staticmethod
     def icolumn(n, bsize=9):
         """
@@ -265,6 +279,7 @@ class Sodoku(object):
 
         """
         return {i for i in range(n, bsize ** 2, bsize)}
+
     @staticmethod
     def ibox(box_r, box_c, bsize=9):
         """
@@ -282,6 +297,7 @@ class Sodoku(object):
             for i in range((box_r * 3), (box_r * 3) + 3)
             for j in range((box_c * 3), (box_c * 3) + 3)
         }
+
     @staticmethod
     @cash_it
     def box_box(index):

@@ -32,6 +32,7 @@ def chunks(list, chunk_size):
     """
     return (list[i : i + chunk_size] for i in range(0, len(list), chunk_size))
 
+
 def is_permutation(a, b):
     """Checks if two integers or lists are permutations lists are permutations
 
@@ -49,6 +50,7 @@ def is_permutation(a, b):
     if type(b) == int:
         b = digits_list(b)
     return len(a) == len(b) and Counter(a) == Counter(b)
+
 
 def rotate(rlist, rn=1, left_rotate=True):
     """Rotate a list (rlist) by rn indices to the left or right
@@ -72,6 +74,7 @@ def rotate(rlist, rn=1, left_rotate=True):
         [1, 2, 3, 4]
 
     """
+
     def _left_rotate(l, n=1):
         """
 
@@ -80,6 +83,7 @@ def rotate(rlist, rn=1, left_rotate=True):
 
         """
         return l[n:] + l[:n]
+
     def _right_rotate(l, n=1):
         """
 
@@ -88,7 +92,9 @@ def rotate(rlist, rn=1, left_rotate=True):
 
         """
         return l[-n:] + l[:-n]
+
     return _left_rotate(rlist, rn) if left_rotate else _right_rotate(rlist, rn)
+
 
 def rotations_gen(rlist):
     """Yields all rotations of a list
@@ -107,6 +113,7 @@ def rotations_gen(rlist):
 
     """
     return ((rlist[-i:] + rlist[:-i]) for i in range(len(rlist)))
+
 
 def digits_list(number):
     """Returns a list of the digits in num
@@ -135,6 +142,7 @@ def digits_list(number):
         digits.appendleft(r)
     return list(digits)
 
+
 def int_from_digits(digits):
     """Converts an iterable of digits digits to a number
     
@@ -154,6 +162,7 @@ def int_from_digits(digits):
     """
     return sum(digits[len(digits) - i - 1] * 10 ** i for i in range(0, len(digits), 1))
 
+
 def iter_product(l):
     """Product of all the elements in a list or tuple
 
@@ -172,6 +181,7 @@ def iter_product(l):
 
     """
     return reduce(mul, l)
+
 
 if __name__ == "__main__":
     import doctest
