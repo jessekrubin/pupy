@@ -62,9 +62,10 @@ def ensure_save(filepath, n=0):
 def savings(filepath, string, clobber=True):
     """Save s(tring) to filepath as txt file
 
-    :param filepath: param string:
-    :param clobber: return: (Default value = False)
-    :param string: 
+    :param filepath: Filepath save location
+    :param string: File as a string to be saved
+    :param clobber: Save over a file if the filepath exists
+    :return: None? what do you want? confirmation?
 
     """
     if not clobber and path.exists(filepath):
@@ -116,7 +117,12 @@ def sjson(filepath, data, min=False):
 
 
 def save_jasm(filepath, data, min=False):
-    """Alias for sjson"""
+    """Alias for sjson (which stands for 'save-json')"""
+    return sjson(filepath, data, min)
+
+
+def sjasm(filepath, data, min=False):
+    """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
 
@@ -132,7 +138,12 @@ def ljson(filepath):
 
 
 def load_jasm(filepath):
-    """Alias for ljson"""
+    """Alias for ljson (which stands for 'load-json')"""
+    return ljson(filepath)
+
+
+def ljasm(filepath):
+    """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
 

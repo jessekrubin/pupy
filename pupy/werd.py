@@ -9,8 +9,8 @@ String Methods
 def binary_string(number):
     """Number to binary string
 
-    :param number: 
-
+    :param number: some number (an integer) to turn into a binary string
+    :return: Some string which is the binary string
     """
     return bin(number)[2:]
 
@@ -56,5 +56,4 @@ def is_palindrome(string):
 
 if __name__ == "__main__":
     from doctest import testmod
-
     testmod()
