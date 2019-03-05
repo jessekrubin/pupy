@@ -45,7 +45,3 @@ Installing is EZPZ
 ::
 
     pip install pupy
-
-
-
-https://python-pupy.readthedocs.io/en/latest/index.html
