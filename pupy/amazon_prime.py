@@ -14,7 +14,9 @@ from sys import version_info
 from pupy.decorations import cash_it
 from pupy.maths import divisors_gen
 
-if version_info[0] == 2:
+try:
+    range
+except NameError:
     range = xrange
 
 def prime_gen(plim=0, kprimes=None):

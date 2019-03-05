@@ -3,7 +3,9 @@
 """
 testing the pytriplets function/gen I made
 """
-from pupy.maths import pytriple_gen, Trigon, Vuple
+from pupy.maths import pytriple_gen
+from pupy.maths import Trigon
+from pupy.maths import Vuple
 
 
 class TestTrigon(object):

@@ -16,7 +16,6 @@ from setuptools import Extension
 from setuptools import find_packages
 from setuptools import setup
 from setuptools.command.build_ext import build_ext
-from pathlib import Path
 from pupy._version import __version__
 
 pupy_vesion = __version__
@@ -84,8 +83,7 @@ setup(
     author_email='jessekrubin@gmail.com',
     url='https://github.com/jessekrubin/python-pupy',
     repository='https://github.com/jessekrubin/python-pupy',
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
+    packages=find_packages(include=['pupy'], exclude=['docs', 'tests']),
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
     include_package_data=True,
     zip_safe=False,

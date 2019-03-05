@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from os import remove
-import pytest
 
 from pupy.savings_n_loads import load_jasm, lpak, spak
 from pupy.savings_n_loads import save_jasm

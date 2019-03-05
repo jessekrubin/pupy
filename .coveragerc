@@ -1,7 +1,6 @@
 [paths]
 source =
-   src
-   */site-packages
+   pupy
 
 [run]
 branch = true
