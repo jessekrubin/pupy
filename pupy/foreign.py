@@ -9,6 +9,7 @@ from collections import deque
 from functools import reduce
 from operator import mul
 from os import getcwd
+from os import path
 
 
 def chunks(list, chunk_size):
