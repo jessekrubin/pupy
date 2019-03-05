@@ -14,8 +14,7 @@ Hows it doin
     * - docs
       - |docs|
     * - tests
-      - | |travis| |requires|
-        | |coveralls| |codecov|
+      - | |travis|
     * - package
       - | |version| |wheel| |supported-versions| |supported-implementations|
 
@@ -26,18 +25,6 @@ Hows it doin
 .. |travis| image:: https://travis-ci.org/jessekrubin/python-pupy.svg?branch=master
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/jessekrubin/python-pupy
-
-.. |requires| image:: https://requires.io/github/jessekrubin/python-pupy/requirements.svg?branch=master
-    :alt: Requirements Status
-    :target: https://requires.io/github/jessekrubin/python-pupy/requirements/?branch=master
-
-.. |coveralls| image:: https://coveralls.io/repos/jessekrubin/python-pupy/badge.svg?branch=master&service=github
-    :alt: Coverage Status
-    :target: https://coveralls.io/github/jessekrubin/python-pupy
-
-.. |codecov| image:: https://codecov.io/github/jessekrubin/python-pupy/coverage.svg?branch=master
-    :alt: Coverage Status
-    :target: https://codecov.io/github/jessekrubin/python-pupy
 
 .. |version| image:: https://img.shields.io/pypi/v/pupy.svg
     :alt: PyPI Package latest release
