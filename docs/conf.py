@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from pupy._version import __version__
 import os
 import sys
+
 this_files_path = os.path.abspath(__file__)
 this_files_dir = os.path.split(this_files_path)[0]
 root_dir = os.path.split(this_files_dir)[0]
-src_path = os.path.join(root_dir, 'src')
-sys.path.insert(1,src_path)
+src_path = os.path.join(root_dir)
+sys.path.insert(1, src_path)
 
 extensions = [
     'sphinx.ext.autodoc',
@@ -31,7 +32,7 @@ project = 'pupy'
 year = '2018'
 author = 'jesse k rubin'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '2.1.4'
+version = release = __version__
 
 pygments_style = 'trac'
 templates_path = ['.']
@@ -49,7 +50,7 @@ html_use_smartypants = True
 html_last_updated_fmt = '%b %d, %Y'
 html_split_index = False
 html_sidebars = {
-   '**': ['searchbox.html', 'globaltoc.html', 'sourcelink.html'],
+    '**': ['searchbox.html', 'globaltoc.html', 'sourcelink.html'],
 }
 html_short_title = '%s-%s' % (project, version)
 
