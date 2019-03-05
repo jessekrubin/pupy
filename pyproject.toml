@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pupy"
-version = "2.3.1"
+version = "2.3.4"
 description = "pretty useful python"
 authors = ["jessekrubin <jessekrubin@gmail.com>"]
 license = "MIT"
