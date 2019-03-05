@@ -1,8 +1,6 @@
 Pretty Useful Python / pupy
 ===========================
 
-
-
 Hows it doin
 ------------
 
@@ -11,16 +9,10 @@ Hows it doin
 .. list-table::
     :stub-columns: 1
 
-    * - docs
-      - |docs|
     * - tests
       - | |travis|
     * - package
-      - | |version| |wheel| |supported-versions| |supported-implementations|
-
-.. |docs| image:: https://readthedocs.org/projects/python-pupy/badge/?style=flat
-    :target: https://python-pupy.readthedocs.io/en/latest/index.html
-    :alt: Documentation Status
+      - | |version| |wheel| |supported-versions|
 
 .. |travis| image:: https://travis-ci.org/jessekrubin/python-pupy.svg?branch=master
     :alt: Travis-CI Build Status
@@ -36,10 +28,6 @@ Hows it doin
 
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/pupy.svg
     :alt: Supported versions
-    :target: https://pypi.org/project/pupy
-
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/pupy.svg
-    :alt: Supported implementations
     :target: https://pypi.org/project/pupy
 
 
@@ -58,3 +46,6 @@ Installing is EZPZ
 
     pip install pupy
 
+
+
+https://python-pupy.readthedocs.io/en/latest/index.html
