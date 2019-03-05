@@ -4,12 +4,101 @@
 from __future__ import division
 from __future__ import print_function
 
-import json as jasm
 from cProfile import Profile
 from functools import wraps
 from inspect import getfile
+from os import chdir
+from os import getcwd
+from os import makedirs
+from os import path
 from time import time
+from typing import Callable
+from typing import Tuple
 
+def in_n_out(funk: Callable):
+    """Chdir in to the dir the test_function is in and change dirs out when done
+
+    :type funk: Callable
+    :param funk: docin.api logger functions logger.(debug/info/warn/error)
+    :return: wrapped function
+    """
+
+    @wraps(funk)
+    def chin_n_chout(*args: Tuple[str, ...], **kwargs: object):
+        """
+
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        # thing = os.path.split(os.path.realpath(__file__))
+        cd = getcwd()
+        dirpath = args[0]
+        if path.isdir(dirpath):
+            chdir(dirpath)
+        funk_results = funk(*args, **kwargs)
+        chdir(cd)
+        return funk_results
+
+    return chin_n_chout
+
+def flog(funk: Callable):
+    """Function Log
+
+    :type funk: Callable
+    :param funk: docin.api logger functions logger.(debug/info/warn/error)
+    :return: wrapped function
+    """
+    fn = funk.__name__.upper()
+
+    def _fmt_arg(arg):
+        return "\n[[%s ~ %s]]" % (fn, arg)  # $# log level string and message
+
+    def _fmt_log_level(args: Tuple[object, ...]) -> str:
+        return "\n".join(
+            _fmt_arg(arg)  # $# formmat the msg string...
+            for arg in args  # $# ...for each msg arg in args...
+            if type(arg) == str
+            )  # $# ...for string args
+
+    @wraps(funk)
+    def log_to_console_wrapper(
+        *args: Tuple[str, ...], **kwargs: object
+        ) -> Callable:
+        """
+
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        # if False:  # NOT DEBUGGING
+        #     logging.info(_fmt_log_level(args))
+        return funk(*args, **kwargs)
+
+    return log_to_console_wrapper
+
+def mkdirs(funk):
+    @wraps(funk)
+    def _wrapper(*args, **kwargs):
+        string_args = (path.split(arg)[0] for arg in args if isinstance(arg, str))
+        dir_paths = (s for s in string_args if s != '')
+        for string_arg in dir_paths:
+            makedirs(string_arg, exist_ok=True)
+        return funk(*args, **kwargs)
+
+    return _wrapper
+
+def dirdec(funk):
+    @wraps(funk)
+    def _wrapper(*args, **kwargs):
+        result = funk(*args, **kwargs)
+        try:
+            makedirs(result, exist_ok=True)
+        except Exception as e:
+            raise e
+        return result
+
+    return _wrapper
 
 def cash_it(funk):
     """args-2-return value cache.
@@ -30,75 +119,12 @@ def cash_it(funk):
         """
 
         """
-        if argz in cash_money:
-            return cash_money[argz]
-        else:
+        if argz not in cash_money:
             rv = funk(*argz)
             cash_money[argz] = rv
-            return rv
+        return cash_money[argz]
 
     return cash_wrap
-
-
-class Jasm(object):
-    """Jasm the Grundle Bug"""
-
-    def __init__(self, path):
-        self.file_path = path
-
-    def __call__(self, funk):
-        """Json saving and loading"""
-        fp = self.file_path
-
-        def savings_n_loads(*args, **kwargs):
-            """Jasm funk (w)rapper
-
-            """
-            if len(args) == 0:
-                save_key = "None"
-            else:
-                save_key = str((args, kwargs.items()))
-            try:
-                with open(fp) as f:
-                    dat_data = jasm.load(f)
-            except IOError:
-                dat_data = {}
-            except ValueError:
-                dat_data = {}
-
-            if save_key not in dat_data:
-                ret_val = funk(*args, **kwargs)
-                dat_data[save_key] = ret_val
-                with open(fp, "wb") as f:
-                    jasm.dump(dat_data, f, encoding="utf8", sort_keys=True)
-            return dat_data[save_key]
-
-        return savings_n_loads
-
-    @staticmethod
-    def read(fpath):
-        """Jasm load static method
-
-        :param fpath: filepath
-        :type fpath: str
-        :returns: object/data stored in the json file
-        :rtype: object
-
-        """
-        with open(fpath) as f:
-            return jasm.load(f)
-
-    @staticmethod
-    def write(fpath, obj):
-        """Jasm dump static method
-
-        :param fpath: filepath
-        :type fpath: str
-        :param obj: data/object to be saved
-        :type obj: object
-
-        """
-
 
 def cprof(funk):
     """"cProfiling decorator
@@ -126,7 +152,6 @@ def cprof(funk):
 
     return profiled_funk
 
-
 class tictoc(object):
     """Timing decorator object
 
@@ -145,7 +170,7 @@ class tictoc(object):
             "    args: {}".format(args_string),
             "    time: {}".format(tictoc.ftime(t_total)),
             "    runs: {}".format(self.runs),
-        ]
+            ]
         return "\n".join(str_list)
 
     def __call__(self, time_funk, printing=True):

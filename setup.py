@@ -10,20 +10,20 @@ from glob import glob
 from os.path import basename
 from os.path import dirname
 from os.path import join
-from os.path import relpath
 from os.path import splitext
-from setuptools import Extension
+
 from setuptools import find_packages
 from setuptools import setup
-from setuptools.command.build_ext import build_ext
+
 from pupy._version import __version__
 
 pupy_vesion = __version__
 from itertools import count
+
 with open('pyproject.toml') as f:
     lines = f.read().split('\n')
 deps = []
-for i in count(1+lines.index('[tool.poetry.dependencies]')):
+for i in count(1 + lines.index('[tool.poetry.dependencies]')):
     if lines[i] == '':
         break
     try:
@@ -32,12 +32,6 @@ for i in count(1+lines.index('[tool.poetry.dependencies]')):
             deps.append(dep)
     except:
         pass
-try:
-    # Allow installing package without any Cython available. This
-    # assumes you are going to include the .c files in your sdist.
-    import Cython
-except ImportError:
-    Cython = None
 
 def read(*names, **kwargs):
     """
@@ -49,38 +43,11 @@ def read(*names, **kwargs):
     with io.open(
         join(dirname(__file__), *names),
         encoding=kwargs.get('encoding', 'utf8')
-    ) as fh:
+        ) as fh:
         return fh.read()
 
 if 'TOXENV' in os.environ and 'SETUPPY_CFLAGS' in os.environ:
     os.environ['CFLAGS'] = os.environ['SETUPPY_CFLAGS']
-
-class optional_build_ext(build_ext):
-    """Allow the building of C extensions to fail."""
-
-    def run(self):
-        """
-
-        """
-        try:
-            build_ext.run(self)
-        except Exception as e:
-            self._unavailable(e)
-            self.extensions = []  # avoid copying missing files (it would fail).
-
-    def _unavailable(self, e):
-        print('*' * 80)
-        print('''WARNING:
-
-    An optional code optimization (C extension) could not be compiled.
-
-    Optimizations for this package will not be available!
-        ''')
-
-        print('CAUSE:')
-        print('')
-        print('    ' + repr(e))
-        print('*' * 80)
 
 setup(
     name='pupy',
@@ -90,13 +57,13 @@ setup(
     long_description='%s\n%s' % (
         re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.rst')),
         re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))
-    ),
+        ),
     author='jesse k rubin',
     author_email='jessekrubin@gmail.com',
-    url='https://github.com/jessekrubin/python-pupy',
-    repository='https://github.com/jessekrubin/python-pupy',
+    url='https://github.com/jessekrubin/pupy',
+    repository='https://github.com/jessekrubin/pupy',
     packages=find_packages(include=['pupy'], exclude=['docs', 'tests']),
-    py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
+    py_modules=[splitext(basename(path))[0] for path in glob('./*.py')],
     include_package_data=True,
     zip_safe=False,
     classifiers=[
@@ -115,34 +82,20 @@ setup(
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Utilities',
-    ],
+        ],
     keywords=[
         'pretty',
         'useful',
         'tewls'
-    ],
+        ],
     install_requires=deps,
-    extras_require={
-        # eg:
-        #   'rst': ['docutils>=0.11'],
-        #   ':python_version=="2.6"': ['argparse'],
-    },
-    setup_requires=[
-        'cython',
-    ] if Cython else [],
+    extras_require={},
+    setup_requires=[],
     entry_points={
         'console_scripts': [
             'pupy = pupy.cli:main',
-        ]
-    },
-    cmdclass={'build_ext': optional_build_ext},
-    ext_modules=[
-        Extension(
-            splitext(relpath(path, 'src').replace(os.sep, '.'))[0],
-            sources=[path],
-            include_dirs=[dirname(path)]
-        )
-        for root, _, _ in os.walk('src')
-        for path in glob(join(root, '*.pyx' if Cython else '*.c'))
-    ],
-)
+            ]
+        },
+    cmdclass={},
+    ext_modules=[],
+    )

@@ -1,35 +1,61 @@
 # -*- coding: utf-8 -*-
-from os import remove
+from os import remove, path, sep
+from shutil import rmtree
+from pupy.utils import parent_path
 
+import pytest
+
+from pupy.savings_n_loads import ljasm
+from pupy.savings_n_loads import ljson
 from pupy.savings_n_loads import load_jasm
 from pupy.savings_n_loads import lpak
 from pupy.savings_n_loads import save_jasm
-from pupy.savings_n_loads import spak
+from pupy.savings_n_loads import sjasm
+from pupy.savings_n_loads import sjson
+from pupy.savings_n_loads import spak, touch
 
-JASM_DICT = {"Jason": ["Green",
-                       "Berg"],
-             "Jasm":  ["Grundle",
-                       "Bug"]}
+JASM_DICT = {
+    "Jason": ["Green",
+              "Berg"],
+    "Jasm" : ["Grundle",
+              "Bug"]
+    }
 
-def test_ljson_n_sjson():
+@pytest.mark.parametrize(
+    'save_funk,load_funk',
+    [
+        [save_jasm, load_jasm],
+        [sjson, ljson],
+        [sjasm, ljasm],
+        [spak, lpak],
+        ]
+    )
+def test_ljson_n_sjson(save_funk: callable, load_funk: callable):
     """
 
     """
-    save_jasm('jasm_dict.json', JASM_DICT)
-
-    loaded_data = load_jasm('jasm_dict.json')
-    print(JASM_DICT)
-    print(loaded_data)
+    save_funk('jasm_dict.json', JASM_DICT)
+    loaded_data = load_funk('jasm_dict.json')
     assert loaded_data == JASM_DICT
     remove('jasm_dict.json')
 
-def test_spak_n_lpak():
-    """
+@pytest.mark.parametrize(
+    'fdpath',
+    [
+        'file.txt',
+        path.join('dir', 'file.txt'),
+        path.join('dir1', 'dir2', 'file.txt'),
+        path.join('dir1', 'dir2', 'dir3', 'file.txt'),
+        path.join('dir1', 'dir2', 'dir3', 'dir4', 'file.txt'),
+        ]
+    )
+def test_touch(fdpath):
+    assert not path.exists(fdpath)
+    touch(fdpath)
+    assert path.exists(fdpath)
 
-    """
-    spak('data.pak', JASM_DICT)
-    loaded_data = lpak('data.pak')
-    assert loaded_data == JASM_DICT
-    remove('data.pak')
-
-
+    root = fdpath.split(sep)[0]
+    if path.isdir(root):
+        rmtree(root)
+    elif path.isfile(root):
+        remove(root)

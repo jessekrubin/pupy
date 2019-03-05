@@ -9,20 +9,19 @@ from codecs import getwriter
 from datetime import datetime
 from io import open
 from itertools import count
-from sys import stderr
+from os import path
+from os import remove
+from os import utime
 from time import sleep
+
+from pupy.decorations import mkdirs
 
 try:
     from ujson import dump
     from ujson import load
-except:
+except ModuleNotFoundError as e:
     from json import dump
     from json import load
-from os import path
-from os import remove
-from msgpack import pack
-from msgpack import unpack
-
 
 def timestamp():
     """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS
@@ -31,7 +30,6 @@ def timestamp():
     """
     """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS"""
     return datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
-
 
 def safe_path(filepath):
     """
@@ -47,7 +45,6 @@ def safe_path(filepath):
                 return safe_save_path
     return filepath
 
-
 def ensure_save(filepath, n=0):
     try:
         assert path.exists(filepath)
@@ -58,7 +55,7 @@ def ensure_save(filepath, n=0):
             return False
         return ensure_save(filepath, n + 1)
 
-
+@mkdirs
 def savings(filepath, string, clobber=True):
     """Save s(tring) to filepath as txt file
 
@@ -78,7 +75,7 @@ def savings(filepath, string, clobber=True):
     except Exception as e:
         raise e
 
-
+@mkdirs
 def loads(filepath):
     """Load a (txt) file as a string
 
@@ -92,7 +89,7 @@ def loads(filepath):
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
 
-
+@mkdirs
 def sjson(filepath, data, min=False):
     """Save json-serial-ize-able data to a specific filepath.
 
@@ -113,19 +110,21 @@ def sjson(filepath, data, min=False):
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-            )
-
+                )
 
 def save_jasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-
 def sjasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
+def spak(filepath, data, min=False):
+    """Alias for sjson (which stands for 'save-json')"""
+    return sjson(filepath, data, min)
 
+@mkdirs
 def ljson(filepath):
     """Load a json file given a filepath and return the file-data
 
@@ -136,26 +135,53 @@ def ljson(filepath):
     with open(filepath) as infile:
         return load(infile)
 
-
 def load_jasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
-
 
 def ljasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
-
-def spak(filepath, data):
-    with open(filepath, "wb") as pakfile:
-        pack(data, pakfile)
-
-
 def lpak(filepath):
-    with open(filepath, "rb") as pakfile:
-        return unpack(pakfile, raw=False)
+    """Alias for ljson (which stands for 'load-json')"""
+    return ljson(filepath)
 
+@mkdirs
+def touch(filepath):
+    """Touches a file just like touch on the command line"""
+    with open(filepath, 'a'):
+        utime(filepath, None)
 
-if __name__ == "__main__":
-    pass
+class Jasm(object):
+    """Jasm the Grundle Bug"""
+
+    def __init__(self, path):
+        self.file_path = path
+
+    def __call__(self, funk):
+        """Json saving and loading"""
+        fp = self.file_path
+
+        def savings_n_loads(*args, **kwargs):
+            """Jasm funk (w)rapper
+
+            """
+            if len(args) == 0:
+                save_key = "None"
+            else:
+                save_key = str((args, kwargs.items()))
+            try:
+                dat_data = ljson(fp)
+            except IOError:
+                dat_data = {}
+            except ValueError:
+                dat_data = {}
+
+            if save_key not in dat_data:
+                ret_val = funk(*args, **kwargs)
+                dat_data[save_key] = ret_val
+                sjson(fp, dat_data)
+            return dat_data[save_key]
+
+        return savings_n_loads

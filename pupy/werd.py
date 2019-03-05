@@ -53,7 +53,3 @@ def is_palindrome(string):
         character == string[-index - 1] for index, character in enumerate(string)
     )
 
-
-if __name__ == "__main__":
-    from doctest import testmod
-    testmod()
