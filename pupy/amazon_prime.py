@@ -145,7 +145,19 @@ def is_prime(number):
 
     .. doctest:: python
 
-        >>> is_prime(37)
+        >>> is_prime(1)
+        False
+        >>> is_prime(2)
+        True
+        >>> is_prime(3)
+        True
+        >>> is_prime(4)
+        False
+        >>> is_prime(5)
+        True
+        >>> is_prime(6)
+        False
+        >>> is_prime(7)
         True
         >>> is_prime(100)
         False

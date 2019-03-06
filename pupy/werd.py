@@ -11,6 +11,14 @@ def binary_string(number):
 
     :param number: some number (an integer) to turn into a binary string
     :return: Some string which is the binary string
+
+    .. doctest:: python
+
+        >>> binary_string(200)
+        '11001000'
+        >>> binary_string(10)
+        '1010'
+
     """
     return bin(number)[2:]
 
@@ -23,7 +31,7 @@ def string_score(strang):
     :returns: -> score of the string
     :rtype: int
 
-    .. doctest::python
+    .. doctest:: python
 
         >>> string_score('me')
         18

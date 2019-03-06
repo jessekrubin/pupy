@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
@@ -20,7 +21,7 @@ from pupy.foreign import iter_product
 
 def partitions_gen(numero, min_p=1, max_p=None):
     """Partitions generator
-    
+
     Adapted from: code.activestate.com/recipes/218332-generator-for-integer-partitions/min_p
 
     :param numero: number for which to yield partiton tuples
@@ -51,6 +52,29 @@ def rfactorial(n):
 
     :param n:
 
+    .. docstring::python
+
+        >>> from math import factorial
+        >>> rfactorial(1) == factorial(1)
+        True
+        >>> rfactorial(2) == factorial(2)
+        True
+        >>> rfactorial(3) == factorial(3)
+        True
+        >>> rfactorial(4) == factorial(4)
+        True
+        >>> rfactorial(5) == factorial(5)
+        True
+        >>> rfactorial(6) == factorial(6)
+        True
+        >>> rfactorial(7) == factorial(7)
+        True
+        >>> rfactorial(8) == factorial(8)
+        True
+        >>> rfactorial(9) == factorial(9)
+        True
+
+
     """
     if n == 1:
         return 1
@@ -60,7 +84,16 @@ def rfactorial(n):
 def radians_2_degrees(rads):
     """Converts radians to degrees
 
-    :param rads: 
+    :param rads:
+
+    .. doctests:: python
+
+        >>> from math import pi
+        >>> radians_2_degrees(2*pi) == 360.0
+        True
+        >>> radians_2_degrees(2*pi)
+        360.0
+
 
     """
     return 180 * rads / pi
@@ -68,7 +101,13 @@ def radians_2_degrees(rads):
 def degrees_2_radians(degs):
     """Converts degrees to radians
 
-    :param degs: 
+    :param degs:
+
+    .. doctest:: python
+
+        >>> from math import pi
+        >>> degrees_2_radians(360.0) == 2*pi
+        True
 
     """
     return degs * pi / 180
@@ -76,9 +115,9 @@ def degrees_2_radians(degs):
 def power_mod(number, exponent, mod):
     """
 
-    :param number: 
-    :param exponent: 
-    :param mod: 
+    :param number:
+    :param exponent:
+    :param mod:
 
     """
     if exponent > 0:
@@ -94,6 +133,16 @@ def divisors_gen(n):
     :param n: number w/ divisors to be generated
     :type n: int
 
+    .. doctest:: python
+
+        >>> list(divisors_gen(1))
+        [1]
+        >>> list(divisors_gen(4))
+        [1, 2, 4]
+        >>> list(divisors_gen(16))
+        [1, 2, 4, 8, 16]
+
+
     """
     large_divisors = []
     for i in range(1, int(sqrt(n) + 1)):
@@ -107,8 +156,20 @@ def divisors_gen(n):
 def gcd_it(a, b):
     """iterative gcd
 
-    :param a: 
-    :param b: 
+    :param a:
+    :param b:
+
+
+        >>> from pupy.maths import gcd_it
+        >>> from pupy.maths import gcd_r
+        >>> gcd_it(1, 4) == gcd_r(1, 4)
+        True
+        >>> gcd_it(2, 6) == gcd_r(2, 6)
+        True
+        >>> gcd_it(3, 14) == gcd_r(3, 14)
+        True
+        >>> gcd_it(4, 300) == gcd_r(4, 300)
+        True
 
     """
     while a:
@@ -119,8 +180,21 @@ def gcd_it(a, b):
 def gcd_r(a, b):
     """recursive greatest common divisor
 
-    :param a: 
-    :param b: 
+    :param a:
+    :param b:
+
+    .. doctest:: python
+
+        >>> from pupy.maths import gcd_it
+        >>> from pupy.maths import gcd_r
+        >>> gcd_it(1, 4) == gcd_r(1, 4)
+        True
+        >>> gcd_it(2, 6) == gcd_r(2, 6)
+        True
+        >>> gcd_it(3, 14) == gcd_r(3, 14)
+        True
+        >>> gcd_it(4, 300) == gcd_r(4, 300)
+        True
 
     """
     if b > a:
@@ -137,6 +211,17 @@ def reverse(n):
     :type n: int
     :returns: reversed of a number
     :rtype: int
+
+    .. doctest:: python
+
+        >>> reverse(1)
+        1
+        >>> reverse(12345)
+        54321
+        >>> reverse(54321)
+        12345
+        >>> reverse(54321000)
+        12345
 
     """
 
@@ -190,7 +275,7 @@ def expo(d, n):
 
 def pytriple_gen(max_c):
     """primative pythagorean triples generator
-    
+
     special thanks to 3Blue1Brown's video on pythagorean triples
     https://www.youtube.com/watch?v=QJYmyhnaaek&t=300s
 
@@ -227,7 +312,7 @@ def repermutations(toop):
 def disjoint(a, b):
     """
 
-    :param a: 
+    :param a:
     :param b:
 
     .. doctest:: python
@@ -252,8 +337,8 @@ def disjoint(a, b):
 def n_choose_r(n, r):
     """
 
-    :param n: 
-    :param r: 
+    :param n:
+    :param r:
 
     """
     return factorial(n) // factorial(r) // factorial(n - r)
@@ -280,8 +365,8 @@ def pytriple_gen_2():
 def get_pythag_triple(real, imag):
     """
 
-    :param real: 
-    :param imag: 
+    :param real:
+    :param imag:
 
     """
     comp = complex(real, imag)
@@ -320,11 +405,11 @@ class Trigon(object):
             point = Vuple(point)
         return self.area() == sum(
             map(methodcaller("area"), self.inner_triangles(point))
-            )
+        )
 
     def inner_triangles(self, point):
         """Triangle funk that returns the three triangles w/ a point
-        
+
         The point (p) is connected to each point of a triangle. with points,
         a, b, and c. The three triangles are t1=(a, b, p), t2=(a, c, p), and
         t3 = (b, c, p).
@@ -342,7 +427,7 @@ class Trigon(object):
     def is_perimeter_point(self, point):
         """
 
-        :param point: 
+        :param point:
 
         """
         if type(point) is not Vuple:
@@ -350,7 +435,7 @@ class Trigon(object):
         return any(
             tri_area == 0
             for tri_area in map(methodcaller("area"), self.inner_triangles(point))
-            )
+        )
 
     def points(self):
         """ """
@@ -368,9 +453,9 @@ class Trigon(object):
     def area_from_points(pt1, pt2, pt3):
         """
 
-        :param pt1: 
-        :param pt2: 
-        :param pt3: 
+        :param pt1:
+        :param pt2:
+        :param pt3:
 
         """
         return abs(truediv(Vuple.cross(pt1 - pt2, pt3 - pt2), 2))
@@ -448,7 +533,7 @@ class Vuple(tuple):
     def _mul_scalar(self, k):
         """
 
-        :param k: 
+        :param k:
 
         """
         return Vuple((k * el for el in self))
@@ -460,7 +545,7 @@ class Vuple(tuple):
     def _truediv_scalar(self, k):
         """
 
-        :param k: 
+        :param k:
 
         """
         return Vuple((el / k for el in self))
@@ -478,14 +563,14 @@ class Vuple(tuple):
     def _floordiv_scalar_int(self, k):
         """
 
-        :param k: 
+        :param k:
 
         """
         return Vuple((el // k for el in self))
 
     def normalize(self):
         """Normalizes the Vuple ST self.magnitude == 1
-        
+
         :return: Unit Vuple
 
 
@@ -496,7 +581,7 @@ class Vuple(tuple):
     def unit_vuple(voop):
         """
 
-        :param voop: 
+        :param voop:
 
         """
         return Vuple(voop) / Vuple.mag(voop)
@@ -509,7 +594,7 @@ class Vuple(tuple):
     def mag_sqrd(voop):
         """
 
-        :param voop: 
+        :param voop:
 
         """
         return sum(el * el for el in voop)
@@ -535,8 +620,8 @@ class Vuple(tuple):
     def dot(a, b):
         """
 
-        :param a: 
-        :param b: 
+        :param a:
+        :param b:
 
         """
         return sum(va * vb for va, vb in zip(a, b))
@@ -559,8 +644,8 @@ class Vuple(tuple):
     def angle(v1, v2, radians=False):
         """
 
-        :param v1: 
-        :param v2: 
+        :param v1:
+        :param v2:
         :param radians:  (Default value = False)
 
         """
@@ -571,14 +656,14 @@ class Vuple(tuple):
     def is_disjoint(self, them):
         """
 
-        :param them: 
+        :param them:
 
         """
         return disjoint(self, them)
 
     def product(self):
         """Multiplies all elements in the Vuple
-        
+
         :return:
 
         .. doctest:: pythonm
