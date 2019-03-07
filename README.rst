@@ -16,7 +16,7 @@ Hows it doin
 
 .. |travis| image:: https://travis-ci.org/jessekrubin/python-pupy.svg?branch=master
     :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/jessekrubin/python-pupy
+    :target: https://travis-ci.org/jessekrubin/pupy
 
 .. |version| image:: https://img.shields.io/pypi/v/pupy.svg
     :alt: PyPI Package latest release
