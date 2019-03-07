@@ -34,7 +34,11 @@ case $key in
         source venv/bin/activate
         pip install black
         black . --exclude venv
-
+        ;;
+	--test)
+		shift
+        echo "testing...."
+        python -m pytest --cov
         ;;
 	--redoc)
 		shift
