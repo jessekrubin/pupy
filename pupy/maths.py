@@ -86,7 +86,7 @@ def radians_2_degrees(rads):
 
     :param rads:
 
-    .. doctests:: python
+    .. doctest:: python
 
         >>> from math import pi
         >>> radians_2_degrees(2*pi) == 360.0
