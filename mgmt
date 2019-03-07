@@ -33,7 +33,7 @@ case $key in
         "./mgmt"
         source venv/bin/activate
         pip install black
-        black . --exclude venv
+        black . --exclude venv .tox
         ;;
 	--test)
 		shift
