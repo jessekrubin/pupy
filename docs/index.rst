@@ -16,3 +16,5 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. include:: ./readme.rst
+
