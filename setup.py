@@ -7,6 +7,7 @@ import io
 import os
 import re
 from glob import glob
+from itertools import count
 from os.path import basename
 from os.path import dirname
 from os.path import join
@@ -18,7 +19,6 @@ from setuptools import setup
 from pupy._version import __version__
 
 pupy_vesion = __version__
-from itertools import count
 
 with open('pyproject.toml') as f:
     lines = f.read().split('\n')

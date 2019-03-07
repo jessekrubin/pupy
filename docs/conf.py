@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from pupy._version import __version__
+
 import os
 import sys
+
+from pupy._version import __version__
 
 this_files_path = os.path.abspath(__file__)
 this_files_dir = os.path.split(this_files_path)[0]

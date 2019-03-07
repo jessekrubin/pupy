@@ -14,6 +14,7 @@ from pytest import raises
 from pupy.sodoku import Sodoku
 from pupy.sodoku import SodokuError
 
+
 class Test_SodokuMethods(object):
 
     def test_neighbors(self):

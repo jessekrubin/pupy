@@ -4,6 +4,7 @@
 from typing import Any
 from typing import Optional
 
+
 class SodokuError(ValueError):
     message: str = ...
     def __init__(

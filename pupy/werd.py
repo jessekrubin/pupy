@@ -60,4 +60,3 @@ def is_palindrome(string):
     return all(
         character == string[-index - 1] for index, character in enumerate(string)
     )
-

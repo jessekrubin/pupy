@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from os import remove, path, sep
+from os import path
+from os import remove
+from os import sep
 from shutil import rmtree
-from pupy.utils import parent_path
 
 import pytest
 
@@ -12,7 +13,9 @@ from pupy.savings_n_loads import lpak
 from pupy.savings_n_loads import save_jasm
 from pupy.savings_n_loads import sjasm
 from pupy.savings_n_loads import sjson
-from pupy.savings_n_loads import spak, touch
+from pupy.savings_n_loads import spak
+from pupy.savings_n_loads import touch
+from pupy.utils import parent_path
 
 JASM_DICT = {
     "Jason": ["Green",

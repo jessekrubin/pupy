@@ -7,6 +7,7 @@ from __future__ import division
 
 from pupy.maths import Vuple
 
+
 class Test_Vuple(object):
 
     def test_gt(self):
