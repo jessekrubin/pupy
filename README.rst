@@ -11,7 +11,7 @@ Hows it doin
 
     * - Tostadas
       - | |travis|
-    * - Other info n stuff
+    * - Other Info
       - | |version| |wheel| |supported-versions|
 
 .. |travis| image:: https://travis-ci.org/jessekrubin/python-pupy.svg?branch=master
