@@ -14,7 +14,7 @@ Hows it doin
     * - Other Info
       - | |version| |wheel| |supported-versions|
 
-.. |travis| image:: https://travis-ci.org/jessekrubin/python-pupy.svg?branch=master
+.. |travis| image:: https://travis-ci.org/jessekrubin/pupy.svg?branch=master
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/jessekrubin/pupy
 
