@@ -9,9 +9,9 @@ Hows it doin
 .. list-table::
     :stub-columns: 1
 
-    * - tests
+    * - Tostadas
       - | |travis|
-    * - package
+    * - Other info n stuff
       - | |version| |wheel| |supported-versions|
 
 .. |travis| image:: https://travis-ci.org/jessekrubin/python-pupy.svg?branch=master
