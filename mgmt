@@ -1,0 +1,44 @@
+#!/bin/bash
+
+echo "__________________"
+echo "how do i manage..."
+echo "options:"
+echo "-h, --help                show brief help"
+echo "'env' to activate the env"
+echo "~ ~ ~ ~ ~"
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+	-h | --help)
+		echo "how do i manage..."
+		echo "options:"
+		echo "-h, --help                show brief help"
+		exit 0
+		;;
+	--env)
+		shift
+        echo "Entering the env"
+        source venv/bin/activate
+        ;;
+	--this)
+		shift
+        vim "./mgmt"
+        ;;
+	--fmt)
+		shift
+        "./mgmt"
+        source venv/bin/activate
+        pip install black
+        black . --exclude venv
+
+        ;;
+	--redoc)
+		shift
+        echo "sorting imports"
+        python -m sphinx -b html docs/ docs/_build/
+	esac
+done

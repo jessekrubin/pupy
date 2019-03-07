@@ -9,7 +9,6 @@ from pupy.maths import Vuple
 
 
 class Test_Vuple(object):
-
     def test_gt(self):
         """
 
@@ -64,7 +63,7 @@ class Test_Vuple(object):
 
         """
         v = Vuple((3, 4))
-        v = (v * 2)
+        v = v * 2
         assert (6, 8) == v
 
     def test_imul_scalar(self):
