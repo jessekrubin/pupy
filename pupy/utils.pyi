@@ -1,0 +1,3 @@
+from typing import Any
+
+def parent_path(fdpath: Any): ...
