@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# ~ Jesse K. Rubin ~ Pretty Useful Python
 """
 Entrypoint module, in case you use `python -mpupy`.
 

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# ~ Jesse K. Rubin ~ Pretty Useful Python
 from pathlib import Path
 
 __version__ = (
@@ -9,6 +10,6 @@ __version__ = (
         .split("\n")
         if "version" in l
     ][0]
-    .replace("version = ", "")
-    .strip('"')
+        .replace("version = ", "")
+        .strip('"')
 )

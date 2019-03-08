@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
@@ -23,6 +22,7 @@ except ModuleNotFoundError as e:
     from json import dump
     from json import load
 
+
 def timestamp():
     """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS
 
@@ -31,55 +31,53 @@ def timestamp():
     """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS"""
     return datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
 
-def safe_path(filepath):
-    """
 
-    :param filepath: 
+def safepath(fdpath):
+    """Checks if a file/dir path is save/unused; returns an unused path.
+
+    :param fdpath:
 
     """
-    if path.exists(filepath):
-        f_bn, f_ext = path.splitext(filepath)
+    if path.exists(fdpath):
+        f_bn, f_ext = path.splitext(fdpath)
         for n in count(1):
             safe_save_path = f_bn + "_({}).".format(str(n)) + f_ext
             if not path.exists(safe_save_path):
                 return safe_save_path
-    return filepath
+    return fdpath
 
-def ensure_save(filepath, n=0):
-    try:
-        assert path.exists(filepath)
-        return True
-    except AssertionError:
-        sleep(1)
-        if n > 5:
-            return False
-        return ensure_save(filepath, n + 1)
 
 @mkdirs
 def savings(filepath, string, clobber=True):
-    """Save s(tring) to filepath as txt file
+    """Writes a string to filepath
+
 
     :param filepath: Filepath save location
     :param string: File as a string to be saved
     :param clobber: Save over a file if the filepath exists
     :return: None? what do you want? confirmation?
 
+    .. note:: Decorated w/ @mkdirs
+        Function is decorated with @mkdirs decorator; @mkdirs creates parent
+        directories for the given filepath if they do not already exist.
+
     """
     if not clobber and path.exists(filepath):
-        filepath = safe_path(filepath)
+        filepath = safepath(filepath)
     elif path.exists(filepath):
         remove(filepath)
     try:
-        with open(safe_path(filepath) if clobber else filepath, "wb") as file:
+        with open(safepath(filepath) if clobber else filepath, "wb") as file:
             file.write(string.encode("utf-8"))
     except Exception as e:
         raise e
 
-@mkdirs
-def loads(filepath):
-    """Load a (txt) file as a string
 
-    :param filepath: return:
+def loads(filepath):
+    """Read and return the file-contents as a string given a filepath
+
+    :param filepath: Path to a file to read
+    :return: Content of the file read as a string
 
     """
     try:
@@ -89,14 +87,16 @@ def loads(filepath):
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
 
+
 @mkdirs
 def sjson(filepath, data, min=False):
     """Save json-serial-ize-able data to a specific filepath.
 
-    :param filepath: save filepath
-    :param data: json ready data
-    :param min: minified format flag
+    :param filepath: destination filepath
+    :param data: json cereal-izable dictionary/list/thing
+    :param min: Bool flag -- minify the json file
     :return: None
+
     """
     if type(data) == dict and any(type(val) == bytes for val in data.values()):
         data = {k: str(v, encoding="utf-8") for k, v in data.items()}
@@ -110,19 +110,23 @@ def sjson(filepath, data, min=False):
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-                )
+            )
+
 
 def save_jasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
+
 def sjasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
+
 def spak(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
+
 
 @mkdirs
 def ljson(filepath):
@@ -135,20 +139,28 @@ def ljson(filepath):
     with open(filepath) as infile:
         return load(infile)
 
+
 def load_jasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
+
 
 def ljasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
+
 def lpak(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
+
 @mkdirs
 def touch(filepath):
-    """Touches a file just like touch on the command line"""
+    """Touches a file just like touch on the command line
+
+    :param filepath: filepath to 'touch' in a unix-y sense
+    :return: None
+    """
     with open(filepath, "a"):
         utime(filepath, None)

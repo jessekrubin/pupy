@@ -35,7 +35,7 @@ case $key in
         pip install black
         black . --exclude venv .tox
         ;;
-	--test)
+	test)
 		shift
         echo "testing...."
         python -m pytest --cov

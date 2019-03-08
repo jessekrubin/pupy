@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# ~ Jesse K. Rubin ~ Pretty Useful Python
 """
 Module that contains the command line app.
 

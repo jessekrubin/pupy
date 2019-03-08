@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 from __future__ import division
@@ -76,11 +75,58 @@ def is_permutation(a, b):
     :returns: True if a and b are permutations of one another; False otherwise
     :rtype: bool
 
+    It works for list!!!
+
+    .. doctest:: python
+
+        >>> a = [1, 2, 3, 4]
+        >>> b = [4, 3, 2, 1]
+        >>> is_permutation(a, b)
+        True
+        >>> a = [1, 3, 2, 4]
+        >>> b = [4, 3, 2, 1]
+        >>> is_permutation(a, b)
+        True
+        >>> a = [1, 3, 2, 4]
+        >>> b = [4, 3, 2, 1, 1]
+        >>> is_permutation(a, b) # False cuz of the extra 'one'
+        False
+
+    It works for integers!?!?!?
+
+    .. doctest:: python
+
+        >>> a = 1234
+        >>> b = 4321
+        >>> is_permutation(a, b)
+        True
+        >>> a = 12344
+        >>> b = 43212
+        >>> is_permutation(a, b)
+        False
+
+    It also works for strings!!!
+
+    .. doctest:: python
+
+        >>> a = 'abcd'
+        >>> b = 'dbca'
+        >>> is_permutation(a, b) # False cuz of the extra 'one'
+        True
+        >>> a = 'pood'
+        >>> b = 'doop'
+        >>> is_permutation(a, b) # False cuz of the extra 'one'
+        True
+        >>> a = 'snorkel'
+        >>> b = 'doop'
+        >>> is_permutation(a, b) # False cuz of the extra 'one'
+        False
+
     """
 
-    if type(a) == int:
+    if isinstance(a, int):
         a = digits_list(a)
-    if type(b) == int:
+    if isinstance(b, int):
         b = digits_list(b)
     return len(a) == len(b) and Counter(a) == Counter(b)
 
@@ -97,7 +143,7 @@ def rotate(rlist, rn=1, left_rotate=True):
     :returns: rotated list
     :rtype: list
 
-    .. doctest::python
+    .. doctest:: python
 
         >>> rotate([1, 2, 3, 4], left_rotate=True)
         [2, 3, 4, 1]
