@@ -10,7 +10,7 @@ from inspect import getfile
 from os import chdir
 from os import getcwd
 from os import makedirs
-from os import path
+from os import path, mkdir
 from time import time
 from typing import Callable
 from typing import Tuple
@@ -80,10 +80,11 @@ def flog(funk: Callable):
 def mkdirs(funk):
     @wraps(funk)
     def _wrapper(*args, **kwargs):
-        string_args = (path.split(arg)[0] for arg in args if isinstance(arg, str))
-        dir_paths = (s for s in string_args if s != '')
-        for string_arg in dir_paths:
-            makedirs(string_arg, exist_ok=True)
+        dirpath = path.split(args[0])[0]
+        try:
+            makedirs(dirpath, exist_ok=True)
+        except OSError:
+            pass
         return funk(*args, **kwargs)
 
     return _wrapper
@@ -93,9 +94,10 @@ def dirdec(funk):
     def _wrapper(*args, **kwargs):
         result = funk(*args, **kwargs)
         try:
-            makedirs(result, exist_ok=True)
-        except Exception as e:
-            raise e
+            if not path.exists(result):
+                mkdir(result)
+        except OSError:
+            pass
         return result
 
     return _wrapper
