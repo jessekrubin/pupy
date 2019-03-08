@@ -15,6 +15,7 @@ from time import time
 from typing import Callable
 from typing import Tuple
 
+
 def in_n_out(funk: Callable):
     """Chdir in to the dir the test_function is in and change dirs out when done
 
@@ -42,6 +43,7 @@ def in_n_out(funk: Callable):
 
     return chin_n_chout
 
+
 def flog(funk: Callable):
     """Function Log
 
@@ -59,12 +61,10 @@ def flog(funk: Callable):
             _fmt_arg(arg)  # $# formmat the msg string...
             for arg in args  # $# ...for each msg arg in args...
             if type(arg) == str
-            )  # $# ...for string args
+        )  # $# ...for string args
 
     @wraps(funk)
-    def log_to_console_wrapper(
-        *args: Tuple[str, ...], **kwargs: object
-        ) -> Callable:
+    def log_to_console_wrapper(*args: Tuple[str, ...], **kwargs: object) -> Callable:
         """
 
         :param args:
@@ -76,6 +76,7 @@ def flog(funk: Callable):
         return funk(*args, **kwargs)
 
     return log_to_console_wrapper
+
 
 def mkdirs(funk):
     @wraps(funk)
@@ -89,6 +90,7 @@ def mkdirs(funk):
 
     return _wrapper
 
+
 def dirdec(funk):
     @wraps(funk)
     def _wrapper(*args, **kwargs):
@@ -101,6 +103,7 @@ def dirdec(funk):
         return result
 
     return _wrapper
+
 
 def cash_it(funk):
     """args-2-return value cache.
@@ -128,6 +131,7 @@ def cash_it(funk):
 
     return cash_wrap
 
+
 def cprof(funk):
     """"cProfiling decorator
     
@@ -154,6 +158,7 @@ def cprof(funk):
 
     return profiled_funk
 
+
 class tictoc(object):
     """Timing decorator object
 
@@ -172,7 +177,7 @@ class tictoc(object):
             "    args: {}".format(args_string),
             "    time: {}".format(tictoc.ftime(t_total)),
             "    runs: {}".format(self.runs),
-            ]
+        ]
         return "\n".join(str_list)
 
     def __call__(self, time_funk, printing=True):

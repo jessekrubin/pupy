@@ -23,6 +23,7 @@ except ModuleNotFoundError as e:
     from json import dump
     from json import load
 
+
 def timestamp():
     """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS
 
@@ -30,6 +31,7 @@ def timestamp():
     """
     """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS"""
     return datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
+
 
 def safe_path(filepath):
     """
@@ -45,6 +47,7 @@ def safe_path(filepath):
                 return safe_save_path
     return filepath
 
+
 def ensure_save(filepath, n=0):
     try:
         assert path.exists(filepath)
@@ -54,6 +57,7 @@ def ensure_save(filepath, n=0):
         if n > 5:
             return False
         return ensure_save(filepath, n + 1)
+
 
 @mkdirs
 def savings(filepath, string, clobber=True):
@@ -75,6 +79,7 @@ def savings(filepath, string, clobber=True):
     except Exception as e:
         raise e
 
+
 @mkdirs
 def loads(filepath):
     """Load a (txt) file as a string
@@ -88,6 +93,7 @@ def loads(filepath):
     except UnicodeDecodeError as e:
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
+
 
 @mkdirs
 def sjson(filepath, data, min=False):
@@ -110,19 +116,23 @@ def sjson(filepath, data, min=False):
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-                )
+            )
+
 
 def save_jasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
+
 def sjasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
+
 def spak(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
+
 
 @mkdirs
 def ljson(filepath):
@@ -135,23 +145,28 @@ def ljson(filepath):
     with open(filepath) as infile:
         return load(infile)
 
+
 def load_jasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
+
 
 def ljasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
+
 def lpak(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
+
 @mkdirs
 def touch(filepath):
     """Touches a file just like touch on the command line"""
-    with open(filepath, 'a'):
+    with open(filepath, "a"):
         utime(filepath, None)
+
 
 class Jasm(object):
     """Jasm the Grundle Bug"""
