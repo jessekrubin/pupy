@@ -12,7 +12,6 @@ from os import path
 from os import sep
 from os import walk
 
-
 def files_gen(dirpath=getcwd(), abs=True):
     """Yields paths beneath dirpath param; dirpath defaults to os.getcwd()
 
@@ -23,10 +22,9 @@ def files_gen(dirpath=getcwd(), abs=True):
     return (
         fpath if abs else fpath.replace(dirpath, "").strip(sep)
         for fpath in (
-            path.join(pwd, file) for pwd, dirs, files in walk(dirpath) for file in files
+        path.join(pwd, file) for pwd, dirs, files in walk(dirpath) for file in files
         )
-    )
-
+        )
 
 def dirs_gen(dirpath=getcwd(), abs=True):
     """Yields paths beneath dirpath param; dirpath defaults to os.getcwd()
@@ -39,8 +37,10 @@ def dirs_gen(dirpath=getcwd(), abs=True):
     return (
         fpath if abs else fpath.replace(dirpath, "").strip(sep)
         for fpath in (pwd for pwd, dirs, files in walk(dirpath))
-    )
+        )
 
+def exhaust(it):
+    deque(it, maxlen=0)
 
 def chunks(list, chunk_size):
     """Yields chunks of something slicable with length <= chunk_size
@@ -62,8 +62,7 @@ def chunks(list, chunk_size):
         ['abcdefghijklm', 'nopqrstuvwxyz']
 
     """
-    return (list[i : i + chunk_size] for i in range(0, len(list), chunk_size))
-
+    return (list[i: i + chunk_size] for i in range(0, len(list), chunk_size))
 
 def is_permutation(a, b):
     """Checks if two integers or lists are permutations lists are permutations
@@ -130,7 +129,6 @@ def is_permutation(a, b):
         b = digits_list(b)
     return len(a) == len(b) and Counter(a) == Counter(b)
 
-
 def rotate(rlist, rn=1, left_rotate=True):
     """Rotate a list (rlist) by rn indices to the left or right
 
@@ -174,7 +172,6 @@ def rotate(rlist, rn=1, left_rotate=True):
 
     return _left_rotate(rlist, rn) if left_rotate else _right_rotate(rlist, rn)
 
-
 def rotations_gen(rlist):
     """Yields all rotations of a list
 
@@ -192,7 +189,6 @@ def rotations_gen(rlist):
 
     """
     return ((rlist[-i:] + rlist[:-i]) for i in range(len(rlist)))
-
 
 def digits_list(number):
     """Returns a list of the digits in num
@@ -221,7 +217,6 @@ def digits_list(number):
         digits.appendleft(r)
     return list(digits)
 
-
 def int_from_digits(digits):
     """Converts an iterable of digits digits to a number
     
@@ -240,7 +235,6 @@ def int_from_digits(digits):
 
     """
     return sum(digits[len(digits) - i - 1] * 10 ** i for i in range(0, len(digits), 1))
-
 
 def iter_product(l):
     """Product of all the elements in a list or tuple
