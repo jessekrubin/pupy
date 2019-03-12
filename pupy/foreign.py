@@ -17,7 +17,8 @@ def files_gen(dirpath=getcwd(), abs=True):
 
     :param dirpath: Directory path to walking down/through.
     :param abs: Yield the absolute path
-    :return:
+    :return: Generator object that yields filepaths (absolute or relative)
+
     """
     return (
         fpath if abs else fpath.replace(dirpath, "").strip(sep)
@@ -31,7 +32,7 @@ def dirs_gen(dirpath=getcwd(), abs=True):
 
     :param dirpath: Directory path to walking down/through.
     :param abs: Yield the absolute path
-    :return:
+    :return: Generator object that yields dir-paths (absolute or relative)
 
     """
     return (
