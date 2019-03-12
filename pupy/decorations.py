@@ -13,7 +13,38 @@ from os import path, mkdir
 from time import time
 from typing import Callable
 from typing import Tuple
+from pupy.utils import fmt_seconds
+import logging
+from logging.config import dictConfig
 
+# "%(color)s[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d]%(end_color)s %(message)s"
+logging_config = dict(
+    version=1,
+    formatters={
+        'f': {
+            'format': "[%(levelname)1.1s %(asctime)s %(filename)s:%(lineno)d] %(message)s"
+            }
+        },
+    handlers={
+        'h': {
+            'class'    : 'logging.StreamHandler',
+            'formatter': 'f',
+            'level'    : logging.DEBUG
+            }
+        },
+    root={
+        'handlers': ['h'],
+        'level'   : logging.DEBUG,
+        },
+    )
+
+dictConfig(logging_config)
+
+logger = logging.getLogger()
+logger.debug('often makes a very good meal of %s', 'visiting tourists')
+logger.info('often makes a very good meal of %s', 'visiting tourists')
+logger.warn('often makes a very good meal of %s', 'visiting tourists')
+logger.error('often makes a very good meal of %s', 'visiting tourists')
 
 def in_n_out(funk: Callable):
     """Chdir in to the dir the test_function is in and change dirs out when done
@@ -42,40 +73,43 @@ def in_n_out(funk: Callable):
 
     return chin_n_chout
 
+def flog(funk=None, loglevel='debug', funk_call=True, tictoc=False):
+    D = {
+        'debug': logger.debug,
+        'info' : logger.info,
+        'warn' : logger.warning,
+        'error': logger.error
+        }
 
-def flog(funk: Callable):
-    """Function Log
+    def _decorate_flog_wrapper(_funk):
+        def _fmt_args(*args):
+            return ", ".join(str(arg) for arg in args)
 
-    :type funk: Callable
-    :param funk: docin.api logger functions logger.(debug/info/warn/error)
-    :return: wrapped function
-    """
-    fn = funk.__name__.upper()
+        def _fmt_kwargs(**kwargs):
+            return ", ".join("{}={}".format(str(k), str(v))
+                             for k, v in kwargs.items())
 
-    def _fmt_arg(arg):
-        return "\n[[%s ~ %s]]" % (fn, arg)  # $# log level string and message
+        def _fmt_call(*args, **kwargs):
+            params_str = ", ".join(
+                s for s in (_fmt_args(*args), _fmt_kwargs(**kwargs)) if s
+                )
+            return "{}({})".format(_funk.__name__, params_str)
 
-    def _fmt_log_level(args: Tuple[object, ...]) -> str:
-        return "\n".join(
-            _fmt_arg(arg)  # $# formmat the msg string...
-            for arg in args  # $# ...for each msg arg in args...
-            if type(arg) == str
-        )  # $# ...for string args
+        @wraps(_funk)
+        def _flog_wrapper(*args, **kwargs):
+            ti = time()
+            _ret = _funk(*args, **kwargs)
+            tf = time()
+            msg_parts = [_fmt_call(*args, **kwargs) if funk_call else None,
+                         fmt_seconds(ti, tf) if tictoc else None]
+            msg_str = ' | '.join(part for part in msg_parts if part)
+            if any(el for el in msg_parts):
+                D[loglevel]("[FLOG] | {}".format(msg_str))
+            return _ret
 
-    @wraps(funk)
-    def log_to_console_wrapper(*args: Tuple[str, ...], **kwargs: object) -> Callable:
-        """
+        return _flog_wrapper
 
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        # if False:  # NOT DEBUGGING
-        #     logging.info(_fmt_log_level(args))
-        return funk(*args, **kwargs)
-
-    return log_to_console_wrapper
-
+    return _decorate_flog_wrapper(funk) if funk else _decorate_flog_wrapper
 
 def mkdirs(funk):
     @wraps(funk)
@@ -88,21 +122,6 @@ def mkdirs(funk):
         return funk(*args, **kwargs)
 
     return _wrapper
-
-
-def dirdec(funk):
-    @wraps(funk)
-    def _wrapper(*args, **kwargs):
-        result = funk(*args, **kwargs)
-        try:
-            if not path.exists(result):
-                mkdir(result)
-        except OSError:
-            pass
-        return result
-
-    return _wrapper
-
 
 def cash_it(funk):
     """args-2-return value cache.
@@ -130,7 +149,6 @@ def cash_it(funk):
 
     return cash_wrap
 
-
 def cprof(funk):
     """"cProfiling decorator
     
@@ -157,6 +175,18 @@ def cprof(funk):
 
     return profiled_funk
 
+def dirdec(funk):
+    @wraps(funk)
+    def _wrapper(*args, **kwargs):
+        result = funk(*args, **kwargs)
+        try:
+            if not path.exists(result):
+                mkdir(result)
+        except OSError:
+            pass
+        return result
+
+    return _wrapper
 
 class tictoc(object):
     """Timing decorator object
@@ -176,7 +206,7 @@ class tictoc(object):
             "    args: {}".format(args_string),
             "    time: {}".format(tictoc.ftime(t_total)),
             "    runs: {}".format(self.runs),
-        ]
+            ]
         return "\n".join(str_list)
 
     def __call__(self, time_funk, printing=True):
