@@ -67,5 +67,3 @@ def main(args=None):
                 print("For f/d:", f)
                 rename(f, f.replace(pattern, ""))
 
-
-# http://192.168.1.225:5984/
