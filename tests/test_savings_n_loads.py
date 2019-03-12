@@ -15,6 +15,7 @@ from pupy.savings_n_loads import sjasm
 from pupy.savings_n_loads import sjson
 from pupy.savings_n_loads import spak
 from pupy.savings_n_loads import touch
+from pupy.savings_n_loads import safepath
 from pupy.utils import parent_path
 
 JASM_DICT = {"Jason": ["Green", "Berg"], "Jasm": ["Grundle", "Bug"]}
@@ -28,10 +29,30 @@ def test_ljson_n_sjson(save_funk: callable, load_funk: callable):
     """
 
     """
-    save_funk("jasm_dict.json", JASM_DICT)
-    loaded_data = load_funk("jasm_dict.json")
+    fp = safepath("jasm_dict.json")
+    save_funk(fp, JASM_DICT)
+    loaded_data = load_funk(fp)
     assert loaded_data == JASM_DICT
-    remove("jasm_dict.json")
+    remove(fp)
+
+@pytest.mark.parametrize(
+    "save_funk,load_funk",
+    [[save_jasm, load_jasm], [sjson, ljson], [sjasm, ljasm], [spak, lpak]],
+)
+def test_ljson_n_sjson_safe_save(save_funk: callable, load_funk: callable):
+    """
+
+    """
+    fp = "jasm_dict_safe_save.json"
+    save_funk(fp, JASM_DICT)
+    fp2 = safepath(fp)
+    save_funk(fp2, JASM_DICT)
+    loaded_data = load_funk("jasm_dict_safe_save.json")
+    assert loaded_data == JASM_DICT
+    remove(fp)
+    loaded_data = load_funk(fp2)
+    assert loaded_data == JASM_DICT
+    remove(fp2)
 
 
 @pytest.mark.parametrize(

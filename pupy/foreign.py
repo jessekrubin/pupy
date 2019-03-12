@@ -40,6 +40,20 @@ def dirs_gen(dirpath=getcwd(), abs=True):
         )
 
 def exhaust(it):
+    """Exhaust an interable / use it up; useful for evaluating a map object.
+
+    :param it: iterable object to run through
+    :return: None
+
+    .. docstring::python
+
+        >>> a = [1, 2, 3, 4, 5, 6]
+        >>> a_map = map(lambda x: x*2, a)
+        >>> a_exhausted = exhaust(a_map)
+        >>> a_exhausted == None # will be none after being exhausted
+        True
+
+    """
     deque(it, maxlen=0)
 
 def chunks(list, chunk_size):
