@@ -41,10 +41,6 @@ logging_config = dict(
 dictConfig(logging_config)
 
 logger = logging.getLogger()
-logger.debug('often makes a very good meal of %s', 'visiting tourists')
-logger.info('often makes a very good meal of %s', 'visiting tourists')
-logger.warn('often makes a very good meal of %s', 'visiting tourists')
-logger.error('often makes a very good meal of %s', 'visiting tourists')
 
 def in_n_out(funk: Callable):
     """Chdir in to the dir the test_function is in and change dirs out when done
@@ -55,7 +51,7 @@ def in_n_out(funk: Callable):
     """
 
     @wraps(funk)
-    def chin_n_chout(*args: Tuple[str, ...], **kwargs: object):
+    def chin_n_chout(*args, **kwargs):
         """
 
         :param args:
@@ -110,6 +106,18 @@ def flog(funk=None, loglevel='debug', funk_call=True, tictoc=False):
         return _flog_wrapper
 
     return _decorate_flog_wrapper(funk) if funk else _decorate_flog_wrapper
+
+def dirdec(funk):
+    @wraps(funk)
+    def _wrapper(*args, **kwargs):
+        result = funk(*args, **kwargs)
+        try:
+            mkdir(result)
+        except (FileExistsError, OSError) as e:
+            pass
+        return result
+
+    return _wrapper
 
 def mkdirs(funk):
     @wraps(funk)
@@ -174,19 +182,6 @@ def cprof(funk):
         return ret_val
 
     return profiled_funk
-
-def dirdec(funk):
-    @wraps(funk)
-    def _wrapper(*args, **kwargs):
-        result = funk(*args, **kwargs)
-        try:
-            if not path.exists(result):
-                mkdir(result)
-        except OSError:
-            pass
-        return result
-
-    return _wrapper
 
 class tictoc(object):
     """Timing decorator object

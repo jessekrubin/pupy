@@ -22,30 +22,19 @@ except ModuleNotFoundError as e:
     from json import dump
     from json import load
 
-
-def timestamp():
-    """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS
-
-    :return: timestamp string
-    """
-    """Time stamp string w/ format yyyy-mm-ddTHH-MM-SS"""
-    return datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
-
-
-def safepath(fdpath):
+def safepath(path_str):
     """Checks if a file/dir path is save/unused; returns an unused path.
 
-    :param fdpath:
+    :param path_str:
 
     """
-    if path.exists(fdpath):
-        f_bn, f_ext = path.splitext(fdpath)
+    if path.exists(path_str):
+        f_bn, f_ext = path.splitext(path_str)
         for n in count(1):
             safe_save_path = f_bn + "_({}).".format(str(n)) + f_ext
             if not path.exists(safe_save_path):
                 return safe_save_path
-    return fdpath
-
+    return path_str
 
 @mkdirs
 def savings(filepath, string, clobber=True):
@@ -64,14 +53,11 @@ def savings(filepath, string, clobber=True):
     """
     if not clobber and path.exists(filepath):
         filepath = safepath(filepath)
-    elif path.exists(filepath):
-        remove(filepath)
     try:
         with open(safepath(filepath) if clobber else filepath, "wb") as file:
             file.write(string.encode("utf-8"))
     except Exception as e:
         raise e
-
 
 def loads(filepath):
     """Read and return the file-contents as a string given a filepath
@@ -86,7 +72,6 @@ def loads(filepath):
     except UnicodeDecodeError as e:
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
-
 
 @mkdirs
 def sjson(filepath, data, min=False):
@@ -110,23 +95,19 @@ def sjson(filepath, data, min=False):
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-            )
-
+                )
 
 def save_jasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-
 def sjasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-
 def spak(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
-
 
 @mkdirs
 def ljson(filepath):
@@ -139,21 +120,17 @@ def ljson(filepath):
     with open(filepath) as infile:
         return load(infile)
 
-
 def load_jasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
-
 
 def ljasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
-
 def lpak(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
-
 
 @mkdirs
 def touch(filepath):

@@ -16,15 +16,16 @@ from pupy.savings_n_loads import sjson
 from pupy.savings_n_loads import spak
 from pupy.savings_n_loads import touch
 from pupy.savings_n_loads import safepath
-from pupy.utils import parent_path
 
-JASM_DICT = {"Jason": ["Green", "Berg"], "Jasm": ["Grundle", "Bug"]}
-
+JASM_DICT = {
+    "Jason": ["Green", "Berg"],
+    "Jasm" : ["Grundle", "Bug"]
+}
 
 @pytest.mark.parametrize(
     "save_funk,load_funk",
     [[save_jasm, load_jasm], [sjson, ljson], [sjasm, ljasm], [spak, lpak]],
-)
+    )
 def test_ljson_n_sjson(save_funk: callable, load_funk: callable):
     """
 
@@ -38,7 +39,7 @@ def test_ljson_n_sjson(save_funk: callable, load_funk: callable):
 @pytest.mark.parametrize(
     "save_funk,load_funk",
     [[save_jasm, load_jasm], [sjson, ljson], [sjasm, ljasm], [spak, lpak]],
-)
+    )
 def test_ljson_n_sjson_safe_save(save_funk: callable, load_funk: callable):
     """
 
@@ -54,7 +55,6 @@ def test_ljson_n_sjson_safe_save(save_funk: callable, load_funk: callable):
     assert loaded_data == JASM_DICT
     remove(fp2)
 
-
 @pytest.mark.parametrize(
     "fdpath",
     [
@@ -63,8 +63,8 @@ def test_ljson_n_sjson_safe_save(save_funk: callable, load_funk: callable):
         path.join("dir1", "dir2", "file.txt"),
         path.join("dir1", "dir2", "dir3", "file.txt"),
         path.join("dir1", "dir2", "dir3", "dir4", "file.txt"),
-    ],
-)
+        ],
+    )
 def test_touch(fdpath):
     assert not path.exists(fdpath)
     touch(fdpath)

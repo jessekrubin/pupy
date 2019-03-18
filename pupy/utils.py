@@ -2,6 +2,7 @@
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
 from os import path
+from datetime import datetime
 
 def fmt_seconds(t1, t2=None):
     """Formats time string
@@ -32,17 +33,38 @@ def fmt_seconds(t1, t2=None):
     else:
         return fmt_seconds((t2 - t1))
 
-def parent_path(fdpath):
+def parent_dirpath(fdpath):
     """
 
-    :param fdpath:
+    :param fdpath: file/dir-path as as string
     :return:
 
     .. doctest:: python
 
         >>> from os import path
-        >>> parent_path(path.abspath(__file__)) in path.abspath(__file__)
+        >>> parent_dirpath(path.abspath(__file__)) in path.abspath(__file__)
         True
 
     """
     return path.split(fdpath)[0]
+
+def timestamp(ts=None):
+    """Time stamp string w/ format yyyymmdd-HHMMSS
+
+    :return: timestamp string
+
+    .. doctest:: python
+
+        >>> from datetime import datetime
+        >>> timestamp(1551111111.111111)
+        '20190225-081151'
+        >>> datetime.now().strftime("%Y%m%d-%H%M%S") == timestamp()
+        True
+
+    """
+    if ts is None:
+        return datetime.now().strftime("%Y%m%d-%H%M%S")
+    elif isinstance(ts, float):
+        return datetime.fromtimestamp(ts).strftime("%Y%m%d-%H%M%S")
+    elif isinstance(ts, datetime):
+        return ts.strftime("%Y%m%d-%H%M%S")

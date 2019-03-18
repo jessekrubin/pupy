@@ -346,6 +346,29 @@ def disjoint(a, b):
     """
     return not any(ae in b for ae in a)
 
+def set_cmp(a, b):
+    """Compare the elements of two iterables (a and b)
+
+    :param a: first iterable to compare elements of
+    :param b: second iterable to compare elements of
+    :return: tuple of sets of the form (common elements, in a only, in b only)
+
+    .. doctest::
+
+        >>> a = [n for n in range(6)]
+        >>> a
+        [0, 1, 2, 3, 4, 5]
+        >>> b = [n for n in range(3, 9)]
+        >>> b
+        [3, 4, 5, 6, 7, 8]
+        >>> set_cmp(a, b)
+        ({3, 4, 5}, {0, 1, 2}, {8, 6, 7})
+
+    """
+    if not isinstance(a, set) or not isinstance(b, set):
+        return set_cmp(set(a), set(b))
+    return a & b, a - b, b - a
+
 
 def n_choose_r(n, r):
     """
