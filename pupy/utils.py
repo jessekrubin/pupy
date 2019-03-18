@@ -57,7 +57,7 @@ def timestamp(ts=None):
 
         >>> from datetime import datetime
         >>> timestamp(1551111111.111111)
-        '20190225-081151'
+        '20190225-161151'
         >>> datetime.now().strftime("%Y%m%d-%H%M%S") == timestamp()
         True
 
