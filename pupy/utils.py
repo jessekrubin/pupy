@@ -118,8 +118,9 @@ def timestamp(ts=None):
     .. doctest:: python
 
         >>> from datetime import datetime
-        >>> timestamp(1551111111.111111)
-        '20190225-161151'
+        >>> stamps = ['20190225-161151', '20190225-081151']
+        >>> timestamp(1551111111.111111) in stamps
+        True
         >>> datetime.now().strftime("%Y%m%d-%H%M%S") == timestamp()
         True
 
