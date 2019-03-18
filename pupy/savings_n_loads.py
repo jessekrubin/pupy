@@ -18,7 +18,7 @@ from pupy.decorations import mkdirs
 try:
     from ujson import dump
     from ujson import load
-except ModuleNotFoundError as e:
+except (ModuleNotFoundError, ImportError) as e:
     from json import dump
     from json import load
 
