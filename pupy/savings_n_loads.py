@@ -5,13 +5,10 @@ from __future__ import print_function
 from __future__ import with_statement
 
 from codecs import getwriter
-from datetime import datetime
 from io import open
 from itertools import count
 from os import path
-from os import remove
 from os import utime
-from time import sleep
 
 from pupy.decorations import mkdirs
 

@@ -33,7 +33,6 @@ for i in count(1 + lines.index("[tool.poetry.dependencies]")):
     except:
         pass
 
-
 def read(*names, **kwargs):
     """
 
@@ -43,9 +42,8 @@ def read(*names, **kwargs):
     """
     with io.open(
         join(dirname(__file__), *names), encoding=kwargs.get("encoding", "utf8")
-    ) as fh:
+        ) as fh:
         return fh.read()
-
 
 if "TOXENV" in os.environ and "SETUPPY_CFLAGS" in os.environ:
     os.environ["CFLAGS"] = os.environ["SETUPPY_CFLAGS"]
@@ -56,12 +54,12 @@ setup(
     license="BSD 2-Clause License",
     description="Pretty Useful Python",
     long_description="%s\n%s"
-    % (
-        re.compile("^.. start-badges.*^.. end-badges", re.M | re.S).sub(
-            "", read("README.rst")
-        ),
-        re.sub(":[a-z]+:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst")),
-    ),
+                     % (
+                         re.compile("^.. start-badges.*^.. end-badges", re.M | re.S).sub(
+                             "", read("README.rst")
+                             ),
+                         re.sub(":[a-z]+:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst")),
+                         ),
     author="jesse k rubin",
     author_email="jessekrubin@gmail.com",
     url="https://github.com/jessekrubin/pupy",
@@ -86,12 +84,14 @@ setup(
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Utilities",
-    ],
+        ],
     keywords=["pretty", "useful", "tewls"],
     install_requires=deps,
     extras_require={},
     setup_requires=[],
-    entry_points={"console_scripts": ["pupy = pupy.cli:main"]},
+    entry_points={
+        "console_scripts": ["pupy = pupy.cli:main"]
+    },
     cmdclass={},
     ext_modules=[],
-)
+    )

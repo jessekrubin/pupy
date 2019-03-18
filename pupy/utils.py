@@ -1,8 +1,55 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from os import path
+from os import path, stat
 from datetime import datetime
+
+def fmt_bytes(num):
+    """
+    this function will convert bytes to MB.... GB... etc
+
+    .. doctest:: python
+
+        >>> fmt_bytes(100)
+        '100.0 bytes'
+        >>> fmt_bytes(1000)
+        '1000.0 bytes'
+        >>> fmt_bytes(10000)
+        '9.8 KB'
+        >>> fmt_bytes(100000)
+        '97.7 KB'
+        >>> fmt_bytes(1000000)
+        '976.6 KB'
+        >>> fmt_bytes(10000000)
+        '9.5 MB'
+        >>> fmt_bytes(100000000)
+        '95.4 MB'
+        >>> fmt_bytes(1000000000)
+        '953.7 MB'
+        >>> fmt_bytes(10000000000)
+        '9.3 GB'
+        >>> fmt_bytes(100000000000)
+        '93.1 GB'
+        >>> fmt_bytes(1000000000000)
+        '931.3 GB'
+        >>> fmt_bytes(10000000000000)
+        '9.1 TB'
+        >>> fmt_bytes(100000000000000)
+        '90.9 TB'
+
+    """
+    for x in ["bytes", "KB", "MB", "GB", "TB"]:
+        if num < 1024.0:
+            return "%3.1f %s" % (num, x)
+        num /= 1024.0
+
+def fmt_file_size(filepath):
+    """
+    this function will return the file size
+    """
+    if path.isfile(filepath):
+        file_info = stat(filepath)
+        return fmt_bytes(file_info.st_size)
 
 def fmt_seconds(t1, t2=None):
     """Formats time string
