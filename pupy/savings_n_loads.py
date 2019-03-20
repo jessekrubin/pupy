@@ -50,11 +50,8 @@ def savings(filepath, string, clobber=True):
     """
     if not clobber and path.exists(filepath):
         filepath = safepath(filepath)
-    try:
-        with open(safepath(filepath) if clobber else filepath, "wb") as file:
-            file.write(string.encode("utf-8"))
-    except Exception as e:
-        raise e
+    with open(filepath, "wb") as file:
+        file.write(string.encode("utf-8"))
 
 def loads(filepath):
     """Read and return the file-contents as a string given a filepath
