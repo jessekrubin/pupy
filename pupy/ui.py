@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
+from math import ceil
+from shutil import get_terminal_size
 from sys import stdout
 
 def yesno(question, default="yes"):
@@ -46,3 +48,20 @@ def yesno(question, default="yes"):
             stdout.write(
                 "Please respond with 'yes' or 'no' " "(or 'y' or 'n').\n"
                 )
+
+def term_table(strings, row_wise=False, filler='~'):
+    max_tname_len = max(len(tname) for tname in strings) + 5
+    terminal_cols = get_terminal_size((80, 20)).columns
+    table_cols = terminal_cols // max_tname_len
+    spaces = " " * ((terminal_cols - (max_tname_len * table_cols)) // table_cols)
+    size_string = "{:<" + str(max_tname_len) + "}" + spaces
+    fmtstring = size_string * (table_cols - 1)
+    fmtstring = fmtstring + "{:<}"
+    n_rows = int(ceil(len(strings) / table_cols))
+    n_filler_chars = (n_rows * table_cols) - len(strings)
+    strings.extend(filler for _ in range(n_filler_chars))
+    if row_wise:
+        zipper = zip(*(strings[i::table_cols] for i in range(table_cols)))
+    else:
+        zipper = (strings[i::n_rows] for i in range(n_rows))
+    return (fmtstring.format(*row) for row in zipper)
