@@ -15,14 +15,16 @@ from pupy.decorations import mkdirs
 try:
     from ujson import dump
     from ujson import load
-except Exception as e:
+except:
     from json import dump
     from json import load
+
 
 def safepath(path_str):
     """Checks if a file/dir path is save/unused; returns an unused path.
 
-    :param path_str:
+    :param path_str: file or dir path
+    :return: A file/dir path that does not exist and contains the given path
 
     """
     if path.exists(path_str):
@@ -33,8 +35,9 @@ def safepath(path_str):
                 return safe_save_path
     return path_str
 
+
 @mkdirs
-def savings(filepath, string, clobber=True):
+def savings(filepath, string):
     """Writes a string to filepath
 
 
@@ -48,10 +51,9 @@ def savings(filepath, string, clobber=True):
         directories for the given filepath if they do not already exist.
 
     """
-    if not clobber and path.exists(filepath):
-        filepath = safepath(filepath)
     with open(filepath, "wb") as file:
         file.write(string.encode("utf-8"))
+
 
 def loads(filepath):
     """Read and return the file-contents as a string given a filepath
@@ -66,6 +68,7 @@ def loads(filepath):
     except UnicodeDecodeError as e:
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
+
 
 @mkdirs
 def sjson(filepath, data, min=False):
@@ -89,19 +92,23 @@ def sjson(filepath, data, min=False):
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-                )
+            )
+
 
 def save_jasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
+
 def sjasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
+
 def spak(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
+
 
 @mkdirs
 def ljson(filepath):
@@ -114,17 +121,21 @@ def ljson(filepath):
     with open(filepath) as infile:
         return load(infile)
 
+
 def load_jasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
+
 
 def ljasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
+
 def lpak(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
+
 
 @mkdirs
 def touch(filepath):

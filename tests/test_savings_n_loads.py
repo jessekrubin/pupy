@@ -6,6 +6,8 @@ from shutil import rmtree
 
 import pytest
 
+from pupy.savings_n_loads import loads
+from pupy.savings_n_loads import savings
 from pupy.savings_n_loads import ljasm
 from pupy.savings_n_loads import ljson
 from pupy.savings_n_loads import load_jasm
@@ -19,13 +21,23 @@ from pupy.savings_n_loads import safepath
 
 JASM_DICT = {
     "Jason": ["Green", "Berg"],
-    "Jasm" : ["Grundle", "Bug"]
+    "Jasm": ["Grundle", "Bug"]
 }
+
+
+def test_savings_n_loads_methods():
+    fp = 'somefile.txt'
+    string = '12345\n12345'
+    savings(fp, string)
+    s = loads(fp)
+    assert s == string
+    remove(fp)
+
 
 @pytest.mark.parametrize(
     "save_funk,load_funk",
     [[save_jasm, load_jasm], [sjson, ljson], [sjasm, ljasm], [spak, lpak]],
-    )
+)
 def test_ljson_n_sjson(save_funk: callable, load_funk: callable):
     """
 
@@ -36,10 +48,11 @@ def test_ljson_n_sjson(save_funk: callable, load_funk: callable):
     assert loaded_data == JASM_DICT
     remove(fp)
 
+
 @pytest.mark.parametrize(
     "save_funk,load_funk",
     [[save_jasm, load_jasm], [sjson, ljson], [sjasm, ljasm], [spak, lpak]],
-    )
+)
 def test_ljson_n_sjson_safe_save(save_funk: callable, load_funk: callable):
     """
 
@@ -55,6 +68,7 @@ def test_ljson_n_sjson_safe_save(save_funk: callable, load_funk: callable):
     assert loaded_data == JASM_DICT
     remove(fp2)
 
+
 @pytest.mark.parametrize(
     "fdpath",
     [
@@ -63,8 +77,8 @@ def test_ljson_n_sjson_safe_save(save_funk: callable, load_funk: callable):
         path.join("dir1", "dir2", "file.txt"),
         path.join("dir1", "dir2", "dir3", "file.txt"),
         path.join("dir1", "dir2", "dir3", "dir4", "file.txt"),
-        ],
-    )
+    ],
+)
 def test_touch(fdpath):
     assert not path.exists(fdpath)
     touch(fdpath)
@@ -75,3 +89,13 @@ def test_touch(fdpath):
         rmtree(root)
     elif path.isfile(root):
         remove(root)
+
+
+def test_safepath():
+    filepath = 'afile.txt'
+    d = safepath(filepath)
+    assert d == filepath
+    savings(filepath, '1234567')
+    d = safepath(filepath)
+    assert d != filepath
+    remove(filepath)

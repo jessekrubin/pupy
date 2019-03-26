@@ -12,8 +12,5 @@ from pupy.savings_n_loads import save_jasm
 from pupy.savings_n_loads import savings
 from pupy.savings_n_loads import sjson
 from pupy.savings_n_loads import spak
+from pupy.savings_n_loads import safepath
 
-try:
-    range
-except NameError:
-    range = xrange
