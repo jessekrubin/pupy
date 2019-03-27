@@ -119,6 +119,19 @@ def power_mod(number, exponent, mod):
     :param exponent:
     :param mod:
 
+    .. doctest:: python
+
+        >>> power_mod(2, 4, 3)
+        2
+        >>> power_mod(12, 3, 4)
+        144
+        >>> power_mod(123, 2, 3)
+        123
+        >>> power_mod(120, 6, 10)
+        14400
+        >>> power_mod(120, 6, 1)
+        14400
+
     """
     if exponent > 0:
         if exponent % 2 == 0:
@@ -246,7 +259,7 @@ def fib_r(n):
     :returns: the nth fibonacci number
     :rtype: int
 
-    .. docstring::python
+    .. doctest:: python
 
         >>> fib_r(1)
         1
@@ -268,6 +281,19 @@ def expo(d, n):
     :type n: int
     :returns: number of times a divisor divides n
     :rtype: int
+
+    .. doctest:: python
+
+        >>> expo(100, 2)
+        2
+        >>> expo(12, 5)
+        0
+        >>> expo(12, 2)
+        2
+        >>> expo(160, 4)
+        2
+        >>> expo(1000, 4)
+        1
 
     """
     if n < d:  # flip
@@ -304,12 +330,21 @@ def pytriple_gen(max_c):
                     yield (imag, real, sea) if real > imag else (real, imag, sea)
 
 
-def repermutations(toop):
+def rep(toop):
     """
 
     :param toop:
 
+    .. doctest:: python
 
+        >>> rep((1, 2, 3, 4))
+        24
+        >>> rep((1, 2, 3, 4, 3))
+        60
+        >>> rep((1, 2, 3, 4, 3, 3))
+        120
+        >>> rep((1, 2, 3, 4, 3, 4, 4))
+        420
 
     """
     c = Counter(n for n in toop)
@@ -376,26 +411,6 @@ def n_choose_r(n, r):
 
     """
     return factorial(n) // factorial(r) // factorial(n - r)
-
-
-def pytriple_gen_2():
-    """ """
-    diagonal_size = 3
-    cur_x = 1
-    cur_y = 2
-    while True:
-        if cur_y <= cur_x:
-            diagonal_size += 1
-            cur_x = 1
-            cur_y = diagonal_size - 1
-        imag_part = cur_y
-        real_part = cur_x
-        to_yield = get_pythag_triple(real_part, imag_part)
-        cur_x += 1
-        cur_y -= 1
-        if gcd_it(to_yield[0], to_yield[1]) > 1:
-            continue
-        yield to_yield
 
 
 def get_pythag_triple(real, imag):
