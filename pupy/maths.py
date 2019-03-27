@@ -14,6 +14,7 @@ from operator import truediv
 from pupy.decorations import cash_it
 from pupy.foreign import iter_product
 
+
 def partitions_gen(numero, min_p=1, max_p=None):
     """Partitions generator
 
@@ -40,6 +41,7 @@ def partitions_gen(numero, min_p=1, max_p=None):
     for i in range(min_p, numero // 2 + 1):
         for p in partitions_gen(numero - i, i, max_p):
             yield (i,) + p
+
 
 @cash_it
 def rfactorial(n):
@@ -76,6 +78,7 @@ def rfactorial(n):
     else:
         return rfactorial(n - 1) * n
 
+
 def radians_2_degrees(rads):
     """Converts radians to degrees
 
@@ -93,6 +96,7 @@ def radians_2_degrees(rads):
     """
     return 180 * rads / pi
 
+
 def degrees_2_radians(degs):
     """Converts degrees to radians
 
@@ -106,6 +110,7 @@ def degrees_2_radians(degs):
 
     """
     return degs * pi / 180
+
 
 def power_mod(number, exponent, mod):
     """
@@ -121,6 +126,7 @@ def power_mod(number, exponent, mod):
         return power_mod(number, floordiv(exponent, 2), mod) * number
     else:
         return 1
+
 
 def divisors_gen(n):
     """Divisors generator
@@ -148,6 +154,7 @@ def divisors_gen(n):
     for divisor in reversed(large_divisors):
         yield divisor
 
+
 def gcd_it(a, b):
     """iterative gcd
 
@@ -170,6 +177,7 @@ def gcd_it(a, b):
     while a:
         a, b = b % a, a
     return b
+
 
 @cash_it
 def gcd_r(a, b):
@@ -199,6 +207,7 @@ def gcd_r(a, b):
         return b
     return gcd_r(r, b)
 
+
 def reverse(n):
     """Reverses a number
 
@@ -227,6 +236,7 @@ def reverse(n):
         n //= 10
     return reversed
 
+
 @cash_it
 def fib_r(n):
     """Recursively the nth fibonacci number
@@ -248,6 +258,7 @@ def fib_r(n):
     """
     return n if n < 3 else fib_r(n - 1) + fib_r(n - 2)
 
+
 def expo(d, n):
     """greatest exponent for a divisor of n
 
@@ -267,6 +278,7 @@ def expo(d, n):
         c //= d
         divs += 1
     return divs
+
 
 def pytriple_gen(max_c):
     """primative pythagorean triples generator
@@ -291,6 +303,7 @@ def pytriple_gen(max_c):
                 else:
                     yield (imag, real, sea) if real > imag else (real, imag, sea)
 
+
 def repermutations(toop):
     """
 
@@ -303,6 +316,7 @@ def repermutations(toop):
     a = list(factorial(nc) for nc in c.values())
     ans = factorial(len(toop)) // iter_product(a)
     return ans
+
 
 def disjoint(a, b):
     """
@@ -329,6 +343,7 @@ def disjoint(a, b):
     """
     return not any(ae in b for ae in a)
 
+
 def set_cmp(a, b):
     """Compare the elements of two iterables (a and b)
 
@@ -352,6 +367,7 @@ def set_cmp(a, b):
         return set_cmp(set(a), set(b))
     return a & b, a - b, b - a
 
+
 def n_choose_r(n, r):
     """
 
@@ -360,6 +376,7 @@ def n_choose_r(n, r):
 
     """
     return factorial(n) // factorial(r) // factorial(n - r)
+
 
 def pytriple_gen_2():
     """ """
@@ -380,6 +397,7 @@ def pytriple_gen_2():
             continue
         yield to_yield
 
+
 def get_pythag_triple(real, imag):
     """
 
@@ -393,6 +411,7 @@ def get_pythag_triple(real, imag):
     real = abs(int(sqrd.real))
     imag = abs(int(sqrd.imag))
     return min(imag, real), max(imag, real), sea
+
 
 class Trigon(object):
     """Trigon object composed of three points connected by lines."""
@@ -423,7 +442,7 @@ class Trigon(object):
             point = Vuple(point)
         return self.area() == sum(
             map(methodcaller("area"), self.inner_triangles(point))
-            )
+        )
 
     def inner_triangles(self, point):
         """Triangle funk that returns the three triangles w/ a point
@@ -453,7 +472,7 @@ class Trigon(object):
         return any(
             tri_area == 0
             for tri_area in map(methodcaller("area"), self.inner_triangles(point))
-            )
+        )
 
     def points(self):
         """ """
@@ -477,6 +496,7 @@ class Trigon(object):
 
         """
         return abs(truediv(Vuple.cross(pt1 - pt2, pt3 - pt2), 2))
+
 
 class Vuple(tuple):
     """VUPLE == Vector+Tuple"""
@@ -699,6 +719,7 @@ class Vuple(tuple):
 
         """
         return iter_product(self)
+
 
 if __name__ == "__main__":
     import doctest

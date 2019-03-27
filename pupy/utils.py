@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from os import path, stat
 from datetime import datetime
+from os import path
+from os import stat
+
 
 def fmt_bytes(num):
     """
@@ -43,6 +45,7 @@ def fmt_bytes(num):
             return "%3.1f %s" % (num, x)
         num /= 1024.0
 
+
 def fmt_file_size(filepath):
     """
     this function will return the file size
@@ -50,6 +53,7 @@ def fmt_file_size(filepath):
     if path.isfile(filepath):
         file_info = stat(filepath)
         return fmt_bytes(file_info.st_size)
+
 
 def fmt_seconds(t1, t2=None):
     """Formats time string
@@ -80,6 +84,7 @@ def fmt_seconds(t1, t2=None):
     else:
         return fmt_seconds((t2 - t1))
 
+
 def path2name(path_str):
     """Get the parent-directory for a file or directory path as a string
 
@@ -95,6 +100,7 @@ def path2name(path_str):
     """
     return path.split(path.abspath(path_str))[-1]
 
+
 def parent_dirpath(fdpath):
     """
 
@@ -109,6 +115,7 @@ def parent_dirpath(fdpath):
 
     """
     return path.split(fdpath)[0]
+
 
 def timestamp(ts=None):
     """Time stamp string w/ format yyyymmdd-HHMMSS

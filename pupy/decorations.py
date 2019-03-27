@@ -1,36 +1,35 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
+import logging
 from cProfile import Profile
 from functools import wraps
 from inspect import getfile
+from logging.config import dictConfig
 from os import chdir
 from os import getcwd
 from os import makedirs
-from os import path, mkdir
+from os import mkdir
+from os import path
 from time import time
+
 from pupy.utils import fmt_seconds
-import logging
-from logging.config import dictConfig
 
 # "%(color)s[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d]%(end_color)s %(message)s"
 logging_config = dict(
     version=1,
     formatters={
-        'f': {
-            'format': "[%(levelname)1.1s %(asctime)s %(filename)s:%(lineno)d] %(message)s"
+        "f": {
+            "format": "[%(levelname)1.1s %(asctime)s %(filename)s:%(lineno)d] %(message)s"
         }
     },
     handlers={
-        'h': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'f',
-            'level': logging.DEBUG
+        "h": {
+            "class": "logging.StreamHandler",
+            "formatter": "f",
+            "level": logging.DEBUG,
         }
     },
-    root={
-        'handlers': ['h'],
-        'level': logging.DEBUG,
-    },
+    root={"handlers": ["h"], "level": logging.DEBUG},
 )
 
 dictConfig(logging_config)
@@ -66,12 +65,12 @@ def in_n_out(funk):
     return chin_n_chout
 
 
-def flog(funk=None, loglevel='debug', funk_call=True, tictoc=False):
+def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
     D = {
-        'debug': logger.debug,
-        'info': logger.info,
-        'warn': logger.warning,
-        'error': logger.error
+        "debug": logger.debug,
+        "info": logger.info,
+        "warn": logger.warning,
+        "error": logger.error,
     }
 
     def _decorate_flog_wrapper(_funk):
@@ -79,8 +78,7 @@ def flog(funk=None, loglevel='debug', funk_call=True, tictoc=False):
             return ", ".join(str(arg) for arg in args)
 
         def _fmt_kwargs(**kwargs):
-            return ", ".join("{}={}".format(str(k), str(v))
-                             for k, v in kwargs.items())
+            return ", ".join("{}={}".format(str(k), str(v)) for k, v in kwargs.items())
 
         def _fmt_call(*args, **kwargs):
             params_str = ", ".join(
@@ -93,9 +91,11 @@ def flog(funk=None, loglevel='debug', funk_call=True, tictoc=False):
             ti = time()
             _ret = _funk(*args, **kwargs)
             tf = time()
-            msg_parts = [_fmt_call(*args, **kwargs) if funk_call else None,
-                         fmt_seconds(ti, tf) if tictoc else None]
-            msg_str = ' | '.join(part for part in msg_parts if part)
+            msg_parts = [
+                _fmt_call(*args, **kwargs) if funk_call else None,
+                fmt_seconds(ti, tf) if tictoc else None,
+            ]
+            msg_str = " | ".join(part for part in msg_parts if part)
             if any(el for el in msg_parts):
                 D[loglevel]("[FLOG] | {}".format(msg_str))
             return _ret

@@ -1,19 +1,13 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-import collections
 from bisect import bisect
 from bisect import bisect_right
+from collections import MutableSequence
 from itertools import count
 from math import sqrt
-from sys import version_info
 
 from pupy.decorations import cash_it
 from pupy.maths import divisors_gen
-
-try:
-    range
-except NameError:
-    range = xrange
 
 
 def prime_gen(plim=0, kprimes=None):
@@ -180,7 +174,7 @@ def is_prime(number):
 
 
 # class OctopusPrime(list):
-class OctopusPrime(collections.MutableSequence):
+class OctopusPrime(MutableSequence):
     """OctopusPrime, the 8-leg autobot, here to help you find PRIMES
 
     ..

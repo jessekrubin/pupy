@@ -10,6 +10,6 @@ __version__ = (
         .split("\n")
         if "version" in l
     ][0]
-        .replace("version = ", "")
-        .strip('"')
+    .replace("version = ", "")
+    .strip('"')
 )

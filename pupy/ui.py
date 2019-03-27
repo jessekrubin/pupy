@@ -14,20 +14,10 @@ def yesno(question, default=True, tries=3):
     :return: True/False depending on the response
 
     """
-    valid = {
-        "yes": True,
-        "y": True,
-        "ye": True,
-        "no": False,
-        "n": False
-    }
-    default_prompts = {
-        None: '[y/n]',
-        True: '[Y/n]',
-        False: '[y/N]'
-    }
+    valid = {"yes": True, "y": True, "ye": True, "no": False, "n": False}
+    default_prompts = {None: "[y/n]", True: "[Y/n]", False: "[y/N]"}
     if default is not None:
-        valid[''] = True if default else False
+        valid[""] = True if default else False
     stdout.write("{} {} ".format(question, default_prompts[default]))
     try:
         return valid[input().lower()]
@@ -36,7 +26,7 @@ def yesno(question, default=True, tries=3):
     return yesno(question, default, (tries - 1) if tries else None)
 
 
-def term_table(strings, row_wise=False, filler='~'):
+def term_table(strings, row_wise=False, filler="~"):
     max_str_len = max(len(str) for str in strings) + 5
     terminal_cols = get_terminal_size((80, 20)).columns
     n_cols = terminal_cols // max_str_len
