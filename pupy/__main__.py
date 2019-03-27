@@ -1,14 +1,7 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 """
-Entrypoint module, in case you use `python -mpupy`.
-
-
-Why does this file exist, and why __main__? For more info, read:
-
-- https://www.python.org/dev/peps/pep-0338/
-- https://docs.python.org/2/using/cmdline.html#cmdoption-m
-- https://docs.python.org/3/using/cmdline.html#cmdoption-m
+`python -mpupy`
 """
 from pupy.cli import main
 

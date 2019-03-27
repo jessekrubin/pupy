@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from __future__ import print_function
-from __future__ import with_statement
-
 from codecs import getwriter
 from io import open
 from itertools import count

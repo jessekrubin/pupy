@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-from __future__ import division
-from __future__ import print_function
-
 from cProfile import Profile
 from functools import wraps
 from inspect import getfile

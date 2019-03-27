@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-from __future__ import division
-from __future__ import print_function
-
 import collections
 from bisect import bisect
 from bisect import bisect_right
