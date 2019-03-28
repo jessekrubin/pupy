@@ -88,7 +88,7 @@ def fmt_seconds(t1, t2=None):
 def path2name(path_str):
     """Get the parent-directory for a file or directory path as a string
 
-    :param somepath: path as a string which ya would like the parent of
+    :param path_str:
     :return: The parent directory as a string
 
     .. doctest:: python

@@ -40,7 +40,6 @@ def savings(filepath, string):
 
     :param filepath: Filepath save location
     :param string: File as a string to be saved
-    :param clobber: Save over a file if the filepath exists
     :return: None? what do you want? confirmation?
 
     .. note:: Decorated w/ @mkdirs
@@ -62,7 +61,7 @@ def loads(filepath):
     try:
         with open(filepath, "r", encoding="utf-8") as f:
             return f.read()
-    except UnicodeDecodeError as e:
+    except UnicodeDecodeError:
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
 

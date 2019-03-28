@@ -66,6 +66,14 @@ def in_n_out(funk):
 
 
 def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
+    """
+
+    :param funk:
+    :param loglevel:
+    :param funk_call:
+    :param tictoc:
+    :return:
+    """
     D = {
         "debug": logger.debug,
         "info": logger.info,
@@ -106,6 +114,12 @@ def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
 
 
 def dirdec(funk):
+    """
+
+    :param funk:
+    :return:
+    """
+
     @wraps(funk)
     def _wrapper(*args, **kwargs):
         result = funk(*args, **kwargs)
@@ -119,6 +133,12 @@ def dirdec(funk):
 
 
 def mkdirs(funk):
+    """
+
+    :param funk:
+    :return:
+    """
+
     @wraps(funk)
     def _wrapper(*args, **kwargs):
         dirpath = path.split(args[0])[0]
@@ -163,15 +183,14 @@ def cprof(funk):
     
     src: https://zapier.com/engineering/profiling-python-boss/
 
-    :param funk: 
+    :param funk: funktion to decorate and 'get tha c prof of'
 
     """
 
     @wraps(funk)
     def profiled_funk(*args, **kwargs):
-        """
+        """wrapper funk"""
 
-        """
         profile = Profile()
         try:
             profile.enable()
@@ -209,6 +228,12 @@ class tictoc(object):
     def __call__(self, time_funk, printing=True):
         @wraps(time_funk)
         def time_wrapper(*args, **kwargs):
+            """
+
+            :param args:
+            :param kwargs:
+            :return:
+            """
             self.args = str(args)
             ts = time()
             for i in range(self.runs):
@@ -216,7 +241,7 @@ class tictoc(object):
             te = time()
             t_total = (te - ts) / self.runs
             if printing:
-                print(self.__str__(t_total, time_funk, str(args)))
+                print(self.__str__())
             return result
 
         return time_wrapper

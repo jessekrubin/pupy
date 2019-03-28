@@ -58,7 +58,7 @@ def exhaust(it):
     deque(it, maxlen=0)
 
 
-def chunks(list, chunk_size):
+def chunks(it, chunk_size):
     """Yields chunks of something slicable with length <= chunk_size
 
     :param list: list to be broken up
@@ -78,7 +78,7 @@ def chunks(list, chunk_size):
         ['abcdefghijklm', 'nopqrstuvwxyz']
 
     """
-    return (list[i : i + chunk_size] for i in range(0, len(list), chunk_size))
+    return (it[i : i + chunk_size] for i in range(0, len(it), chunk_size))
 
 
 def is_permutation(a, b):

@@ -299,7 +299,7 @@ class OctopusPrime(MutableSequence):
         :param object: 
 
         """
-        self._list.insert(index, object)
+        self._list.insert(index)
 
     def __str__(self):
         return str(self._list)

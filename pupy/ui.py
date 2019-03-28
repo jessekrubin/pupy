@@ -23,10 +23,17 @@ def yesno(question, default=True, tries=3):
         return valid[input().lower()]
     except KeyError:
         stdout.write("Valid responses: [y]es/[n]o (case insensitive)\n")
-    return yesno(question, default, (tries - 1) if tries else None)
+    return yesno(question, default)
 
 
 def term_table(strings, row_wise=False, filler="~"):
+    """
+
+    :param strings:
+    :param row_wise:
+    :param filler:
+    :return:
+    """
     max_str_len = max(len(str) for str in strings) + 5
     terminal_cols = get_terminal_size((80, 20)).columns
     n_cols = terminal_cols // max_str_len

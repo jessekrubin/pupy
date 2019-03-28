@@ -15,6 +15,11 @@ from pupy._version import __version__
 
 
 def unescaped_str(arg_str):
+    """
+
+    :param arg_str:
+    :return:
+    """
     return decode(str(arg_str), "unicode_escape")
 
 
