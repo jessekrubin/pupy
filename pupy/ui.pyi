@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from typing import Iterable
 
-
 def yesno(question: str, default: str = ...): ...
 def term_table(strings: Iterable[str], row_wise: bool = ..., filler: str = ...): ...

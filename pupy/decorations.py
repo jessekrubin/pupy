@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-import logging
 from cProfile import Profile
 from functools import wraps
 from inspect import getfile
-from logging.config import dictConfig
+from logging import DEBUG
+from logging import config
+from logging import getLogger
 from os import chdir
 from os import getcwd
 from os import makedirs
@@ -23,18 +24,14 @@ logging_config = dict(
         }
     },
     handlers={
-        "h": {
-            "class": "logging.StreamHandler",
-            "formatter": "f",
-            "level": logging.DEBUG,
-        }
+        "h": {"class": "logging.StreamHandler", "formatter": "f", "level": DEBUG}
     },
-    root={"handlers": ["h"], "level": logging.DEBUG},
+    root={"handlers": ["h"], "level": DEBUG},
 )
 
-dictConfig(logging_config)
+config.dictConfig(logging_config)
 
-logger = logging.getLogger()
+logger = getLogger()
 
 
 def in_n_out(funk):

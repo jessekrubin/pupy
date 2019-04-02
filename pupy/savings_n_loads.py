@@ -50,13 +50,16 @@ def sstring(filepath, string):
     with open(filepath, "wb") as file:
         file.write(string.encode("utf-8"))
 
+
 def savings(filepath, string):
     """Alias for sstring"""
     return sstring(filepath, string)
 
+
 def sstr(filepath, string):
     """Alias for sstring"""
     return sstring(filepath, string)
+
 
 def lstring(filepath):
     """(lstring) Read and return the file-contents as a string given a filepath
@@ -71,6 +74,7 @@ def lstring(filepath):
     except UnicodeDecodeError:
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
+
 
 def lstr(filepath):
     """Alias for lstring"""

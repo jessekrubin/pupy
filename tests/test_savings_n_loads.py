@@ -20,15 +20,12 @@ from pupy.savings_n_loads import sjson
 from pupy.savings_n_loads import spak
 from pupy.savings_n_loads import touch
 
-JASM_DICT = {
-    "Jason": ["Green", "Berg"],
-    "Jasm": ["Grundle", "Bug"]
-}
+JASM_DICT = {"Jason": ["Green", "Berg"], "Jasm": ["Grundle", "Bug"]}
 
 
 def test_savings_n_loads_methods():
-    fp = 'somefile.txt'
-    string = '12345\n12345'
+    fp = "somefile.txt"
+    string = "12345\n12345"
     savings(fp, string)
     s = lstring(fp)
     assert s == string
@@ -93,10 +90,10 @@ def test_touch(fdpath):
 
 
 def test_safepath():
-    filepath = 'afile.txt'
+    filepath = "afile.txt"
     d = safepath(filepath)
     assert d == filepath
-    savings(filepath, '1234567')
+    savings(filepath, "1234567")
     d = safepath(filepath)
     assert d != filepath
     remove(filepath)

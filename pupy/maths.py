@@ -412,7 +412,6 @@ def n_choose_r(n, r):
     return factorial(n) // factorial(r) // factorial(n - r)
 
 
-
 class Trigon(object):
     """Trigon object composed of three points connected by lines."""
 
