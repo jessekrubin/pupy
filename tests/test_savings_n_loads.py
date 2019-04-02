@@ -9,9 +9,9 @@ import pytest
 from pupy.savings_n_loads import ljasm
 from pupy.savings_n_loads import ljson
 from pupy.savings_n_loads import load_jasm
-from pupy.savings_n_loads import lstring
-from pupy.savings_n_loads import lstr
 from pupy.savings_n_loads import lpak
+from pupy.savings_n_loads import lstr
+from pupy.savings_n_loads import lstring
 from pupy.savings_n_loads import safepath
 from pupy.savings_n_loads import save_jasm
 from pupy.savings_n_loads import savings

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pupy"
-version = "2.5.1"
+version = "2.5.2"
 description = "pretty useful python"
 authors = ["jessekrubin <jessekrubin@gmail.com>"]
 license = "MIT"
@@ -15,4 +15,5 @@ pytest-cov = "^2.6"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
-python = "~2.7 || ^3.2"  # Compatible python versions must be declared here
+# Compatible python versions
+python = "~2.7 || ^3.4"

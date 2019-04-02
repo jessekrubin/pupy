@@ -5,8 +5,8 @@
 Pupy CLI
 ========
 """
-from argparse import ArgumentParser
 from argparse import ZERO_OR_MORE
+from argparse import ArgumentParser
 from codecs import decode
 from os import listdir
 from os import rename
