@@ -330,27 +330,26 @@ def pytriple_gen(max_c):
                     yield (imag, real, sea) if real > imag else (real, imag, sea)
 
 
-def rep(toop):
+def n_permutations_with_replacements(toop):
     """
 
     :param toop:
 
     .. doctest:: python
 
-        >>> rep((1, 2, 3, 4))
+        >>> n_permutations_with_replacements((1, 2, 3, 4))
         24
-        >>> rep((1, 2, 3, 4, 3))
+        >>> n_permutations_with_replacements((1, 2, 3, 4, 3))
         60
-        >>> rep((1, 2, 3, 4, 3, 3))
+        >>> n_permutations_with_replacements((1, 2, 3, 4, 3, 3))
         120
-        >>> rep((1, 2, 3, 4, 3, 4, 4))
+        >>> n_permutations_with_replacements((1, 2, 3, 4, 3, 4, 4))
         420
 
     """
     c = Counter(n for n in toop)
     a = list(factorial(nc) for nc in c.values())
-    ans = factorial(len(toop)) // iter_product(a)
-    return ans
+    return factorial(len(toop)) // iter_product(a)
 
 
 def disjoint(a, b):
@@ -412,20 +411,6 @@ def n_choose_r(n, r):
     """
     return factorial(n) // factorial(r) // factorial(n - r)
 
-
-def get_pythag_triple(real, imag):
-    """
-
-    :param real:
-    :param imag:
-
-    """
-    comp = complex(real, imag)
-    sea = int((comp * comp.conjugate()).real)
-    sqrd = comp * comp
-    real = abs(int(sqrd.real))
-    imag = abs(int(sqrd.imag))
-    return min(imag, real), max(imag, real), sea
 
 
 class Trigon(object):

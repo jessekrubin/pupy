@@ -2,7 +2,7 @@
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 from bisect import bisect
 from bisect import bisect_right
-from collections import MutableSequence
+from collections.abc import MutableSequence
 from itertools import count
 from math import sqrt
 
@@ -173,8 +173,8 @@ def is_prime(number):
     return True
 
 
-# class OctopusPrime(list):
-class OctopusPrime(MutableSequence):
+class OctopusPrime(list):
+# class OctopusPrime(MutableSequence):
     """OctopusPrime, the 8-leg autobot, here to help you find PRIMES
 
     ..
