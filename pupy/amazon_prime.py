@@ -173,8 +173,8 @@ def is_prime(number):
     return True
 
 
-class OctopusPrime(list):
-# class OctopusPrime(MutableSequence):
+# class OctopusPrime(list):
+class OctopusPrime(MutableSequence):
     """OctopusPrime, the 8-leg autobot, here to help you find PRIMES
 
     ..

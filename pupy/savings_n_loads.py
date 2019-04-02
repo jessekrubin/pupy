@@ -34,7 +34,7 @@ def safepath(path_str):
 
 
 @mkdirs
-def savings(filepath, string):
+def sstring(filepath, string):
     """Writes a string to filepath
 
 
@@ -50,9 +50,16 @@ def savings(filepath, string):
     with open(filepath, "wb") as file:
         file.write(string.encode("utf-8"))
 
+def savings(filepath, string):
+    """Alias for sstring"""
+    return sstring(filepath, string)
 
-def loads(filepath):
-    """Read and return the file-contents as a string given a filepath
+def sstr(filepath, string):
+    """Alias for sstring"""
+    return sstring(filepath, string)
+
+def lstring(filepath):
+    """(lstring) Read and return the file-contents as a string given a filepath
 
     :param filepath: Path to a file to read
     :return: Content of the file read as a string
@@ -64,6 +71,10 @@ def loads(filepath):
     except UnicodeDecodeError:
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
+
+def lstr(filepath):
+    """Alias for lstring"""
+    return lstring(filepath)
 
 
 @mkdirs

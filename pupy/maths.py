@@ -330,7 +330,7 @@ def pytriple_gen(max_c):
                     yield (imag, real, sea) if real > imag else (real, imag, sea)
 
 
-def n_permutations_with_replacements(toop):
+def n_permutations_with_replacements(it):
     """
 
     :param toop:
@@ -347,9 +347,9 @@ def n_permutations_with_replacements(toop):
         420
 
     """
-    c = Counter(n for n in toop)
+    c = Counter(n for n in it)
     a = list(factorial(nc) for nc in c.values())
-    return factorial(len(toop)) // iter_product(a)
+    return factorial(len(it)) // iter_product(a)
 
 
 def disjoint(a, b):

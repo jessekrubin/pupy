@@ -9,7 +9,8 @@ import pytest
 from pupy.savings_n_loads import ljasm
 from pupy.savings_n_loads import ljson
 from pupy.savings_n_loads import load_jasm
-from pupy.savings_n_loads import loads
+from pupy.savings_n_loads import lstring
+from pupy.savings_n_loads import lstr
 from pupy.savings_n_loads import lpak
 from pupy.savings_n_loads import safepath
 from pupy.savings_n_loads import save_jasm
@@ -29,7 +30,7 @@ def test_savings_n_loads_methods():
     fp = 'somefile.txt'
     string = '12345\n12345'
     savings(fp, string)
-    s = loads(fp)
+    s = lstring(fp)
     assert s == string
     remove(fp)
 
