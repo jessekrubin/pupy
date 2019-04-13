@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from sys import stdout
-
 from subprocess import PIPE
 from subprocess import run
+from sys import stdout
+
 
 def rsync(src, dest):
     """Sheldon rsync wrapper for syncing tdirs
@@ -46,31 +46,39 @@ def rsync(src, dest):
         args=["rsync", "-a", "-O", "--no-o", "--no-g", "--no-p", "--delete", src, dest],
         stdout=PIPE,
         stderr=PIPE,
-        )
+    )
     if subproc.returncode != 0:
         stdout.write("\r\n{}\n".format(subproc.stdout))
     return subproc.returncode
 
+
 def link_dir(link, target):
     pass
+
 
 def link_dirs(link_target_tuples):
     pass
 
+
 def link_file(link, target):
     pass
+
 
 def link_files(link_target_tuples):
     pass
 
+
 def unlink_dir(link):
     pass
+
 
 def unlink_dirs(links):
     pass
 
+
 def unlink_file(link):
     pass
+
 
 def unlink_files(links):
     pass

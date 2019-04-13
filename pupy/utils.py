@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
+from datetime import datetime
 from os import getcwd
 from os import listdir
 from os import path
@@ -9,12 +10,11 @@ from platform import system
 from tempfile import mkdtemp
 from weakref import finalize
 
-from datetime import datetime
-
 from pupy import lin
 from pupy import win
 
 _OS = system().lower()
+
 
 def fmt_bytes(num):
     """
@@ -55,6 +55,7 @@ def fmt_bytes(num):
             return "%3.1f %s" % (num, x)
         num /= 1024.0
 
+
 def fmt_file_size(filepath):
     """
     this function will return the file size
@@ -62,6 +63,7 @@ def fmt_file_size(filepath):
     if path.isfile(filepath):
         file_info = stat(filepath)
         return fmt_bytes(file_info.st_size)
+
 
 def fmt_seconds(t1, t2=None):
     """Formats time string
@@ -92,6 +94,7 @@ def fmt_seconds(t1, t2=None):
     else:
         return fmt_seconds((t2 - t1))
 
+
 def path2name(path_str):
     """Get the parent-directory for a file or directory path as a string
 
@@ -107,6 +110,7 @@ def path2name(path_str):
     """
     return path.split(path.abspath(path_str))[-1]
 
+
 def parent_dirpath(fdpath):
     """
 
@@ -121,6 +125,7 @@ def parent_dirpath(fdpath):
 
     """
     return path.split(fdpath)[0]
+
 
 def timestamp(ts=None):
     """Time stamp string w/ format yyyymmdd-HHMMSS
@@ -144,87 +149,105 @@ def timestamp(ts=None):
     elif isinstance(ts, datetime):
         return ts.strftime("%Y%m%d-%H%M%S")
 
-def ls(dirpath='.', abs=False):
+
+def ls(dirpath=".", abs=False):
     if abs:
         return [path.join(dirpath, item) for item in listdir(dirpath)]
     return listdir(dirpath)
 
+
 def ls_files(dirpath, abs=False):
     files = (file for file in ls(dirpath, abs=True) if path.isfile(file))
     if not abs:
-        return list(map(lambda el: el.replace(dirpath, '.'), files))
+        return list(map(lambda el: el.replace(dirpath, "."), files))
     return list(files)
+
 
 def ls_dirs(dirpath, abs=False):
     dirs = (dir for dir in ls(dirpath, abs=True) if path.isdir(dir))
     if not abs:
-        return list(map(lambda el: el.replace(dirpath, '.'), dirs))
+        return list(map(lambda el: el.replace(dirpath, "."), dirs))
     return list(dirs)
+
 
 def ls_files_dirs(dirpath):
     return ls_files(dirpath), ls_dirs(dirpath)
 
+
 def link_dir(link, target):
-    _link = win.link_dir if 'win' in _OS else lin.link_dir
+    _link = win.link_dir if "win" in _OS else lin.link_dir
     return _link(link, target)
+
 
 def link_dirs(link_target_tuples):
-    _link = win.link_dirs if 'win' in _OS else lin.link_dirs
+    _link = win.link_dirs if "win" in _OS else lin.link_dirs
     return _link(link_target_tuples)
+
 
 def link_file(link, target):
-    _link = win.link_file if 'win' in _OS else lin.link_file
+    _link = win.link_file if "win" in _OS else lin.link_file
     return _link(link, target)
 
+
 def link_files(link_target_tuples):
-    _link = win.link_files if 'win' in _OS else lin.link_files
+    _link = win.link_files if "win" in _OS else lin.link_files
     return _link(link_target_tuples)
 
+
 def unlink_dir(link):
-    _unlink = win.unlink_dir if 'win' in _OS else lin.unlink_dir
+    _unlink = win.unlink_dir if "win" in _OS else lin.unlink_dir
     return _unlink(link)
+
 
 def unlink_dirs(links):
-    _unlink = win.unlink_dirs if 'win' in _OS else lin.unlink_dirs
+    _unlink = win.unlink_dirs if "win" in _OS else lin.unlink_dirs
     return _unlink(links)
+
 
 def unlink_file(link):
-    _unlink = win.unlink_file if 'win' in _OS else lin.unlink_file
+    _unlink = win.unlink_file if "win" in _OS else lin.unlink_file
     return _unlink(link)
 
+
 def unlink_files(links):
-    _unlink = win.unlink_files if 'win' in _OS else lin.unlink_files
+    _unlink = win.unlink_files if "win" in _OS else lin.unlink_files
     return _unlink(links)
+
 
 class LinkedTmpDir(object):
     """ make a temp dir and have links."""
 
-    def __init__(self, suffix=None, prefix=None, dir=None,
-                 file_targets=None,
-                 dir_targets=None):
+    def __init__(
+        self, suffix=None, prefix=None, dir=None, file_targets=None, dir_targets=None
+    ):
         self.dirpath = mkdtemp(suffix, prefix, dir)
         self.dirname = path.split(self.dirpath)[-1]
-        if file_targets is None: file_targets = []
-        if dir_targets is None: dir_targets = []
+        if file_targets is None:
+            file_targets = []
+        if dir_targets is None:
+            dir_targets = []
         _rel_file_links = list(map(path2name, file_targets))
         _rel_dir_links = list(map(path2name, dir_targets))
 
         try:
             assert len(set(_rel_file_links)) == len(_rel_file_links)
         except AssertionError as e:
-            raise ValueError('Duplicate filenames present')
+            raise ValueError("Duplicate filenames present")
         try:
             assert len(set(_rel_dir_links)) == len(_rel_dir_links)
         except AssertionError as e:
-            raise ValueError('Duplicate dirnames present')
+            raise ValueError("Duplicate dirnames present")
         _lnk_path = lambda _lnk: path.join(self.dirpath, _lnk)
         self.file_links = list(map(_lnk_path, _rel_file_links))
         self.dir_links = list(map(_lnk_path, _rel_dir_links))
         link_files(zip(self.file_links, file_targets))
         link_dirs(zip(self.dir_links, dir_targets))
         self._finalizer = finalize(
-            self, self._cleanup, self.dirpath,
-            warn_message="Implicitly cleaning up {!r}".format(self))
+            self,
+            self._cleanup,
+            self.dirpath,
+            warn_message="Implicitly cleaning up {!r}".format(self),
+        )
 
     @classmethod
     def _cleanup(cls, name, warn_message):
@@ -245,6 +268,7 @@ class LinkedTmpDir(object):
         if self._finalizer.detach():
             pass
 
+
 def sync(src, dest):
     """Update (rsync/robocopy) a local test directory from raid
 
@@ -252,5 +276,5 @@ def sync(src, dest):
     :param src: path to remote tdir
     :return: subprocess return code for rsync/robocopy
     """
-    _sync = win.robocopy if 'win' in _OS else lin.rsync
+    _sync = win.robocopy if "win" in _OS else lin.rsync
     return _sync(src=src, dest=dest)

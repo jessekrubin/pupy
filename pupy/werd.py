@@ -3,10 +3,10 @@
 """
 String Methods
 """
-from string import printable
-
 from re import compile
 from re import sub
+from string import printable
+
 
 def binary_string(number):
     """Number to binary string
@@ -23,6 +23,7 @@ def binary_string(number):
 
     """
     return bin(number)[2:]
+
 
 def string_score(strang):
     """Sum of letter values where a==1 and z == 26
@@ -44,6 +45,7 @@ def string_score(strang):
     """
     return sum((ord(character) - 96 for character in strang.lower()))
 
+
 def is_palindrome(string):
     """True a string is a palindrome; False if string is not a palindrome.
 
@@ -59,12 +61,14 @@ def is_palindrome(string):
     """
     return all(
         character == string[-index - 1] for index, character in enumerate(string)
-        )
+    )
+
 
 def strip_comments(string):
     filelines = string.splitlines(keepends=False)
     r = compile(r'(?:"(?:[^"\\]|\\.)*"|[^"#])*(#|$)')
     return "\n".join((line[: r.match(line).start(1)] for line in filelines))
+
 
 def strip_ascii(s):
     """Remove all ascii characters from a string
@@ -82,6 +86,7 @@ def strip_ascii(s):
     """
     return "".join(sc for sc in (str(c) for c in s) if sc not in printable)
 
+
 def no_b(string):
     """Removes the b'' from binary strings and sub-strings that contain b''
 
@@ -95,6 +100,7 @@ def no_b(string):
 
     """
     return sub("b'([^']*)'", r"\1", string)
+
 
 def no_u(string):
     """Removes the u'' from unicode strings and sub-strings that contain u''
