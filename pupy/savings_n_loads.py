@@ -16,7 +16,6 @@ except:
     from json import dump
     from json import load
 
-
 def safepath(path_str):
     """Checks if a file/dir path is save/unused; returns an unused path.
 
@@ -31,7 +30,6 @@ def safepath(path_str):
             if not path.exists(safe_save_path):
                 return safe_save_path
     return path_str
-
 
 @mkdirs
 def sstring(filepath, string):
@@ -50,16 +48,13 @@ def sstring(filepath, string):
     with open(filepath, "wb") as file:
         file.write(string.encode("utf-8"))
 
-
 def savings(filepath, string):
     """Alias for sstring"""
     return sstring(filepath, string)
 
-
 def sstr(filepath, string):
     """Alias for sstring"""
     return sstring(filepath, string)
-
 
 def lstring(filepath):
     """(lstring) Read and return the file-contents as a string given a filepath
@@ -75,11 +70,9 @@ def lstring(filepath):
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
 
-
 def lstr(filepath):
     """Alias for lstring"""
     return lstring(filepath)
-
 
 @mkdirs
 def sjson(filepath, data, min=False):
@@ -103,23 +96,19 @@ def sjson(filepath, data, min=False):
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-            )
-
+                )
 
 def save_jasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-
 def sjasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-
 def spak(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
-
 
 @mkdirs
 def ljson(filepath):
@@ -132,21 +121,17 @@ def ljson(filepath):
     with open(filepath) as infile:
         return load(infile)
 
-
 def load_jasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
-
 
 def ljasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
-
 def lpak(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
-
 
 @mkdirs
 def touch(filepath):
@@ -157,3 +142,25 @@ def touch(filepath):
     """
     with open(filepath, "a"):
         utime(filepath, None)
+
+def shebang(filepath):
+    """returns the shebang path given a filepath or None if it does not exist.
+
+    :param filepath: path to a file w/ a shebange line
+    :return: shebang line or None
+
+    .. doctest::python
+
+        >>> from inspect import getabsfile
+        >>> from pupy.savings_n_loads import sstr
+        >>> script = 'ashellscript.sh'
+        >>> sstr(script, '#!/bin/bash\\necho "howdy"\\n')
+        >>> shebang(script)
+        '#!/bin/bash'
+        >>> from os import remove
+        >>> remove(script)
+
+    """
+    with open(filepath, "r") as f:
+        first = f.readline().strip("\n")
+        return first if first[:2] == "#!" else None
