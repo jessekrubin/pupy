@@ -3,7 +3,6 @@
 from subprocess import PIPE
 from subprocess import run
 
-
 def robocopy(src, dest):
     """Robocopy for sheldon
 
@@ -38,33 +37,33 @@ def robocopy(src, dest):
     return subproc.returncode
 
 def link_dir(link, target):
-    run(args=["mklink", "/D", link, target], shell=True)
+    run(args=["mklink", "/D", link, target], stdout=PIPE, stderr=PIPE, shell=True)
 
 def link_dirs(link_target_tuples):
     link_args = []
     for link_target_tuple in link_target_tuples:
         link_args.extend(["mklink", "/D", *link_target_tuple, "&&"])
-    run(args=link_args[:-1], shell=True)
+    run(args=link_args[:-1], stdout=PIPE, stderr=PIPE, shell=True)
 
 def link_file(link, target):
-    run(args=["mklink", link, target], shell=True)
+    run(args=["mklink", link, target], stdout=PIPE, stderr=PIPE, shell=True)
 
 def link_files(link_target_tuples):
     link_args = []
     for link_target_tuple in link_target_tuples:
         link_args.extend(["mklink", *link_target_tuple, "&&"])
-    run(args=link_args[:-1], shell=True)
+    run(args=link_args[:-1], stdout=PIPE, stderr=PIPE, shell=True)
 
 def unlink_dir(link):
-    run(args=["RD", link], shell=True)
+    run(args=["RD", link], stdout=PIPE, stderr=PIPE, shell=True)
 
 def unlink_dirs(links):
     cmd_args = " && ".join("RD {}".format(link) for link in links).split(" ")
-    run(args=cmd_args, shell=True)
+    run(args=cmd_args, stdout=PIPE, stderr=PIPE, shell=True)
 
 def unlink_file(link):
-    run(args=["Del", link], shell=True)
+    run(args=["Del", link], stdout=PIPE, stderr=PIPE, shell=True)
 
 def unlink_files(links):
     cmd_args = " && ".join("Del {}".format(link) for link in links).split(" ")
-    run(args=cmd_args, shell=True)
+    run(args=cmd_args, stdout=PIPE, stderr=PIPE, shell=True)

@@ -211,14 +211,19 @@ class LinkedTmpDir(object):
     """ make a temp dir and have links."""
 
     def __init__(
-        self, suffix=None, prefix=None, dir=None, file_targets=None, dir_targets=None
+        self, suffix=None, prefix=None, dir=None, link_targets=None
         ):
         self.dirpath = mkdtemp(suffix, prefix, dir)
         self.dirname = path.split(self.dirpath)[-1]
-        if file_targets is None:
-            file_targets = []
-        if dir_targets is None:
-            dir_targets = []
+        file_targets = []
+        dir_targets = []
+        if link_targets is None:
+            link_targets = []
+        for target in link_targets:
+            if path.isfile(target):
+                file_targets.append(target)
+            elif path.isdir(target):
+                dir_targets.append(target)
         _rel_file_links = list(map(path2name, file_targets))
         _rel_dir_links = list(map(path2name, dir_targets))
 
