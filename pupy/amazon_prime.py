@@ -5,12 +5,14 @@ from bisect import bisect_right
 from collections.abc import MutableSequence
 from itertools import count
 from math import sqrt
+from typing import Iterable
+from typing import Union
 
 from pupy.decorations import cash_it
 from pupy.maths import divisors_gen
 
 
-def prime_gen(plim=0, kprimes=None):
+def prime_gen(plim: int = 0, kprimes: Union[None, Iterable[int]] = None):
     """Infinite (within reason) prime number generator
     
     My big modification is the pdiv_dictionary() function that recreats the
@@ -84,7 +86,6 @@ def prime_gen(plim=0, kprimes=None):
             divz[num * num] = num
             yield num
 
-
 def prime_factorization_gen(n):
     """generates all numbers in the prime factorization of n
 
@@ -106,7 +107,6 @@ def prime_factorization_gen(n):
             n //= factor
             yield factor
 
-
 def prime_factors_gen(n):
     """prime factors generator
 
@@ -122,7 +122,6 @@ def prime_factors_gen(n):
 
     """
     return (p for p in divisors_gen(n) if is_prime(p))
-
 
 @cash_it
 def is_prime(number):
@@ -171,7 +170,6 @@ def is_prime(number):
         if number % (step + 2) == 0:
             return False
     return True
-
 
 class OctopusPrime(MutableSequence):
     """OctopusPrime, the 8-leg autobot, here to help you find PRIMES
@@ -235,7 +233,7 @@ class OctopusPrime(MutableSequence):
             83,
             89,
             97,
-        ]
+            ]
         if plim == 100:
             self._list = p[:]
         elif plim < 100:
@@ -277,7 +275,7 @@ class OctopusPrime(MutableSequence):
         """
         if upper_bound > self[-1]:
             self._transform(upper_bound)
-        return self[bisect_right(self, lower_bound) : bisect(self, upper_bound)]
+        return self[bisect_right(self, lower_bound): bisect(self, upper_bound)]
 
     def __len__(self):
         return len(self._list)
@@ -305,7 +303,6 @@ class OctopusPrime(MutableSequence):
 
     def __repr__(self):
         return str(self._list)
-
 
 if __name__ == "__main__":
     from doctest import testmod

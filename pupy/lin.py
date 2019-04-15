@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+from os import symlink
+from os import unlink
 from subprocess import PIPE
 from subprocess import run
 from sys import stdout
-from os import unlink, symlink
 
-def rsync(src, dest, delete=False):
+
+def rsync(src: str, dest: str, delete: bool = False):
     """Sheldon rsync wrapper for syncing tdirs
 
     :param dest: path to local tdir
@@ -51,19 +53,17 @@ def rsync(src, dest, delete=False):
         stdout=PIPE,
         stderr=PIPE,
         )
-    if subproc.returncode != 0:
-        stdout.write("\r\n{}\n".format(subproc.stdout))
-    return subproc.returncode
+    return subproc
 
-def link_dir(link, target):
-    symlink(target, link)
+def link_dir(linkpath, targetpath):
+    symlink(targetpath, linkpath)
 
 def link_dirs(link_target_tuples):
     for link, target in link_target_tuples:
         link_dir(link, target)
 
-def link_file(link, target):
-    symlink(target, link)
+def link_file(linkpath: str, targetpath: str) -> None:
+    symlink(targetpath, linkpath)
 
 def link_files(link_target_tuples):
     for link, target in link_target_tuples:

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-from typing import List, Tuple
 from datetime import datetime
 from os import getcwd
 from os import listdir
@@ -8,14 +7,17 @@ from os import path
 from os import stat
 from platform import system
 from tempfile import mkdtemp
+from typing import List
+from typing import Tuple
 from weakref import finalize
 
 from pupy import lin
 from pupy import win
+from pupy._typing import Flint
 
 _OS = system().lower()
 
-def fmt_bytes(num):
+def fmt_bytes(num: Flint) -> str:
     """
     this function will convert bytes to MB.... GB... etc
 
@@ -54,7 +56,7 @@ def fmt_bytes(num):
             return "%3.1f %s" % (num, x)
         num /= 1024.0
 
-def fmt_file_size(filepath):
+def fmt_file_size(filepath: str) -> str:
     """
     this function will return the file size
     """
