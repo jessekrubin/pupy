@@ -3,7 +3,6 @@
 from subprocess import PIPE
 from subprocess import run
 
-
 def robocopy(src, dest):
     """Robocopy for sheldon
 
@@ -37,11 +36,8 @@ def robocopy(src, dest):
         print(subproc)
     return subproc.returncode
 
-
 def link_dir(link, target):
     run(args=["mklink", "/D", link, target], shell=True)
-    return link
-
 
 def link_dirs(link_target_tuples):
     link_args = []
@@ -49,11 +45,8 @@ def link_dirs(link_target_tuples):
         link_args.extend(["mklink", "/D", *link_target_tuple, "&&"])
     run(args=link_args[:-1], shell=True)
 
-
 def link_file(link, target):
     run(args=["mklink", link, target], shell=True)
-    return link
-
 
 def link_files(link_target_tuples):
     link_args = []
@@ -61,19 +54,15 @@ def link_files(link_target_tuples):
         link_args.extend(["mklink", *link_target_tuple, "&&"])
     run(args=link_args[:-1], shell=True)
 
-
 def unlink_dir(link):
     run(args=["RD", link], shell=True)
-
 
 def unlink_dirs(links):
     cmd_args = " && ".join("RD {}".format(link) for link in links).split(" ")
     run(args=cmd_args, shell=True)
 
-
 def unlink_file(link):
     run(args=["Del", link], shell=True)
-
 
 def unlink_files(links):
     cmd_args = " && ".join("Del {}".format(link) for link in links).split(" ")

@@ -2,9 +2,9 @@
 from subprocess import PIPE
 from subprocess import run
 from sys import stdout
+from os import unlink, symlink
 
-
-def rsync(src, dest):
+def rsync(src, dest, delete=False):
     """Sheldon rsync wrapper for syncing tdirs
 
     :param dest: path to local tdir
@@ -42,43 +42,43 @@ def rsync(src, dest):
         dest = "{}/".format(dest)
     if not src.endswith("/"):
         src = "{}/".format(src)
+    rsync_args = ["rsync", "-a", "-O", "--no-o", "--no-g", "--no-p",
+                  "--delete" if delete else None,
+                  src,
+                  dest]
     subproc = run(
-        args=["rsync", "-a", "-O", "--no-o", "--no-g", "--no-p", "--delete", src, dest],
+        args=list(filter(None, rsync_args)),
         stdout=PIPE,
         stderr=PIPE,
-    )
+        )
     if subproc.returncode != 0:
         stdout.write("\r\n{}\n".format(subproc.stdout))
     return subproc.returncode
 
-
 def link_dir(link, target):
-    pass
-
+    symlink(target, link)
 
 def link_dirs(link_target_tuples):
-    pass
-
+    for link, target in link_target_tuples:
+        link_dir(link, target)
 
 def link_file(link, target):
-    pass
-
+    symlink(target, link)
 
 def link_files(link_target_tuples):
-    pass
-
+    for link, target in link_target_tuples:
+        link_file(link, target)
 
 def unlink_dir(link):
-    pass
-
+    unlink(link)
 
 def unlink_dirs(links):
-    pass
-
+    for link in links:
+        unlink(link)
 
 def unlink_file(link):
-    pass
-
+    unlink(link)
 
 def unlink_files(links):
-    pass
+    for link in links:
+        unlink(link)
