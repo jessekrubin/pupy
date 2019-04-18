@@ -3,16 +3,43 @@
 """
 String Methods
 """
-from re import compile
-from re import sub
+from binascii import hexlify
+from os import urandom
 from string import printable
 
+from re import compile
+from re import sub
 
-def binary_string(number):
+def bytes2str(bites: bytes, encoding: str = "utf-8") -> str:
+    """Convert bytes to a string
+
+    :param bites: bytes
+    :type bites: bytes
+    :param encoding: encoding of the string (default is utf-8)
+    :type encoding: str
+    :return: converted bytes
+    :rtype: str
+
+
+    .. doctest:: python
+
+        >>> a = b'abcdefg'
+        >>> type(a)
+        <class 'bytes'>
+        >>> bytes2str(a)
+        'abcdefg'
+        >>> type(bytes2str(a))
+        <class 'str'>
+
+    """
+    return bites.decode(encoding)
+
+def binary_string(number: int) -> str:
     """Number to binary string
 
     :param number: some number (an integer) to turn into a binary string
     :return: Some string which is the binary string
+    :rtype: str
 
     .. doctest:: python
 
@@ -23,7 +50,6 @@ def binary_string(number):
 
     """
     return bin(number)[2:]
-
 
 def string_score(strang):
     """Sum of letter values where a==1 and z == 26
@@ -45,7 +71,6 @@ def string_score(strang):
     """
     return sum((ord(character) - 96 for character in strang.lower()))
 
-
 def is_palindrome(string):
     """True a string is a palindrome; False if string is not a palindrome.
 
@@ -61,14 +86,12 @@ def is_palindrome(string):
     """
     return all(
         character == string[-index - 1] for index, character in enumerate(string)
-    )
-
+        )
 
 def strip_comments(string):
     filelines = string.splitlines(keepends=False)
     r = compile(r'(?:"(?:[^"\\]|\\.)*"|[^"#])*(#|$)')
     return "\n".join((line[: r.match(line).start(1)] for line in filelines))
-
 
 def strip_ascii(s):
     """Remove all ascii characters from a string
@@ -86,7 +109,6 @@ def strip_ascii(s):
     """
     return "".join(sc for sc in (str(c) for c in s) if sc not in printable)
 
-
 def no_b(string):
     """Removes the b'' from binary strings and sub-strings that contain b''
 
@@ -100,7 +122,6 @@ def no_b(string):
 
     """
     return sub("b'([^']*)'", r"\1", string)
-
 
 def no_u(string):
     """Removes the u'' from unicode strings and sub-strings that contain u''
@@ -117,3 +138,27 @@ def no_u(string):
 
     """
     return sub("u'([^']*)'", r"\1", string)
+
+def rhex_str(length: int = 4) -> str:
+    """Returns a random hex string
+
+    :param length: length of random bytes to turn into hex (defaults to 4)
+    :type length: int
+    :return: random hexadecimal string
+    :rtype: str
+
+    .. doctest:: python
+
+        >>> a = rhex_str()
+        >>> isinstance(a, str)
+        True
+        >>> len(a) == 8
+        True
+
+    """
+    return bytes2str(hexlify(urandom(length)))
+
+if __name__ == '__main__':
+    from doctest import testmod
+
+    testmod()
