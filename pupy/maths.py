@@ -10,6 +10,7 @@ from operator import floordiv
 from operator import methodcaller
 from operator import sub
 from operator import truediv
+from typing import Any
 from typing import Iterator
 from typing import List
 from typing import Optional
@@ -439,16 +440,16 @@ class Trigon(object):
 
     def __init__(
         self,
-        pt1: Union[Tuple[int, int], Vuple],
-        pt2: Union[Tuple[int, int], Vuple],
-        pt3: Union[Tuple[int, int], Vuple],
+        pt1: Union[Tuple[int, int]],
+        pt2: Union[Tuple[int, int]],
+        pt3: Union[Tuple[int, int]],
     ) -> None:
         self.pt1 = Vuple(pt1)
         self.pt2 = Vuple(pt2)
         self.pt3 = Vuple(pt3)
 
     @classmethod
-    def from_points(cls, pts: List[Tuple[int, int]]) -> Trigon:
+    def from_points(cls, pts: List[Tuple[int, int]]):
         """
 
         :param pts: return:
@@ -463,14 +464,14 @@ class Trigon(object):
     def __str__(self):
         return "<< {}, {}, {} >>".format(self.pt1, self.pt2, self.pt3)
 
-    def __contains__(self, point: Union[Tuple[int, int], Vuple]) -> bool:
+    def __contains__(self, point: Union[Tuple[int, int]]) -> bool:
         if type(point) is not Vuple:
             point = Vuple(point)
         return self.area() == sum(
             map(methodcaller("area"), self.inner_triangles(point))
         )
 
-    def inner_triangles(self, point: Vuple) -> Tuple[Trigon, Trigon, Trigon]:
+    def inner_triangles(self, point):
         """Triangle funk that returns the three triangles w/ a point
 
         The point (p) is connected to each point of a triangle. with points,
@@ -527,7 +528,7 @@ class Trigon(object):
 class Vuple(tuple):
     """VUPLE == Vector+Tuple"""
 
-    def __new__(cls: Type[Vuple], *args) -> Vuple:
+    def __new__(cls: Type[Any], *args) -> Any:
         """
 
         :param args:
@@ -535,13 +536,13 @@ class Vuple(tuple):
         """
         return super(Vuple, cls).__new__(cls, tuple(*args))
 
-    def __gt__(self, other: Vuple) -> bool:
+    def __gt__(self, other: Any) -> bool:
         return Vuple.mag_sqrd(self) > Vuple.mag_sqrd(other)
 
-    def __eq__(self, other: Union[Tuple[float, float], Tuple[int, int], Vuple]) -> bool:
+    def __eq__(self, other: Union[Tuple[float, float], Tuple[int, int], Any]) -> bool:
         return all(a == b for a, b in zip(self, other))
 
-    def __add__(self, k: Union[int, Vuple]) -> Vuple:
+    def __add__(self, k: Union[int, Any]) -> Any:
         """
 
         .. docstring::python
@@ -561,13 +562,13 @@ class Vuple(tuple):
     def __iadd__(self, k):
         return self.__add__(k)
 
-    def __sub__(self, k: Vuple) -> Vuple:
+    def __sub__(self, k: Any) -> Any:
         return Vuple(map(sub, self, k))
 
     def __isub__(self, k):
         return self.__sub__(k)
 
-    def __mul__(self, k: Union[int, Vuple]) -> Union[int, Vuple]:
+    def __mul__(self, k: Union[int, Any]) -> Union[int, Any]:
         """Multiply by a scalar for each element or cross product if also iterable of same length
 
         :param k: scalar ot other iterable to do the cross producting with
@@ -591,10 +592,10 @@ class Vuple(tuple):
                 raise ValueError("Sizes do not match!")
             return Vuple.dot(self, k)
 
-    def __imul__(self, k: int) -> Vuple:
+    def __imul__(self, k: int) -> Any:
         return self.__mul__(k)
 
-    def _mul_scalar(self, k: int) -> Vuple:
+    def _mul_scalar(self, k: int) -> Any:
         """
 
         :param k:
@@ -602,11 +603,11 @@ class Vuple(tuple):
         """
         return Vuple((k * el for el in self))
 
-    def __truediv__(self, k: Union[int, float]) -> Vuple:
+    def __truediv__(self, k: Union[int, float]) -> Any:
         if type(k) is int or type(k) is float:
             return self._truediv_scalar(k)
 
-    def _truediv_scalar(self, k: Union[int, float]) -> Vuple:
+    def _truediv_scalar(self, k: Union[int, float]) -> Any:
         """
 
         :param k:
@@ -614,7 +615,7 @@ class Vuple(tuple):
         """
         return Vuple((el / k for el in self))
 
-    def __itruediv__(self, k: int) -> Vuple:
+    def __itruediv__(self, k: int) -> Any:
         return self.__truediv__(k)
 
     def __floordiv__(self, k):
@@ -632,7 +633,7 @@ class Vuple(tuple):
         """
         return Vuple((el // k for el in self))
 
-    def normalize(self) -> Vuple:
+    def normalize(self) -> Any:
         """Normalizes the Vuple ST self.magnitude == 1
 
         :return: Unit Vuple
@@ -642,7 +643,7 @@ class Vuple(tuple):
         return Vuple.unit_vuple(self)
 
     @staticmethod
-    def unit_vuple(voop: Vuple) -> Vuple:
+    def unit_vuple(voop: Any) -> Any:
         """
 
         :param voop:
@@ -655,7 +656,7 @@ class Vuple(tuple):
         return Vuple.mag_sqrd(self)
 
     @staticmethod
-    def mag_sqrd(voop: Union[Tuple[int, int], Vuple]) -> int:
+    def mag_sqrd(voop: Union[Tuple[int, int], Any]) -> int:
         """
 
         :param voop:
@@ -668,7 +669,7 @@ class Vuple(tuple):
         return Vuple.mag(self)
 
     @staticmethod
-    def mag(voop: Union[Tuple[int, int], Vuple]) -> float:
+    def mag(voop: Union[Tuple[int, int], Any]) -> float:
         """
 
         :param voop:
@@ -681,7 +682,7 @@ class Vuple(tuple):
         return sqrt(Vuple.mag_sqrd(voop))
 
     @staticmethod
-    def dot(a: Vuple, b: Vuple) -> Union[int, float]:
+    def dot(a: Any, b: Any) -> Union[int, float]:
         """
 
         :param a:
@@ -691,7 +692,7 @@ class Vuple(tuple):
         return sum(va * vb for va, vb in zip(a, b))
 
     @staticmethod
-    def cross(v1: Vuple, v2: Vuple) -> int:
+    def cross(v1: Any, v2: Any) -> int:
         """Cross product of two 2d vectors
 
         :param v1: first vector
@@ -705,7 +706,7 @@ class Vuple(tuple):
             raise ValueError("cross product gt 2d not implemented")
 
     @staticmethod
-    def angle(v1: Vuple, v2: Vuple, radians: bool = False) -> float:
+    def angle(v1: Any, v2: Any, radians: bool = False) -> float:
         """
 
         :param v1:

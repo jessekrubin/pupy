@@ -7,8 +7,9 @@ from typing import List
 from typing import Optional
 from typing import Set
 from typing import Tuple
-from typing import Type
+from typing import Type, Type
 from typing import Union
+
 
 
 def partitions_gen(
