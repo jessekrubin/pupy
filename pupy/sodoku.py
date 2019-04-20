@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 from itertools import chain
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Set
+from typing import Tuple
 
 from pupy.decorations import cash_it
 
@@ -8,7 +13,7 @@ from pupy.decorations import cash_it
 class SodokuError(ValueError):
     """simple Sodoku error"""
 
-    def __init__(self, message, row=None, col=None):
+    def __init__(self, message: str, row: None = None, col: None = None) -> None:
         self.message = message
         self.row, self.col = row, col
         super(SodokuError, self).__init__(message, row, col)
@@ -28,13 +33,14 @@ class Sodoku(object):
     [72, 73, 74, 75, 76, 77, 78, 79, 80]
     """
 
-    def __init__(self, board):
+    def __init__(self, board: str) -> None:
         self.is_solved = False
         self.board = board.replace(".", "0")
 
-    def solve(self):
-        """
+    def solve(self) -> None:
+        """Solve soduku
 
+        :return: Nuthing... but the thing is solved in the obj
         """
         if 17 > sum(1 for n in self.board if n != "0"):
             raise SodokuError("not enough info")
@@ -62,7 +68,7 @@ class Sodoku(object):
         return int(self.board[0:3])
 
     @staticmethod
-    def first_unknown(d):
+    def first_unknown(d: Dict[int, str]) -> Optional[int]:
         """
 
         Args:
@@ -76,7 +82,7 @@ class Sodoku(object):
                 return i
 
     @staticmethod
-    def unsolvable(rcbd):
+    def unsolvable(rcbd: Dict[str, List[int]]) -> bool:
         """
 
         Args:
@@ -88,7 +94,7 @@ class Sodoku(object):
         return any(len(v) == 0 for v in rcbd.values())
 
     @staticmethod
-    def check_unsolvable(d):
+    def check_unsolvable(d: Dict[int, str]) -> Dict[int, str]:
         """
 
         Args:
@@ -126,7 +132,7 @@ class Sodoku(object):
         return nd
 
     @staticmethod
-    def update_dictionary(d):
+    def update_dictionary(d: Dict[int, str]) -> Dict[int, str]:
         """
 
         Args:
@@ -144,7 +150,7 @@ class Sodoku(object):
         return nd
 
     @staticmethod
-    def reduce_dictionary(d):
+    def reduce_dictionary(d: Dict[int, str]) -> Tuple[bool, Dict[int, str]]:
         """
 
         Args:
@@ -176,7 +182,7 @@ class Sodoku(object):
                     return valid, ret
         return False, d
 
-    def __str__(self):
+    def __str__(self) -> str:
         header = "  S   O   D   O   K   U  "
         top_border = "╔═══════╦═══════╦═══════╗"
         mid_border = "╠═══════╬═══════╬═══════╣"
@@ -206,7 +212,7 @@ class Sodoku(object):
         return "\n".join(strings)
 
     @staticmethod
-    def hasdup(d):
+    def hasdup(d: Dict[int, str]) -> bool:
         """
 
         Args:
@@ -222,7 +228,7 @@ class Sodoku(object):
                         return True
         return False
 
-    def get_oneline_str(self):
+    def get_oneline_str(self) -> str:
         """
 
         Returns:
@@ -231,7 +237,7 @@ class Sodoku(object):
         return self.board
 
     @staticmethod
-    def neighbors(index, size=9):
+    def neighbors(index: int, size: int = 9) -> Set[int]:
         """
 
         Args:
@@ -251,7 +257,7 @@ class Sodoku(object):
         } - {index}
 
     @staticmethod
-    def irow(n, bsize=9):
+    def irow(n: int, bsize: int = 9) -> Set[int]:
         """
 
         Args:
@@ -264,7 +270,7 @@ class Sodoku(object):
         return {i for i in range(n * bsize, n * bsize + bsize)}
 
     @staticmethod
-    def icolumn(n, bsize=9):
+    def icolumn(n: int, bsize: int = 9) -> Set[int]:
         """
 
         Args:
@@ -277,7 +283,7 @@ class Sodoku(object):
         return {i for i in range(n, bsize ** 2, bsize)}
 
     @staticmethod
-    def ibox(box_r, box_c, bsize=9):
+    def ibox(box_r: int, box_c: int, bsize: int = 9) -> Set[int]:
         """
 
         Args:
@@ -296,7 +302,7 @@ class Sodoku(object):
 
     @staticmethod
     @cash_it
-    def box_box(index):
+    def box_box(index: int) -> Set[int]:
         """
 
         Args:

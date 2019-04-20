@@ -3,6 +3,9 @@
 from math import ceil
 from shutil import get_terminal_size
 from sys import stdout
+from typing import Any
+from typing import Iterator
+from typing import List
 
 
 def yesno(question, default=True, tries=3):
@@ -26,7 +29,9 @@ def yesno(question, default=True, tries=3):
     return yesno(question, default)
 
 
-def term_table(strings, row_wise=False, filler="~"):
+def term_table(
+    strings: List[str], row_wise: bool = False, filler: str = "~"
+) -> Iterator[Any]:
     """
 
     :param strings:

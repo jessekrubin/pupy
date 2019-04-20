@@ -5,10 +5,10 @@ String Methods
 """
 from binascii import hexlify
 from os import urandom
-from string import printable
-
 from re import compile
 from re import sub
+from string import printable
+
 
 def bytes2str(bites: bytes, encoding: str = "utf-8") -> str:
     """Convert bytes to a string
@@ -34,6 +34,7 @@ def bytes2str(bites: bytes, encoding: str = "utf-8") -> str:
     """
     return bites.decode(encoding)
 
+
 def binary_string(number: int) -> str:
     """Number to binary string
 
@@ -51,7 +52,8 @@ def binary_string(number: int) -> str:
     """
     return bin(number)[2:]
 
-def string_score(strang):
+
+def string_score(strang: str) -> int:
     """Sum of letter values where a==1 and z == 26
 
     :param strang: string to be scored
@@ -71,7 +73,8 @@ def string_score(strang):
     """
     return sum((ord(character) - 96 for character in strang.lower()))
 
-def is_palindrome(string):
+
+def is_palindrome(string: str) -> bool:
     """True a string is a palindrome; False if string is not a palindrome.
 
     :param string: 
@@ -86,14 +89,16 @@ def is_palindrome(string):
     """
     return all(
         character == string[-index - 1] for index, character in enumerate(string)
-        )
+    )
+
 
 def strip_comments(string):
     filelines = string.splitlines(keepends=False)
     r = compile(r'(?:"(?:[^"\\]|\\.)*"|[^"#])*(#|$)')
     return "\n".join((line[: r.match(line).start(1)] for line in filelines))
 
-def strip_ascii(s):
+
+def strip_ascii(s: str) -> str:
     """Remove all ascii characters from a string
 
     :param s: string with non-ascii characters
@@ -109,7 +114,8 @@ def strip_ascii(s):
     """
     return "".join(sc for sc in (str(c) for c in s) if sc not in printable)
 
-def no_b(string):
+
+def no_b(string: str) -> str:
     """Removes the b'' from binary strings and sub-strings that contain b''
 
     :param string: A string surrounded by b'' or a sub-string with b''
@@ -123,7 +129,8 @@ def no_b(string):
     """
     return sub("b'([^']*)'", r"\1", string)
 
-def no_u(string):
+
+def no_u(string: str) -> str:
     """Removes the u'' from unicode strings and sub-strings that contain u''
 
     :param string: A string surrounded by u'' or a sub-string with u''
@@ -138,6 +145,7 @@ def no_u(string):
 
     """
     return sub("u'([^']*)'", r"\1", string)
+
 
 def rhex_str(length: int = 4) -> str:
     """Returns a random hex string
@@ -158,7 +166,8 @@ def rhex_str(length: int = 4) -> str:
     """
     return bytes2str(hexlify(urandom(length)))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     from doctest import testmod
 
     testmod()

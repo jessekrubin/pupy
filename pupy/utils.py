@@ -8,6 +8,7 @@ from os import stat
 from platform import system
 from tempfile import mkdtemp
 from typing import List
+from typing import Optional
 from typing import Tuple
 from weakref import finalize
 
@@ -16,6 +17,7 @@ from pupy import win
 from pupy._typing import Flint
 
 _OS = system().lower()
+
 
 def fmt_bytes(num: Flint) -> str:
     """
@@ -56,6 +58,7 @@ def fmt_bytes(num: Flint) -> str:
             return "%3.1f %s" % (num, x)
         num /= 1024.0
 
+
 def fmt_file_size(filepath: str) -> str:
     """
     this function will return the file size
@@ -64,7 +67,8 @@ def fmt_file_size(filepath: str) -> str:
         file_info = stat(filepath)
         return fmt_bytes(file_info.st_size)
 
-def fmt_seconds(t1, t2=None):
+
+def fmt_seconds(t1: float, t2: Optional[float] = None) -> str:
     """Formats time string
 
     Formats t1 if t2 is None as a string; Calculates the time and formats
@@ -93,7 +97,8 @@ def fmt_seconds(t1, t2=None):
     else:
         return fmt_seconds((t2 - t1))
 
-def path2name(path_str):
+
+def path2name(path_str: str) -> str:
     """Get the parent-directory for a file or directory path as a string
 
     :param path_str:
@@ -107,6 +112,7 @@ def path2name(path_str):
 
     """
     return path.split(path.abspath(path_str))[-1]
+
 
 def parent_dirpath(fdpath: str) -> str:
     """
@@ -123,7 +129,8 @@ def parent_dirpath(fdpath: str) -> str:
     """
     return path.split(fdpath)[0]
 
-def timestamp(ts=None):
+
+def timestamp(ts: Optional[float] = None) -> str:
     """Time stamp string w/ format yyyymmdd-HHMMSS
 
     :return: timestamp string
@@ -145,10 +152,12 @@ def timestamp(ts=None):
     elif isinstance(ts, datetime):
         return ts.strftime("%Y%m%d-%H%M%S")
 
+
 def ls(dirpath=".", abs=False):
     if abs:
         return [path.join(dirpath, item) for item in listdir(dirpath)]
     return listdir(dirpath)
+
 
 def ls_files(dirpath, abs=False):
     files = (file for file in ls(dirpath, abs=True) if path.isfile(file))
@@ -156,46 +165,57 @@ def ls_files(dirpath, abs=False):
         return list(map(lambda el: el.replace(dirpath, "."), files))
     return list(files)
 
-def ls_dirs(dirpath: str = '.', abs: bool = False):
+
+def ls_dirs(dirpath: str = ".", abs: bool = False):
     dirs = (dir for dir in ls(dirpath, abs=True) if path.isdir(dir))
     if not abs:
         return list(map(lambda el: el.replace(dirpath, "."), dirs))
     return list(dirs)
 
+
 def ls_files_dirs(dirpath: str) -> Tuple[List[str], List[str]]:
     return ls_files(dirpath), ls_dirs(dirpath)
+
 
 def link_dir(link, target):
     _link = win.link_dir if "win" in _OS else lin.link_dir
     return _link(link, target)
 
+
 def link_dirs(link_target_tuples):
     _link = win.link_dirs if "win" in _OS else lin.link_dirs
     return _link(link_target_tuples)
+
 
 def link_file(link, target):
     _link = win.link_file if "win" in _OS else lin.link_file
     return _link(link, target)
 
+
 def link_files(link_target_tuples):
     _link = win.link_files if "win" in _OS else lin.link_files
     return _link(link_target_tuples)
+
 
 def unlink_dir(link_path: str):
     _unlink = win.unlink_dir if "win" in _OS else lin.unlink_dir
     return _unlink(link_path)
 
+
 def unlink_dirs(link_paths):
     _unlink = win.unlink_dirs if "win" in _OS else lin.unlink_dirs
     return _unlink(link_paths)
+
 
 def unlink_file(link):
     _unlink = win.unlink_file if "win" in _OS else lin.unlink_file
     return _unlink(link)
 
+
 def unlink_files(links):
     _unlink = win.unlink_files if "win" in _OS else lin.unlink_files
     return _unlink(links)
+
 
 def sync(src, dest):
     """Update (rsync/robocopy) a local test directory from raid
@@ -207,12 +227,11 @@ def sync(src, dest):
     _sync = win.robocopy if "win" in _OS else lin.rsync
     return _sync(src=src, dest=dest)
 
+
 class LinkedTmpDir(object):
     """ make a temp dir and have links."""
 
-    def __init__(
-        self, suffix=None, prefix=None, dir=None, link_targets=None
-        ):
+    def __init__(self, suffix=None, prefix=None, dir=None, link_targets=None):
         self.dirpath = mkdtemp(suffix, prefix, dir)
         self.dirname = path.split(self.dirpath)[-1]
         file_targets = []
@@ -245,7 +264,7 @@ class LinkedTmpDir(object):
             self._cleanup,
             self.dirpath,
             warn_message="Implicitly cleaning up {!r}".format(self),
-            )
+        )
 
     @classmethod
     def _cleanup(cls, name, warn_message):

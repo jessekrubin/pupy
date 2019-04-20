@@ -71,7 +71,7 @@ def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
     :param tictoc:
     :return:
     """
-    D = {
+    _log_levels = {
         "debug": logger.debug,
         "info": logger.info,
         "warn": logger.warning,
@@ -102,7 +102,7 @@ def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
             ]
             msg_str = " | ".join(part for part in msg_parts if part)
             if any(el for el in msg_parts):
-                D[loglevel]("[FLOG] | {}".format(msg_str))
+                _log_levels[loglevel]("[FLOG] | {}".format(msg_str))
             return _ret
 
         return _flog_wrapper

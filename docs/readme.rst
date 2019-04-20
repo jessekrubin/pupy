@@ -1,2 +1,2 @@
-.. include:: ../README.rst
+# -*- coding: utf-8 -*-.. include:: ../README.rst
 

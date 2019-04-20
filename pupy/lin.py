@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
+# ~ Jesse K. Rubin ~ Pretty Useful Python
 from os import symlink
 from os import unlink
 from subprocess import PIPE
 from subprocess import run
-from sys import stdout
 
 
 def rsync(src: str, dest: str, delete: bool = False):
     """Sheldon rsync wrapper for syncing tdirs
 
+    :param delete:
     :param dest: path to local tdir
     :param src: path to remote (raid) tdir
     :return: subprocess return code from rsync
@@ -44,40 +45,51 @@ def rsync(src: str, dest: str, delete: bool = False):
         dest = "{}/".format(dest)
     if not src.endswith("/"):
         src = "{}/".format(src)
-    rsync_args = ["rsync", "-a", "-O", "--no-o", "--no-g", "--no-p",
-                  "--delete" if delete else None,
-                  src,
-                  dest]
-    subproc = run(
-        args=list(filter(None, rsync_args)),
-        stdout=PIPE,
-        stderr=PIPE,
-        )
+    rsync_args = [
+        "rsync",
+        "-a",
+        "-O",
+        "--no-o",
+        "--no-g",
+        "--no-p",
+        "--delete" if delete else None,
+        src,
+        dest,
+    ]
+    subproc = run(args=list(filter(None, rsync_args)), stdout=PIPE, stderr=PIPE)
     return subproc
+
 
 def link_dir(linkpath, targetpath):
     symlink(targetpath, linkpath)
+
 
 def link_dirs(link_target_tuples):
     for link, target in link_target_tuples:
         link_dir(link, target)
 
+
 def link_file(linkpath: str, targetpath: str) -> None:
     symlink(targetpath, linkpath)
+
 
 def link_files(link_target_tuples):
     for link, target in link_target_tuples:
         link_file(link, target)
 
+
 def unlink_dir(link):
     unlink(link)
+
 
 def unlink_dirs(links):
     for link in links:
         unlink(link)
 
+
 def unlink_file(link):
     unlink(link)
+
 
 def unlink_files(links):
     for link in links:

@@ -28,7 +28,7 @@ for i in count(1 + lines.index("[tool.poetry.dependencies]")):
         break
     try:
         dep = lines[i].split("=")[0].strip(" ")
-        if dep not in ("python"):
+        if dep not in "python":
             deps.append(dep)
     except:
         pass

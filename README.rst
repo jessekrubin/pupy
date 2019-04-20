@@ -1,4 +1,4 @@
-Pretty Useful Python / pupy
+# -*- coding: utf-8 -*-Pretty Useful Python / pupy
 ===========================
 
 Hows it doin
