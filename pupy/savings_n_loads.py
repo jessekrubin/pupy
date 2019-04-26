@@ -12,10 +12,18 @@ from pupy.decorations import mkdirs
 try:
     from ujson import dump
     from ujson import load
+    from ujson import loads
 except:
     from json import dump
     from json import load
+    from json import loads
 
+try:
+    from toml import dumps as toml_dumps
+    from toml import load as toml_load
+    from toml import loads as toml_loads
+except:
+    pass
 
 def safepath(path_str):
     """Checks if a file/dir path is save/unused; returns an unused path.
@@ -31,7 +39,6 @@ def safepath(path_str):
             if not path.exists(safe_save_path):
                 return safe_save_path
     return path_str
-
 
 @mkdirs
 def sstring(filepath, string):
@@ -50,16 +57,13 @@ def sstring(filepath, string):
     with open(filepath, "wb") as file:
         file.write(string.encode("utf-8"))
 
-
 def savings(filepath, string):
     """Alias for sstring"""
     return sstring(filepath, string)
 
-
 def sstr(filepath, string):
     """Alias for sstring"""
     return sstring(filepath, string)
-
 
 def lstring(filepath):
     """(lstring) Read and return the file-contents as a string given a filepath
@@ -75,11 +79,9 @@ def lstring(filepath):
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
 
-
 def lstr(filepath):
     """Alias for lstring"""
     return lstring(filepath)
-
 
 @mkdirs
 def sjson(filepath, data, min=False):
@@ -103,50 +105,43 @@ def sjson(filepath, data, min=False):
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-            )
-
+                )
 
 def save_jasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-
 def sjasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
-
 
 def spak(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-
-@mkdirs
 def ljson(filepath):
     """Load a json file given a filepath and return the file-data
 
     :param filepath: path to the jasm file you want to load
     :return: Loaded file contents
     """
-
-    with open(filepath) as infile:
-        return load(infile)
-
+    try:
+        with open(filepath) as infile:
+            return load(infile)
+    except UnicodeDecodeError as e:
+        return loads(lstring(filepath))
 
 def load_jasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
-
 def ljasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
-
 def lpak(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
-
 
 @mkdirs
 def touch(filepath):
@@ -157,7 +152,6 @@ def touch(filepath):
     """
     with open(filepath, "a"):
         utime(filepath, None)
-
 
 def shebang(filepath):
     """returns the shebang path given a filepath or None if it does not exist.
@@ -180,3 +174,18 @@ def shebang(filepath):
     with open(filepath, "r") as f:
         first = f.readline().strip("\n")
         return first if first[:2] == "#!" else None
+
+def ltoml(filepath):
+    try:
+        with open(filepath) as f:
+            return toml_load(f)
+    except NameError:
+        raise EnvironmentError('pip install toml if you wanna use this!')
+    except UnicodeDecodeError as e:
+        return toml_loads(lstring(filepath))
+
+def stoml(filepath, data):
+    try:
+        sstring(filepath, toml_dumps(data))
+    except NameError:
+        raise EnvironmentError('pip install toml if you wanna use this!')
