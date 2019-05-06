@@ -15,7 +15,7 @@ try:
     from ujson import dump
     from ujson import load
     from ujson import loads
-except:
+except ModuleNotFoundError:
     from json import dump
     from json import load
     from json import loads
@@ -24,9 +24,22 @@ try:
     from toml import dumps as toml_dumps
     from toml import load as toml_load
     from toml import loads as toml_loads
-except:
+except ModuleNotFoundError:
     pass
 
+try:
+    from msgpack import pack
+    from msgpack import unpack
+except ModuleNotFoundError:
+    pass
+
+try:
+    from ruamel.yaml import YAML
+
+    _yaml_saver = YAML()
+    _yaml_loader = YAML(typ='safe')
+except ModuleNotFoundError:
+    pass
 
 def safepath(path_str: str) -> str:
     """Checks if a file/dir path is save/unused; returns an unused path.
@@ -43,11 +56,6 @@ def safepath(path_str: str) -> str:
                 return safe_save_path
     return path_str
 
-
-# <<<<<<< HEAD
-# =======
-
-
 def lbytes(filepath: str) -> None:
     """Read bytes from file path
 
@@ -56,7 +64,6 @@ def lbytes(filepath: str) -> None:
     """
     with open(filepath, "rb") as file:
         return file.read()
-
 
 @mkdirs
 def sstring(filepath: str, string: str) -> None:
@@ -75,16 +82,13 @@ def sstring(filepath: str, string: str) -> None:
     with open(filepath, "wb") as file:
         file.write(string.encode("utf-8"))
 
-
 def savings(filepath: str, string: str) -> None:
     """Alias for sstring"""
     return sstring(filepath, string)
 
-
 def sstr(filepath: str, string: str) -> None:
     """Alias for sstring"""
     return sstring(filepath, string)
-
 
 def lstring(filepath: str):
     """(lstring) Read and return the file-contents as a string given a filepath
@@ -100,11 +104,9 @@ def lstring(filepath: str):
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
 
-
 def lstr(filepath):
     """Alias for lstring"""
     return lstring(filepath)
-
 
 @mkdirs
 def sjson(filepath: str, data: Dict[str, List[str]], min: bool = False) -> None:
@@ -128,23 +130,15 @@ def sjson(filepath: str, data: Dict[str, List[str]], min: bool = False) -> None:
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-            )
-
+                )
 
 def save_jasm(filepath: str, data: Dict[str, List[str]], min: bool = False) -> None:
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-
 def sjasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
-
-
-def spak(filepath, data, min=False):
-    """Alias for sjson (which stands for 'save-json')"""
-    return sjson(filepath, data, min)
-
 
 @mkdirs
 def ljson(filepath: str):
@@ -159,22 +153,13 @@ def ljson(filepath: str):
     except UnicodeDecodeError as e:
         return loads(lstring(filepath))
 
-
 def load_jasm(filepath: str) -> Dict[str, List[str]]:
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
-
-# <<<<<<< HEAD
 def ljasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
-
-
-def lpak(filepath):
-    """Alias for ljson (which stands for 'load-json')"""
-    return ljson(filepath)
-
 
 @mkdirs
 def touch(filepath: str) -> None:
@@ -185,7 +170,6 @@ def touch(filepath: str) -> None:
     """
     with open(filepath, "a"):
         utime(filepath, None)
-
 
 def shebang(filepath: str):
     """returns the shebang path given a filepath or None if it does not exist.
@@ -209,19 +193,51 @@ def shebang(filepath: str):
         first = f.readline().strip("\n")
         return first if first[:2] == "#!" else None
 
-
 def ltoml(filepath):
     try:
         with open(filepath) as f:
             return toml_load(f)
     except NameError:
-        raise EnvironmentError("pip install toml if you wanna use this!")
+        raise EnvironmentError("'pip install toml' if you wanna use this!")
     except UnicodeDecodeError as e:
         return toml_loads(lstring(filepath))
 
-
 def stoml(filepath, data):
     try:
+        filepath = filepath if '.' in filepath else "{}.toml".format(filepath)
         sstring(filepath, toml_dumps(data))
+        return filepath
     except NameError:
-        raise EnvironmentError("pip install toml if you wanna use this!")
+        raise EnvironmentError("'pip install toml' if you wanna use this!")
+
+def spak(filepath, data):
+    try:
+        filepath = filepath if '.' in filepath else "{}.pak".format(filepath)
+        with open(filepath, 'wb') as outfile:
+            pack(data, outfile)
+        return filepath
+    except NameError:
+        raise EnvironmentError("'pip install msgpack' if you wanna use this!")
+
+def lpak(filepath, bytes=False):
+    try:
+        with open(filepath, 'rb') as data_file:
+            return unpack(data_file, raw=bytes)
+    except NameError:
+        raise EnvironmentError("'pip install msgpack' if you wanna use this!")
+
+def syaml(filepath, data):
+    try:
+        filepath = filepath if '.' in filepath else "{}.yml".format(filepath)
+        with open(filepath, 'w') as data_file:
+            _yaml_saver.dump(data, data_file)
+        return filepath
+    except NameError:
+        raise EnvironmentError("'pip install ruamel.yaml' if you wanna use this!")
+
+def lyaml(filepath):
+    try:
+        with open(filepath) as data_file:
+            return _yaml_loader.load(data_file)
+    except NameError:
+        raise EnvironmentError("'pip install ruamel.yaml' if you wanna use this!")

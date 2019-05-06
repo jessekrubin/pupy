@@ -21,9 +21,15 @@ from pupy.savings_n_loads import sjson
 from pupy.savings_n_loads import spak
 from pupy.savings_n_loads import sstr
 from pupy.savings_n_loads import sstring
+from pupy.utils import environ_dict
 from pupy.utils import fmt_bytes
 from pupy.utils import fmt_file_size
 from pupy.utils import fmt_seconds
+from pupy.utils import ls
+from pupy.utils import ls_dirs
+from pupy.utils import ls_files
+from pupy.utils import ls_files_dirs
 from pupy.utils import parent_dirpath
 from pupy.utils import path2name
+from pupy.utils import sync
 from pupy.utils import timestamp

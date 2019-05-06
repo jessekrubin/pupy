@@ -17,6 +17,7 @@ exclude_lines =
     raise AssertionError
     raise NotImplementedError
     except NameError:
+    except ModuleNotFoundError:
 
     # Don't complain if non-runnable code isn't run:
     if 0:
