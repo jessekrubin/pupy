@@ -9,12 +9,15 @@ from os import sep
 from os import walk
 from typing import Any
 from typing import Iterable
+from typing import Iterator
 from typing import List
+from typing import Tuple
+from typing import Union
 
 from pupy._typing import Flint
 
 
-def files_gen(dirpath: str = ',', abs: bool = True):
+def files_gen(dirpath: str = ",", abs: bool = True) -> Iterator[Any]:
     """Yields paths beneath dirpath param; dirpath defaults to os.getcwd()
 
     :param dirpath: Directory path to walking down/through.
@@ -25,11 +28,12 @@ def files_gen(dirpath: str = ',', abs: bool = True):
     return (
         fpath if abs else fpath.replace(dirpath, "").strip(sep)
         for fpath in (
-        path.join(pwd, file) for pwd, dirs, files in walk(dirpath) for file in files
+            path.join(pwd, file) for pwd, dirs, files in walk(dirpath) for file in files
         )
-        )
+    )
 
-def dirs_gen(dirpath: str = '.', abs: bool = True):
+
+def dirs_gen(dirpath: str = ".", abs: bool = True) -> Iterator[Any]:
     """Yields paths beneath dirpath param; dirpath defaults to os.getcwd()
 
     :param dirpath: Directory path to walking down/through.
@@ -40,7 +44,8 @@ def dirs_gen(dirpath: str = '.', abs: bool = True):
     return (
         fpath if abs else fpath.replace(dirpath, "").strip(sep)
         for fpath in (pwd for pwd, dirs, files in walk(dirpath))
-        )
+    )
+
 
 def exhaust(it: Iterable[Any]) -> None:
     """Exhaust an interable / use it up; useful for evaluating a map object.
@@ -59,11 +64,11 @@ def exhaust(it: Iterable[Any]) -> None:
     """
     deque(it, maxlen=0)
 
-def chunks(it, chunk_size):
+
+def chunks(it: Union[List[int], str], chunk_size: int) -> Iterator[Any]:
     """Yields chunks of something slicable with length <= chunk_size
 
-    :param list: list to be broken up
-    :type list: list or tuple
+    :param it:
     :param chunk_size: size of the chunks
     :type chunk_size: int
 
@@ -79,9 +84,12 @@ def chunks(it, chunk_size):
         ['abcdefghijklm', 'nopqrstuvwxyz']
 
     """
-    return (it[i: i + chunk_size] for i in range(0, len(it), chunk_size))
+    return (it[i : i + chunk_size] for i in range(0, len(it), chunk_size))
 
-def is_permutation(a, b):
+
+def is_permutation(
+    a: Union[int, List[int], str], b: Union[int, List[int], str]
+) -> bool:
     """Checks if two integers or lists are permutations lists are permutations
 
     :param a: possible perumtation of b
@@ -146,7 +154,8 @@ def is_permutation(a, b):
         b = digits_list(b)
     return len(a) == len(b) and Counter(a) == Counter(b)
 
-def rotate(rlist, rn=1, left_rotate=True):
+
+def rotate(rlist: List[int], rn: int = 1, left_rotate: bool = True) -> List[int]:
     """Rotate a list (rlist) by rn indices to the left or right
 
     :param rlist: list/toople or slicable to be rotated
@@ -189,7 +198,8 @@ def rotate(rlist, rn=1, left_rotate=True):
 
     return _left_rotate(rlist, rn) if left_rotate else _right_rotate(rlist, rn)
 
-def rotations_gen(rlist):
+
+def rotations_gen(rlist: Tuple[int, int, int, int]) -> Iterator[Any]:
     """Yields all rotations of a list
 
     :param rlist:
@@ -206,6 +216,7 @@ def rotations_gen(rlist):
 
     """
     return ((rlist[-i:] + rlist[:-i]) for i in range(len(rlist)))
+
 
 def digits_list(number: int) -> List[int]:
     """Returns a list of the digits in num
@@ -234,6 +245,7 @@ def digits_list(number: int) -> List[int]:
         digits.appendleft(r)
     return list(digits)
 
+
 def int_from_digits(digits: Iterable[int]) -> int:
     """Converts an iterable of digits digits to a number
     
@@ -251,7 +263,11 @@ def int_from_digits(digits: Iterable[int]) -> int:
         123
 
     """
-    return sum(digits[len(digits) - i - 1] * 10 ** i for i in range(0, len(digits), 1))
+    return sum(
+        digits[len(list(digits)) - i - 1] * 10 ** i
+        for i in range(0, len(list(digits)), 1)
+    )
+
 
 def iter_product(l: Iterable[int]) -> Flint:
     """Product of all the elements in a list or tuple

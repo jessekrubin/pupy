@@ -6,6 +6,8 @@ from io import open
 from itertools import count
 from os import path
 from os import utime
+from typing import Dict
+from typing import List
 
 from pupy.decorations import mkdirs
 
@@ -25,7 +27,8 @@ try:
 except:
     pass
 
-def safepath(path_str):
+
+def safepath(path_str: str) -> str:
     """Checks if a file/dir path is save/unused; returns an unused path.
 
     :param path_str: file or dir path
@@ -40,8 +43,23 @@ def safepath(path_str):
                 return safe_save_path
     return path_str
 
+
+# <<<<<<< HEAD
+# =======
+
+
+def lbytes(filepath: str) -> None:
+    """Read bytes from file path
+
+    :param filepath: filepath as as string to read bites from
+    :return: some bytes...
+    """
+    with open(filepath, "rb") as file:
+        return file.read()
+
+
 @mkdirs
-def sstring(filepath, string):
+def sstring(filepath: str, string: str) -> None:
     """Writes a string to filepath
 
 
@@ -57,15 +75,18 @@ def sstring(filepath, string):
     with open(filepath, "wb") as file:
         file.write(string.encode("utf-8"))
 
-def savings(filepath, string):
+
+def savings(filepath: str, string: str) -> None:
     """Alias for sstring"""
     return sstring(filepath, string)
 
-def sstr(filepath, string):
+
+def sstr(filepath: str, string: str) -> None:
     """Alias for sstring"""
     return sstring(filepath, string)
 
-def lstring(filepath):
+
+def lstring(filepath: str):
     """(lstring) Read and return the file-contents as a string given a filepath
 
     :param filepath: Path to a file to read
@@ -79,12 +100,14 @@ def lstring(filepath):
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
 
+
 def lstr(filepath):
     """Alias for lstring"""
     return lstring(filepath)
 
+
 @mkdirs
-def sjson(filepath, data, min=False):
+def sjson(filepath: str, data: Dict[str, List[str]], min: bool = False) -> None:
     """Save json-serial-ize-able data to a specific filepath.
 
     :param filepath: destination filepath
@@ -105,21 +128,26 @@ def sjson(filepath, data, min=False):
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-                )
+            )
 
-def save_jasm(filepath, data, min=False):
+
+def save_jasm(filepath: str, data: Dict[str, List[str]], min: bool = False) -> None:
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
+
 
 def sjasm(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
+
 def spak(filepath, data, min=False):
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-def ljson(filepath):
+
+@mkdirs
+def ljson(filepath: str):
     """Load a json file given a filepath and return the file-data
 
     :param filepath: path to the jasm file you want to load
@@ -131,20 +159,25 @@ def ljson(filepath):
     except UnicodeDecodeError as e:
         return loads(lstring(filepath))
 
-def load_jasm(filepath):
+
+def load_jasm(filepath: str) -> Dict[str, List[str]]:
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
+
+# <<<<<<< HEAD
 def ljasm(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
+
 
 def lpak(filepath):
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
+
 @mkdirs
-def touch(filepath):
+def touch(filepath: str) -> None:
     """Touches a file just like touch on the command line
 
     :param filepath: filepath to 'touch' in a unix-y sense
@@ -153,7 +186,8 @@ def touch(filepath):
     with open(filepath, "a"):
         utime(filepath, None)
 
-def shebang(filepath):
+
+def shebang(filepath: str):
     """returns the shebang path given a filepath or None if it does not exist.
 
     :param filepath: path to a file w/ a shebange line
@@ -175,17 +209,19 @@ def shebang(filepath):
         first = f.readline().strip("\n")
         return first if first[:2] == "#!" else None
 
+
 def ltoml(filepath):
     try:
         with open(filepath) as f:
             return toml_load(f)
     except NameError:
-        raise EnvironmentError('pip install toml if you wanna use this!')
+        raise EnvironmentError("pip install toml if you wanna use this!")
     except UnicodeDecodeError as e:
         return toml_loads(lstring(filepath))
+
 
 def stoml(filepath, data):
     try:
         sstring(filepath, toml_dumps(data))
     except NameError:
-        raise EnvironmentError('pip install toml if you wanna use this!')
+        raise EnvironmentError("pip install toml if you wanna use this!")

@@ -54,6 +54,11 @@ def cleanup_src():
     for python_file in python_test_files:
         cleanup_file(python_file)
 
+def redoc():
+    sphinx_args = ['python', '-m', 'sphinx', '-b', 'html', 'docs/', 'docs/_build/']
+    run(args=sphinx_args)
+
+
 def main():
     if len(argv) == 1:
         commands = [
@@ -67,6 +72,9 @@ def main():
         mkstubs()
     if 'cleanup' in argv:
         cleanup_src()
+    if 'redoc' in argv or True:
+        redoc()
+
 
 if __name__ == '__main__':
     main()

@@ -1,7 +1,8 @@
-Pretty Useful Python / pupy
+===========================
+PUPY ~ Pretty Useful Python
 ===========================
 
-Hows it doin
+Hows is doin
 ------------
 
 .. start-badges

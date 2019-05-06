@@ -10,7 +10,7 @@ this_files_path = os.path.abspath(__file__)
 this_files_dir = os.path.split(this_files_path)[0]
 root_dir = os.path.split(this_files_dir)[0]
 src_path = os.path.join(root_dir)
-sys.path.insert(1, )
+sys.path.insert(1, src_path)
 
 extensions = [
     "sphinx.ext.autodoc",
