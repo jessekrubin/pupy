@@ -238,7 +238,7 @@ class tictoc(object):
             te = time()
             t_total = (te - ts) / self.runs
             if printing:
-                print(self.__str__())
+                print(self.__str__(t_total, time_funk, self.args))
             return result
 
         return time_wrapper
