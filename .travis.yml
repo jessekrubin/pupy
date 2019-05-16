@@ -8,6 +8,7 @@ before_install:
     - pip install -U pip
 #    - pip install poetry
 install:
+    - pip install aiofiles
     - pip install -e .
 #  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 #  - export PATH=$PATH:~/.poetry/bin
