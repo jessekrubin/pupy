@@ -1,0 +1,14 @@
+py37:
+  image: python:3.6
+  state: test
+  script:
+    - apt-get update -q -y
+    - pip install -U pip
+    - pip install aiofiles
+    - pip install ruamel.yaml
+    - pip install toml
+    - pip install msgpack
+    - pip install -e .
+    - pip install pytest
+    - pip install pytest-cov
+    - pytest tests
