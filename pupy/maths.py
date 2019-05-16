@@ -22,6 +22,7 @@ from typing import Union
 from pupy.decorations import cash_it
 from pupy.foreign import iter_product
 
+
 def partitions_gen(
     numero: int, min_p: int = 1, max_p: Optional[int] = None
     ):

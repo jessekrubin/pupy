@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
+from typing import Any
+from typing import Iterable
+from typing import Iterator
+from typing import List
+from typing import Tuple
+from typing import Union
+
 from pupy._typing import Flint
-from typing import Any, Iterable, Iterator, List, Tuple, Union
+
 
 def files_gen(dirpath: str=..., abs: bool=...) -> Iterator[Any]: ...
 def dirs_gen(dirpath: str=..., abs: bool=...) -> Iterator[Any]: ...

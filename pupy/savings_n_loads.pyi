@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from pupy._typing import JASM
 from typing import Union
+
+from pupy._typing import JASM
+
 
 def safepath(path_str: str) -> str: ...
 def lbytes(filepath: str) -> None: ...

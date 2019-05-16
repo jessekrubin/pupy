@@ -7,6 +7,7 @@ from itertools import count
 from os import path
 from os import utime
 from typing import Union
+
 from pupy._typing import JASM
 from pupy.decorations import mkdirs
 

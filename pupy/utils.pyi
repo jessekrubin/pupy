@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
+from typing import Any
+from typing import List
+from typing import Optional
+from typing import Tuple
+
 from pupy._typing import Flint
-from typing import Any, List, Optional, Tuple
+
 
 def fmt_bytes(num: Flint) -> str: ...
 def fmt_file_size(filepath: str) -> str: ...
