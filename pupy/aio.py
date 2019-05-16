@@ -13,7 +13,7 @@ try:
     from ujson import dumps
     from ujson import load
     from ujson import loads
-except ModuleNotFoundError:
+except:
     from json import dumps
     from json import load
     from json import loads

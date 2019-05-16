@@ -15,7 +15,7 @@ try:
     from ujson import dump
     from ujson import load
     from ujson import loads
-except ModuleNotFoundError:
+except:
     from json import dump
     from json import load
     from json import loads

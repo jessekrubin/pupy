@@ -1,12 +1,15 @@
 language: python
 python:
-  - "3.5"
   - "3.6"
+  - "3.7"
   - "3.6-dev"  # 3.6 development branch
   - "3.7-dev"  # 3.7 development branch
 before_install:
     - pip install poetry
 install:
-    - poetry install
+  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+  - export PATH=$PATH:~/.poetry/bin
+  - poetry install
+
 script:
     - poetry run pytest
