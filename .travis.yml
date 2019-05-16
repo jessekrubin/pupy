@@ -9,7 +9,7 @@ before_install:
 #    - pip install poetry
 install:
     - pip install aiofiles
-    - pip install ruamel.yml
+    - pip install ruamel.yaml
     - pip install toml
     - pip install msgpack
     - pip install -e .
