@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import print_function
-
 import io
 import os
 import re
@@ -16,12 +13,9 @@ from os.path import splitext
 from setuptools import find_packages
 from setuptools import setup
 
-from pupy._version import __version__
-
-pupy_vesion = __version__
-
 with open("pyproject.toml") as f:
     lines = f.read().split("\n")
+    version = [l for l in lines if 'version' in l][0].split(' ')[-1].strip('"')
 deps = []
 for i in count(1 + lines.index("[tool.poetry.dependencies]")):
     if lines[i] == "":
@@ -50,7 +44,7 @@ if "TOXENV" in os.environ and "SETUPPY_CFLAGS" in os.environ:
 
 setup(
     name="pupy",
-    version=pupy_vesion,
+    version=version,
     license="BSD 2-Clause License",
     description="Pretty Useful Python",
     long_description="%s\n%s"
@@ -91,7 +85,7 @@ setup(
     setup_requires=[],
     entry_points={
         "console_scripts": ["pupy = pupy.cli:main"]
-    },
+        },
     cmdclass={},
     ext_modules=[],
     )
