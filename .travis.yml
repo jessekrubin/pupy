@@ -13,14 +13,9 @@ install:
     - pip install toml
     - pip install msgpack
     - pip install -e .
-#  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-#  - export PATH=$PATH:~/.poetry/bin
-#  - poetry install
-    #- pip install -U pip
-    #- pip install -e .
 
 script:
     - pip install pytest
     - pip install pytest-cov
     - pytest tests
-#    - poetry run pytest
+
