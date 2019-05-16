@@ -15,5 +15,6 @@ install:
 
 script:
     - pip install pytest
+    - pip install pytest-cov
     - pytest tests
 #    - poetry run pytest
