@@ -23,9 +23,7 @@ from pupy.decorations import cash_it
 from pupy.foreign import iter_product
 
 
-def partitions_gen(
-    numero: int, min_p: int = 1, max_p: Optional[int] = None
-    ):
+def partitions_gen(numero: int, min_p: int = 1, max_p: Optional[int] = None):
     """Partitions generator
 
     Adapted from: code.activestate.com/recipes/218332-generator-for-integer-partitions/min_p
@@ -51,6 +49,7 @@ def partitions_gen(
     for i in range(min_p, numero // 2 + 1):
         for p in partitions_gen(numero - i, i, max_p):
             yield (i,) + p
+
 
 @cash_it
 def rfactorial(n: int) -> int:
@@ -87,6 +86,7 @@ def rfactorial(n: int) -> int:
     else:
         return rfactorial(n - 1) * n
 
+
 def radians_2_degrees(rads: float) -> float:
     """Converts radians to degrees
 
@@ -104,6 +104,7 @@ def radians_2_degrees(rads: float) -> float:
     """
     return 180 * rads / pi
 
+
 def degrees_2_radians(degs: float) -> float:
     """Converts degrees to radians
 
@@ -117,6 +118,7 @@ def degrees_2_radians(degs: float) -> float:
 
     """
     return degs * pi / 180
+
 
 def power_mod(number: int, exponent: int, mod: int) -> int:
     """
@@ -146,6 +148,7 @@ def power_mod(number: int, exponent: int, mod: int) -> int:
     else:
         return 1
 
+
 def divisors_gen(n: int) -> Iterator[int]:
     """Divisors generator
 
@@ -172,6 +175,7 @@ def divisors_gen(n: int) -> Iterator[int]:
     for divisor in reversed(large_divisors):
         yield divisor
 
+
 def gcd_it(a: int, b: int) -> int:
     """iterative gcd
 
@@ -194,6 +198,7 @@ def gcd_it(a: int, b: int) -> int:
     while a:
         a, b = b % a, a
     return b
+
 
 @cash_it
 def gcd_r(a: int, b: int) -> int:
@@ -223,6 +228,7 @@ def gcd_r(a: int, b: int) -> int:
         return b
     return gcd_r(r, b)
 
+
 def reverse(n: int) -> int:
     """Reverses a number
 
@@ -251,6 +257,7 @@ def reverse(n: int) -> int:
         n //= 10
     return reversed
 
+
 @cash_it
 def fib_r(n: int) -> int:
     """Recursively the nth fibonacci number
@@ -271,6 +278,7 @@ def fib_r(n: int) -> int:
 
     """
     return n if n < 3 else fib_r(n - 1) + fib_r(n - 2)
+
 
 def expo(d: int, n: int) -> int:
     """greatest exponent for a divisor of n
@@ -305,6 +313,7 @@ def expo(d: int, n: int) -> int:
         divs += 1
     return divs
 
+
 def pytriple_gen(max_c: int) -> Iterator[Tuple[int, int, int]]:
     """primative pythagorean triples generator
 
@@ -328,6 +337,7 @@ def pytriple_gen(max_c: int) -> Iterator[Tuple[int, int, int]]:
                 else:
                     yield (imag, real, sea) if real > imag else (real, imag, sea)
 
+
 def n_permutations_with_replacements(
     it: Union[
         Tuple[int, int, int, int],
@@ -335,7 +345,7 @@ def n_permutations_with_replacements(
         Tuple[int, int, int, int, int],
         Tuple[int, int, int, int, int, int],
     ]
-    ) -> int:
+) -> int:
     """
 
     .. doctest:: python
@@ -355,10 +365,11 @@ def n_permutations_with_replacements(
     a = list(factorial(nc) for nc in c.values())
     return factorial(len(it)) // iter_product(a)
 
+
 def disjoint(
     a: Union[List[int], List[Union[str, int]]],
     b: Union[List[int], List[Union[str, int]]],
-    ) -> bool:
+) -> bool:
     """
 
     :param a:
@@ -383,9 +394,10 @@ def disjoint(
     """
     return not any(ae in b for ae in a)
 
+
 def set_cmp(
     a: Union[Set[int], List[int]], b: Union[Set[int], List[int]]
-    ) -> Tuple[Set[int], Set[int], Set[int]]:
+) -> Tuple[Set[int], Set[int], Set[int]]:
     """Compare the elements of two iterables (a and b)
 
     :param a: first iterable to compare elements of
@@ -408,6 +420,7 @@ def set_cmp(
         return set_cmp(set(a), set(b))
     return a & b, a - b, b - a
 
+
 def n_choose_r(n, r):
     """
 
@@ -417,6 +430,7 @@ def n_choose_r(n, r):
     """
     return factorial(n) // factorial(r) // factorial(n - r)
 
+
 class Trigon(object):
     """Trigon object composed of three points connected by lines."""
 
@@ -425,7 +439,7 @@ class Trigon(object):
         pt1: Union[Tuple[int, int]],
         pt2: Union[Tuple[int, int]],
         pt3: Union[Tuple[int, int]],
-        ) -> None:
+    ) -> None:
         self.pt1 = Vuple(pt1)
         self.pt2 = Vuple(pt2)
         self.pt3 = Vuple(pt3)
@@ -451,7 +465,7 @@ class Trigon(object):
             point = Vuple(point)
         return self.area() == sum(
             map(methodcaller("area"), self.inner_triangles(point))
-            )
+        )
 
     def inner_triangles(self, point):
         """Triangle funk that returns the three triangles w/ a point
@@ -481,7 +495,7 @@ class Trigon(object):
         return any(
             tri_area == 0
             for tri_area in map(methodcaller("area"), self.inner_triangles(point))
-            )
+        )
 
     def points(self):
         """ """
@@ -505,6 +519,7 @@ class Trigon(object):
 
         """
         return abs(truediv(Vuple.cross(pt1 - pt2, pt3 - pt2), 2))
+
 
 class Vuple(tuple):
     """VUPLE == Vector+Tuple"""
@@ -727,6 +742,7 @@ class Vuple(tuple):
 
         """
         return iter_product(self)
+
 
 if __name__ == "__main__":
     import doctest

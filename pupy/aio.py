@@ -5,8 +5,9 @@ from pupy._typing import JASM
 try:
     from aiofiles import open as aopen
 except ModuleNotFoundError:
-    raise ModuleNotFoundError("'pip install aiofiles'..."
-                              " if ya wanna use this module!")
+    raise ModuleNotFoundError(
+        "'pip install aiofiles'..." " if ya wanna use this module!"
+    )
 
 try:
     from ujson import dumps
@@ -28,9 +29,10 @@ try:
     from ruamel.yaml import YAML
 
     _yaml_saver = YAML()
-    _yaml_loader = YAML(typ='safe')
+    _yaml_loader = YAML(typ="safe")
 except ModuleNotFoundError:
     pass
+
 
 async def sabytes(filepath: str, bytes: bytes) -> None:
     """Read bytes from file path
@@ -38,8 +40,9 @@ async def sabytes(filepath: str, bytes: bytes) -> None:
     :param filepath: filepath as as string to read bites from
     :return: some bytes...
     """
-    async with aopen(filepath, mode='wb') as f:
+    async with aopen(filepath, mode="wb") as f:
         await f.write(bytes)
+
 
 async def labytes(filepath: str) -> bytes:
     """Read bytes from file path
@@ -47,29 +50,32 @@ async def labytes(filepath: str) -> bytes:
     :param filepath: filepath as as string to read bites from
     :return: some bytes...
     """
-    async with aopen(filepath, mode='rb') as f:
+    async with aopen(filepath, mode="rb") as f:
         _bytes = await f.read()
         return _bytes
 
+
 async def sastring(filepath: str, string: str) -> None:
     try:
-        async with aopen(filepath, mode='w', encoding='utf-8') as f:
+        async with aopen(filepath, mode="w", encoding="utf-8") as f:
             await f.write(string)
     # except NameError:
     #     raise ModuleNotFoundError("'pip install aiofiles' if ya wanna use this!")
     except UnicodeEncodeError:
-        async with aopen(filepath, mode='w', encoding='latin2') as f:
+        async with aopen(filepath, mode="w", encoding="latin2") as f:
             await f.write(string)
+
 
 async def lastring(filepath: str) -> str:
     try:
-        async with aopen(filepath, mode='r', encoding='utf-8') as f:
+        async with aopen(filepath, mode="r", encoding="utf-8") as f:
             _file_string = await f.read()
             return _file_string
     except UnicodeDecodeError:
-        async with aopen(filepath, mode='r', encoding='latin2') as f:
+        async with aopen(filepath, mode="r", encoding="latin2") as f:
             _file_string = await f.read()
             return _file_string
+
 
 async def sajson(filepath: str, data: JASM, min: bool = False) -> None:
     """Save json-serial-ize-able data to a specific filepath.
@@ -85,11 +91,9 @@ async def sajson(filepath: str, data: JASM, min: bool = False) -> None:
     if min:
         _json_str = dumps(data, ensure_ascii=False)
     else:
-        _json_str = dumps(data,
-                          indent=4,
-                          sort_keys=True,
-                          ensure_ascii=False)
+        _json_str = dumps(data, indent=4, sort_keys=True, ensure_ascii=False)
     await sastring(filepath, _json_str)
+
 
 async def lajson(filepath: str) -> JASM:
     """Load a json file given a filepath and return the file-data
@@ -100,6 +104,7 @@ async def lajson(filepath: str) -> JASM:
     _json_str = await lastring(filepath)
     return loads(filepath)
 
+
 async def latoml(filepath: str) -> JASM:
     try:
         _toml_str = await lastring(filepath)
@@ -107,13 +112,15 @@ async def latoml(filepath: str) -> JASM:
     except NameError:
         raise EnvironmentError("'pip install toml' if you wanna use this!")
 
+
 async def satoml(filepath: str, data: JASM) -> None:
     try:
-        filepath = filepath if '.' in filepath else "{}.toml".format(filepath)
+        filepath = filepath if "." in filepath else "{}.toml".format(filepath)
         _toml_str = toml_dumps(data)
         await sastring(filepath, _toml_str)
     except NameError:
         raise EnvironmentError("'pip install toml' if you wanna use this!")
+
 
 if __name__ == "__main__":
     pass

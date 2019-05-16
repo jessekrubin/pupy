@@ -21,24 +21,18 @@ logging_config = dict(
     formatters={
         "f": {
             "format": "[%(levelname)1.1s %(asctime)s %(filename)s:%(lineno)d] %(message)s"
-            }
-        },
+        }
+    },
     handlers={
-        "h": {
-            "class": "logging.StreamHandler",
-            "formatter": "f",
-            "level": DEBUG
-            }
-        },
-    root={
-        "handlers": ["h"],
-        "level"   : DEBUG
-        },
-    )
+        "h": {"class": "logging.StreamHandler", "formatter": "f", "level": DEBUG}
+    },
+    root={"handlers": ["h"], "level": DEBUG},
+)
 
 config.dictConfig(logging_config)
 
 logger = getLogger()
+
 
 def in_n_out(funk):
     """Chdir in to the dir the test_function is in and change dirs out when done
@@ -67,6 +61,7 @@ def in_n_out(funk):
 
     return chin_n_chout
 
+
 def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
     """
 
@@ -78,10 +73,10 @@ def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
     """
     _log_levels = {
         "debug": logger.debug,
-        "info" : logger.info,
-        "warn" : logger.warning,
+        "info": logger.info,
+        "warn": logger.warning,
         "error": logger.error,
-        }
+    }
 
     def _decorate_flog_wrapper(_funk):
         def _fmt_args(*args):
@@ -93,7 +88,7 @@ def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
         def _fmt_call(*args, **kwargs):
             params_str = ", ".join(
                 s for s in (_fmt_args(*args), _fmt_kwargs(**kwargs)) if s
-                )
+            )
             return "{}({})".format(_funk.__name__, params_str)
 
         @wraps(_funk)
@@ -104,7 +99,7 @@ def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
             msg_parts = [
                 _fmt_call(*args, **kwargs) if funk_call else None,
                 fmt_seconds(ti, tf) if tictoc else None,
-                ]
+            ]
             msg_str = " | ".join(part for part in msg_parts if part)
             if any(el for el in msg_parts):
                 _log_levels[loglevel]("[FLOG] | {}".format(msg_str))
@@ -113,6 +108,7 @@ def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
         return _flog_wrapper
 
     return _decorate_flog_wrapper(funk) if funk else _decorate_flog_wrapper
+
 
 def dirdec(funk):
     """
@@ -132,6 +128,7 @@ def dirdec(funk):
 
     return _wrapper
 
+
 def mkdirs(funk):
     """
 
@@ -144,7 +141,7 @@ def mkdirs(funk):
         try:
             dirpath = path.split(args[0])[0]
         except IndexError:
-            dirpath = path.split(kwargs['filepath'])[0]
+            dirpath = path.split(kwargs["filepath"])[0]
 
         try:
             makedirs(dirpath, exist_ok=True)
@@ -155,6 +152,7 @@ def mkdirs(funk):
         return funk(*args, **kwargs)
 
     return _wrapper
+
 
 def cash_it(funk):
     """args-2-return value cache.
@@ -182,6 +180,7 @@ def cash_it(funk):
 
     return cash_wrap
 
+
 def cprof(funk):
     """"cProfiling decorator
     
@@ -207,6 +206,7 @@ def cprof(funk):
 
     return profiled_funk
 
+
 class tictoc(object):
     """Timing decorator object
 
@@ -225,7 +225,7 @@ class tictoc(object):
             "    args: {}".format(args_string),
             "    time: {}".format(fmt_seconds(t_total)),
             "    runs: {}".format(self.runs),
-            )
+        )
         return "\n".join(_fmt_strs)
 
     def __call__(self, time_funk, printing=True):

@@ -4,7 +4,6 @@
 from typing import Any
 from typing import Optional
 
-
 def unescaped_str(arg_str: Any): ...
 
 parser: Any

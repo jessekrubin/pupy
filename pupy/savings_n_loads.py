@@ -37,9 +37,10 @@ try:
     from ruamel.yaml import YAML
 
     _yaml_saver = YAML()
-    _yaml_loader = YAML(typ='safe')
+    _yaml_loader = YAML(typ="safe")
 except ModuleNotFoundError:
     pass
+
 
 def safepath(path_str: str) -> str:
     """Checks if a file/dir path is save/unused; returns an unused path.
@@ -56,6 +57,7 @@ def safepath(path_str: str) -> str:
                 return safe_save_path
     return path_str
 
+
 def lbytes(filepath: str) -> None:
     """Read bytes from file path
 
@@ -64,6 +66,7 @@ def lbytes(filepath: str) -> None:
     """
     with open(filepath, "rb") as file:
         return file.read()
+
 
 @mkdirs
 def sstring(filepath: str, string: str) -> None:
@@ -82,15 +85,18 @@ def sstring(filepath: str, string: str) -> None:
     with open(filepath, "wb") as file:
         file.write(string.encode("utf-8"))
 
+
 def savings(filepath: str, string: str) -> None:
     """Alias for sstring"""
     return sstring(filepath, string)
+
 
 def sstr(filepath: str, string: str) -> None:
     """Alias for sstring"""
     return sstring(filepath, string)
 
-def lstring(filepath: str)-> str:
+
+def lstring(filepath: str) -> str:
     """(lstring) Read and return the file-contents as a string given a filepath
 
     :param filepath: Path to a file to read
@@ -104,9 +110,11 @@ def lstring(filepath: str)-> str:
         with open(filepath, "r", encoding="latin2") as f:
             return f.read()
 
+
 def lstr(filepath: str) -> str:
     """Alias for lstring"""
     return lstring(filepath)
+
 
 @mkdirs
 def sjson(filepath: str, data: JASM, min: bool = False) -> None:
@@ -130,17 +138,20 @@ def sjson(filepath: str, data: JASM, min: bool = False) -> None:
                 indent=4,
                 sort_keys=True,
                 ensure_ascii=False,
-                )
+            )
+
 
 def save_jasm(filepath: str, data: JASM, min: bool = False) -> None:
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-def sjasm(filepath: str, data: JASM, min:bool=False) -> None:
+
+def sjasm(filepath: str, data: JASM, min: bool = False) -> None:
     """Alias for sjson (which stands for 'save-json')"""
     return sjson(filepath, data, min)
 
-def ljson(filepath: str)-> JASM:
+
+def ljson(filepath: str) -> JASM:
     """Load a json file given a filepath and return the file-data
 
     :param filepath: path to the jasm file you want to load
@@ -152,13 +163,16 @@ def ljson(filepath: str)-> JASM:
     except UnicodeDecodeError as e:
         return loads(lstring(filepath))
 
+
 def load_jasm(filepath: str) -> JASM:
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
 
+
 def ljasm(filepath: str) -> JASM:
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
+
 
 @mkdirs
 def touch(filepath: str) -> None:
@@ -169,6 +183,7 @@ def touch(filepath: str) -> None:
     """
     with open(filepath, "a"):
         utime(filepath, None)
+
 
 def shebang(filepath: str) -> Union[None, str]:
     """returns the shebang path given a filepath or None if it does not exist.
@@ -192,13 +207,15 @@ def shebang(filepath: str) -> Union[None, str]:
         first = f.readline().strip("\n")
         return first if first[:2] == "#!" else None
 
+
 def stoml(filepath: str, data: JASM) -> None:
     try:
-        filepath = filepath if '.' in filepath else "{}.toml".format(filepath)
+        filepath = filepath if "." in filepath else "{}.toml".format(filepath)
         sstring(filepath, toml_dumps(data))
         return filepath
     except NameError:
         raise EnvironmentError("'pip install toml' if you wanna use this!")
+
 
 def ltoml(filepath: str) -> JASM:
     try:
@@ -209,30 +226,34 @@ def ltoml(filepath: str) -> JASM:
     except UnicodeDecodeError as e:
         return toml_loads(lstring(filepath))
 
+
 def spak(filepath: str, data: JASM) -> None:
     try:
-        filepath = filepath if '.' in filepath else "{}.pak".format(filepath)
-        with open(filepath, 'wb') as outfile:
+        filepath = filepath if "." in filepath else "{}.pak".format(filepath)
+        with open(filepath, "wb") as outfile:
             pack(data, outfile)
         return filepath
     except NameError:
         raise EnvironmentError("'pip install msgpack' if you wanna use this!")
 
-def lpak(filepath: str, bytes:bool=False) -> JASM:
+
+def lpak(filepath: str, bytes: bool = False) -> JASM:
     try:
-        with open(filepath, 'rb') as data_file:
+        with open(filepath, "rb") as data_file:
             return unpack(data_file, raw=bytes)
     except NameError:
         raise EnvironmentError("'pip install msgpack' if you wanna use this!")
 
+
 def syaml(filepath: str, data: JASM) -> None:
     try:
-        filepath = filepath if '.' in filepath else "{}.yml".format(filepath)
-        with open(filepath, 'w') as data_file:
+        filepath = filepath if "." in filepath else "{}.yml".format(filepath)
+        with open(filepath, "w") as data_file:
             _yaml_saver.dump(data, data_file)
         return filepath
     except NameError:
         raise EnvironmentError("'pip install ruamel.yaml' if you wanna use this!")
+
 
 def lyaml(filepath: str) -> JASM:
     try:
