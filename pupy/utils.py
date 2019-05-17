@@ -17,9 +17,9 @@ from typing import Optional
 from typing import Tuple
 from weakref import finalize
 
+import pupy._typing
 from pupy import lin
 from pupy import win
-import pupy._typing
 
 _OS = system().lower()
 
@@ -168,8 +168,8 @@ def ls_dirs(dirpath: str = ".", abs: bool = False):
         return list(map(lambda el: el.replace(dirpath, "."), dirs))
     return list(dirs)
 
-def ls_files_dirs(dirpath: str) -> Tuple[List[str], List[str]]:
-    return ls_files(dirpath), ls_dirs(dirpath)
+def ls_files_dirs(dirpath: str = '.', abs=False) -> Tuple[List[str], List[str]]:
+    return ls_files(dirpath, abs=abs), ls_dirs(dirpath, abs=abs)
 
 def link_dir(link, target):
     _link = win.link_dir if "win" in _OS else lin.link_dir
@@ -189,13 +189,9 @@ def link_files(link_target_tuples):
     link_target_tuples = list(link_target_tuples)
     for link, target in link_target_tuples:
         makedirs(parent_dirpath(link), exist_ok=True)
-        print(link, parent_dirpath(link))
-        print(path.exists(parent_dirpath(link)))
     _link(link_target_tuples)
     for link, target in link_target_tuples:
         makedirs(parent_dirpath(link), exist_ok=True)
-        print(link, parent_dirpath(link))
-        print(path.exists(link), path.exists(parent_dirpath(link)))
 
 def unlink_dir(link_path: str):
     _unlink = win.unlink_dir if "win" in _OS else lin.unlink_dir
