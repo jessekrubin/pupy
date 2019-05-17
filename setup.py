@@ -17,6 +17,8 @@ with open("pyproject.toml") as f:
     lines = f.read().split("\n")
     version = [l for l in lines if 'version' in l][0].split(' ')[-1].strip('"')
 deps = []
+dev_deps = []
+
 for i in count(1 + lines.index("[tool.poetry.dependencies]")):
     if lines[i] == "":
         break
@@ -26,6 +28,17 @@ for i in count(1 + lines.index("[tool.poetry.dependencies]")):
             deps.append(dep)
     except:
         pass
+
+for i in count(1 + lines.index("[tool.poetry.dev-dependencies]")):
+    if lines[i] == "":
+        break
+    try:
+        dev_dep = lines[i].split("=")[0].strip(" ")
+        if dev_dep not in "python":
+            dev_deps.append(dev_dep)
+    except:
+        pass
+extras = {'test':dev_deps}
 
 def read(*names, **kwargs):
     """
@@ -81,6 +94,7 @@ setup(
         ],
     keywords=["pretty", "useful", "tewls"],
     install_requires=deps,
+    tests_require=dev_deps,
     extras_require={},
     setup_requires=[],
     entry_points={

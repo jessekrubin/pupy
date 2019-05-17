@@ -248,3 +248,16 @@ class tictoc(object):
             return result
 
         return time_wrapper
+
+def requires(package):
+    def _requires(_funk):
+        @wraps(_funk)
+        def _wrapper(*args, **kwargs):
+            try:
+                return _funk(*args, **kwargs)
+            except ImportError as e:
+                raise eImportError("'pip install {}' to use this!".format(package))
+
+        return _wrapper
+    return _requires
+

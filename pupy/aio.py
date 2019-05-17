@@ -3,9 +3,9 @@
 from pupy._typing import JASM
 
 try:
-    from aiofiles import open as aopen
-except ModuleNotFoundError:
-    raise ModuleNotFoundError(
+    import aiofiles
+except ImportError:
+    raise ImportError(
         "'pip install aiofiles'..." " if ya wanna use this module!"
     )
 
@@ -22,7 +22,7 @@ try:
     from toml import dumps as toml_dumps
     from toml import load as toml_load
     from toml import loads as toml_loads
-except ModuleNotFoundError:
+except ImportError:
     pass
 
 try:
@@ -30,7 +30,7 @@ try:
 
     _yaml_saver = YAML()
     _yaml_loader = YAML(typ="safe")
-except ModuleNotFoundError:
+except ImportError:
     pass
 
 
@@ -40,7 +40,7 @@ async def sabytes(filepath: str, bytes: bytes) -> None:
     :param filepath: filepath as as string to read bites from
     :return: some bytes...
     """
-    async with aopen(filepath, mode="wb") as f:
+    async with aiofiles.open(filepath, mode="wb") as f:
         await f.write(bytes)
 
 
@@ -50,29 +50,29 @@ async def labytes(filepath: str) -> bytes:
     :param filepath: filepath as as string to read bites from
     :return: some bytes...
     """
-    async with aopen(filepath, mode="rb") as f:
+    async with aiofiles.open(filepath, mode="rb") as f:
         _bytes = await f.read()
         return _bytes
 
 
 async def sastring(filepath: str, string: str) -> None:
     try:
-        async with aopen(filepath, mode="w", encoding="utf-8") as f:
+        async with aiofiles.open(filepath, mode="w", encoding="utf-8") as f:
             await f.write(string)
     # except NameError:
-    #     raise ModuleNotFoundError("'pip install aiofiles' if ya wanna use this!")
+    #     raise ImportError("'pip install aiofiles' if ya wanna use this!")
     except UnicodeEncodeError:
-        async with aopen(filepath, mode="w", encoding="latin2") as f:
+        async with aiofiles.open(filepath, mode="w", encoding="latin2") as f:
             await f.write(string)
 
 
 async def lastring(filepath: str) -> str:
     try:
-        async with aopen(filepath, mode="r", encoding="utf-8") as f:
+        async with aiofiles.open(filepath, mode="r", encoding="utf-8") as f:
             _file_string = await f.read()
             return _file_string
     except UnicodeDecodeError:
-        async with aopen(filepath, mode="r", encoding="latin2") as f:
+        async with aiofiles.open(filepath, mode="r", encoding="latin2") as f:
             _file_string = await f.read()
             return _file_string
 

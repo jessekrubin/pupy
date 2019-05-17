@@ -1,6 +1,5 @@
 graft docs
-graft src
-graft ci
+graft pupy
 graft tests
 
 include .bumpversion.cfg
@@ -16,6 +15,8 @@ include README.rst
 include requirements.txt
 include pyproject.toml
 
-include tox.ini .travis.yml appveyor.yml
+include tox.ini
+include .travis.yml
+include .gitlab-ci.yml
 
 global-exclude *.py[cod] __pycache__ *.so *.dylib

@@ -1,6 +1,6 @@
 py37:
   image: python:3.6
-  state: test
+  stage: test
   script:
     - apt-get update -q -y
     - pip install -U pip
