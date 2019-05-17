@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
+import contextlib
+import shutil
+import tempfile
 from datetime import datetime
 from os import environ
 from os import getcwd
 from os import listdir
+from os import makedirs
 from os import path
 from os import stat
 from platform import system
@@ -15,12 +19,11 @@ from weakref import finalize
 
 from pupy import lin
 from pupy import win
-from pupy._typing import Flint
+import pupy._typing
 
 _OS = system().lower()
 
-
-def fmt_bytes(num: Flint) -> str:
+def fmt_bytes(num: pupy._typing.Flint) -> str:
     """
     this function will convert bytes to MB.... GB... etc
 
@@ -59,7 +62,6 @@ def fmt_bytes(num: Flint) -> str:
             return "%3.1f %s" % (num, x)
         num /= 1024.0
 
-
 def fmt_file_size(filepath: str) -> str:
     """
     this function will return the file size
@@ -67,7 +69,6 @@ def fmt_file_size(filepath: str) -> str:
     if path.isfile(filepath):
         file_info = stat(filepath)
         return fmt_bytes(file_info.st_size)
-
 
 def fmt_seconds(t1: float, t2: Optional[float] = None) -> str:
     """Formats time string
@@ -98,7 +99,6 @@ def fmt_seconds(t1: float, t2: Optional[float] = None) -> str:
     else:
         return fmt_seconds((t2 - t1))
 
-
 def path2name(path_str: str) -> str:
     """Get the parent-directory for a file or directory path as a string
 
@@ -114,7 +114,6 @@ def path2name(path_str: str) -> str:
     """
     return path.split(path.abspath(path_str))[-1]
 
-
 def parent_dirpath(fdpath: str) -> str:
     """
 
@@ -129,7 +128,6 @@ def parent_dirpath(fdpath: str) -> str:
 
     """
     return path.split(fdpath)[0]
-
 
 def timestamp(ts: Optional[float] = None) -> str:
     """Time stamp string w/ format yyyymmdd-HHMMSS
@@ -153,12 +151,10 @@ def timestamp(ts: Optional[float] = None) -> str:
     elif isinstance(ts, datetime):
         return ts.strftime("%Y%m%d-%H%M%S")
 
-
 def ls(dirpath=".", abs=False):
     if abs:
         return [path.join(dirpath, item) for item in listdir(dirpath)]
     return listdir(dirpath)
-
 
 def ls_files(dirpath, abs=False):
     files = (file for file in ls(dirpath, abs=True) if path.isfile(file))
@@ -166,57 +162,62 @@ def ls_files(dirpath, abs=False):
         return list(map(lambda el: el.replace(dirpath, "."), files))
     return list(files)
 
-
 def ls_dirs(dirpath: str = ".", abs: bool = False):
     dirs = (dir for dir in ls(dirpath, abs=True) if path.isdir(dir))
     if not abs:
         return list(map(lambda el: el.replace(dirpath, "."), dirs))
     return list(dirs)
 
-
 def ls_files_dirs(dirpath: str) -> Tuple[List[str], List[str]]:
     return ls_files(dirpath), ls_dirs(dirpath)
-
 
 def link_dir(link, target):
     _link = win.link_dir if "win" in _OS else lin.link_dir
     return _link(link, target)
 
-
 def link_dirs(link_target_tuples):
     _link = win.link_dirs if "win" in _OS else lin.link_dirs
     return _link(link_target_tuples)
 
-
 def link_file(link, target):
     _link = win.link_file if "win" in _OS else lin.link_file
+    makedirs(parent_dirpath(link), exist_ok=True)
     return _link(link, target)
-
 
 def link_files(link_target_tuples):
     _link = win.link_files if "win" in _OS else lin.link_files
-    return _link(link_target_tuples)
-
+    link_target_tuples = list(link_target_tuples)
+    for link, target in link_target_tuples:
+        makedirs(parent_dirpath(link), exist_ok=True)
+        print(link, parent_dirpath(link))
+        print(path.exists(parent_dirpath(link)))
+    _link(link_target_tuples)
+    for link, target in link_target_tuples:
+        makedirs(parent_dirpath(link), exist_ok=True)
+        print(link, parent_dirpath(link))
+        print(path.exists(link), path.exists(parent_dirpath(link)))
 
 def unlink_dir(link_path: str):
     _unlink = win.unlink_dir if "win" in _OS else lin.unlink_dir
     return _unlink(link_path)
 
-
 def unlink_dirs(link_paths):
-    _unlink = win.unlink_dirs if "win" in _OS else lin.unlink_dirs
-    return _unlink(link_paths)
-
+    try:
+        _unlink = win.unlink_dirs if "win" in _OS else lin.unlink_dirs
+        return _unlink(link_paths)
+    except TypeError:
+        pass
 
 def unlink_file(link):
     _unlink = win.unlink_file if "win" in _OS else lin.unlink_file
     return _unlink(link)
 
-
 def unlink_files(links):
-    _unlink = win.unlink_files if "win" in _OS else lin.unlink_files
-    return _unlink(links)
-
+    try:
+        _unlink = win.unlink_files if "win" in _OS else lin.unlink_files
+        return _unlink(links)
+    except TypeError:
+        pass
 
 def sync(src, dest):
     """Update (rsync/robocopy) a local test directory from raid
@@ -228,15 +229,18 @@ def sync(src, dest):
     _sync = win.robocopy if "win" in _OS else lin.rsync
     return _sync(src=src, dest=dest)
 
-
 def environ_dict():
     return {k: environ[k] for k in environ}
-
 
 class LinkedTmpDir(object):
     """ make a temp dir and have links."""
 
-    def __init__(self, suffix=None, prefix=None, dir=None, link_targets=None):
+    def __init__(self, suffix=None, prefix=None, dir=None,
+                 mkdirs=None,
+                 lndirs=None,
+                 lnfiles=None,
+                 link_targets=None
+                 ):
         self.dirpath = mkdtemp(suffix, prefix, dir)
         self.dirname = path.split(self.dirpath)[-1]
         file_targets = []
@@ -269,7 +273,7 @@ class LinkedTmpDir(object):
             self._cleanup,
             self.dirpath,
             warn_message="Implicitly cleaning up {!r}".format(self),
-        )
+            )
 
     @classmethod
     def _cleanup(cls, name, warn_message):
@@ -289,3 +293,35 @@ class LinkedTmpDir(object):
         unlink_files(self.file_links)
         if self._finalizer.detach():
             pass
+
+@contextlib.contextmanager
+def linked_tmp_dir(suffix=None, prefix=None, dir=None,
+                   mkdirs=None, lndirs=None, lnfiles=None):
+    temp_dir = tempfile.mkdtemp(suffix=suffix, prefix=prefix, dir=dir)
+    try:
+        for dirpath_route in mkdirs:
+            _abs_dirpath = path.join(temp_dir,
+                                     dirpath_route if isinstance(dirpath_route, str) else path.join(*dirpath_route))
+            makedirs(_abs_dirpath, exist_ok=True)
+    except TypeError as e:
+        pass
+
+    try:
+        lnfiles = ((path.join(temp_dir, _rel_link), target)
+                   for _rel_link, target in lnfiles)
+        link_files(lnfiles)
+    except TypeError as e:
+        pass
+    try:
+        lndirs = ((path.join(temp_dir, _rel_link), target)
+                  for _rel_link, target in lndirs)
+        link_dirs(lndirs)
+    except TypeError as e:
+        pass
+    try:
+        yield temp_dir
+    finally:
+        pass
+        unlink_files(lnfiles)
+        unlink_dirs(lndirs)
+        shutil.rmtree(temp_dir)
