@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 from collections import Counter
+from itertools import tee
 from collections import deque
 from functools import reduce
 from operator import mul
@@ -181,7 +182,7 @@ def rotate(rlist: List[int], rn: int = 1, left_rotate: bool = True) -> List[int]
     def _left_rotate(l, n=1):
         """
 
-        :param l: 
+        :param l:
         :param n:  (Default value = 1)
 
         """
@@ -190,7 +191,7 @@ def rotate(rlist: List[int], rn: int = 1, left_rotate: bool = True) -> List[int]
     def _right_rotate(l, n=1):
         """
 
-        :param l: 
+        :param l:
         :param n:  (Default value = 1)
 
         """
@@ -248,7 +249,7 @@ def digits_list(number: int) -> List[int]:
 
 def int_from_digits(digits: Iterable[int]) -> int:
     """Converts an iterable of digits digits to a number
-    
+
     The iteratble can be ints or strings/chars
 
     :rtype: int
@@ -287,3 +288,27 @@ def iter_product(l: Iterable[int]) -> Flint:
 
     """
     return reduce(mul, l)
+
+def spliter(iterable, funk):
+    """
+
+    :param iterable:
+    :type iterable:
+    :param funk:
+    :type funk:
+    :return:
+    :rtype:
+
+    .. doctest::python
+
+        >>> a, b = spliter(range(10), lambda n: n % 2 == 0)
+        >>> list(a)
+        [0, 2, 4, 6, 8]
+        >>> list(b)
+        [1, 3, 5, 7, 9]
+
+    """
+    _true_gen, _false_gen = tee((funk(item), item) for item in iterable)
+    return (i for p, i in _true_gen if p), (i for p, i in _false_gen if not p)
+
+
