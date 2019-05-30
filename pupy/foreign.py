@@ -289,7 +289,7 @@ def iter_product(l: Iterable[int]) -> Flint:
     """
     return reduce(mul, l)
 
-def spliter(iterable, funk):
+def spliterable(iterable, funk):
     """
 
     :param iterable:
@@ -301,7 +301,8 @@ def spliter(iterable, funk):
 
     .. doctest::python
 
-        >>> a, b = spliter(range(10), lambda n: n % 2 == 0)
+        >>> is_even = lambda n: n % 2 == 0
+        >>> a, b = spliterable(range(10), is_even)
         >>> list(a)
         [0, 2, 4, 6, 8]
         >>> list(b)
