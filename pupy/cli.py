@@ -61,6 +61,7 @@ if __name__ == "__main__":
     main()
 """
 
+
 def unescaped_str(arg_str):
     """
 
@@ -84,7 +85,8 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    "-io", "--in-n-out",
+    "-io",
+    "--in-n-out",
     metavar="script name",
     type=unescaped_str,
     nargs=ZERO_OR_MORE,
@@ -118,7 +120,6 @@ def main(args=None):
     if args.in_n_out:
         print(args.in_n_out)
         for fname in args.in_n_out:
-            if not fname.endswith('.py'):
-                fname = fname + '.py'
+            if not fname.endswith(".py"):
+                fname = fname + ".py"
             sstring(fname, _IN_N_OUT)
-

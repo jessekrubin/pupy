@@ -289,6 +289,7 @@ def iter_product(l: Iterable[int]) -> Flint:
     """
     return reduce(mul, l)
 
+
 def spliterable(iterable, funk):
     """
 
@@ -311,5 +312,3 @@ def spliterable(iterable, funk):
     """
     _true_gen, _false_gen = tee((funk(item), item) for item in iterable)
     return (i for p, i in _true_gen if p), (i for p, i in _false_gen if not p)
-
-

@@ -249,6 +249,7 @@ class tictoc(object):
 
         return time_wrapper
 
+
 def requires(package):
     def _requires(_funk):
         @wraps(_funk)
@@ -259,5 +260,5 @@ def requires(package):
                 raise eImportError("'pip install {}' to use this!".format(package))
 
         return _wrapper
-    return _requires
 
+    return _requires

@@ -5,9 +5,7 @@ from pupy._typing import JASM
 try:
     import aiofiles
 except ImportError:
-    raise ImportError(
-        "'pip install aiofiles'..." " if ya wanna use this module!"
-    )
+    raise ImportError("'pip install aiofiles'..." " if ya wanna use this module!")
 
 try:
     from ujson import dumps

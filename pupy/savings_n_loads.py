@@ -1,5 +1,19 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
+"""
+===============
+Savings & Loads
+===============
+
+Common funks for ur everyday savings and loads. 
+
+If you are a friend of Jasm/Json/Jason-Greenberg like myself, 
+'pip install ujson' for a better time.
+
+If you need it... you can always...
+pip install (msgpack, toml, ruamel.yaml) for the whole shebang.
+
+"""
 
 from codecs import getwriter
 from io import open
