@@ -25,6 +25,7 @@ from typing import Union
 from pupy._typing import Flint
 from pupy._typing import Paths
 
+
 def files_gen(dirpath: str = ",", abspath: bool = True) -> Paths:
     """Yields paths beneath dirpath param; dirpath defaults to os.getcwd()
 
@@ -35,8 +36,11 @@ def files_gen(dirpath: str = ",", abspath: bool = True) -> Paths:
     """
     return (
         fpath if abspath else fpath.replace(dirpath, "").strip(sep)
-        for fpath in (path.join(pwd, file) for pwd, dirs, files in walk(dirpath) for file in files)
+        for fpath in (
+            path.join(pwd, file) for pwd, dirs, files in walk(dirpath) for file in files
         )
+    )
+
 
 def dirs_gen(dirpath: str = ".", abspath: bool = True) -> Paths:
     """Yields paths beneath dirpath param; dirpath defaults to os.getcwd()
@@ -49,10 +53,12 @@ def dirs_gen(dirpath: str = ".", abspath: bool = True) -> Paths:
     return (
         dirpath if abspath else dirpath.replace(dirpath, "").strip(sep)
         for dirpath in (pwd for pwd, dirs, files in walk(dirpath))
-        )
+    )
+
 
 def files_dirs_gen(dirpath: str = ".", abspath: bool = True) -> Tuple[Paths, Paths]:
     return files_gen(dirpath, abspath=abspath), dirs_gen(dirpath, abspath=abspath)
+
 
 def exhaust(it: Iterable[Any]) -> None:
     """Exhaust an interable / use it up; useful for evaluating a map object.
@@ -70,6 +76,7 @@ def exhaust(it: Iterable[Any]) -> None:
 
     """
     deque(it, maxlen=0)
+
 
 def chunks(it: Union[List[int], str], chunk_size: int) -> Iterable[Any]:
     """Yields chunks of something slicable with length <= chunk_size
@@ -90,11 +97,12 @@ def chunks(it: Union[List[int], str], chunk_size: int) -> Iterable[Any]:
         ['abcdefghijklm', 'nopqrstuvwxyz']
 
     """
-    return (it[i: i + chunk_size] for i in range(0, len(it), chunk_size))
+    return (it[i : i + chunk_size] for i in range(0, len(it), chunk_size))
+
 
 def is_permutation(
     a: Union[int, List[int], str], b: Union[int, List[int], str]
-    ) -> bool:
+) -> bool:
     """Checks if two integers or lists are permutations lists are permutations
 
     :param a: possible perumtation of b
@@ -159,6 +167,7 @@ def is_permutation(
         b = digits_list(b)
     return len(a) == len(b) and Counter(a) == Counter(b)
 
+
 def rotate(rlist: List[int], rn: int = 1, left_rotate: bool = True) -> List[int]:
     """Rotate a list (rlist) by rn indices to the left or right
 
@@ -202,6 +211,7 @@ def rotate(rlist: List[int], rn: int = 1, left_rotate: bool = True) -> List[int]
 
     return _left_rotate(rlist, rn) if left_rotate else _right_rotate(rlist, rn)
 
+
 def rotations_gen(rlist: Iterable[Any]) -> Iterable[Any]:
     """Yields all rotations of a list
 
@@ -219,6 +229,7 @@ def rotations_gen(rlist: Iterable[Any]) -> Iterable[Any]:
 
     """
     return ((rlist[-i:] + rlist[:-i]) for i in range(len(rlist)))
+
 
 def digits_list(number: int) -> List[int]:
     """Returns a list of the digits in num
@@ -247,6 +258,7 @@ def digits_list(number: int) -> List[int]:
         digits.appendleft(r)
     return list(digits)
 
+
 def int_from_digits(digits: Iterable[int]) -> int:
     """Converts an iterable of digits digits to a number
 
@@ -267,7 +279,8 @@ def int_from_digits(digits: Iterable[int]) -> int:
     return sum(
         digits[len(list(digits)) - i - 1] * 10 ** i
         for i in range(0, len(list(digits)), 1)
-        )
+    )
+
 
 def iter_product(l: Iterable[int]) -> Flint:
     """Product of all the elements in a list or tuple
@@ -288,7 +301,10 @@ def iter_product(l: Iterable[int]) -> Flint:
     """
     return reduce(mul, l)
 
-def spliterable(iterable: Iterable[Any], funk: Callable[[Any], bool]) -> Tuple[Iterable[Any], Iterable[Any]]:
+
+def spliterable(
+    iterable: Iterable[Any], funk: Callable[[Any], bool]
+) -> Tuple[Iterable[Any], Iterable[Any]]:
     """
 
     :param iterable:
@@ -311,7 +327,8 @@ def spliterable(iterable: Iterable[Any], funk: Callable[[Any], bool]) -> Tuple[I
     _true_gen, _false_gen = tee((funk(item), item) for item in iterable)
     return (i for p, i in _true_gen if p), (i for p, i in _false_gen if not p)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     from doctest import testmod
 
     testmod()

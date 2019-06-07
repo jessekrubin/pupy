@@ -128,4 +128,4 @@ def main(ARGS=None):
         for fname in ARGS.in_n_out:
             if not fname.endswith(".py"):
                 fname = fname + ".py"
-            sstring(fname, _IN_N_OUT.strip('\n').strip('\r\n')+'\n')
+            sstring(fname, _IN_N_OUT.strip("\n").strip("\r\n") + "\n")

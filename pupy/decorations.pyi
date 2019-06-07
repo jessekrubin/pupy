@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from typing import Any
-from typing import Optional
+from typing import Any, Optional
 
 logging_config: Any
 logger: Any
@@ -24,3 +23,5 @@ class tictoc:
     def __init__(self, runs: int = ...) -> None: ...
     args: Any = ...
     def __call__(self, time_funk: Any, printing: bool = ...): ...
+
+def requires(package: Any): ...
