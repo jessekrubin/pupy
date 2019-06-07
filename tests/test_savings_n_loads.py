@@ -107,7 +107,7 @@ def test_ljson_n_sjson_min(save_funk: callable, load_funk: callable):
 
     """
     fp = safepath("jasm_dict.json")
-    save_funk(fp, JASM_DICT, min=True)
+    save_funk(fp, JASM_DICT, minify=True)
     loaded_data = load_funk(fp)
     assert loaded_data == JASM_DICT
     remove(fp)

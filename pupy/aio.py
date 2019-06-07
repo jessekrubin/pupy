@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
+"""
+===========
+Async funks
+===========
+"""
 from pupy._typing import JASM
 
 try:
@@ -11,7 +16,7 @@ try:
     from ujson import dumps
     from ujson import load
     from ujson import loads
-except:
+except Exception as e:
     from json import dumps
     from json import load
     from json import loads
@@ -32,14 +37,14 @@ except ImportError:
     pass
 
 
-async def sabytes(filepath: str, bytes: bytes) -> None:
+async def sabytes(filepath: str, _bytes: bytes) -> None:
     """Read bytes from file path
 
     :param filepath: filepath as as string to read bites from
     :return: some bytes...
     """
     async with aiofiles.open(filepath, mode="wb") as f:
-        await f.write(bytes)
+        await f.write(_bytes)
 
 
 async def labytes(filepath: str) -> bytes:
@@ -75,18 +80,18 @@ async def lastring(filepath: str) -> str:
             return _file_string
 
 
-async def sajson(filepath: str, data: JASM, min: bool = False) -> None:
+async def sajson(filepath: str, data: JASM, minify: bool = False) -> None:
     """Save json-serial-ize-able data to a specific filepath.
 
     :param filepath: destination filepath
     :param data: json cereal-izable dictionary/list/thing
-    :param min: Bool flag -- minify the json file
+    :param minify: Bool flag -- minify the json file
     :return: None
 
     """
     if type(data) == dict and any(type(val) == bytes for val in data.values()):
         data = {k: str(v, encoding="utf-8") for k, v in data.items()}
-    if min:
+    if minify:
         _json_str = dumps(data, ensure_ascii=False)
     else:
         _json_str = dumps(data, indent=4, sort_keys=True, ensure_ascii=False)

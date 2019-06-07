@@ -131,19 +131,19 @@ def lstr(filepath: str) -> str:
 
 
 @mkdirs
-def sjson(filepath: str, data: JASM, min: bool = False) -> None:
+def sjson(filepath: str, data: JASM, minify: bool = False) -> None:
     """Save json-serial-ize-able data to a specific filepath.
 
     :param filepath: destination filepath
     :param data: json cereal-izable dictionary/list/thing
-    :param min: Bool flag -- minify the json file
+    :param minify: Bool flag -- minify the json file
     :return: None
 
     """
-    if type(data) == dict and any(type(val) == bytes for val in data.values()):
+    if isinstance(data, dict) and any(isinstance(val, bytes) for val in data.values()):
         data = {k: str(v, encoding="utf-8") for k, v in data.items()}
     with open(filepath, "wb") as jsonfile:
-        if min:
+        if minify:
             dump(data, getwriter("utf-8")(jsonfile), ensure_ascii=False)
         else:
             dump(
@@ -155,14 +155,14 @@ def sjson(filepath: str, data: JASM, min: bool = False) -> None:
             )
 
 
-def save_jasm(filepath: str, data: JASM, min: bool = False) -> None:
+def save_jasm(filepath: str, data: JASM, minify: bool = False) -> None:
     """Alias for sjson (which stands for 'save-json')"""
-    return sjson(filepath, data, min)
+    return sjson(filepath, data, minify)
 
 
-def sjasm(filepath: str, data: JASM, min: bool = False) -> None:
+def sjasm(filepath: str, data: JASM, minify: bool = False) -> None:
     """Alias for sjson (which stands for 'save-json')"""
-    return sjson(filepath, data, min)
+    return sjson(filepath, data, minify)
 
 
 def ljson(filepath: str) -> JASM:
@@ -251,10 +251,10 @@ def spak(filepath: str, data: JASM) -> None:
         raise EnvironmentError("'pip install msgpack' if you wanna use this!")
 
 
-def lpak(filepath: str, bytes: bool = False) -> JASM:
+def lpak(filepath: str, raw: bool = False) -> JASM:
     try:
         with open(filepath, "rb") as data_file:
-            return unpack(data_file, raw=bytes)
+            return unpack(data_file, raw=raw)
     except NameError:
         raise EnvironmentError("'pip install msgpack' if you wanna use this!")
 

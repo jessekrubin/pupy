@@ -71,7 +71,7 @@ setup(
     author_email="jessekrubin@gmail.com",
     url="https://github.com/jessekrubin/pupy",
     repository="https://github.com/jessekrubin/pupy",
-    packages=find_packages(include=["pupy"], exclude=["docs", "tests"]),
+    packages=find_packages(include=["./pupy"], exclude=["docs", "tests"]),
     py_modules=[splitext(basename(path))[0] for path in glob("./*.py")],
     include_package_data=True,
     zip_safe=False,

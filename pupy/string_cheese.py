@@ -5,7 +5,7 @@ String Methods
 """
 from binascii import hexlify
 from os import urandom
-from re import compile
+from re import compile as _compile
 from re import sub
 from string import printable
 
@@ -94,7 +94,7 @@ def is_palindrome(string: str) -> bool:
 
 def strip_comments(string):
     filelines = string.splitlines(keepends=False)
-    r = compile(r'(?:"(?:[^"\\]|\\.)*"|[^"#])*(#|$)')
+    r = _compile(r'(?:"(?:[^"\\]|\\.)*"|[^"#])*(#|$)')
     return "\n".join((line[: r.match(line).start(1)] for line in filelines))
 
 
