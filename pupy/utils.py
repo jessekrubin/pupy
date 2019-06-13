@@ -16,8 +16,8 @@ from typing import Optional
 from typing import Tuple
 from weakref import finalize
 
-from pupy import lin
-from pupy import win
+from pupy.sh import lin
+from pupy.sh import win
 from pupy._typing import Flint
 
 _OS = system().lower()

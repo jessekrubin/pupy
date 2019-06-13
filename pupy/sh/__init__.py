@@ -47,7 +47,7 @@ def cp(src, dst, r=False, symlinks=False, ignore=None):
             if r:
                 cp(_src_pth, _dest_pth, r=True, symlinks=symlinks, ignore=ignore)
             else:
-                print('{} is dir; use rm(..., r=True)'.format(_src_pth))
+                print("{} is dir; use rm(..., r=True)".format(_src_pth))
         else:
             copy2(_src_pth, _dest_pth)
 
@@ -66,4 +66,4 @@ def rm(*args, r=False):
             if r:
                 rmtree(_path_str)
             else:
-                print('{} is dir; use rm(..., r=True)'.format(_path_str))
+                print("{} is dir; use rm(..., r=True)".format(_path_str))

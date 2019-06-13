@@ -21,11 +21,16 @@ from pupy.savings_n_loads import sjson
 from pupy.savings_n_loads import spak
 from pupy.savings_n_loads import sstr
 from pupy.savings_n_loads import sstring
+from pupy.sh import cd
+from pupy.sh import cp
+from pupy.sh import ls
+from pupy.sh import mv
+from pupy.sh import pwd
+from pupy.sh import rm
 from pupy.utils import environ_dict
 from pupy.utils import fmt_bytes
 from pupy.utils import fmt_file_size
 from pupy.utils import fmt_seconds
-from pupy.utils import ls
 from pupy.utils import ls_dirs
 from pupy.utils import ls_files
 from pupy.utils import ls_files_dirs
