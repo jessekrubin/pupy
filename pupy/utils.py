@@ -3,136 +3,18 @@
 from contextlib import contextmanager
 from datetime import datetime
 from os import environ
-from os import getcwd
-from os import listdir
 from os import makedirs
 from os import path
-from os import stat
-from platform import system
 from shutil import rmtree
 from tempfile import mkdtemp
-from typing import List
 from typing import Optional
-from typing import Tuple
 from weakref import finalize
 
-from pupy.sh import lin
-from pupy.sh import win
-from pupy._typing import Flint
-
-_OS = system().lower()
-
-
-def fmt_bytes(num: Flint) -> str:
-    """
-    this function will convert bytes to MB.... GB... etc
-
-    .. doctest:: python
-
-        >>> fmt_bytes(100)
-        '100.0 bytes'
-        >>> fmt_bytes(1000)
-        '1000.0 bytes'
-        >>> fmt_bytes(10000)
-        '9.8 KB'
-        >>> fmt_bytes(100000)
-        '97.7 KB'
-        >>> fmt_bytes(1000000)
-        '976.6 KB'
-        >>> fmt_bytes(10000000)
-        '9.5 MB'
-        >>> fmt_bytes(100000000)
-        '95.4 MB'
-        >>> fmt_bytes(1000000000)
-        '953.7 MB'
-        >>> fmt_bytes(10000000000)
-        '9.3 GB'
-        >>> fmt_bytes(100000000000)
-        '93.1 GB'
-        >>> fmt_bytes(1000000000000)
-        '931.3 GB'
-        >>> fmt_bytes(10000000000000)
-        '9.1 TB'
-        >>> fmt_bytes(100000000000000)
-        '90.9 TB'
-
-    """
-    for x in ["bytes", "KB", "MB", "GB", "TB"]:
-        if num < 1024.0:
-            return "%3.1f %s" % (num, x)
-        num /= 1024.0
-
-
-def fmt_file_size(filepath: str) -> str:
-    """
-    this function will return the file size
-    """
-    if path.isfile(filepath):
-        file_info = stat(filepath)
-        return fmt_bytes(file_info.st_size)
-
-
-def fmt_seconds(t1: float, t2: Optional[float] = None) -> str:
-    """Formats time string
-
-    Formats t1 if t2 is None as a string; Calculates the time and formats
-    the time t2-t1 if t2 is not None.
-
-    :param t1: time 1/initial in seconds
-    :type t1: double
-    :param t2: time 2 (Default value = None)
-    :type t2: None or double
-    :returns: formated string of the t1 - t2 or t1
-    :rtype: str
-
-    """
-    if t2 is not None:
-        return fmt_seconds((t2 - t1))
-    elif t1 == 0.0:
-        return "0 sec"
-    elif t1 >= 1:
-        return "%.3f sec" % t1
-    elif 1 > t1 >= 0.001:
-        return "%.3f ms" % ((10 ** 3) * t1)
-    elif 0.001 > t1 >= 0.000001:
-        return "%.3f μs" % ((10 ** 6) * t1)
-    elif 0.000001 > t1 >= 0.000000001:
-        return "%.3f ns" % ((10 ** 9) * t1)
-    else:
-        return fmt_seconds((t2 - t1))
-
-
-def path2name(path_str: str) -> str:
-    """Get the parent-directory for a file or directory path as a string
-
-    :param path_str:
-    :return: The parent directory as a string
-
-    .. doctest:: python
-
-        >>> from os import getcwd
-        >>> path2name(getcwd()) in getcwd()
-        True
-
-    """
-    return path.split(path.abspath(path_str))[-1]
-
-
-def parent_dirpath(fdpath: str) -> str:
-    """
-
-    :param fdpath: file/dir-path as as string
-    :return:
-
-    .. doctest:: python
-
-        >>> from os import path
-        >>> parent_dirpath(path.abspath(__file__)) in path.abspath(__file__)
-        True
-
-    """
-    return path.split(fdpath)[0]
-
+from pupy.sh import link_dirs
+from pupy.sh import link_files
+from pupy.sh import path2name
+from pupy.sh import unlink_dirs
+from pupy.sh import unlink_files
 
 def timestamp(ts: Optional[float] = None) -> str:
     """Time stamp string w/ format yyyymmdd-HHMMSS
@@ -156,97 +38,8 @@ def timestamp(ts: Optional[float] = None) -> str:
     elif isinstance(ts, datetime):
         return ts.strftime("%Y%m%d-%H%M%S")
 
-
-def ls(dirpath=".", abs=False):
-    if abs:
-        return [path.join(dirpath, item) for item in listdir(dirpath)]
-    return listdir(dirpath)
-
-
-def ls_files(dirpath, abs=False):
-    files = (file for file in ls(dirpath, abs=True) if path.isfile(file))
-    if not abs:
-        return list(map(lambda el: el.replace(dirpath, "."), files))
-    return list(files)
-
-
-def ls_dirs(dirpath: str = ".", abs: bool = False):
-    dirs = (dir for dir in ls(dirpath, abs=True) if path.isdir(dir))
-    if not abs:
-        return list(map(lambda el: el.replace(dirpath, "."), dirs))
-    return list(dirs)
-
-
-def ls_files_dirs(dirpath: str = ".", abs=False) -> Tuple[List[str], List[str]]:
-    return ls_files(dirpath, abs=abs), ls_dirs(dirpath, abs=abs)
-
-
-def link_dir(link, target):
-    _link = win.link_dir if "win" in _OS else lin.link_dir
-    return _link(link, target)
-
-
-def link_dirs(link_target_tuples):
-    _link = win.link_dirs if "win" in _OS else lin.link_dirs
-    return _link(link_target_tuples)
-
-
-def link_file(link, target):
-    _link = win.link_file if "win" in _OS else lin.link_file
-    makedirs(parent_dirpath(link), exist_ok=True)
-    return _link(link, target)
-
-
-def link_files(link_target_tuples):
-    _link = win.link_files if "win" in _OS else lin.link_files
-    link_target_tuples = list(link_target_tuples)
-    for link, target in link_target_tuples:
-        makedirs(parent_dirpath(link), exist_ok=True)
-    _link(link_target_tuples)
-    for link, target in link_target_tuples:
-        makedirs(parent_dirpath(link), exist_ok=True)
-
-
-def unlink_dir(link_path: str):
-    _unlink = win.unlink_dir if "win" in _OS else lin.unlink_dir
-    return _unlink(link_path)
-
-
-def unlink_dirs(link_paths):
-    try:
-        _unlink = win.unlink_dirs if "win" in _OS else lin.unlink_dirs
-        return _unlink(link_paths)
-    except TypeError:
-        pass
-
-
-def unlink_file(link):
-    _unlink = win.unlink_file if "win" in _OS else lin.unlink_file
-    return _unlink(link)
-
-
-def unlink_files(links):
-    try:
-        _unlink = win.unlink_files if "win" in _OS else lin.unlink_files
-        return _unlink(links)
-    except TypeError:
-        pass
-
-
-def sync(src, dest):
-    """Update (rsync/robocopy) a local test directory from raid
-
-    :param dest: path to local tdir
-    :param src: path to remote tdir
-    :return: subprocess return code for rsync/robocopy
-    """
-    _sync = win.robocopy if "win" in _OS else lin.rsync
-    return _sync(src=src, dest=dest)
-
-
 def environ_dict():
     return {k: environ[k] for k in environ}
-
 
 class LinkedTmpDir(object):
     """ make a temp dir and have links."""
@@ -260,7 +53,7 @@ class LinkedTmpDir(object):
         lndirs=None,
         lnfiles=None,
         link_targets=None,
-    ):
+        ):
         self.dirpath = mkdtemp(suffix, prefix, dir)
         self.dirname = path.split(self.dirpath)[-1]
         file_targets = []
@@ -293,7 +86,7 @@ class LinkedTmpDir(object):
             self._cleanup,
             self.dirpath,
             warn_message="Implicitly cleaning up {!r}".format(self),
-        )
+            )
 
     @classmethod
     def _cleanup(cls, name, warn_message):
@@ -314,35 +107,59 @@ class LinkedTmpDir(object):
         if self._finalizer.detach():
             pass
 
+# from tempfile import TemporaryDirectory, _get_candidate_names, _sanitize_params, mkdtemp
+# from pprint import pprint as pp
+# from os import path, access, name, fsencode, W_OK, mkdir
+
+# def _mkdtemp(suffix=None, prefix=None, dir=None):
+#     """Better version of mkdtemp
+#     """
+#
+#     prefix, suffix, dir, output_type = _sanitize_params(prefix, suffix, dir)
+#
+#     names = _get_candidate_names()
+#     if output_type is bytes:
+#         names = map(fsencode, names)
+#     for seq in range(10000):
+#         name = next(names)
+#         file = path.join(dir, prefix + name + suffix)
+#         try:
+#             mkdir(file, 0o777)
+#             # mkdir(file, 0o700)
+#         except FileExistsError:
+#             continue  # try again
+#         except PermissionError:
+#             # This exception is thrown when a directory with the chosen name
+#             # already exists on windows.
+#             if (name == 'nt' and path.isdir(dir) and
+#                 access(dir, W_OK)):
+#                 continue
+#             else:
+#                 raise
+#         return file
+#
+#     raise FileExistsError("No usable temporary directory name found")
 
 @contextmanager
 def linked_tmp_dir(
-    suffix=None, prefix=None, dir=None, mkdirs=None, lndirs=None, lnfiles=None
-):
+    suffix=None, prefix=None, dir=None,
+    mkdirs=[], lndirs=[], lnfiles=[]
+    ):
     temp_dir = mkdtemp(suffix=suffix, prefix=prefix, dir=dir)
-    try:
-        for dirpath_route in mkdirs:
-            _abs_dirpath = path.join(
-                temp_dir,
-                dirpath_route
-                if isinstance(dirpath_route, str)
-                else path.join(*dirpath_route),
-            )
-            makedirs(_abs_dirpath, exist_ok=True)
-    except TypeError as e:
-        pass
+    lnfiles = [
+        (path.join(temp_dir, _rel_link), target) for _rel_link, target in lnfiles
+        ]
+    _dirs2make = [path.join(temp_dir, *e) for e in mkdirs]
+    _dirs2make.extend((path.split(link)[0] for link, target in lnfiles))
+    for dirpath_route in _dirs2make:
+        print(dirpath_route)
+        makedirs(path.join(temp_dir, dirpath_route), exist_ok=True)
 
-    try:
-        lnfiles = (
-            (path.join(temp_dir, _rel_link), target) for _rel_link, target in lnfiles
-        )
-        link_files(lnfiles)
-    except TypeError as e:
-        pass
+    link_files(lnfiles)
     try:
         lndirs = (
             (path.join(temp_dir, _rel_link), target) for _rel_link, target in lndirs
-        )
+            )
         link_dirs(lndirs)
     except TypeError as e:
         pass

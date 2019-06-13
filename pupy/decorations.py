@@ -13,7 +13,7 @@ from os import mkdir
 from os import path
 from time import time
 
-from pupy.utils import fmt_seconds
+from pupy.fmt import nseconds
 
 # "%(color)s[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d]%(end_color)s %(message)s"
 logging_config = dict(
@@ -145,9 +145,11 @@ def mkdirs(funk):
 
         try:
             makedirs(dirpath, exist_ok=True)
-        except OSError:
+        except OSError as e:
+            print(e)
             pass
-        except TypeError:
+        except TypeError as e:
+            print(e)
             pass
         return funk(*args, **kwargs)
 

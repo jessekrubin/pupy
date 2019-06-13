@@ -44,12 +44,12 @@ except ImportError:
 def asyncify(funk):
     @asyncio.coroutine
     @wraps(funk)
-    def run(*args, loop=None, executor=None, **kwargs):
+    def afunk(*args, loop=None, executor=None, **kwargs):
         loop = loop if loop else asyncio.get_event_loop()
         pfunc = partial(funk, *args, **kwargs)
         return loop.run_in_executor(executor, pfunc)
 
-    return run
+    return afunk
 
 
 async def sabytes(filepath: str, _bytes: bytes) -> None:
