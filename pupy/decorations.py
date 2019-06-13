@@ -245,8 +245,11 @@ class tictoc(object):
                 result = time_funk(*args, **kwargs)
             te = time()
             t_total = (te - ts) / self.runs
-            if printing:
-                print(self.__str__(t_total, time_funk, self.args))
+            try:
+                if printing:
+                    print(self.__str__(t_total, time_funk, self.args))
+            except Exception as e:
+                pass
             return result
 
         return time_wrapper

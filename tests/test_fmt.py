@@ -1,6 +1,5 @@
-# coding=utf-8
 
-from pupy.fmt import nseconds as fmt_seconds
+from pupy.fmt import nseconds
 from pupy.fmt import term_table
 
 TOP_BABY_NAMES = [
@@ -718,7 +717,7 @@ def test_ftime_seconds():
     """
     ti = 1.2345
     tf = 5.4321
-    assert fmt_seconds(ti, tf) == "4.198 sec"
+    assert nseconds(ti, tf) == "4.198 sec"
 
 def test_ftime_milliseconds():
     """
@@ -726,7 +725,7 @@ def test_ftime_milliseconds():
     """
     ti = 1.2345 * (10 ** (-3))
     tf = 5.4321 * (10 ** (-3))
-    assert fmt_seconds(ti, tf) == "4.198 ms"
+    assert nseconds(ti, tf) == "4.198 ms"
 
 def test_ftime_microseconds():
     """
@@ -734,7 +733,7 @@ def test_ftime_microseconds():
     """
     ti = 1.2345 * (10 ** (-6))
     tf = 5.4321 * (10 ** (-6))
-    assert fmt_seconds(ti, tf) == "4.198 μs"
+    assert nseconds(ti, tf) == "4.198 μs"
 
 def test_ftime_nanoseconds():
     """
@@ -742,4 +741,4 @@ def test_ftime_nanoseconds():
     """
     ti = 1.2345 * (10 ** (-9))
     tf = 5.4321 * (10 ** (-9))
-    assert fmt_seconds(ti, tf) == "4.198 ns"
+    assert nseconds(ti, tf) == "4.198 ns"
