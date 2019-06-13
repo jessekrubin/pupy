@@ -151,7 +151,7 @@ class LIN:
 
     @staticmethod
     def link_file(linkpath: str, targetpath: str) -> None:
-        makedirs(linkpath, exist_ok=True)
+        makedirs(path.split(linkpath)[0], exist_ok=True)
         symlink(targetpath, linkpath)
 
     @staticmethod
