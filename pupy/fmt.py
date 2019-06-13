@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
+from math import ceil
 from os import path
 from os import stat
 from shutil import get_terminal_size
@@ -8,9 +9,8 @@ from typing import Iterator
 from typing import List
 from typing import Optional
 
-from math import ceil
-
 from pupy._typing import Flint
+
 
 def nbytes(num: Flint) -> str:
     """
@@ -51,6 +51,7 @@ def nbytes(num: Flint) -> str:
             return "%3.1f %s" % (num, x)
         num /= 1024.0
 
+
 def filesize(filepath: str) -> str:
     """
     this function will return the file size
@@ -58,6 +59,7 @@ def filesize(filepath: str) -> str:
     if path.isfile(filepath):
         file_info = stat(filepath)
         return nbytes(file_info.st_size)
+
 
 def nseconds(t1: float, t2: Optional[float] = None) -> str:
     """Formats time string
@@ -88,9 +90,10 @@ def nseconds(t1: float, t2: Optional[float] = None) -> str:
     else:
         return nseconds((t2 - t1))
 
+
 def term_table(
     strings: List[str], row_wise: bool = False, filler: str = "~"
-    ) -> Iterator[Any]:
+) -> Iterator[Any]:
     """
 
     :param strings:

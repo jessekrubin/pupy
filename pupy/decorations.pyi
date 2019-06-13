@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from typing import Any, Optional
+from typing import Any
+from typing import Optional
 
 logging_config: Any
 logger: Any
 
 def in_n_out(funk: Any): ...
-def flog(funk: Optional[Any] = ..., loglevel: str = ..., funk_call: bool = ..., tictoc: bool = ...): ...
+def flog(
+    funk: Optional[Any] = ...,
+    loglevel: str = ...,
+    funk_call: bool = ...,
+    tictoc: bool = ...,
+): ...
 def dirdec(funk: Any): ...
 def mkdirs(funk: Any): ...
 def cash_it(funk: Any): ...

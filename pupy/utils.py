@@ -16,6 +16,7 @@ from pupy.sh import path2name
 from pupy.sh import unlink_dirs
 from pupy.sh import unlink_files
 
+
 def timestamp(ts: Optional[float] = None) -> str:
     """Time stamp string w/ format yyyymmdd-HHMMSS
 
@@ -38,8 +39,10 @@ def timestamp(ts: Optional[float] = None) -> str:
     elif isinstance(ts, datetime):
         return ts.strftime("%Y%m%d-%H%M%S")
 
+
 def environ_dict():
     return {k: environ[k] for k in environ}
+
 
 class LinkedTmpDir(object):
     """ make a temp dir and have links."""
@@ -53,7 +56,7 @@ class LinkedTmpDir(object):
         lndirs=None,
         lnfiles=None,
         link_targets=None,
-        ):
+    ):
         self.dirpath = mkdtemp(suffix, prefix, dir)
         self.dirname = path.split(self.dirpath)[-1]
         file_targets = []
@@ -86,7 +89,7 @@ class LinkedTmpDir(object):
             self._cleanup,
             self.dirpath,
             warn_message="Implicitly cleaning up {!r}".format(self),
-            )
+        )
 
     @classmethod
     def _cleanup(cls, name, warn_message):
@@ -106,6 +109,7 @@ class LinkedTmpDir(object):
         unlink_files(self.file_links)
         if self._finalizer.detach():
             pass
+
 
 # from tempfile import TemporaryDirectory, _get_candidate_names, _sanitize_params, mkdtemp
 # from pprint import pprint as pp
@@ -140,15 +144,15 @@ class LinkedTmpDir(object):
 #
 #     raise FileExistsError("No usable temporary directory name found")
 
+
 @contextmanager
 def linked_tmp_dir(
-    suffix=None, prefix=None, dir=None,
-    mkdirs=[], lndirs=[], lnfiles=[]
-    ):
+    suffix=None, prefix=None, dir=None, mkdirs=[], lndirs=[], lnfiles=[]
+):
     temp_dir = mkdtemp(suffix=suffix, prefix=prefix, dir=dir)
     lnfiles = [
         (path.join(temp_dir, _rel_link), target) for _rel_link, target in lnfiles
-        ]
+    ]
     _dirs2make = [path.join(temp_dir, *e) for e in mkdirs]
     _dirs2make.extend((path.split(link)[0] for link, target in lnfiles))
     for dirpath_route in _dirs2make:
@@ -159,7 +163,7 @@ def linked_tmp_dir(
     try:
         lndirs = (
             (path.join(temp_dir, _rel_link), target) for _rel_link, target in lndirs
-            )
+        )
         link_dirs(lndirs)
     except TypeError as e:
         pass

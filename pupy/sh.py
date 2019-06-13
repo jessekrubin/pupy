@@ -26,10 +26,75 @@ from subprocess import run
 from typing import List
 from typing import Tuple
 
+
 class LIN:
+    @staticmethod
+    def rsync_args(
+        src, dest, delete=False, mkdirs=False, exclude=[], include=[], dry_run=False
+    ):
+        """Sheldon rsync wrapper for syncing tdirs
+
+        Args:
+          dest: path to local tdir
+          src: path to remote (raid) tdir
+
+        Returns:
+          subprocess return code from rsync
+
+          Rsync return codes:
+
+          - 0 == Success
+          - 1 == Syntax or usage error
+          - 2 == Protocol incompatibility
+          - 3 == Errors selecting input/output files, dirs
+          - 4 == Requested  action not supported: an attempt was made to manipulate
+          64-bit files on a platform that cannot support them; or an option
+          was specified that is supported by the client and not the server.
+          - 5 == Error starting client-server protocol
+          - 6 == Daemon unable to append to log-file
+          - 10 == Error in socket I/O
+          - 11 == Error in file I/O
+          - 12 == Error in rsync protocol data stream
+          - 13 == Errors with program diagnostics
+          - 14 == Error in IPC code
+          - 20 == Received SIGUSR1 or SIGINT
+          - 21 == Some error returned by waitpid()
+          - 22 == Error allocating core memory buffers
+          - 23 == Partial transfer due to error
+          - 24 == Partial transfer due to vanished source files
+          - 25 == The --max-delete limit stopped deletions
+          - 30 == Timeout in data send/receive
+          - 35 == Timeout waiting for daemon connection
+
+        """
+        if mkdirs:
+            try:
+                assert path.exists(dest) and path.isdir(dest)
+            except AssertionError:
+                makedirs(dest, exist_ok=True)
+
+        if not dest.endswith("/"):
+            dest = "{}/".format(dest)
+        if not src.endswith("/"):
+            src = "{}/".format(src)
+        _args = [
+            "rsync",
+            "-a",
+            "-O",
+            "--no-o",
+            "--no-g",
+            "--no-p",
+            "--delete" if delete else None,
+            *('--exclude="{}"'.format(pattern) for pattern in exclude),
+            *('--include="{}"'.format(pattern) for pattern in include),
+            *(("--dry-run", "-i") if dry_run else (None,)),
+            src,
+            dest,
+        ]
+        return list(filter(None, _args))
 
     @staticmethod
-    def rsync(src: str, dest: str, delete: bool = False):
+    def rsync(src, dest, delete=False, exclude=[], include=[], dry_run=False):
         """Sheldon rsync wrapper for syncing tdirs
 
         :param delete:
@@ -63,22 +128,15 @@ class LIN:
          - 35 == Timeout waiting for daemon connection
 
         """
-        subproc = run(["mkdir", "-p", dest], stdout=PIPE, stderr=PIPE)
-        if not dest.endswith("/"):
-            dest = "{}/".format(dest)
-        if not src.endswith("/"):
-            src = "{}/".format(src)
-        rsync_args = [
-            "rsync",
-            "-a",
-            "-O",
-            "--no-o",
-            "--no-g",
-            "--no-p",
-            "--delete" if delete else None,
+        rsync_args = LIN.rsync_args(
             src,
             dest,
-            ]
+            delete=delete,
+            mkdirs=True,
+            exclude=exclude,
+            include=include,
+            dry_run=dry_run,
+        )
         subproc = run(args=list(filter(None, rsync_args)), stdout=PIPE, stderr=PIPE)
         return subproc
 
@@ -121,9 +179,66 @@ class LIN:
 
     sync = rsync
 
+
 class WIN:
+
+    # def rsync_args(src, dest,
+    #                delete=False, mkdirs=False,
+    #                exclude=[], include=[], dry_run=False):
     @staticmethod
-    def robocopy(src, dest):
+    def robocopy_args(
+        src, dest, delete=False, exclude_files=[], exclude_dirs=[], dry_run=False
+    ):
+        """Robocopy for sheldon
+
+        Args:
+          dest: path to local tdir
+          src: path to remote (raid) tdir
+
+        Returns:
+          subprocess return code from robocopy
+
+          Robocopy return codes:
+
+          0. No files were copied. No failure was encountered. No files were
+          mismatched. The files already exist in the destination directory;
+          therefore, the copy operation was skipped.
+          1. All files were copied successfully.
+          2. There are some additional files in the destination directory that are not
+          present in the source directory. No files were copied.
+          3. Some files were copied. Additional files were present. No failure
+          was encountered.
+          5. Some files were copied. Some files were mismatched. No failure was
+          encountered.
+          6. Additional files and mismatched files exist. No files were copied
+          and no failures were encountered. This means that the files already
+          exist in the destination directory.
+          7. Files were copied, a file mismatch was present, and additional files
+          were present.
+          8. Several files did not copy.
+
+        """
+        _args = [
+            "robocopy",
+            src,
+            dest,
+            "/MIR" if delete else "/E",
+            "/mt",
+            "/W:1",
+            "/R:1",
+        ]
+        if exclude_dirs:
+            _args.extend(["/XD", *exclude_dirs])
+        if exclude_files:
+            _args.extend(["/XF", *exclude_files])
+        if dry_run:
+            _args.append("/L")
+        return list(filter(None, _args))
+
+    @staticmethod
+    def robocopy(
+        src, dest, delete=False, exclude_files=[], exclude_dirs=[], dry_run=False
+    ):
         """Robocopy for sheldon
 
         :param dest: path to local tdir
@@ -151,10 +266,16 @@ class WIN:
 
 
         """
-        subproc = run(["robocopy", src, dest, "/mir", "/mt"], stdout=PIPE, stderr=PIPE)
-        if subproc.returncode not in (0, 1, 2, 3):
-            print(subproc)
-        return subproc.returncode
+        _args = WIN.robocopy_args(
+            src=src,
+            dest=dest,
+            delete=delete,
+            exclude_files=exclude_files,
+            exclude_dirs=exclude_dirs,
+            dry_run=dry_run,
+        )
+        subproc = run(args=_args, stdout=PIPE, stderr=PIPE)
+        return subproc
 
     @staticmethod
     def link_dir(link, target):
@@ -185,15 +306,21 @@ class WIN:
                 return True
                 # _exists.extend(["mklink", link, target, "&&"])
             except AssertionError as e:
-                print('Link target not found; unable to create link:\n    {} => {}'.format(link, target))
+                print(
+                    "Link target not found; unable to create link:\n    {} => {}".format(
+                        link, target
+                    )
+                )
             except Exception as e:
                 print(e, type(e))
             return False
 
-        _exists = ["mklink {} {}".format(link, target)
-                   for link, target in link_target_tuples
-                   if _check_link_target(link, target)]
-        run(args=' && '.join(_exists).split(' '), stdout=PIPE, stderr=PIPE, shell=True)
+        _exists = [
+            "mklink {} {}".format(link, target)
+            for link, target in link_target_tuples
+            if _check_link_target(link, target)
+        ]
+        run(args=" && ".join(_exists).split(" "), stdout=PIPE, stderr=PIPE, shell=True)
 
     @staticmethod
     def unlink_dir(link):
@@ -215,12 +342,14 @@ class WIN:
 
     sync = robocopy
 
+
 # _OS = system().lower()
-_OS = WIN if 'win' in system().lower() else LIN
+_OS = WIN if "win" in system().lower() else LIN
 
 mv = rename
 pwd = getcwd
 cd = chdir
+
 
 def cp(src, dst, r=False, symlinks=False, ignore=None):
     makedirs(dst, exist_ok=True)
@@ -239,6 +368,7 @@ def cp(src, dst, r=False, symlinks=False, ignore=None):
             symlink(readlink(_src_pth), _dest_pth)
             try:
                 from os import lchmod
+
                 st = lstat(_src_pth)
                 mode = stat.S_IMODE(st.st_mode)
                 lchmod(_dest_pth, mode)
@@ -252,10 +382,12 @@ def cp(src, dst, r=False, symlinks=False, ignore=None):
         else:
             copy2(_src_pth, _dest_pth)
 
+
 def ls(dirpath: str = ".", abs: bool = False) -> List[str]:
     if abs:
         return [path.join(dirpath, item) for item in listdir(dirpath)]
     return listdir(dirpath)
+
 
 def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
     files = (file for file in ls(dirpath, abs=True) if path.isfile(file))
@@ -263,14 +395,17 @@ def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
         return list(map(lambda el: el.replace(dirpath, "."), files))
     return list(files)
 
+
 def ls_dirs(dirpath: str = ".", abs: bool = False) -> List[str]:
     dirs = (dir for dir in ls(dirpath, abs=True) if path.isdir(dir))
     if not abs:
         return list(map(lambda el: el.replace(dirpath, "."), dirs))
     return list(dirs)
 
+
 def ls_files_dirs(dirpath: str = ".", abs: bool = False) -> Tuple[List[str], List[str]]:
     return ls_files(dirpath, abs=abs), ls_dirs(dirpath, abs=abs)
+
 
 def rm(*args, r=False):
     for _path_str in args:
@@ -281,6 +416,7 @@ def rm(*args, r=False):
                 rmtree(_path_str)
             else:
                 print("{} is dir; use rm(..., r=True)".format(_path_str))
+
 
 def path2name(path_str: str) -> str:
     """Get the parent-directory for a file or directory path as a string
@@ -297,6 +433,7 @@ def path2name(path_str: str) -> str:
     """
     return path.split(path.abspath(path_str))[-1]
 
+
 def parent_dirpath(fdpath: str) -> str:
     """
 
@@ -311,6 +448,7 @@ def parent_dirpath(fdpath: str) -> str:
 
     """
     return path.split(fdpath)[0]
+
 
 # def link_dir(link, target):
 #     return _OS.link_dir(link, target)

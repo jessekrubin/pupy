@@ -10,8 +10,9 @@ from argparse import ArgumentParser
 from codecs import decode
 from os import listdir
 from os import rename
-from pupy.savings_n_loads import sstring
+
 from pupy._version import __version__
+from pupy.savings_n_loads import sstring
 
 _IN_N_OUT = """# -*- coding: utf-8 -*-
 \"\"\"
