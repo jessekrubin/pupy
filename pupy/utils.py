@@ -170,7 +170,12 @@ def linked_tmp_dir(
     try:
         yield temp_dir
     finally:
-        pass
-        unlink_files(lnfiles)
-        unlink_dirs(lndirs)
+        try:
+            unlink_files(lnfiles)
+        except Exception as e:
+            pass
+        try:
+            unlink_dirs(lndirs)
+        except Exception as e:
+            pass
         rmtree(temp_dir)
