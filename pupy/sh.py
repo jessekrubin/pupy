@@ -282,11 +282,40 @@ class WIN:
 
     @staticmethod
     def link_dirs(link_target_tuples):
-        link_args = []
-        for link, target in link_target_tuples:
-            makedirs(link, exist_ok=True)
-            link_args.extend(["mklink", "/D", link, target, "&&"])
-        run(args=link_args[:-1], stdout=PIPE, stderr=PIPE, shell=True)
+        def _check_link_target(link, target):
+            # for link, target in link_target_tuples:
+            try:
+                assert path.exists(target) and path.isdir(target)
+                # makedirs(path.split(link)[0], exist_ok=True)
+                # _exists.extend(["mklink", link, target, "&&"])
+                # _exists.extend(["mklink", link, target, "&&"])
+            except AssertionError as e:
+                print(
+                    "Link target not found; unable to create link:\n    {} => {}".format(
+                        link, target
+                        )
+                    )
+                return False
+            except Exception as e:
+                print(e, type(e))
+            try:
+                rmtree(link)
+
+            except:
+                pass
+            return True
+
+        _exists = [
+            "mklink /D {} {}".format(link, target)
+            for link, target in link_target_tuples
+            if _check_link_target(link, target)
+            ]
+        run(args=" && ".join(_exists).split(" "), stdout=PIPE, stderr=PIPE, shell=True)
+        # link_args = []
+        # for link, target in link_target_tuples:
+        #     makedirs(link, exist_ok=True)
+        #     link_args.extend(["mklink", "/D", link, target, "&&"])
+        # run(args=link_args[:-1], stdout=PIPE, stderr=PIPE, shell=True)
 
     @staticmethod
     def link_file(link, target):
