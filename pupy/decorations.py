@@ -98,7 +98,7 @@ def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
             tf = time()
             msg_parts = [
                 _fmt_call(*args, **kwargs) if funk_call else None,
-                fmt_seconds(ti, tf) if tictoc else None,
+                nseconds(ti, tf) if tictoc else None,
             ]
             msg_str = " | ".join(part for part in msg_parts if part)
             if any(el for el in msg_parts):
@@ -225,7 +225,7 @@ class tictoc(object):
             "    file: {}".format(getfile(funk)),
             "    funk: {}".format(funk.__name__),
             "    args: {}".format(args_string),
-            "    time: {}".format(fmt_seconds(t_total)),
+            "    time: {}".format(nseconds(t_total)),
             "    runs: {}".format(self.runs),
         )
         return "\n".join(_fmt_strs)
