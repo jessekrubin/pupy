@@ -5,6 +5,10 @@
 Async funks
 ===========
 """
+import asyncio
+from functools import partial
+from functools import wraps
+
 from pupy._typing import JASM
 
 try:
@@ -35,6 +39,17 @@ try:
     _yaml_loader = YAML(typ="safe")
 except ImportError:
     pass
+
+
+def asyncify(funk):
+    @asyncio.coroutine
+    @wraps(funk)
+    def run(*args, loop=None, executor=None, **kwargs):
+        loop = loop if loop else asyncio.get_event_loop()
+        pfunc = partial(funk, *args, **kwargs)
+        return loop.run_in_executor(executor, pfunc)
+
+    return run
 
 
 async def sabytes(filepath: str, _bytes: bytes) -> None:

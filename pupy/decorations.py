@@ -257,7 +257,7 @@ def requires(package):
             try:
                 return _funk(*args, **kwargs)
             except ImportError as e:
-                raise eImportError("'pip install {}' to use this!".format(package))
+                raise ImportError("'pip install {}' to use this!".format(package))
 
         return _wrapper
 
