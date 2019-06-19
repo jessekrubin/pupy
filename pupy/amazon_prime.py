@@ -134,14 +134,14 @@ def prime_factors_gen(n: int) -> Iterator[Any]:
 
 @cash_it
 def is_prime(number: int) -> bool:
-    """Checks if a number is prime
+    """Checks if a number is prime given that number as a param
 
     :param number: number to check if is prime
     :type number: int
     :returns: -> True if number is prime
     :rtype: bool
+    
 
-    .. doctest:: python
 
         >>> is_prime(1)
         False
