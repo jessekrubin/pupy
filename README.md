@@ -2,36 +2,15 @@
 
 This package (pupy) is full of Pretty Useful Python.
 
-Hows is doin
-------------
+## These things
 
-.. start-badges
+[![Build Status](https://travis-ci.org/jessekrubin/pupy.svg?branch=master)](https://travis-ci.org/jessekrubin/pupy) 
+[![Wheel](https://img.shields.io/pypi/wheel/pupy.svg)](https://img.shields.io/pypi/wheel/pupy.svg) 
+[![Version](https://img.shields.io/pypi/v/pupy.svg)](https://img.shields.io/pypi/v/pupy.svg) 
+[![py_versions](https://img.shields.io/pypi/pyversions/pupy.svg)](https://img.shields.io/pypi/pyversions/pupy.svg) 
+ 
 
-**These things:** |travis| |version| |wheel| |supported-versions|
-
-
-.. |travis| image:: https://travis-ci.org/jessekrubin/pupy.svg?branch=master
-    :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/jessekrubin/pupy
-
-.. |version| image:: https://img.shields.io/pypi/v/pupy.svg
-    :alt: PyPI Package latest release
-    :target: https://pypi.org/project/pupy
-
-.. |wheel| image:: https://img.shields.io/pypi/wheel/pupy.svg
-    :alt: PyPI Wheel
-    :target: https://pypi.org/project/pupy
-
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/pupy.svg
-    :alt: Supported versions
-    :target: https://pypi.org/project/pupy
-
-
-.. end-badges
-
-
-Installin'
-----------
+## Installin'
 
 Installing is EZPZ...
 
@@ -48,8 +27,7 @@ But wait theres more! Pupy has several optional dependencies for savings and loa
     pip install toml  # toml (aka 'that other markup language'(?))
     pip install aiofiles  # if you wanna do async stuff
 
-Testimonials
-------------
+## Testimonials
 
 *'Ahead of the curve.' -Haley who goes to Harvard*
 
