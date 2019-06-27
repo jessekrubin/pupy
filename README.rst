@@ -2,6 +2,10 @@
 PUPY ~ Pretty Useful Python
 ===========================
 
+This package (pupy) is full of Pretty Useful Python.
+
+Genghis Khan
+
 Hows is doin
 ------------
 
@@ -10,10 +14,9 @@ Hows is doin
 .. list-table::
     :stub-columns: 1
 
-    * - Tostadas
-      - | |travis|
-    * - Other Info
-      - | |version| |wheel| |supported-versions|
+    * - These things
+      - | |travis| |version| |wheel| |supported-versions|
+
 
 .. |travis| image:: https://travis-ci.org/jessekrubin/pupy.svg?branch=master
     :alt: Travis-CI Build Status
@@ -34,9 +37,8 @@ Hows is doin
 
 .. end-badges
 
-Pretty Useful Python
+This package (pupy) is full of Pretty Useful Python. I
 
-* Free software: BSD 2-Clause License
 
 Installin'
 ----------
@@ -46,3 +48,5 @@ Installing is EZPZ
 ::
 
     pip install pupy
+
+

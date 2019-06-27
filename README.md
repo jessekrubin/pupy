@@ -1,0 +1,67 @@
+===========================
+PUPY ~ Pretty Useful Python
+===========================
+
+This package (pupy) is full of Pretty Useful Python.
+
+
+*'Ahead of the curve.' -Haley who goes to Harvard*
+
+*'huh?' -Tim Apple*
+
+*'I can't say google wouldn't not go down if it weren't for pupy.' -Ben W from the g-suite*
+
+*'If I were stranded on a dessert island and had to pick between having a copy pupy or a thing of water I would pick the water, but if I didn't have to pick it wouldn't hurt to have.' -Ryan from the fro*
+
+*'A literary masterpiece on par with my second greatest work finite jest.' -Bananas Foster Wallace*
+
+*'Best place for python savings and loads in the tri-content area.' -Genghis Khan*
+
+
+Hows is doin
+------------
+
+.. start-badges
+
+**These things:** |travis| |version| |wheel| |supported-versions|
+
+
+.. |travis| image:: https://travis-ci.org/jessekrubin/pupy.svg?branch=master
+    :alt: Travis-CI Build Status
+    :target: https://travis-ci.org/jessekrubin/pupy
+
+.. |version| image:: https://img.shields.io/pypi/v/pupy.svg
+    :alt: PyPI Package latest release
+    :target: https://pypi.org/project/pupy
+
+.. |wheel| image:: https://img.shields.io/pypi/wheel/pupy.svg
+    :alt: PyPI Wheel
+    :target: https://pypi.org/project/pupy
+
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/pupy.svg
+    :alt: Supported versions
+    :target: https://pypi.org/project/pupy
+
+
+.. end-badges
+
+
+Installin'
+----------
+
+Installing is EZPZ...
+
+    pip install pupy
+
+If you plan on using Jason you can install `ujson` for a speed boost *(if you wanna go fast; pupy uses the python-stdlib json if you wanna go slow)*...
+
+    pip install ujson 
+
+But wait theres more! Pupy has several optional dependencies which you can install with...
+    
+    pip install ruamel.yaml  # If ya mel in your spare time
+    pip install msgpack  # If you wanna pack messages
+    pip install toml  # toml (aka 'that other markup language'(?))
+    pip install aiofiles  # if you wanna do async stuff
+    
+

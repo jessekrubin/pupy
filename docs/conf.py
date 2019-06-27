@@ -22,7 +22,14 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
+    "recommonmark"
 ]
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown',
+}
+
 if os.getenv("SPELLCHECK"):
     extensions += ("sphinxcontrib.spelling",)
     spelling_show_suggestions = True
@@ -44,7 +51,6 @@ extlinks = {
 }
 # on_rtd is whether we are on readthedocs.org
 on_rtd = os.environ.get("READTHEDOCS", None) == "True"
-
 if not on_rtd:  # only set the theme if we're building docs locally
     html_theme = "sphinx_rtd_theme"
 
