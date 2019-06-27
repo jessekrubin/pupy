@@ -1,9 +1,8 @@
-===========================
-PUPY ~ Pretty Useful Python
-===========================
+# PUPY ~ Pretty Useful Python
 
 This package (pupy) is full of Pretty Useful Python.
 
+## Buzz around town 
 
 *'Ahead of the curve.' -Haley who goes to Harvard*
 
