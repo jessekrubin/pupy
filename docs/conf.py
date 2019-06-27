@@ -4,8 +4,11 @@ from __future__ import unicode_literals
 import os
 import sys
 
-from pupy._version import __version__
 
+import os
+
+with open(os.path.join('..', 'pyproject.toml'), 'r') as f:
+    version = [l for l in f.read().splitlines(keepends=False) if 'version' in l][0].split(' ')[-1].strip('\"')
 this_files_path = os.path.abspath(__file__)
 this_files_dir = os.path.split(this_files_path)[0]
 root_dir = os.path.split(this_files_dir)[0]
@@ -41,7 +44,7 @@ project = "pupy"
 year = "2018"
 author = "jesse k rubin"
 copyright = "{0}, {1}".format(year, author)
-version = release = __version__
+release = version
 
 pygments_style = "trac"
 templates_path = ["."]
