@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from typing import Any
-from typing import Iterator
-from typing import List
-from typing import Optional
+from typing import Any, Iterator, List, Optional
 
 from pupy._typing import Flint
 

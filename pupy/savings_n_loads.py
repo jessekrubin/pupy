@@ -18,8 +18,7 @@ pip install (msgpack, toml, ruamel.yaml) for the whole shebang.
 from codecs import getwriter
 from io import open
 from itertools import count
-from os import path
-from os import utime
+from os import path, utime
 from typing import Union
 
 from pupy._typing import JASM
@@ -221,7 +220,7 @@ def shebang(filepath: str) -> Union[None, str]:
     """
     with open(filepath, "r") as f:
         first = f.readline().strip("\n")
-        return first if '#!' in first[:2] else None
+        return first if "#!" in first[:2] else None
 
 
 def stoml(filepath: str, data: JASM) -> None:

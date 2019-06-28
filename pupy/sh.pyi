@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from os import chdir
-from os import getcwd
-from os import rename
-from typing import Any
-from typing import List
-from typing import Optional
-from typing import Tuple
+from os import chdir, getcwd, rename
+from typing import Any, List, Optional, Tuple
 
 class LIN:
     @staticmethod

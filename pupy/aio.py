@@ -6,8 +6,7 @@ Async funks
 ===========
 """
 import asyncio
-from functools import partial
-from functools import wraps
+from functools import partial, wraps
 
 from pupy._typing import JASM
 

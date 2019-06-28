@@ -1,16 +1,10 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-from bisect import bisect
-from bisect import bisect_right
+from bisect import bisect, bisect_right
 from collections.abc import MutableSequence
 from itertools import count
 from math import sqrt
-from typing import Any
-from typing import Iterable
-from typing import Iterator
-from typing import List
-from typing import Optional
-from typing import Union
+from typing import Any, Iterable, Iterator, List, Optional, Union
 
 from pupy.decorations import cash_it
 from pupy.maths import divisors_gen

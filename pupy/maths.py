@@ -1,23 +1,9 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 from collections import Counter
-from math import acos
-from math import factorial
-from math import pi
-from math import sqrt
-from operator import add
-from operator import floordiv
-from operator import methodcaller
-from operator import sub
-from operator import truediv
-from typing import Any
-from typing import Iterator
-from typing import List
-from typing import Optional
-from typing import Set
-from typing import Tuple
-from typing import Type
-from typing import Union
+from math import acos, factorial, pi, sqrt
+from operator import add, floordiv, methodcaller, sub, truediv
+from typing import Any, Iterator, List, Optional, Set, Tuple, Type, Union
 
 from pupy.decorations import cash_it
 from pupy.foreign import iter_product

@@ -5,32 +5,31 @@
 Shell-ish
 =========
 """
-from os import chdir
-from os import getcwd
-from os import listdir
-from os import lstat
-from os import makedirs
-from os import path
-from os import readlink
-from os import remove
-from os import rename
-from os import stat
-from os import symlink
-from os import unlink
+from os import (
+    chdir,
+    getcwd,
+    listdir,
+    lstat,
+    makedirs,
+    path,
+    readlink,
+    remove,
+    rename,
+    stat,
+    symlink,
+    unlink,
+)
 from platform import system
-from shutil import copy2
-from shutil import copystat
-from shutil import rmtree
-from subprocess import PIPE
-from subprocess import run
-from typing import List
-from typing import Tuple
+from shutil import copy2, copystat, rmtree
+from subprocess import PIPE, run
+from typing import List, Tuple
+
 
 class LIN:
     @staticmethod
     def rsync_args(
         src, dest, delete=False, mkdirs=False, exclude=[], include=[], dry_run=False
-        ):
+    ):
         """Sheldon rsync wrapper for syncing tdirs
 
         Args:
@@ -89,7 +88,7 @@ class LIN:
             *(("--dry-run", "-i") if dry_run else (None,)),
             src,
             dest,
-            ]
+        ]
         return list(filter(None, _args))
 
     @staticmethod
@@ -135,7 +134,7 @@ class LIN:
             exclude=exclude,
             include=include,
             dry_run=dry_run,
-            )
+        )
         subproc = run(args=list(filter(None, rsync_args)), stdout=PIPE, stderr=PIPE)
         return subproc
 
@@ -178,6 +177,7 @@ class LIN:
 
     sync = rsync
 
+
 class WIN:
 
     # def rsync_args(src, dest,
@@ -186,7 +186,7 @@ class WIN:
     @staticmethod
     def robocopy_args(
         src, dest, delete=False, exclude_files=[], exclude_dirs=[], dry_run=False
-        ):
+    ):
         """Robocopy for sheldon
 
         Args:
@@ -224,7 +224,7 @@ class WIN:
             "/mt",
             "/W:1",
             "/R:1",
-            ]
+        ]
         if exclude_dirs:
             _args.extend(["/XD", *exclude_dirs])
         if exclude_files:
@@ -236,7 +236,7 @@ class WIN:
     @staticmethod
     def robocopy(
         src, dest, delete=False, exclude_files=[], exclude_dirs=[], dry_run=False
-        ):
+    ):
         """Robocopy for sheldon
 
         :param dest: path to local tdir
@@ -271,7 +271,7 @@ class WIN:
             exclude_files=exclude_files,
             exclude_dirs=exclude_dirs,
             dry_run=dry_run,
-            )
+        )
         subproc = run(args=_args, stdout=PIPE, stderr=PIPE)
         return subproc
 
@@ -293,8 +293,8 @@ class WIN:
                 print(
                     "Link target not found; unable to create link:\n    {} => {}".format(
                         link, target
-                        )
                     )
+                )
                 return False
             except Exception as e:
                 print(e, type(e))
@@ -309,7 +309,7 @@ class WIN:
             "mklink /D {} {}".format(link, target)
             for link, target in link_target_tuples
             if _check_link_target(link, target)
-            ]
+        ]
         run(args=" && ".join(_exists).split(" "), stdout=PIPE, stderr=PIPE, shell=True)
         # link_args = []
         # for link, target in link_target_tuples:
@@ -336,8 +336,8 @@ class WIN:
                 print(
                     "Link target not found; unable to create link:\n    {} => {}".format(
                         link, target
-                        )
                     )
+                )
             except Exception as e:
                 print(e, type(e))
             return False
@@ -346,7 +346,7 @@ class WIN:
             "mklink {} {}".format(link, target)
             for link, target in link_target_tuples
             if _check_link_target(link, target)
-            ]
+        ]
         run(args=" && ".join(_exists).split(" "), stdout=PIPE, stderr=PIPE, shell=True)
 
     @staticmethod
@@ -369,12 +369,14 @@ class WIN:
 
     sync = robocopy
 
+
 # _OS = system().lower()
 _OS = WIN if "win" in system().lower() else LIN
 
 mv = rename
 pwd = getcwd
 cd = chdir
+
 
 def cp(src, dst, r=False, symlinks=False, ignore=None):
     makedirs(dst, exist_ok=True)
@@ -393,6 +395,7 @@ def cp(src, dst, r=False, symlinks=False, ignore=None):
             symlink(readlink(_src_pth), _dest_pth)
             try:
                 from os import lchmod
+
                 st = lstat(_src_pth)
                 mode = stat.S_IMODE(st.st_mode)
                 lchmod(_dest_pth, mode)
@@ -406,10 +409,12 @@ def cp(src, dst, r=False, symlinks=False, ignore=None):
         else:
             copy2(_src_pth, _dest_pth)
 
+
 def ls(dirpath: str = ".", abs: bool = False) -> List[str]:
     if abs:
         return [path.join(dirpath, item) for item in listdir(dirpath)]
     return listdir(dirpath)
+
 
 def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
     files = (file for file in ls(dirpath, abs=True) if path.isfile(file))
@@ -417,14 +422,17 @@ def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
         return list(map(lambda el: el.replace(dirpath, "."), files))
     return list(files)
 
+
 def ls_dirs(dirpath: str = ".", abs: bool = False) -> List[str]:
     dirs = (dir for dir in ls(dirpath, abs=True) if path.isdir(dir))
     if not abs:
         return list(map(lambda el: el.replace(dirpath, "."), dirs))
     return list(dirs)
 
+
 def ls_files_dirs(dirpath: str = ".", abs: bool = False) -> Tuple[List[str], List[str]]:
     return ls_files(dirpath, abs=abs), ls_dirs(dirpath, abs=abs)
+
 
 def rm(*args, r=False):
     for _path_str in args:
@@ -435,6 +443,7 @@ def rm(*args, r=False):
                 rmtree(_path_str)
             else:
                 print("{} is dir; use rm(..., r=True)".format(_path_str))
+
 
 def path2name(path_str: str) -> str:
     """Get the parent-directory for a file or directory path as a string
@@ -451,6 +460,7 @@ def path2name(path_str: str) -> str:
     """
     return path.split(path.abspath(path_str))[-1]
 
+
 def parent_dirpath(fdpath: str) -> str:
     """
 
@@ -465,6 +475,7 @@ def parent_dirpath(fdpath: str) -> str:
 
     """
     return path.split(fdpath)[0]
+
 
 # def link_dir(link, target):
 #     return _OS.link_dir(link, target)

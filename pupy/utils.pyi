@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from typing import Any
-from typing import Optional
+from typing import Any, Optional
 
 def timestamp(ts: Optional[float] = ...) -> str: ...
 def environ_dict(): ...

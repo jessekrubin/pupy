@@ -1,22 +1,16 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
-from time import sleep
-
 from contextlib import contextmanager
 from datetime import datetime
-from os import environ
-from os import makedirs
-from os import path
+from os import environ, makedirs, path
 from shutil import rmtree
 from tempfile import mkdtemp
+from time import sleep
 from typing import Optional
 from weakref import finalize
 
-from pupy.sh import link_dirs, cd, pwd
-from pupy.sh import link_files
-from pupy.sh import path2name
-from pupy.sh import unlink_dirs
-from pupy.sh import unlink_files
+from pupy.sh import cd, link_dirs, link_files, path2name, pwd, unlink_dirs, unlink_files
+
 
 def timestamp(ts: Optional[float] = None) -> str:
     """Time stamp string w/ format yyyymmdd-HHMMSS
@@ -40,8 +34,10 @@ def timestamp(ts: Optional[float] = None) -> str:
     elif isinstance(ts, datetime):
         return ts.strftime("%Y%m%d-%H%M%S")
 
+
 def environ_dict():
     return {k: environ[k] for k in environ}
+
 
 class LinkedTmpDir(object):
     """ make a temp dir and have links."""
@@ -55,7 +51,7 @@ class LinkedTmpDir(object):
         lndirs=None,
         lnfiles=None,
         link_targets=None,
-        ):
+    ):
         self.dirpath = mkdtemp(suffix, prefix, dir)
         self.dirname = path.split(self.dirpath)[-1]
         file_targets = []
@@ -88,7 +84,7 @@ class LinkedTmpDir(object):
             self._cleanup,
             self.dirpath,
             warn_message="Implicitly cleaning up {!r}".format(self),
-            )
+        )
 
     @classmethod
     def _cleanup(cls, name, warn_message):
@@ -108,6 +104,7 @@ class LinkedTmpDir(object):
         unlink_files(self.file_links)
         if self._finalizer.detach():
             pass
+
 
 # from tempfile import TemporaryDirectory, _get_candidate_names, _sanitize_params, mkdtemp
 # from pprint import pprint as pp
@@ -146,19 +143,20 @@ class LinkedTmpDir(object):
 @contextmanager
 def linked_tmp_dir(
     suffix=None, prefix=None, dir=None, mkdirs=[], lndirs=[], lnfiles=[]
-    ):
+):
     temp_dir = mkdtemp(suffix=suffix, prefix=prefix, dir=dir)
     lnfiles = [
         (path.join(temp_dir, _rel_link), target) for _rel_link, target in lnfiles
-        ]
-    lndirs = [
-        (path.join(temp_dir, _rel_link), target) for _rel_link, target in lndirs
-        ]
+    ]
+    lndirs = [(path.join(temp_dir, _rel_link), target) for _rel_link, target in lndirs]
     # print(mkdirs)
-    _dirs2make = [path.join(temp_dir, e) for e in
-                  (dirpath if isinstance(dirpath, str)
-                   else path.join(*dirpath) for dirpath in mkdirs)
-                  ]
+    _dirs2make = [
+        path.join(temp_dir, e)
+        for e in (
+            dirpath if isinstance(dirpath, str) else path.join(*dirpath)
+            for dirpath in mkdirs
+        )
+    ]
     _dirs2make.extend((path.split(link)[0] for link, target in lnfiles))
     _dirs2make.extend((path.split(link)[0] for link, target in lndirs))
     for dirpath_route in _dirs2make:
@@ -194,6 +192,6 @@ def linked_tmp_dir(
             # sleep(3)
             # print(pwd())
             # print(temp_dir)
-            cd('..')
+            cd("..")
             # print(pwd())
             rmtree(temp_dir)

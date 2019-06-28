@@ -3,14 +3,8 @@
 from cProfile import Profile
 from functools import wraps
 from inspect import getfile
-from logging import DEBUG
-from logging import config
-from logging import getLogger
-from os import chdir
-from os import getcwd
-from os import makedirs
-from os import mkdir
-from os import path
+from logging import DEBUG, config, getLogger
+from os import chdir, getcwd, makedirs, mkdir, path
 from time import time
 
 from pupy.fmt import nseconds

@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 # ~ Jesse K. Rubin ~ Pretty Useful Python
 
-from typing import Any
-from typing import Dict
-from typing import Iterable
-from typing import List
-from typing import Union
+from typing import Any, Dict, Iterable, List, Union
 
 Flint = Union[int, float]  # float or int
 Paths = Iterable[str]  # iterable of path-strings
