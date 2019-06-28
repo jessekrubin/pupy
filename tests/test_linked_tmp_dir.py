@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 from os import path
 from os import sep
 
@@ -25,14 +26,22 @@ def test_linkin():
              ['dummy_dir', 'a_dir', 'a_a_dir', 'd_file.txt'],
              ['dummy_dir', 'b_dir', 'e_file.txt'],
              ['dummy_dir', 'b_dir', 'f_file.txt']]
+    from pupy.savings_n_loads import touch
     lnfiles = [(path.join(*route), path.join(PWD, *route)) for route in tdata]
+    dirs = [path.join(PWD, *route[:-1]) for route in tdata]
+    for thingy in set(dirs):
+        os.makedirs(thingy, exist_ok=True)
+
+    print(dirs)
+    for f in lnfiles:
+        touch(f)
     tmp_dirpath = None
-    with pupy.utils.linked_tmp_dir(dir=PWD, lnfiles=lnfiles) as tmpdir:
+    with pupy.utils.linked_tmp_dir(lnfiles=lnfiles) as tmpdir:
         tmp_dirpath = tmpdir
         linkedfiles = sorted(dirpath for dirpath in (tmp_subdir.replace(tmpdir, '').strip(sep)
                                                      for tmp_subdir in files_gen(tmpdir)) if dirpath != '')
         print(list(files_gen(tmpdir)))
-        import os
+        breakpoint()
         print(tmpdir)
         print(os.listdir(tmpdir))
         lnfiles_links = [link for link, target in lnfiles]

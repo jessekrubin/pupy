@@ -77,6 +77,7 @@ def lbytes(filepath: str) -> None:
 
     :param filepath: filepath as as string to read bites from
     :return: some bytes...
+
     """
     with open(filepath, "rb") as file:
         return file.read()
