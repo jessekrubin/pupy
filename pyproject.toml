@@ -3,10 +3,42 @@ name = "pupy"
 version = "2.16.2"
 description = "pretty useful python"
 authors = ["jessekrubin <jessekrubin@gmail.com>"]
-license = "MIT"
+license = "BSD-2-Clause"
+readme = "README.md"
+repository = "https://github.com/jessekrubin/pupy"
+include = [
+    "CHANGELOG.rst",
+    "pyproject.toml",
+    "setup.py",
+     "README.md"
+     ]
+packages = [
+    { include = "pupy" },
+]
+keywords = ["useful", "utils", "tool", "cli"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: Unix",
+    "Operating System :: POSIX",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Utilities"
+]
 
 [tool.poetry.dependencies]
 python = "^3.5"
+toml = {version = "^0.10.0",optional = true}
+ujson = {version = "^1.35",optional = true}
+msgpack = {version = "^0.6.1",optional = true}
+"ruamel.yaml" = {version = "^0.15.97",optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.2"
@@ -15,6 +47,9 @@ mypy = "^0.701.0"
 tox = "^3.11"
 flake8 = "^3.7"
 recommonmark = "^0.5.0"
+
+[tool.poetry.scripts]
+pupy = "pupy.cli:main"
 
 [build-system]
 requires = ["poetry>=0.12"]

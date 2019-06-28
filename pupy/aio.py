@@ -120,7 +120,7 @@ async def lajson(filepath: str) -> JASM:
     :return: Loaded file contents
     """
     _json_str = await lastring(filepath)
-    return loads(filepath)
+    return loads(_json_str)
 
 
 async def latoml(filepath: str) -> JASM:

@@ -8,14 +8,14 @@ before_install:
     - pip install -U pip
 #    - pip install poetry
 install:
-    - pip install aiofiles
-    - pip install ruamel.yaml
-    - pip install toml
-    - pip install msgpack
-    - pip install -e .
-
-script:
+    - pip install -U aiofiles
+    - pip install -U ruamel.yaml
+    - pip install -U toml
+    - pip install -U msgpack
+    - pip install -U pupy
     - pip install pytest
     - pip install pytest-cov
+
+script:
     - pytest tests
 

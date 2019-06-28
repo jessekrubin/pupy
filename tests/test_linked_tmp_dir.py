@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from shutil import rmtree
 from os import path
 from os import sep
 
@@ -29,26 +30,30 @@ def test_linkin():
     from pupy.savings_n_loads import touch
     lnfiles = [(path.join(*route), path.join(PWD, *route)) for route in tdata]
     dirs = [path.join(PWD, *route[:-1]) for route in tdata]
-    for thingy in set(dirs):
-        os.makedirs(thingy, exist_ok=True)
+    # for thingy in set(dirs):
+    #     os.makedirs(thingy, exist_ok=True)
 
     print(dirs)
-    for f in lnfiles:
-        touch(f)
+    # for uno, dos in lnfiles:
+    #     touch(uno)
     tmp_dirpath = None
     with pupy.utils.linked_tmp_dir(lnfiles=lnfiles) as tmpdir:
         tmp_dirpath = tmpdir
         linkedfiles = sorted(dirpath for dirpath in (tmp_subdir.replace(tmpdir, '').strip(sep)
                                                      for tmp_subdir in files_gen(tmpdir)) if dirpath != '')
-        print(list(files_gen(tmpdir)))
-        breakpoint()
-        print(tmpdir)
-        print(os.listdir(tmpdir))
+        # print(list(files_gen(tmpdir)))
+        # print(tmpdir)
+        # print(os.listdir(tmpdir))
         lnfiles_links = [link for link, target in lnfiles]
         assert set(lnfiles_links) == set(linkedfiles)
     assert not path.exists(tmp_dirpath)
     for link, target in lnfiles:
         assert path.exists(target)
+    # try:
+    #     rmtree(path.join(PWD, 'dummy_dir'))
+    # except:
+    #     pass
+
 
 if __name__ == "__main__":
     pass

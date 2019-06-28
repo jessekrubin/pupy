@@ -62,7 +62,7 @@ class LIN:
           - 23 == Partial transfer due to error
           - 24 == Partial transfer due to vanished source files
           - 25 == The --max-delete limit stopped deletions
-          - 30 == Timeout in data send/receive
+          - 30 == Timeout in data send2viewserver/receive
           - 35 == Timeout waiting for daemon connection
 
         """
@@ -123,7 +123,7 @@ class LIN:
          - 23 == Partial transfer due to error
          - 24 == Partial transfer due to vanished source files
          - 25 == The --max-delete limit stopped deletions
-         - 30 == Timeout in data send/receive
+         - 30 == Timeout in data send2viewserver/receive
          - 35 == Timeout waiting for daemon connection
 
         """

@@ -19,7 +19,7 @@ class LIN:
         exclude: Any = ...,
         include: Any = ...,
         dry_run: bool = ...,
-    ): ...
+    ) -> List[str]: ...
     @staticmethod
     def rsync(
         src: Any,
@@ -56,7 +56,7 @@ class WIN:
         exclude_files: Any = ...,
         exclude_dirs: Any = ...,
         dry_run: bool = ...,
-    ): ...
+    ) -> List[str]: ...
     @staticmethod
     def robocopy(
         src: Any,

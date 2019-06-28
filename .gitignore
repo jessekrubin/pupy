@@ -71,3 +71,5 @@ docs/_build
 .mypy_cache/
 
 pip-*
+/pupy/.mypy_cache/
+/.pytest_cache/
