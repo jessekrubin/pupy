@@ -139,7 +139,6 @@ def mkdirs(funk):
     @wraps(funk)
     def _wrapper(*args, **kwargs):
         try:
-            print(args)
             dirpath = path.split(args[0])[0]
         except IndexError:
             dirpath = path.split(kwargs["filepath"])[0]
