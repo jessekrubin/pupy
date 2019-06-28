@@ -208,9 +208,10 @@ def shebang(filepath: str) -> Union[None, str]:
     .. doctest::python
 
         >>> from inspect import getabsfile
-        >>> from pupy.savings_n_loads import sstr
         >>> script = 'ashellscript.sh'
-        >>> sstr(script, '#!/bin/bash\\necho "howdy"\\n')
+        >>> with open(script, 'w') as f:
+        ...     f.write('#!/bin/bash\\necho "howdy"\\n')
+        25
         >>> shebang(script)
         '#!/bin/bash'
         >>> from os import remove
@@ -219,7 +220,7 @@ def shebang(filepath: str) -> Union[None, str]:
     """
     with open(filepath, "r") as f:
         first = f.readline().strip("\n")
-        return first if first[:2] == "#!" else None
+        return first if '#!' in first[:2] else None
 
 
 def stoml(filepath: str, data: JASM) -> None:
