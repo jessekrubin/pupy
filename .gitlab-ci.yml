@@ -1,5 +1,5 @@
 py37:
-  image: python:3.6
+  image: python:3.7
   stage: test
   script:
     - apt-get update -q -y
@@ -8,7 +8,7 @@ py37:
     - pip install ruamel.yaml
     - pip install toml
     - pip install msgpack
-    - pip install -e .
+    - pip install -U pupy
     - pip install pytest
     - pip install pytest-cov
     - pytest tests
