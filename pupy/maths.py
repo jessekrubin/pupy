@@ -3,7 +3,7 @@
 from collections import Counter
 from math import acos, factorial, pi, sqrt
 from operator import add, floordiv, methodcaller, sub, truediv
-from typing import Any, Iterator, List, Optional, Set, Tuple, Type, Union
+from typing import Any, Iterator, List, Optional, Set, Tuple, Type, Union, Collection
 
 from pupy.decorations import cash_it
 from pupy.foreign import iter_product
@@ -379,8 +379,8 @@ def disjoint(
 
 
 def set_cmp(
-    a: Union[Set[int], List[int]], b: Union[Set[int], List[int]]
-) -> Tuple[Set[int], Set[int], Set[int]]:
+    a: Union[Collection[Any], Iterator[Any]], b: Union[Collection[Any], Iterator[Any]]
+) -> Tuple[Set[Any], Set[Any], Set[Any]]:
     """Compare the elements of two iterables (a and b)
 
     :param a: first iterable to compare elements of
