@@ -16,6 +16,14 @@ Installing is EZPZ...
 
     pip install pupy
 
+### Want more???
+
+Pupy has a few optional dependenies for reading and writing files which can be installed with the following command:
+    
+    pip install pupy[io]
+
+Or you can pick and choose...
+
 If you plan on using Jason you can install `ujson` for a speed boost *(if you wanna go fast; pupy uses the python-stdlib json if you wanna go slow)*...
 
     pip install ujson 
@@ -35,8 +43,12 @@ But wait theres more! Pupy has several optional dependencies for savings and loa
 
 *'If I were stranded on a dessert island and had to pick between having a copy pupy or a thing of water I would pick the water, but if I didn't have to pick it wouldn't hurt to have.' -Ryan of the fro with his fro*
 
+*'I don't use python.' -KirstenKirsten Chief Evernote Officer*
+
 *'I can't say google wouldn't not go down if it weren't for pupy.' -Ben W from the g-suite*
 
 *'A literary masterpiece on par with my second greatest work finite jest.' -Bananas Foster Wallace*
 
 *'Best place for python savings and loads in the tri-content area.' -Genghis Khan*
+
+
