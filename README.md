@@ -24,9 +24,15 @@ Pupy has a few optional dependenies for reading and writing files which can be i
 
 Or you can pick and choose...
 
-If you plan on using Jason you can install `ujson` for a speed boost *(if you wanna go fast; pupy uses the python-stdlib json if you wanna go slow)*...
+If you plan on using Jason you can install `ujson` 
 
     pip install ujson 
+    
+or `rapidjson` for a speed boost 
+
+    pip install python-rapidjson
+
+and if pupy can't find either it'll fall back on the python-stdlib json thing.
 
 But wait theres more! Pupy has several optional dependencies for savings and loads which you can install with...
     
