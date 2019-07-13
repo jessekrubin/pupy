@@ -92,9 +92,9 @@ async def sajson(filepath: str, data: JASM, minify: bool = False) -> None:
     if type(data) == dict and any(type(val) == bytes for val in data.values()):
         data = {k: str(v, encoding="utf-8") for k, v in data.items()}
     if minify:
-        _json_str = json.dumps(data, ensure_ascii=False)
+        _json_str = json.dumps(data, ensure_ascii=True)
     else:
-        _json_str = json.dumps(data, indent=4, sort_keys=True, ensure_ascii=False)
+        _json_str = json.dumps(data, indent=4, sort_keys=True, ensure_ascii=True)
     await sastring(filepath, _json_str)
 
 async def lajson(filepath: str) -> JASM:

@@ -126,17 +126,16 @@ def sjson(filepath: str, data: JASM, minify: bool = False) -> None:
     """
     if isinstance(data, dict) and any(isinstance(val, bytes) for val in data.values()):
         data = {k: str(v, encoding="utf-8") for k, v in data.items()}
-    with open(filepath, "wb") as jsonfile:
-        if minify:
-            json.dump(data, getwriter("utf-8")(jsonfile), ensure_ascii=False)
-        else:
-            json.dump(
-                data,
-                getwriter("utf-8")(jsonfile),
-                indent=4,
-                sort_keys=True,
-                ensure_ascii=False,
-                )
+    if minify:
+        json_string = json.dumps(data, ensure_ascii=True)
+    else:
+        json_string = json.dumps(
+            data,
+            indent=4,
+            sort_keys=True,
+            ensure_ascii=True,
+            )
+    sstring(filepath, json_string)
 
 def save_jasm(filepath: str, data: JASM, minify: bool = False) -> None:
     """Alias for sjson (which stands for 'save-json')"""
