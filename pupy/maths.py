@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# ~ Jesse K. Rubin ~ Pretty Useful Python
+# Pretty ~ Useful ~ Python
 from collections import Counter
 from math import acos, factorial, pi, sqrt
 from operator import add, floordiv, methodcaller, sub, truediv

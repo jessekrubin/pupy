@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+# Pretty ~ Useful ~ Python
 
 _PKG_MAIN: str = """# -*- coding: utf-8 -*-
 \"\"\"

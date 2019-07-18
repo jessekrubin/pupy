@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# ~ Jesse K. Rubin ~ Pretty Useful Python
+# Pretty ~ Useful ~ Python
 
 from collections.abc import MutableSequence
 from typing import Any, Iterable, Iterator, List, Union

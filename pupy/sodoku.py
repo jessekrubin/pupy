@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# ~ Jesse K. Rubin ~ Pretty Useful Python
+# Pretty ~ Useful ~ Python
 from itertools import chain
 from typing import Dict, List, Optional, Set, Tuple
 

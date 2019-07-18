@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# ~ Jesse K. Rubin ~ Pretty Useful Python
+# Pretty ~ Useful ~ Python
 from contextlib import contextmanager
 from datetime import datetime
 from os import environ, makedirs, path

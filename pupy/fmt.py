@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# ~ Jesse K. Rubin ~ Pretty Useful Python
+# Pretty ~ Useful ~ Python
 from math import ceil
 from os import path, stat
 from shutil import get_terminal_size

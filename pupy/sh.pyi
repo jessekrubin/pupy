@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# ~ Jesse K. Rubin ~ Pretty Useful Python
+# Pretty ~ Useful ~ Python
 
 from os import chdir, getcwd, rename
 from typing import Any, List, Optional, Tuple
