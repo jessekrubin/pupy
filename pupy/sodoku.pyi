@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Set
+from typing import Tuple
 
 class SodokuError(ValueError):
     message: Any = ...

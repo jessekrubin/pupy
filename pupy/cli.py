@@ -5,12 +5,17 @@
 Pupy CLI
 ========
 """
-from argparse import ZERO_OR_MORE, ArgumentParser
+from argparse import ZERO_OR_MORE
+from argparse import ArgumentParser
 from codecs import decode
 from os import makedirs
 from os import path as _path
 
-from pupy._template import _IO_PKG_CLI, _IO_SCRIPT, _PKG_INIT, _PKG_MAIN, _PKG_UTILS
+from pupy._template import _IO_PKG_CLI
+from pupy._template import _IO_SCRIPT
+from pupy._template import _PKG_INIT
+from pupy._template import _PKG_MAIN
+from pupy._template import _PKG_UTILS
 from pupy._version import __version__
 from pupy.savings_n_loads import sstring
 from pupy.sh import pwd

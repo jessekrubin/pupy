@@ -1,7 +1,15 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
-from typing import Any, Iterator, List, Optional, Set, Tuple, Type, Union
+from typing import Any
+from typing import Collection
+from typing import Iterator
+from typing import List
+from typing import Optional
+from typing import Set
+from typing import Tuple
+from typing import Type
+from typing import Union
 
 def partitions_gen(
     numero: int, min_p: int = ..., max_p: Optional[int] = ...
@@ -30,8 +38,8 @@ def disjoint(
     b: Union[List[int], List[Union[str, int]]],
 ) -> bool: ...
 def set_cmp(
-    a: Union[Set[int], List[int]], b: Union[Set[int], List[int]]
-) -> Tuple[Set[int], Set[int], Set[int]]: ...
+    a: Union[Collection[Any], Iterator[Any]], b: Union[Collection[Any], Iterator[Any]]
+) -> Tuple[Set[Any], Set[Any], Set[Any]]: ...
 def n_choose_r(n: Any, r: Any): ...
 
 class Trigon:

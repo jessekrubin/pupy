@@ -92,7 +92,7 @@ def is_palindrome(string: str) -> bool:
     )
 
 
-def strip_comments(string):
+def strip_comments(string: str) -> str:
     filelines = string.splitlines(keepends=False)
     r = _compile(r'(?:"(?:[^"\\]|\\.)*"|[^"#])*(#|$)')
     return "\n".join((line[: r.match(line).start(1)] for line in filelines))

@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 from math import ceil
-from os import path, stat
+from os import path
+from os import stat
 from shutil import get_terminal_size
-from typing import Any, Iterator, List, Optional
+from typing import Any
+from typing import Iterator
+from typing import List
+from typing import Optional
 
 from pupy._typing import Flint
 

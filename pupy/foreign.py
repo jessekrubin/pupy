@@ -7,14 +7,23 @@ Iter Funks
 
 foreign => 'for ... in ...' (its a pun)
 """
-from collections import Counter, deque
+from collections import Counter
+from collections import deque
 from functools import reduce
 from itertools import tee
 from operator import mul
-from os import path, sep, walk
-from typing import Any, Callable, Iterable, List, Tuple, Union
+from os import path
+from os import sep
+from os import walk
+from typing import Any
+from typing import Callable
+from typing import Iterable
+from typing import List
+from typing import Tuple
+from typing import Union
 
-from pupy._typing import Flint, Paths
+from pupy._typing import Flint
+from pupy._typing import Paths
 
 
 def files_gen(dirpath: str = ",", abspath: bool = True) -> Paths:

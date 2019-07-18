@@ -5,24 +5,26 @@
 Shell-ish
 =========
 """
-from os import (
-    chdir,
-    getcwd,
-    listdir,
-    lstat,
-    makedirs,
-    path,
-    readlink,
-    remove,
-    rename,
-    stat,
-    symlink,
-    unlink,
-)
+from os import chdir
+from os import getcwd
+from os import listdir
+from os import lstat
+from os import makedirs
+from os import path
+from os import readlink
+from os import remove
+from os import rename
+from os import stat
+from os import symlink
+from os import unlink
 from platform import system
-from shutil import copy2, copystat, rmtree
-from subprocess import PIPE, run
-from typing import List, Tuple
+from shutil import copy2
+from shutil import copystat
+from shutil import rmtree
+from subprocess import PIPE
+from subprocess import run
+from typing import List
+from typing import Tuple
 
 
 class LIN:

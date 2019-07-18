@@ -2,14 +2,22 @@
 # Pretty ~ Useful ~ Python
 from contextlib import contextmanager
 from datetime import datetime
-from os import environ, makedirs, path
+from os import environ
+from os import makedirs
+from os import path
 from shutil import rmtree
 from tempfile import mkdtemp
 from time import sleep
 from typing import Optional
 from weakref import finalize
 
-from pupy.sh import cd, link_dirs, link_files, path2name, pwd, unlink_dirs, unlink_files
+from pupy.sh import cd
+from pupy.sh import link_dirs
+from pupy.sh import link_files
+from pupy.sh import path2name
+from pupy.sh import pwd
+from pupy.sh import unlink_dirs
+from pupy.sh import unlink_files
 
 
 def timestamp(ts: Optional[float] = None) -> str:

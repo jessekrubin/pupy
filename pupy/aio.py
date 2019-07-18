@@ -6,10 +6,11 @@ Async funks
 ===========
 """
 import asyncio
-from functools import partial, wraps
+from functools import partial
+from functools import wraps
 
-from pupy._typing import JASM
 from pupy._jasm import json
+from pupy._typing import JASM
 
 try:
     import aiofiles

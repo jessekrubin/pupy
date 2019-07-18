@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
-from os import chdir, getcwd, rename
-from typing import Any, List, Optional, Tuple
+from os import chdir
+from os import getcwd
+from os import rename
+from typing import Any
+from typing import List
+from typing import Optional
+from typing import Tuple
 
 class LIN:
     @staticmethod
@@ -14,7 +19,7 @@ class LIN:
         exclude: Any = ...,
         include: Any = ...,
         dry_run: bool = ...,
-    ) -> List[str]: ...
+    ): ...
     @staticmethod
     def rsync(
         src: Any,
@@ -51,7 +56,7 @@ class WIN:
         exclude_files: Any = ...,
         exclude_dirs: Any = ...,
         dry_run: bool = ...,
-    ) -> List[str]: ...
+    ): ...
     @staticmethod
     def robocopy(
         src: Any,
@@ -64,7 +69,7 @@ class WIN:
     @staticmethod
     def link_dir(link: Any, target: Any) -> None: ...
     @staticmethod
-    def link_dirs(link_target_tuples: Any) -> None: ...
+    def link_dirs(link_target_tuples: Any): ...
     @staticmethod
     def link_file(link: Any, target: Any) -> None: ...
     @staticmethod

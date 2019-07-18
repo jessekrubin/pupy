@@ -18,12 +18,13 @@ pip install (msgpack, toml, ruamel.yaml) for the whole shebang.
 from codecs import getwriter
 from io import open
 from itertools import count
-from os import path, utime
+from os import path
+from os import utime
 from typing import Union
 
+from pupy._jasm import json
 from pupy._typing import JASM
 from pupy.decorations import mkdirs
-from pupy._jasm import json
 
 try:
     from toml import dumps as toml_dumps
