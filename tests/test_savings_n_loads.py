@@ -26,19 +26,12 @@ from pupy.savings_n_loads import stoml
 from pupy.savings_n_loads import syaml
 from pupy.savings_n_loads import touch
 
-JASM_DICT = {
-    "Jason": ["Green", "Berg"],
-    "Jasm" : ["Grundle", "Bug"]
-    }
+JASM_DICT = {"Jason": ["Green", "Berg"], "Jasm": ["Grundle", "Bug"]}
+
 
 @pytest.mark.parametrize(
-    "save_funk,load_funk",
-    [
-        [sstring, lstring],
-        [savings, lstring],
-        [sstr, lstr]
-        ],
-    )
+    "save_funk,load_funk", [[sstring, lstring], [savings, lstring], [sstr, lstr]]
+)
 def test_savings_n_loads_methods(save_funk, load_funk):
     fp = "somefile.txt"
     string = "12345\n12345"
@@ -46,6 +39,7 @@ def test_savings_n_loads_methods(save_funk, load_funk):
     s = load_funk(fp)
     assert s == string
     remove(fp)
+
 
 @pytest.mark.parametrize(
     "save_funk,load_funk",
@@ -56,8 +50,8 @@ def test_savings_n_loads_methods(save_funk, load_funk):
         [spak, lpak],
         [stoml, ltoml],
         [syaml, lyaml],
-        ],
-    )
+    ],
+)
 def test_ljson_n_sjson(save_funk: callable, load_funk: callable):
     """
 
@@ -68,6 +62,7 @@ def test_ljson_n_sjson(save_funk: callable, load_funk: callable):
     assert loaded_data == JASM_DICT
     remove(fp)
 
+
 @pytest.mark.parametrize(
     "save_funk,load_funk",
     [
@@ -77,8 +72,8 @@ def test_ljson_n_sjson(save_funk: callable, load_funk: callable):
         [spak, lpak],
         [stoml, ltoml],
         [syaml, lyaml],
-        ],
-    )
+    ],
+)
 def test_ljson_n_sjson_safe_save(save_funk: callable, load_funk: callable):
     """
 
@@ -94,14 +89,10 @@ def test_ljson_n_sjson_safe_save(save_funk: callable, load_funk: callable):
     assert loaded_data == JASM_DICT
     remove(fp2)
 
+
 @pytest.mark.parametrize(
-    "save_funk,load_funk",
-    [
-        [save_jasm, load_jasm],
-        [sjson, ljson],
-        [sjasm, ljasm],
-        ],
-    )
+    "save_funk,load_funk", [[save_jasm, load_jasm], [sjson, ljson], [sjasm, ljasm]]
+)
 def test_ljson_n_sjson_min(save_funk: callable, load_funk: callable):
     """
 
@@ -121,8 +112,8 @@ def test_ljson_n_sjson_min(save_funk: callable, load_funk: callable):
         path.join("dir1", "dir2", "file.txt"),
         path.join("dir1", "dir2", "dir3", "file.txt"),
         path.join("dir1", "dir2", "dir3", "dir4", "file.txt"),
-        ],
-    )
+    ],
+)
 def test_touch(fdpath):
     assert not path.exists(fdpath)
     touch(fdpath)
@@ -133,6 +124,7 @@ def test_touch(fdpath):
         rmtree(root)
     elif path.isfile(root):
         remove(root)
+
 
 def test_safepath():
     filepath = "afile.txt"

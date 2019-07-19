@@ -759,6 +759,6 @@ def test_filesize(tmpdir):
     """
 
     """
-    filepath = path.join(tmpdir, 'somefile.txt')
-    sstr(path.join(tmpdir, 'somefile.txt'), '12342312312')
-    assert filesize(filepath) == '11.0 bytes'
+    filepath = path.join(tmpdir, "somefile.txt")
+    sstr(path.join(tmpdir, "somefile.txt"), "12342312312")
+    assert filesize(filepath) == "11.0 bytes"
