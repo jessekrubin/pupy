@@ -64,7 +64,7 @@ def safepath(path_str: str) -> str:
     return path_str
 
 
-def lbytes(filepath: str) -> None:
+def lbytes(filepath: str) -> Union[bytes, bytearray]:
     """Read bytes from file path
 
     :param filepath: filepath as as string to read bites from
@@ -73,6 +73,7 @@ def lbytes(filepath: str) -> None:
     """
     with open(filepath, "rb") as file:
         return file.read()
+
 
 def sbytes(filepath: str, bytes: Union[bytes, bytearray]) -> None:
     """Write bytes to a filepath

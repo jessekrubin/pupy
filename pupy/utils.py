@@ -7,15 +7,13 @@ from os import makedirs
 from os import path
 from shutil import rmtree
 from tempfile import mkdtemp
-from time import sleep
+from typing import Any
 from typing import Optional
-from weakref import finalize
 
+from pupy._alias import pp
 from pupy.sh import cd
 from pupy.sh import link_dirs
 from pupy.sh import link_files
-from pupy.sh import path2name
-from pupy.sh import pwd
 from pupy.sh import unlink_dirs
 from pupy.sh import unlink_files
 
@@ -104,3 +102,11 @@ def linked_tmp_dir(
             cd("..")
             # print(pwd())
             rmtree(temp_dir)
+
+
+def prinfo(obj: Any) -> None:
+    try:
+        pp({"object": obj, "type": obj})
+    except:
+        print("object:\n{}".format(obj))
+        print("type:\n{}".format(type(obj)))
