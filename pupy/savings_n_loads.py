@@ -74,6 +74,17 @@ def lbytes(filepath: str) -> None:
     with open(filepath, "rb") as file:
         return file.read()
 
+def sbytes(filepath: str, bytes: Union[bytes, bytearray]) -> None:
+    """Write bytes to a filepath
+
+    :param filepath: filepath as as string to read bites from
+    :param bytes:
+    :return: some bytes...
+
+    """
+    with open(filepath, "wb") as file:
+        return file.write(bytes)
+
 
 @mkdirs
 def sstring(filepath: str, string: str) -> None:

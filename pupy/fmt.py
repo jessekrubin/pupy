@@ -53,8 +53,10 @@ def nbytes(num: Flint) -> str:
 
 
 def filesize(filepath: str) -> str:
-    """
-    this function will return the file size
+    """this function will return the file size
+
+    :param filepath:
+    :return:
     """
     if path.isfile(filepath):
         file_info = stat(filepath)

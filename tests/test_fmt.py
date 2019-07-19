@@ -1,4 +1,7 @@
+from os import path
 
+from pupy import sstr
+from pupy.fmt import filesize
 from pupy.fmt import nseconds
 from pupy.fmt import term_table
 
@@ -203,7 +206,8 @@ TOP_BABY_NAMES = [
     "Xavier",
     "Zoe",
     "Zoey",
-    ]
+]
+
 
 def test_term_table_col_wise_1():
     expected = [
@@ -407,11 +411,12 @@ def test_term_table_col_wise_1():
         "Kennedy",
         "Oliver",
         "Zoey",
-        ]
+    ]
     line_vals = []
     for l in term_table(TOP_BABY_NAMES, row_wise=False):
         line_vals.extend(s for s in l.split(" ") if s != "~" and s != "")
     assert expected == line_vals
+
 
 def test_term_table_row_wise_1():
     expected = [
@@ -615,11 +620,12 @@ def test_term_table_row_wise_1():
         "Xavier",
         "Zoe",
         "Zoey",
-        ]
+    ]
     line_vals = []
     for l in term_table(TOP_BABY_NAMES, row_wise=True):
         line_vals.extend(s for s in l.split(" ") if s != "~" and s != "")
     assert line_vals == expected
+
 
 def test_term_table_row_wise_2():
     expected = [
@@ -660,11 +666,12 @@ def test_term_table_row_wise_2():
         "Bryson",
         "Caleb",
         "Cameron",
-        ]
+    ]
     line_vals = []
     for l in term_table(TOP_BABY_NAMES[:37], row_wise=True):
         line_vals.extend(s for s in l.split(" ") if s != "~" and s != "")
     assert expected == line_vals
+
 
 def test_term_table_col_wise_2():
     expected = [
@@ -705,11 +712,12 @@ def test_term_table_col_wise_2():
         "Anna",
         "Audrey",
         "Benjamin",
-        ]
+    ]
     line_vals = []
     for l in term_table(TOP_BABY_NAMES[:37], row_wise=False):
         line_vals.extend(s for s in l.split(" ") if s != "~" and s != "")
     assert line_vals == expected
+
 
 def test_ftime_seconds():
     """
@@ -719,6 +727,7 @@ def test_ftime_seconds():
     tf = 5.4321
     assert nseconds(ti, tf) == "4.198 sec"
 
+
 def test_ftime_milliseconds():
     """
 
@@ -726,6 +735,7 @@ def test_ftime_milliseconds():
     ti = 1.2345 * (10 ** (-3))
     tf = 5.4321 * (10 ** (-3))
     assert nseconds(ti, tf) == "4.198 ms"
+
 
 def test_ftime_microseconds():
     """
@@ -735,6 +745,7 @@ def test_ftime_microseconds():
     tf = 5.4321 * (10 ** (-6))
     assert nseconds(ti, tf) == "4.198 μs"
 
+
 def test_ftime_nanoseconds():
     """
 
@@ -742,3 +753,12 @@ def test_ftime_nanoseconds():
     ti = 1.2345 * (10 ** (-9))
     tf = 5.4321 * (10 ** (-9))
     assert nseconds(ti, tf) == "4.198 ns"
+
+
+def test_filesize(tmpdir):
+    """
+
+    """
+    filepath = path.join(tmpdir, 'somefile.txt')
+    sstr(path.join(tmpdir, 'somefile.txt'), '12342312312')
+    assert filesize(filepath) == '11.0 bytes'

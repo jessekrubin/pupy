@@ -33,6 +33,8 @@ def timestamp(ts: Optional[float] = None) -> str:
         True
         >>> datetime.now().strftime("%Y%m%d-%H%M%S") == timestamp()
         True
+        >>> timestamp(datetime.now()) == timestamp()
+        True
 
     """
     if ts is None:
@@ -45,107 +47,6 @@ def timestamp(ts: Optional[float] = None) -> str:
 
 def environ_dict():
     return {k: environ[k] for k in environ}
-
-
-class LinkedTmpDir(object):
-    """ make a temp dir and have links."""
-
-    def __init__(
-        self,
-        suffix=None,
-        prefix=None,
-        dir=None,
-        mkdirs=None,
-        lndirs=None,
-        lnfiles=None,
-        link_targets=None,
-    ):
-        self.dirpath = mkdtemp(suffix, prefix, dir)
-        self.dirname = path.split(self.dirpath)[-1]
-        file_targets = []
-        dir_targets = []
-        if link_targets is None:
-            link_targets = []
-        for target in link_targets:
-            if path.isfile(target):
-                file_targets.append(target)
-            elif path.isdir(target):
-                dir_targets.append(target)
-        _rel_file_links = list(map(path2name, file_targets))
-        _rel_dir_links = list(map(path2name, dir_targets))
-
-        try:
-            assert len(set(_rel_file_links)) == len(_rel_file_links)
-        except AssertionError as e:
-            raise ValueError("Duplicate filenames present")
-        try:
-            assert len(set(_rel_dir_links)) == len(_rel_dir_links)
-        except AssertionError as e:
-            raise ValueError("Duplicate dirnames present")
-        _lnk_path = lambda _lnk: path.join(self.dirpath, _lnk)
-        self.file_links = list(map(_lnk_path, _rel_file_links))
-        self.dir_links = list(map(_lnk_path, _rel_dir_links))
-        link_files(zip(self.file_links, file_targets))
-        link_dirs(zip(self.dir_links, dir_targets))
-        self._finalizer = finalize(
-            self,
-            self._cleanup,
-            self.dirpath,
-            warn_message="Implicitly cleaning up {!r}".format(self),
-        )
-
-    @classmethod
-    def _cleanup(cls, name, warn_message):
-        pass
-
-    def __repr__(self):
-        return "<{} {!r}>".format(self.__class__.__name__, self.dirpath)
-
-    def __enter__(self):
-        return self.dirpath
-
-    def __exit__(self, exc, value, tb):
-        self.cleanup()
-
-    def cleanup(self):
-        unlink_dirs(self.dir_links)
-        unlink_files(self.file_links)
-        if self._finalizer.detach():
-            pass
-
-
-# from tempfile import TemporaryDirectory, _get_candidate_names, _sanitize_params, mkdtemp
-# from pprint import pprint as pp
-# from os import path, access, name, fsencode, W_OK, mkdir
-
-# def _mkdtemp(suffix=None, prefix=None, dir=None):
-#     """Better version of mkdtemp
-#     """
-#
-#     prefix, suffix, dir, output_type = _sanitize_params(prefix, suffix, dir)
-#
-#     names = _get_candidate_names()
-#     if output_type is bytes:
-#         names = map(fsencode, names)
-#     for seq in range(10000):
-#         name = next(names)
-#         file = path.join(dir, prefix + name + suffix)
-#         try:
-#             mkdir(file, 0o777)
-#             # mkdir(file, 0o700)
-#         except FileExistsError:
-#             continue  # try again
-#         except PermissionError:
-#             # This exception is thrown when a directory with the chosen name
-#             # already exists on windows.
-#             if (name == 'nt' and path.isdir(dir) and
-#                 access(dir, W_OK)):
-#                 continue
-#             else:
-#                 raise
-#         return file
-#
-#     raise FileExistsError("No usable temporary directory name found")
 
 
 @contextmanager
