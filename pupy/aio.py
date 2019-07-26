@@ -15,7 +15,7 @@ from pupy._typing import JASM
 try:
     import aiofiles
 except ImportError:
-    raise ImportError("'pip install aiofiles'..." " if ya wanna use this module!")
+    pass
 
 try:
     from toml import dumps as toml_dumps
@@ -50,8 +50,11 @@ async def sabytes(filepath: str, _bytes: bytes) -> None:
     :param filepath: filepath as as string to read bites from
     :return: some bytes...
     """
-    async with aiofiles.open(filepath, mode="wb") as f:
-        await f.write(_bytes)
+    try:
+        async with aiofiles.open(filepath, mode="wb") as f:
+            await f.write(_bytes)
+    except NameError:
+        raise ImportError("'pip install aiofiles' if ya wanna use this!")
 
 
 async def labytes(filepath: str) -> bytes:
@@ -60,10 +63,13 @@ async def labytes(filepath: str) -> bytes:
     :param filepath: filepath as as string to read bites from
     :return: some bytes...
     """
-    async with aiofiles.open(filepath, mode="rb") as f:
-        _bytes = await f.read()
-        return _bytes
+    try:
+        async with aiofiles.open(filepath, mode="rb") as f:
+            _bytes = await f.read()
+            return _bytes
 
+    except NameError:
+        raise ImportError("'pip install aiofiles' if ya wanna use this!")
 
 async def sastring(filepath: str, string: str) -> None:
     try:
@@ -74,6 +80,8 @@ async def sastring(filepath: str, string: str) -> None:
     except UnicodeEncodeError:
         async with aiofiles.open(filepath, mode="w", encoding="latin2") as f:
             await f.write(string)
+    except NameError:
+        raise ImportError("'pip install aiofiles' if ya wanna use this!")
 
 
 async def lastring(filepath: str) -> str:
@@ -85,6 +93,8 @@ async def lastring(filepath: str) -> str:
         async with aiofiles.open(filepath, mode="r", encoding="latin2") as f:
             _file_string = await f.read()
             return _file_string
+    except NameError:
+        raise ImportError("'pip install aiofiles' if ya wanna use this!")
 
 
 async def sajson(filepath: str, data: JASM, minify: bool = False) -> None:

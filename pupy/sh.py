@@ -25,6 +25,7 @@ from subprocess import PIPE
 from subprocess import run
 from typing import List
 from typing import Tuple
+from glob import iglob
 
 
 class LIN:
@@ -375,9 +376,13 @@ class WIN:
 # _OS = system().lower()
 _OS = WIN if "windows" in system().lower() else LIN
 
-mv = move
 pwd = getcwd
 cd = chdir
+
+
+def mv(src, dst):
+    for file in iglob(src, recursive=True):
+        move(file, dst)
 
 
 def cp(src, dst, r=False, symlinks=False, ignore=None):

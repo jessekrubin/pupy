@@ -9,7 +9,6 @@ from typing import List
 from typing import Optional
 from typing import Tuple
 
-
 class LIN:
     @staticmethod
     def rsync_args(
