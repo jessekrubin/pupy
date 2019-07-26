@@ -14,15 +14,16 @@ jobs:
         - stage: test
           install:
               - pip install -U pip
+              - pip install -U poetry
               - pip install -U aiofiles
               - pip install -U ruamel.yaml
               - pip install -U toml
               - pip install -U msgpack
               - pip install -U pupy
-              - pip install pytest
-              - pip install pytest-cov
-              - pip install poetry
-              #              - poetry install -v
+              - poetry config settings.virtualenvs.create false
+              - poetry install -v
+              - pip install -U pytest
+              - pip install -U pytest-cov
           script:
               - pytest tests --cov
               - pip install -U python-rapidjson
