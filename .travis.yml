@@ -32,12 +32,10 @@ jobs:
               - poetry run pytest tests --cov
         - stage: deploy
           script: skip
-          before_deploy:
-              - poetry config http-basic.pypi $PYPI_USERNAME $PYPI_PASSWORD
-              - poetry build
           deploy:
               provider: script
-              script: poetry publish
+              script:
+                  - poetry --build -u $PYPI_USERNAME -p $PYPI_PASSWORD publish
               skip_cleanup: true
               on:
                   tags: true
