@@ -19,7 +19,7 @@ install:
     #    - pip install -U pupy
     #    - pip install -U pytest
     #    - pip install -U pytest-cov
-    - poetry install -v
+    - poetry install -E io -v
 
 script:
     - poetry run pytest tests
