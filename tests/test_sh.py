@@ -22,7 +22,7 @@ def test_mv_uno(tmpdir):
         ("dir", "dir2a", "file1.txt"),
         ("dir", "dir2a", "file2.txt"),
         ("dir", "dir2a", "file3.txt"),
-        ]
+    ]
     for f in filepath_parts:
         filepath = path.join(tmpdir, *f)
         touch(filepath)
@@ -32,8 +32,10 @@ def test_mv_uno(tmpdir):
     mkdir("out")
     mv("dir", "out")
     files = list(
-        sorted((e.replace(str(tmpdir), "").strip(sep) for e in files_gen(tmpdir)))
+        sorted(
+            (e.replace(str(tmpdir), "").strip(sep) for e in files_gen(tmpdir))
         )
+    )
     print(files)
 
     expected = set(path.join("out", *f) for f in filepath_parts)
@@ -51,7 +53,7 @@ def test_mv_multi(tmpdir):
         ("dir", "dir2a", "file1.txt"),
         ("dir", "dir2a", "file2.txt"),
         ("dir", "dir2a", "file3.txt"),
-        ]
+    ]
     for f in filepath_parts:
         filepath = path.join(tmpdir, *f)
         touch(filepath)
@@ -61,12 +63,15 @@ def test_mv_multi(tmpdir):
     mkdir("out")
     mv("dir/*", "out")
     files = list(
-        sorted((e.replace(str(tmpdir), "").strip(sep) for e in files_gen(tmpdir)))
+        sorted(
+            (e.replace(str(tmpdir), "").strip(sep) for e in files_gen(tmpdir))
         )
+    )
     # print(files)
     expected = set(
-        path.join("out", *f).replace(sep + "dir" + sep, sep) for f in filepath_parts
-        )
+        path.join("out", *f).replace(sep + "dir" + sep, sep)
+        for f in filepath_parts
+    )
     got = set(files)
     # print(expected)
     # print(got)

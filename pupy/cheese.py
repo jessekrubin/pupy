@@ -4,7 +4,6 @@
 String Methods
 """
 
-
 def string_score(strang: str) -> int:
     """Sum of letter values where a==1 and z == 26
 
@@ -25,7 +24,6 @@ def string_score(strang: str) -> int:
     """
     return sum((ord(character) - 96 for character in strang.lower()))
 
-
 def is_palindrome(string: str) -> bool:
     """True a string is a palindrome; False if string is not a palindrome.
 
@@ -40,9 +38,9 @@ def is_palindrome(string: str) -> bool:
 
     """
     return all(
-        character == string[-index - 1] for index, character in enumerate(string)
+        character == string[-index - 1]
+        for index, character in enumerate(string)
     )
-
 
 if __name__ == "__main__":
     from doctest import testmod

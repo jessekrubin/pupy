@@ -23,7 +23,6 @@ from typing import Union
 from pupy.decorations import cash_it
 from pupy.foreign import iter_product
 
-
 def partitions_gen(numero: int, min_p: int = 1, max_p: Optional[int] = None):
     """Partitions generator
 
@@ -50,7 +49,6 @@ def partitions_gen(numero: int, min_p: int = 1, max_p: Optional[int] = None):
     for i in range(min_p, numero // 2 + 1):
         for p in partitions_gen(numero - i, i, max_p):
             yield (i,) + p
-
 
 @cash_it
 def rfactorial(n: int) -> int:
@@ -84,7 +82,6 @@ def rfactorial(n: int) -> int:
     """
     return 1 if n == 1 else rfactorial(n - 1) * n
 
-
 def radians_2_degrees(rads: float) -> float:
     """Converts radians to degrees
 
@@ -102,7 +99,6 @@ def radians_2_degrees(rads: float) -> float:
     """
     return 180 * rads / pi
 
-
 def degrees_2_radians(degs: float) -> float:
     """Converts degrees to radians
 
@@ -116,7 +112,6 @@ def degrees_2_radians(degs: float) -> float:
 
     """
     return degs * pi / 180
-
 
 def power_mod(number: int, exponent: int, mod: int) -> int:
     """
@@ -146,7 +141,6 @@ def power_mod(number: int, exponent: int, mod: int) -> int:
     else:
         return 1
 
-
 def divisors_gen(n: int) -> Iterator[int]:
     """Divisors generator
 
@@ -173,7 +167,6 @@ def divisors_gen(n: int) -> Iterator[int]:
     for divisor in reversed(large_divisors):
         yield divisor
 
-
 def gcd_it(a: int, b: int) -> int:
     """iterative gcd
 
@@ -196,7 +189,6 @@ def gcd_it(a: int, b: int) -> int:
     while a:
         a, b = b % a, a
     return b
-
 
 @cash_it
 def gcd_r(a: int, b: int) -> int:
@@ -226,7 +218,6 @@ def gcd_r(a: int, b: int) -> int:
         return b
     return gcd_r(r, b)
 
-
 def reverse_num(n: int) -> int:
     """Reverses a number
 
@@ -255,7 +246,6 @@ def reverse_num(n: int) -> int:
         n //= 10
     return reversed
 
-
 @cash_it
 def fib_r(n: int) -> int:
     """Recursively the nth fibonacci number
@@ -276,7 +266,6 @@ def fib_r(n: int) -> int:
 
     """
     return n if n < 3 else fib_r(n - 1) + fib_r(n - 2)
-
 
 def expo(d: int, n: int) -> int:
     """greatest exponent for a divisor of n
@@ -311,7 +300,6 @@ def expo(d: int, n: int) -> int:
         divs += 1
     return divs
 
-
 def pytriple_gen(max_c: int) -> Iterator[Tuple[int, int, int]]:
     """primative pythagorean triples generator
 
@@ -333,8 +321,11 @@ def pytriple_gen(max_c: int) -> Iterator[Tuple[int, int, int]]:
                 if sea > max_c:
                     break
                 else:
-                    yield (imag, real, sea) if real > imag else (real, imag, sea)
-
+                    yield (imag, real, sea) if real > imag else (
+                        real,
+                        imag,
+                        sea,
+                    )
 
 def n_permutations_with_replacements(
     it: Union[
@@ -362,7 +353,6 @@ def n_permutations_with_replacements(
     c = Counter(n for n in it)
     a = list(factorial(nc) for nc in c.values())
     return factorial(len(it)) // iter_product(a)
-
 
 def disjoint(
     a: Union[List[int], List[Union[str, int]]],
@@ -393,9 +383,9 @@ def disjoint(
     _b = set(b)
     return not any(ae in _b for ae in a)
 
-
 def set_cmp(
-    a: Union[Collection[Any], Iterator[Any]], b: Union[Collection[Any], Iterator[Any]]
+    a: Union[Collection[Any], Iterator[Any]],
+    b: Union[Collection[Any], Iterator[Any]],
 ) -> Tuple[Set[Any], Set[Any], Set[Any]]:
     """Compare the elements of two iterables (a and b)
 
@@ -419,7 +409,6 @@ def set_cmp(
         return set_cmp(set(a), set(b))
     return a & b, a - b, b - a
 
-
 def n_choose_r(n, r):
     """
 
@@ -429,9 +418,7 @@ def n_choose_r(n, r):
     """
     return factorial(n) // factorial(r) // factorial(n - r)
 
-
 ncr = n_choose_r
-
 
 class Trigon(object):
     """Trigon object composed of three points connected by lines."""
@@ -445,7 +432,6 @@ class Trigon(object):
         self.pt1 = Vuple(pt1)
         self.pt2 = Vuple(pt2)
         self.pt3 = Vuple(pt3)
-
     @classmethod
     def from_points(cls, pts: List[Tuple[int, int]]):
         """
@@ -458,17 +444,14 @@ class Trigon(object):
         if len(pts) == 6:
             it = iter(pts)
             return Trigon(*zip(it, it))
-
     def __str__(self):
         return "<< {}, {}, {} >>".format(self.pt1, self.pt2, self.pt3)
-
     def __contains__(self, point: Union[Tuple[int, int]]) -> bool:
         if not isinstance(point, Vuple):
             point = Vuple(point)
         return self.area() == sum(
             map(methodcaller("area"), self.inner_triangles(point))
         )
-
     def inner_triangles(self, point):
         """Triangle funk that returns the three triangles w/ a point
 
@@ -485,7 +468,6 @@ class Trigon(object):
         t2 = Trigon(self.pt1, point, self.pt3)
         t3 = Trigon(self.pt1, self.pt2, point)
         return t1, t2, t3
-
     def is_perimeter_point(self, point: Tuple[int, int]) -> bool:
         """
 
@@ -496,21 +478,21 @@ class Trigon(object):
             point = Vuple(point)
         return any(
             tri_area == 0
-            for tri_area in map(methodcaller("area"), self.inner_triangles(point))
+            for tri_area in map(
+                methodcaller("area"), self.inner_triangles(point)
+            )
         )
-
     def points(self):
         """ """
         return self.pt1, self.pt2, self.pt3
-
     def contains_origin(self) -> bool:
         """True if the origin (0,0) lies within the Triangle"""
         return (0, 0) in self
-
     def area(self) -> float:
         """ """
-        return abs(truediv(Vuple.cross(self.pt1 - self.pt2, self.pt3 - self.pt2), 2))
-
+        return abs(
+            truediv(Vuple.cross(self.pt1 - self.pt2, self.pt3 - self.pt2), 2)
+        )
     @staticmethod
     def area_from_points(pt1, pt2, pt3):
         """
@@ -522,7 +504,6 @@ class Trigon(object):
         """
         return abs(truediv(Vuple.cross(pt1 - pt2, pt3 - pt2), 2))
 
-
 class Vuple(tuple):
     """VUPLE == Vector+Tuple"""
 
@@ -533,13 +514,12 @@ class Vuple(tuple):
         :return:
         """
         return super(Vuple, cls).__new__(cls, tuple(*args))
-
     def __gt__(self, other: Any) -> bool:
         return Vuple.mag_sqrd(self) > Vuple.mag_sqrd(other)
-
-    def __eq__(self, other: Union[Tuple[float, float], Tuple[int, int], Any]) -> bool:
+    def __eq__(
+        self, other: Union[Tuple[float, float], Tuple[int, int], Any]
+    ) -> bool:
         return all(a == b for a, b in zip(self, other))
-
     def __add__(self, k: Union[int, Any]) -> Any:
         """
 
@@ -556,16 +536,12 @@ class Vuple(tuple):
         elif isinstance(k, Vuple) and len(self) == len(k):
             return Vuple(map(add, self, k))
         raise ValueError("huh idk")
-
     def __iadd__(self, k):
         return self.__add__(k)
-
     def __sub__(self, k: Any) -> Any:
         return Vuple(map(sub, self, k))
-
     def __isub__(self, k):
         return self.__sub__(k)
-
     def __mul__(self, k: Union[int, Any]) -> Union[int, Any]:
         """Multiply by a scalar for each element or cross product if also iterable of same length
 
@@ -588,10 +564,8 @@ class Vuple(tuple):
             if len(k) != len(self):
                 raise ValueError("Sizes do not match!")
             return Vuple.dot(self, k)
-
     def __imul__(self, k: int) -> Any:
         return self.__mul__(k)
-
     def _mul_scalar(self, k: int) -> Any:
         """
 
@@ -599,11 +573,9 @@ class Vuple(tuple):
 
         """
         return Vuple((k * el for el in self))
-
     def __truediv__(self, k: Union[int, float]) -> Any:
         if type(k) is int or type(k) is float:
             return self._truediv_scalar(k)
-
     def _truediv_scalar(self, k: Union[int, float]) -> Any:
         """
 
@@ -611,17 +583,13 @@ class Vuple(tuple):
 
         """
         return Vuple((el / k for el in self))
-
     def __itruediv__(self, k: int) -> Any:
         return self.__truediv__(k)
-
     def __floordiv__(self, k):
         if type(k) is int or type(k) is float:
             return self._floordiv_scalar_int(k)
-
     def __ifloordiv__(self, k):
         return self.__floordiv__(k)
-
     def _floordiv_scalar_int(self, k):
         """
 
@@ -629,7 +597,6 @@ class Vuple(tuple):
 
         """
         return Vuple((el // k for el in self))
-
     def normalize(self) -> Any:
         """Normalizes the Vuple ST self.magnitude == 1
 
@@ -638,7 +605,6 @@ class Vuple(tuple):
 
         """
         return Vuple.unit_vuple(self)
-
     @staticmethod
     def unit_vuple(voop: Any) -> Any:
         """
@@ -647,11 +613,9 @@ class Vuple(tuple):
 
         """
         return Vuple(voop) / Vuple.mag(voop)
-
     def get_mag_sqrd(self):
         """ """
         return Vuple.mag_sqrd(self)
-
     @staticmethod
     def mag_sqrd(voop: Union[Tuple[int, int], Any]) -> int:
         """
@@ -660,11 +624,9 @@ class Vuple(tuple):
 
         """
         return sum(el * el for el in voop)
-
     def get_mag(self) -> float:
         """ """
         return Vuple.mag(self)
-
     @staticmethod
     def mag(voop: Union[Tuple[int, int], Any]) -> float:
         """
@@ -677,7 +639,6 @@ class Vuple(tuple):
 
         """
         return sqrt(Vuple.mag_sqrd(voop))
-
     @staticmethod
     def dot(a: Any, b: Any) -> Union[int, float]:
         """
@@ -687,7 +648,6 @@ class Vuple(tuple):
 
         """
         return sum(va * vb for va, vb in zip(a, b))
-
     @staticmethod
     def cross(v1: Any, v2: Any) -> int:
         """Cross product of two 2d vectors
@@ -701,7 +661,6 @@ class Vuple(tuple):
             return (v1[0] * v2[1]) - (v1[1] * v2[0])
         else:
             raise ValueError("cross product gt 2d not implemented")
-
     @staticmethod
     def angle(v1: Any, v2: Any, radians: bool = False) -> float:
         """
@@ -714,7 +673,6 @@ class Vuple(tuple):
         # return acos(Vuple.dproduct(v1, v2)/(Vuple.mag(v1)*Vuple.mag(v2)))
         q = 1 if radians else 180 / pi
         return q * acos(Vuple.dot(Vuple.unit_vuple(v1), Vuple.unit_vuple(v2)))
-
     def is_disjoint(self, them):
         """
 
@@ -722,7 +680,6 @@ class Vuple(tuple):
 
         """
         return disjoint(self, them)
-
     def product(self) -> int:
         """Multiplies all elements in the Vuple
 
@@ -743,7 +700,6 @@ class Vuple(tuple):
 
         """
         return iter_product(self)
-
 
 if __name__ == "__main__":
     import doctest

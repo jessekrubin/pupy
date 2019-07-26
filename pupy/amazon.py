@@ -15,7 +15,6 @@ from typing import Union
 from pupy.decorations import cash_it
 from pupy.maths import divisors_gen
 
-
 def prime_gen(
     plim: int = 0, kprimes: Union[None, Iterable[int]] = None
 ) -> Iterator[int]:
@@ -45,7 +44,6 @@ def prime_gen(
 
     if kprimes is None:
         kprimes = [2, 3, 5, 7, 11]
-
     def _dictionary():
         """Recreates the prime divisors dictionary used by the generator"""
         div_dict = {}
@@ -59,7 +57,6 @@ def prime_gen(
                 multiple += pdiv * 2
             div_dict[multiple] = pdiv
         return div_dict
-
     # [1]
     # See if the upper bound is greater than the known primes
     if 0 < plim <= kprimes[-1]:
@@ -92,7 +89,6 @@ def prime_gen(
             divz[num * num] = num
             yield num
 
-
 def prime_factorization_gen(n: int) -> Iterator[int]:
     """generates all numbers in the prime factorization of n
 
@@ -114,7 +110,6 @@ def prime_factorization_gen(n: int) -> Iterator[int]:
             n //= factor
             yield factor
 
-
 def prime_factors_gen(n: int) -> Iterator[Any]:
     """prime factors generator
 
@@ -130,7 +125,6 @@ def prime_factors_gen(n: int) -> Iterator[Any]:
 
     """
     return (p for p in divisors_gen(n) if is_prime(p))
-
 
 @cash_it
 def is_prime(number: int) -> bool:
@@ -179,7 +173,6 @@ def is_prime(number: int) -> bool:
         if number % (step + 2) == 0:
             return False
     return True
-
 
 class OctopusPrime(MutableSequence):
     """OctopusPrime, the 8-leg autobot, here to help you find PRIMES
@@ -251,7 +244,6 @@ class OctopusPrime(MutableSequence):
         else:
             self._list = list(prime_gen(plim, p))
         self.max_loaded = self._list[-1]
-
     def _transform(self, n: Optional[int] = None) -> None:
         """TRANSFORM / grow the list
 
@@ -260,7 +252,6 @@ class OctopusPrime(MutableSequence):
         """
         n = n if n is not None else self._list[-1] * 10
         self._list.extend(list(prime_gen(plim=n, kprimes=self._list)))
-
     def primes_below(self, upper_bound):
         """Lists primes, p, such that  p < upper_bound
 
@@ -271,7 +262,6 @@ class OctopusPrime(MutableSequence):
 
         """
         return self.primes_between(1, upper_bound)
-
     def primes_between(self, lower_bound: int, upper_bound: int) -> List[int]:
         """Lists primes, p, such that, lower_bound < p < upper_bound
 
@@ -286,19 +276,14 @@ class OctopusPrime(MutableSequence):
         if upper_bound > self[-1]:
             self._transform(upper_bound)
         return self[bisect_right(self, lower_bound) : bisect(self, upper_bound)]
-
     def __len__(self) -> int:
         return len(self._list)
-
     def __getitem__(self, i: Union[int, slice]) -> Union[int, List[int]]:
         return self._list[i]
-
     def __delitem__(self, i):
         del self._list[i]
-
     def __setitem__(self, key, value):
         self._list[key] = value
-
     def insert(self, index, object):
         """
 
@@ -307,13 +292,10 @@ class OctopusPrime(MutableSequence):
 
         """
         self._list.insert(index)
-
     def __str__(self):
         return str(self._list)
-
     def __repr__(self):
         return str(self._list)
-
 
 if __name__ == "__main__":
     from doctest import testmod

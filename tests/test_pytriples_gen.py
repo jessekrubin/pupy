@@ -60,22 +60,18 @@ gt100_lt300 = {
 
 lt300 = set.union(lt100, gt100_lt300)
 
-
 def test_pytriplets_c_lt100():
     """Testing pytriples with c values less than 100"""
     assert {t for t in pytriple_gen(100)} == lt100
-
 
 def test_pytriplets_c_lt300():
     """Testing pytriples with c values less than 100"""
     p_set = {t for t in pytriple_gen(300)}
     assert lt300 == p_set
 
-
 def test_pytriplets_2_c_lt100():
     """Testing pytriples with c values less than 100"""
     assert lt100 == set(pytriple_gen(100))
-
 
 def test_pytriplets_2_c_lt300():
     """Testing pytriples with c values less than 100"""
@@ -84,7 +80,6 @@ def test_pytriplets_2_c_lt300():
     while len(vals) < len(lt300):
         vals.add(next(gen))
     assert vals == lt300
-
 
 # test_pytriplets_2_c_lt100()
 # test_pytriplets_2_c_lt300()

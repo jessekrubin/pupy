@@ -7,7 +7,6 @@ from pupy.foreign import files_gen
 from pupy.foreign import walk_gen, files_dirs_gen
 from pupy.savings_n_loads import touch
 
-
 def test_files_gen():
     filepath_parts = [
         ("dir", "file1.txt"),
@@ -59,5 +58,5 @@ def test_files_n_dirs_gen():
     expected_files = sorted(path.join(*f) for f in filepath_parts)
     files, dirs = files_dirs_gen("dir")
     files_n_dirs = set(list(files) + list(dirs))
-    walk_files_n_dirs = set(walk_gen('dir'))
-    assert files_n_dirs== walk_files_n_dirs
+    walk_files_n_dirs = set(walk_gen("dir"))
+    assert files_n_dirs == walk_files_n_dirs

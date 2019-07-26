@@ -16,7 +16,6 @@ from typing import Optional
 
 from pupy._typing import Flint
 
-
 def nbytes(num: Flint) -> str:
     """
     this function will convert bytes to MB.... GB... etc
@@ -56,7 +55,6 @@ def nbytes(num: Flint) -> str:
             return "%3.1f %s" % (num, x)
         num /= 1024.0
 
-
 def filesize(filepath: str) -> str:
     """this function will return the file size
 
@@ -66,7 +64,6 @@ def filesize(filepath: str) -> str:
     if path.isfile(filepath):
         file_info = stat(filepath)
         return nbytes(file_info.st_size)
-
 
 def nseconds(t1: float, t2: Optional[float] = None) -> str:
     """Formats time string
@@ -97,7 +94,6 @@ def nseconds(t1: float, t2: Optional[float] = None) -> str:
     else:
         return nseconds((t2 - t1))
 
-
 def term_table(
     strings: List[str], row_wise: bool = False, filler: str = "~"
 ) -> Iterator[Any]:
@@ -121,7 +117,6 @@ def term_table(
     else:
         line_iter = (strings[i::n_rows] for i in range(n_rows))
     return (fmtstring.format(*row) for row in line_iter)
-
 
 def bytes2str(bites: bytes, encoding: str = "utf-8") -> str:
     """Convert bytes to a string
@@ -147,7 +142,6 @@ def bytes2str(bites: bytes, encoding: str = "utf-8") -> str:
     """
     return bites.decode(encoding)
 
-
 def binary_string(number: int) -> str:
     """Number to binary string
 
@@ -165,12 +159,10 @@ def binary_string(number: int) -> str:
     """
     return bin(number)[2:]
 
-
 def strip_comments(string: str) -> str:
     filelines = string.splitlines(keepends=False)
     r = _compile(r'(?:"(?:[^"\\]|\\.)*"|[^"#])*(#|$)')
     return "\n".join((line[: r.match(line).start(1)] for line in filelines))
-
 
 def strip_ascii(s: str) -> str:
     """Remove all ascii characters from a string
@@ -188,7 +180,6 @@ def strip_ascii(s: str) -> str:
     """
     return "".join(sc for sc in (str(c) for c in s) if sc not in printable)
 
-
 def no_b(string: str) -> str:
     """Removes the b'' from binary strings and sub-strings that contain b''
 
@@ -202,7 +193,6 @@ def no_b(string: str) -> str:
 
     """
     return sub("b'([^']*)'", r"\1", string)
-
 
 def no_u(string: str) -> str:
     """Removes the u'' from unicode strings and sub-strings that contain u''
@@ -219,7 +209,6 @@ def no_u(string: str) -> str:
 
     """
     return sub("u'([^']*)'", r"\1", string)
-
 
 def rhex_str(length: int = 4) -> str:
     """Returns a random hex string

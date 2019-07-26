@@ -105,7 +105,9 @@ if __name__ == "__main__":
 """
 _IO_PKG_CLI = _IO_SCRIPT.replace(
     "====================\n" "Pretty Useful Script\n" "====================\n",
-    "=====================\n" "Pretty Useful Package\n" "=====================\n",
+    "=====================\n"
+    "Pretty Useful Package\n"
+    "=====================\n",
 )
 
 if __name__ == "__main__":

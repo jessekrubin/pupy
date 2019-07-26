@@ -20,7 +20,6 @@ from pupy._version import __version__
 from pupy.savings_n_loads import sstring
 from pupy.sh import pwd
 
-
 def unescaped_str(arg_str):
     """
 
@@ -28,7 +27,6 @@ def unescaped_str(arg_str):
     :return:
     """
     return decode(str(arg_str), "unicode_escape")
-
 
 def new_package(relative_path):
     try:
@@ -55,7 +53,6 @@ def new_package(relative_path):
         raise ValueError("{} already exists".format(relative_path))
         return
 
-
 def new_cmd(args):
     if args.package:
         for relpath in args.path:
@@ -69,10 +66,11 @@ def new_cmd(args):
         sstring(new_filepath, _IO_SCRIPT.strip("\n").strip("\r\n") + "\n")
         print("Created script: {}".format(new_filepath))
 
-
 PARSER = ArgumentParser(description="Command description.")
 SUBPARSERS = PARSER.add_subparsers(help="commands")
-PARSER.add_argument("-V", "--version", action="store_true", help="Print pupy version.")
+PARSER.add_argument(
+    "-V", "--version", action="store_true", help="Print pupy version."
+)
 
 NEW_SUBPARSER = SUBPARSERS.add_parser("new")
 NEW_SUBPARSER.add_argument(
@@ -82,7 +80,6 @@ NEW_SUBPARSER.add_argument(
     "-p", "--package", action="store_true", default=False, help="new package"
 )
 NEW_SUBPARSER.set_defaults(func=new_cmd)
-
 
 def main(ARGS=None):
     """

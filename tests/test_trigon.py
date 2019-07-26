@@ -7,7 +7,6 @@ from pupy.maths import Trigon
 from pupy.maths import Vuple
 from pupy.maths import pytriple_gen
 
-
 class TestTrigon(object):
     def test_triangle_area_half(self):
         """
@@ -15,7 +14,6 @@ class TestTrigon(object):
         """
         t2 = [(1, 0), (0, 1), (0, 0)]
         assert 0.5 == Trigon(*t2).area()
-
     def test_origin_in_triangle(self):
         """
 
@@ -24,7 +22,6 @@ class TestTrigon(object):
         tri = Trigon.from_points(pts)
         assert (0, 0) in tri
         assert tri.contains_origin()
-
     def test_point_on_perimeter(self):
         """
 
@@ -32,7 +29,6 @@ class TestTrigon(object):
         pts = [(-340, 495), (-153, -910), (835, -947)]
         tri = Trigon.from_points(pts)
         assert tri.is_perimeter_point(pts[0])
-
     def test_origin_not_in_triangle(self):
         """
 
@@ -40,7 +36,6 @@ class TestTrigon(object):
         tri = Trigon((-175, 41), (-421, -714), (574, -645))
         assert Vuple((0, 0)) not in tri
         assert not tri.contains_origin()
-
 
 class TestPytriplesGen(object):
     # primatives less than 100
@@ -111,14 +106,12 @@ class TestPytriplesGen(object):
         (161, 240, 289),
         (68, 285, 293),
     }
-
     def test_pytriplets_c_lt100(self):
         """
         Testing the primative pytriplet generator
         """
         p_set = {t for t in pytriple_gen(100)}
         assert self.lt100 == p_set
-
     def test_pytriplets_c_lt300(self):
         """
 

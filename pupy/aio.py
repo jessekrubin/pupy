@@ -32,7 +32,6 @@ try:
 except ImportError:
     pass
 
-
 def asyncify(funk):
     @asyncio.coroutine
     @wraps(funk)
@@ -40,9 +39,7 @@ def asyncify(funk):
         loop = loop if loop else asyncio.get_event_loop()
         pfunc = partial(funk, *args, **kwargs)
         return loop.run_in_executor(executor, pfunc)
-
     return afunk
-
 
 async def sabytes(filepath: str, _bytes: bytes) -> None:
     """Read bytes from file path
@@ -55,7 +52,6 @@ async def sabytes(filepath: str, _bytes: bytes) -> None:
             await f.write(_bytes)
     except NameError:
         raise ImportError("'pip install aiofiles' if ya wanna use this!")
-
 
 async def labytes(filepath: str) -> bytes:
     """Read bytes from file path
@@ -83,7 +79,6 @@ async def sastring(filepath: str, string: str) -> None:
     except NameError:
         raise ImportError("'pip install aiofiles' if ya wanna use this!")
 
-
 async def lastring(filepath: str) -> str:
     try:
         async with aiofiles.open(filepath, mode="r", encoding="utf-8") as f:
@@ -95,7 +90,6 @@ async def lastring(filepath: str) -> str:
             return _file_string
     except NameError:
         raise ImportError("'pip install aiofiles' if ya wanna use this!")
-
 
 async def sajson(filepath: str, data: JASM, minify: bool = False) -> None:
     """Save json-serial-ize-able data to a specific filepath.
@@ -111,9 +105,10 @@ async def sajson(filepath: str, data: JASM, minify: bool = False) -> None:
     if minify:
         _json_str = json.dumps(data, ensure_ascii=True)
     else:
-        _json_str = json.dumps(data, indent=4, sort_keys=True, ensure_ascii=True)
+        _json_str = json.dumps(
+            data, indent=4, sort_keys=True, ensure_ascii=True
+        )
     await sastring(filepath, _json_str)
-
 
 async def lajson(filepath: str) -> JASM:
     """Load a json file given a filepath and return the file-data
@@ -124,14 +119,12 @@ async def lajson(filepath: str) -> JASM:
     _json_str = await lastring(filepath)
     return json.loads(_json_str)
 
-
 async def latoml(filepath: str) -> JASM:
     try:
         _toml_str = await lastring(filepath)
         return toml_loads(_toml_str)
     except NameError:
         raise EnvironmentError("'pip install toml' if you wanna use this!")
-
 
 async def satoml(filepath: str, data: JASM) -> None:
     try:
@@ -140,7 +133,6 @@ async def satoml(filepath: str, data: JASM) -> None:
         await sastring(filepath, _toml_str)
     except NameError:
         raise EnvironmentError("'pip install toml' if you wanna use this!")
-
 
 if __name__ == "__main__":
     pass

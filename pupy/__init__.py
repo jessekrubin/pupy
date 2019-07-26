@@ -44,6 +44,7 @@ from pupy.sh import parent_dirpath
 from pupy.sh import pwd
 from pupy.sh import rm
 from pupy.utils import prinfo
+from pupy.utils import pyfilepath
 from pupy.utils import timestamp
 
 __all__ = [e for e in dir() if not e.startswith("_")]

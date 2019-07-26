@@ -5,7 +5,7 @@ from pupy.utils import pyfilepath
 
 def test_pyfilepath_filepath():
     a = pyfilepath()
-    assert a.endswith('test_utils.py')
+    assert a.endswith("test_utils.py")
 
 def test_pyfilepath_split():
     filepath = pyfilepath()

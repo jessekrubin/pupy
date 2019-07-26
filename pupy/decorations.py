@@ -24,7 +24,11 @@ logging_config = dict(
         }
     },
     handlers={
-        "h": {"class": "logging.StreamHandler", "formatter": "f", "level": DEBUG}
+        "h": {
+            "class": "logging.StreamHandler",
+            "formatter": "f",
+            "level": DEBUG,
+        }
     },
     root={"handlers": ["h"], "level": DEBUG},
 )
@@ -33,7 +37,6 @@ config.dictConfig(logging_config)
 
 logger = getLogger()
 
-
 def in_n_out(funk):
     """Chdir in to the dir the test_function is in and change dirs out when done
 
@@ -41,7 +44,6 @@ def in_n_out(funk):
     :param funk: docin.api logger functions logger.(debug/info/warn/error)
     :return: wrapped function
     """
-
     @wraps(funk)
     def chin_n_chout(*args, **kwargs):
         """
@@ -58,9 +60,7 @@ def in_n_out(funk):
         funk_results = funk(*args, **kwargs)
         chdir(cd)
         return funk_results
-
     return chin_n_chout
-
 
 def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
     """
@@ -77,20 +77,18 @@ def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
         "warn": logger.warning,
         "error": logger.error,
     }
-
     def _decorate_flog_wrapper(_funk):
         def _fmt_args(*args):
             return ", ".join(str(arg) for arg in args)
-
         def _fmt_kwargs(**kwargs):
-            return ", ".join("{}={}".format(str(k), str(v)) for k, v in kwargs.items())
-
+            return ", ".join(
+                "{}={}".format(str(k), str(v)) for k, v in kwargs.items()
+            )
         def _fmt_call(*args, **kwargs):
             params_str = ", ".join(
                 s for s in (_fmt_args(*args), _fmt_kwargs(**kwargs)) if s
             )
             return "{}({})".format(_funk.__name__, params_str)
-
         @wraps(_funk)
         def _flog_wrapper(*args, **kwargs):
             ti = time()
@@ -104,11 +102,8 @@ def flog(funk=None, loglevel="debug", funk_call=True, tictoc=False):
             if any(el for el in msg_parts):
                 _log_levels[loglevel]("[FLOG] | {}".format(msg_str))
             return _ret
-
         return _flog_wrapper
-
     return _decorate_flog_wrapper(funk) if funk else _decorate_flog_wrapper
-
 
 def dirdec(funk):
     """
@@ -116,7 +111,6 @@ def dirdec(funk):
     :param funk:
     :return:
     """
-
     @wraps(funk)
     def _wrapper(*args, **kwargs):
         result = funk(*args, **kwargs)
@@ -125,9 +119,7 @@ def dirdec(funk):
         except (FileExistsError, OSError) as e:
             pass
         return result
-
     return _wrapper
-
 
 def mkdirs(funk):
     """
@@ -135,7 +127,6 @@ def mkdirs(funk):
     :param funk:
     :return:
     """
-
     @wraps(funk)
     def _wrapper(*args, **kwargs):
         try:
@@ -152,9 +143,7 @@ def mkdirs(funk):
             print(e)
             pass
         return funk(*args, **kwargs)
-
     return _wrapper
-
 
 def cash_it(funk):
     """args-2-return value cache.
@@ -169,7 +158,6 @@ def cash_it(funk):
 
     """
     cash_money = {}
-
     @wraps(funk)
     def cash_wrap(*argz):
         """
@@ -179,9 +167,7 @@ def cash_it(funk):
             rv = funk(*argz)
             cash_money[argz] = rv
         return cash_money[argz]
-
     return cash_wrap
-
 
 def cprof(funk):
     """"cProfiling decorator
@@ -191,7 +177,6 @@ def cprof(funk):
     :param funk: funktion to decorate and 'get tha c prof of'
 
     """
-
     @wraps(funk)
     def profiled_funk(*args, **kwargs):
         """wrapper funk"""
@@ -205,9 +190,7 @@ def cprof(funk):
             print("__CPROFILE__")
             profile.print_stats()
         return ret_val
-
     return profiled_funk
-
 
 class tictoc(object):
     """Timing decorator object
@@ -218,7 +201,6 @@ class tictoc(object):
 
     def __init__(self, runs=1):
         self.runs = runs
-
     def __str__(self, t_total, funk, args_string):
         _fmt_strs = (
             "__TICTOC__",
@@ -229,7 +211,6 @@ class tictoc(object):
             "    runs: {}".format(self.runs),
         )
         return "\n".join(_fmt_strs)
-
     def __call__(self, time_funk, printing=True):
         @wraps(time_funk)
         def time_wrapper(*args, **kwargs):
@@ -251,22 +232,17 @@ class tictoc(object):
             except Exception as e:
                 pass
             return result
-
         return time_wrapper
-
 
 def prop(fn):
     """Lazy property decorator"""
     attr_name = "_prop_" + fn.__name__
-
     @property
     def _prop(self):
         if not hasattr(self, attr_name):
             setattr(self, attr_name, fn(self))
         return getattr(self, attr_name)
-
     return _prop
-
 
 def requires(package):
     def _requires(_funk):
@@ -275,8 +251,8 @@ def requires(package):
             try:
                 return _funk(*args, **kwargs)
             except ImportError as e:
-                raise ImportError("'pip install {}' to use this!".format(package))
-
+                raise ImportError(
+                    "'pip install {}' to use this!".format(package)
+                )
         return _wrapper
-
     return _requires

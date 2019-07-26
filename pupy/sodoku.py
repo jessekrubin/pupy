@@ -9,15 +9,15 @@ from typing import Tuple
 
 from pupy.decorations import cash_it
 
-
 class SodokuError(ValueError):
     """simple Sodoku error"""
 
-    def __init__(self, message: str, row: None = None, col: None = None) -> None:
+    def __init__(
+        self, message: str, row: None = None, col: None = None
+    ) -> None:
         self.message = message
         self.row, self.col = row, col
         super(SodokuError, self).__init__(message, row, col)
-
 
 class Sodoku(object):
     """Sodoku
@@ -36,7 +36,6 @@ class Sodoku(object):
     def __init__(self, board: str) -> None:
         self.is_solved = False
         self.board = board.replace(".", "0")
-
     def solve(self) -> None:
         """Solve soduku
 
@@ -46,7 +45,11 @@ class Sodoku(object):
             raise SodokuError("not enough info")
         full_set = "123456789"
         d = {
-            i: ("".join(c for c in full_set) if self.board[i] == "0" else self.board[i])
+            i: (
+                "".join(c for c in full_set)
+                if self.board[i] == "0"
+                else self.board[i]
+            )
             for i in range(81)
         }
         d = Sodoku.update_dictionary(d)
@@ -56,7 +59,6 @@ class Sodoku(object):
         a = [d[ind] for ind in range(81)]
         self.board = "".join(a)
         self.is_solved = True
-
     def euler_096_three_digit_number(self):
         """
 
@@ -66,7 +68,6 @@ class Sodoku(object):
         if not self.is_solved:
             self.solve()
         return int(self.board[0:3])
-
     @staticmethod
     def first_unknown(d: Dict[int, str]) -> Optional[int]:
         """
@@ -80,7 +81,6 @@ class Sodoku(object):
         for i in range(81):
             if len(d[i]) > 1:
                 return i
-
     @staticmethod
     def unsolvable(rcbd: Dict[str, List[int]]) -> bool:
         """
@@ -92,7 +92,6 @@ class Sodoku(object):
 
         """
         return any(len(v) == 0 for v in rcbd.values())
-
     @staticmethod
     def check_unsolvable(d: Dict[int, str]) -> Dict[int, str]:
         """
@@ -107,7 +106,9 @@ class Sodoku(object):
         for rcb in range(9):
             box = {
                 str(n): [
-                    ind for ind in Sodoku.ibox(*divmod(rcb, 3)) if str(n) in d[ind]
+                    ind
+                    for ind in Sodoku.ibox(*divmod(rcb, 3))
+                    if str(n) in d[ind]
                 ]
                 for n in range(1, 10)
             }
@@ -130,7 +131,6 @@ class Sodoku(object):
             ):
                 raise SodokuError("UNSOLVABLE")
         return nd
-
     @staticmethod
     def update_dictionary(d: Dict[int, str]) -> Dict[int, str]:
         """
@@ -148,7 +148,6 @@ class Sodoku(object):
                     if len(nd[nay]) != 1 and nd[i] in nd[nay]:
                         nd[nay] = nd[nay].replace(nd[i], "")
         return nd
-
     @staticmethod
     def reduce_dictionary(d: Dict[int, str]) -> Tuple[bool, Dict[int, str]]:
         """
@@ -181,22 +180,27 @@ class Sodoku(object):
                 if valid:
                     return valid, ret
         return False, d
-
     def __str__(self) -> str:
         header = "  S   O   D   O   K   U  "
         top_border = "╔═══════╦═══════╦═══════╗"
         mid_border = "╠═══════╬═══════╬═══════╣"
         bot_border = "╚═══════╩═══════╩═══════╝"
         top_boxes = "\n".join(
-            "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(*self.board[l * 9 : l * 9 + 9])
+            "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(
+                *self.board[l * 9 : l * 9 + 9]
+            )
             for l in range(0, 3)
         )
         mid_boxes = "\n".join(
-            "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(*self.board[l * 9 : l * 9 + 9])
+            "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(
+                *self.board[l * 9 : l * 9 + 9]
+            )
             for l in range(3, 6)
         )
         bot_boxes = "\n".join(
-            "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(*self.board[l * 9 : l * 9 + 9])
+            "║ {} {} {} ║ {} {} {} ║ {} {} {} ║".format(
+                *self.board[l * 9 : l * 9 + 9]
+            )
             for l in range(6, 9)
         )
         strings = [
@@ -210,7 +214,6 @@ class Sodoku(object):
             bot_border,
         ]
         return "\n".join(strings)
-
     @staticmethod
     def hasdup(d: Dict[int, str]) -> bool:
         """
@@ -227,7 +230,6 @@ class Sodoku(object):
                     if d[n] == d[i]:
                         return True
         return False
-
     def get_oneline_str(self) -> str:
         """
 
@@ -235,7 +237,6 @@ class Sodoku(object):
 
         """
         return self.board
-
     @staticmethod
     def neighbors(index: int, size: int = 9) -> Set[int]:
         """
@@ -255,7 +256,6 @@ class Sodoku(object):
                 Sodoku.box_box(index),
             )
         } - {index}
-
     @staticmethod
     def irow(n: int, bsize: int = 9) -> Set[int]:
         """
@@ -268,7 +268,6 @@ class Sodoku(object):
 
         """
         return {i for i in range(n * bsize, n * bsize + bsize)}
-
     @staticmethod
     def icolumn(n: int, bsize: int = 9) -> Set[int]:
         """
@@ -281,7 +280,6 @@ class Sodoku(object):
 
         """
         return {i for i in range(n, bsize ** 2, bsize)}
-
     @staticmethod
     def ibox(box_r: int, box_c: int, bsize: int = 9) -> Set[int]:
         """
@@ -299,7 +297,6 @@ class Sodoku(object):
             for i in range((box_r * 3), (box_r * 3) + 3)
             for j in range((box_c * 3), (box_c * 3) + 3)
         }
-
     @staticmethod
     @cash_it
     def box_box(index: int) -> Set[int]:
