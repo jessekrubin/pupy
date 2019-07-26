@@ -10,8 +10,10 @@ foreign => 'for ... in ...' (its a pun)
 from collections import Counter
 from collections import deque
 from functools import reduce
-from itertools import tee, chain
+from itertools import chain
+from itertools import tee
 from operator import mul
+from os import getcwd
 from os import path
 from os import sep
 from os import walk
@@ -26,7 +28,7 @@ from pupy._typing import Flint
 from pupy._typing import Paths
 
 
-def files_gen(dirpath: str = ",", abspath: bool = True) -> Paths:
+def files_gen(dirpath: str = getcwd(), abspath: bool = True) -> Paths:
     """Yields paths beneath dirpath param; dirpath defaults to os.getcwd()
 
     :param dirpath: Directory path to walking down/through.
@@ -42,7 +44,7 @@ def files_gen(dirpath: str = ",", abspath: bool = True) -> Paths:
     )
 
 
-def dirs_gen(dirpath: str = ".", abspath: bool = True) -> Paths:
+def dirs_gen(dirpath: str = getcwd(), abspath: bool = True) -> Paths:
     """Yields paths beneath dirpath param; dirpath defaults to os.getcwd()
 
     :param dirpath: Directory path to walking down/through.
@@ -55,30 +57,33 @@ def dirs_gen(dirpath: str = ".", abspath: bool = True) -> Paths:
         for dirpath in (pwd for pwd, dirs, files in walk(dirpath))
     )
 
-def walk_gen(dirpath: str = ".", abspath: bool = True) -> Paths:
-    """Yields file and dir paths beneath dirpath param
 
-    dirpath defaults to os.getcwd()
+def files_dirs_gen(
+    dirpath: str = getcwd(), abspath: bool = True
+) -> Tuple[Paths, Paths]:
+    return files_gen(dirpath, abspath=abspath), dirs_gen(dirpath, abspath=abspath)
+
+
+def walk_gen(dirpath: str = getcwd(), abspath: bool = True) -> Paths:
+    """Yields all paths beneath dirpath param; dirpath defaults to os.getcwd()
 
     :param dirpath: Directory path to walking down/through.
     :param abspath: Yield the absolute path
-    :return: Generator object that yields allpaths (absolute or relative)
+    :return: Generator object that yields filepaths (absolute or relative)
 
     """
-    return (
+    return chain.from_iterable(
         fpath if abspath else fpath.replace(dirpath, "").strip(sep)
-        for fpath in chain(
-        (path.join(pwd, file)) for pwd, dirs, files in walk(dirpath) for file in files
+        for fpath in (
+            chain.from_iterable(
+                (
+                    (path.join(pwd, _dir) for _dir in dirs),
+                    (path.join(pwd, _file) for _file in files),
+                )
+                for pwd, dirs, files in walk(dirpath)
+            )
+        )
     )
-    )
-    # return (
-    #     _path if abspath else _path.replace(dirpath, "").strip(sep)
-    #     for _path in (pwd for pwd, dirs, files in walk(dirpath))
-    # )
-
-
-def files_dirs_gen(dirpath: str = ".", abspath: bool = True) -> Tuple[Paths, Paths]:
-    return files_gen(dirpath, abspath=abspath), dirs_gen(dirpath, abspath=abspath)
 
 
 def exhaust(it: Iterable[Any]) -> None:

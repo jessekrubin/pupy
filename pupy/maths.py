@@ -390,7 +390,8 @@ def disjoint(
 
 
     """
-    return not any(ae in b for ae in a)
+    _b = set(b)
+    return not any(ae in _b for ae in a)
 
 
 def set_cmp(
@@ -427,6 +428,9 @@ def n_choose_r(n, r):
 
     """
     return factorial(n) // factorial(r) // factorial(n - r)
+
+
+ncr = n_choose_r
 
 
 class Trigon(object):

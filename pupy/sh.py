@@ -447,7 +447,7 @@ def rm(*args, r=False):
                 print("{} is dir; use rm(..., r=True)".format(_path_str))
 
 
-def path2name(path_str: str) -> str:
+def basename(path_str: str) -> str:
     """Get the parent-directory for a file or directory path as a string
 
     :param path_str:
@@ -456,31 +456,34 @@ def path2name(path_str: str) -> str:
     .. doctest:: python
 
         >>> from os import getcwd
-        >>> path2name(getcwd()) in getcwd()
+        >>> basename(getcwd()) in getcwd()
         True
 
     """
     return path.split(path.abspath(path_str))[-1]
 
 
-def parent_dirpath(fdpath: str) -> str:
-    """
+def dirname(fdpath: str) -> str:
+    """Return the parent directory for the given file or dir path
 
     :param fdpath: file/dir-path as as string
-    :return:
+    :return: parent directory for the given file or dir path
+
 
     .. doctest:: python
 
         >>> from os import path
-        >>> parent_dirpath(path.abspath(__file__)) in path.abspath(__file__)
+        >>> dirname(path.abspath(__file__)) in path.abspath(__file__)
         True
 
     """
     return path.split(fdpath)[0]
 
 
-# def link_dir(link, target):
-#     return _OS.link_dir(link, target)
+path2name = basename  # Alias for basename
+parent_dirpath = dirname  # alias for dirname
+
+# Operating system dependent things
 link_dir = _OS.link_dir
 link_dirs = _OS.link_dirs
 link_file = _OS.link_file
@@ -490,51 +493,4 @@ unlink_dirs = _OS.unlink_dirs
 unlink_file = _OS.unlink_file
 unlink_files = _OS.unlink_files
 sync = _OS.sync
-# def link_dirs(link_target_tuples):
-#     return _OS.link_dirs(link_target_tuples)
-#
-# def link_file(link, target):
-#     _link = win.link_file if "win" in _OS else lin.link_file
-#     makedirs(parent_dirpath(link), exist_ok=True)
-#     return _OS.link_file(link, target)
-#
-# def link_files(link_target_tuples):
-#     _link = win.link_files if "win" in _OS else lin.link_files
-#     link_target_tuples = list(link_target_tuples)
-#     for link, target in link_target_tuples:
-#         makedirs(parent_dirpath(link), exist_ok=True)
-#     _link(link_target_tuples)
-#     for link, target in link_target_tuples:
-#         makedirs(parent_dirpath(link), exist_ok=True)
-
-# def unlink_dir(link_path: str):
-#     _unlink = win.unlink_dir if "win" in _OS else lin.unlink_dir
-#     return _unlink(link_path)
-#
-# def unlink_dirs(link_paths):
-#     try:
-#         _unlink = win.unlink_dirs if "win" in _OS else lin.unlink_dirs
-#         return _unlink(link_paths)
-#     except TypeError:
-#         pass
-#
-# def unlink_file(link):
-#     _unlink = win.unlink_file if "win" in _OS else lin.unlink_file
-#     return _unlink(link)
-#
-# def unlink_files(links):
-#     try:
-#         _unlink = win.unlink_files if "win" in _OS else lin.unlink_files
-#         return _unlink(links)
-#     except TypeError:
-#         pass
-
-# def sync(src, dest):
-#     """Update (rsync/robocopy) a local test directory from raid
-#
-#     :param dest: path to local tdir
-#     :param src: path to remote tdir
-#     :return: subprocess return code for rsync/robocopy
-#     """
-#     _sync = win.robocopy if "win" in _OS else lin.rsync
-#     return _sync(src=src, dest=dest)
+echo = print

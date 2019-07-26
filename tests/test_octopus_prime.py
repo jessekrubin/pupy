@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 # Jesse Rubin - Project Euler Tests
 
-from pupy.amazon_prime import OctopusPrime
-from pupy.amazon_prime import is_prime
-from pupy.amazon_prime import prime_factors_gen
-from pupy.amazon_prime import prime_gen
+from pupy.amazon import OctopusPrime
+from pupy.amazon import is_prime
+from pupy.amazon import prime_factors_gen
+from pupy.amazon import prime_gen
 
 p_lt50 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
 p_lt100 = [

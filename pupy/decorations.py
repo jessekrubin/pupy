@@ -24,16 +24,9 @@ logging_config = dict(
         }
     },
     handlers={
-        "h": {
-            "class": "logging.StreamHandler",
-            "formatter": "f",
-            "level": DEBUG
-        }
+        "h": {"class": "logging.StreamHandler", "formatter": "f", "level": DEBUG}
     },
-    root={
-        "handlers": ["h"],
-        "level": DEBUG
-    },
+    root={"handlers": ["h"], "level": DEBUG},
 )
 
 config.dictConfig(logging_config)
@@ -264,7 +257,7 @@ class tictoc(object):
 
 def prop(fn):
     """Lazy property decorator"""
-    attr_name = '_prop_' + fn.__name__
+    attr_name = "_prop_" + fn.__name__
 
     @property
     def _prop(self):
