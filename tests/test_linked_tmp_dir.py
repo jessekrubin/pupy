@@ -67,7 +67,6 @@ def test_linkin():
         # print(tmpdir)
         # print(os.listdir(tmpdir))
         lnfiles_links = [link for link, target in lnfiles]
-        breakpoint()
         assert set(lnfiles_links) == set(linkedfiles)
     assert not path.exists(tmp_dirpath)
     for link, target in lnfiles:
