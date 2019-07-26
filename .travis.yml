@@ -16,28 +16,23 @@ before_install:
     - pip install -U poetry
 
 install:
-    - pip install -U aiofiles
-    - pip install -U ruamel.yaml
-    - pip install -U toml
-    - pip install -U msgpack
-    - pip install -U pupy
-    - poetry config settings.virtualenvs.create false
-    - pip install -U pytest
-    - pip install -U pytest-cov
+#    - pip install -U aiofiles
+#    - pip install -U ruamel.yaml
+#    - pip install -U toml
+#    - pip install -U msgpack
+#    - pip install -U pupy
+#    - pip install -U pytest
+#    - pip install -U pytest-cov
     - poetry install -v
 
 jobs:
     include:
         - stage: test
           script:
-              - pytest tests --cov
-              - pip install -U python-rapidjson
-              - pytest tests
+              - poetry run pytest tests --cov
         - stage: deploy
           script: skip
           before_deploy:
-              - pip install -U poetry
-              - poetry install -v
               - poetry config http-basic.pypi $PYPI_USERNAME $PYPI_PASSWORD
               - poetry build
           deploy:
