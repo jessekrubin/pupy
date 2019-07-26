@@ -3,7 +3,11 @@
 
 
 def _json():
-    for mod in ("ujson", "rapidjson", "json"):
+    for mod in (
+        "rapidjson",
+        "ujson",
+        "json"
+        ):
         try:
             res = __import__(mod)
             return res
@@ -14,7 +18,6 @@ def _json():
         "   ~ ujson; 'pip install ujson'\n"
         "   ~ ujson; 'pip install python-rapidjson'\n"
         "   ~ json; this should have come with python\n"
-    )
-
+        )
 
 json = _json()
