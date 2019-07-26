@@ -10,7 +10,7 @@ foreign => 'for ... in ...' (its a pun)
 from collections import Counter
 from collections import deque
 from functools import reduce
-from itertools import tee
+from itertools import tee, chain
 from operator import mul
 from os import path
 from os import sep
@@ -54,6 +54,27 @@ def dirs_gen(dirpath: str = ".", abspath: bool = True) -> Paths:
         dirpath if abspath else dirpath.replace(dirpath, "").strip(sep)
         for dirpath in (pwd for pwd, dirs, files in walk(dirpath))
     )
+
+def walk_gen(dirpath: str = ".", abspath: bool = True) -> Paths:
+    """Yields file and dir paths beneath dirpath param
+
+    dirpath defaults to os.getcwd()
+
+    :param dirpath: Directory path to walking down/through.
+    :param abspath: Yield the absolute path
+    :return: Generator object that yields allpaths (absolute or relative)
+
+    """
+    return (
+        fpath if abspath else fpath.replace(dirpath, "").strip(sep)
+        for fpath in chain(
+        (path.join(pwd, file)) for pwd, dirs, files in walk(dirpath) for file in files
+    )
+    )
+    # return (
+    #     _path if abspath else _path.replace(dirpath, "").strip(sep)
+    #     for _path in (pwd for pwd, dirs, files in walk(dirpath))
+    # )
 
 
 def files_dirs_gen(dirpath: str = ".", abspath: bool = True) -> Tuple[Paths, Paths]:
