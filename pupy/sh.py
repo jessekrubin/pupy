@@ -373,7 +373,7 @@ class WIN:
 
 
 # _OS = system().lower()
-_OS = WIN if "win" in system().lower() else LIN
+_OS = WIN if "windows" in system().lower() else LIN
 
 mv = rename
 pwd = getcwd

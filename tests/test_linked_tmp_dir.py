@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from os import chdir
 from os import path
 from os import sep
 from shutil import rmtree
@@ -29,6 +30,7 @@ def test_mkdirs():
 
 
 def test_linkin():
+
     tdata = [
         ["dummy_dir", "a_file.txt"],
         ["dummy_dir", "b_file.txt"],
@@ -39,10 +41,13 @@ def test_linkin():
     ]
     from pupy.savings_n_loads import touch
 
+    chdir(PWD)
+
     lnfiles = [(path.join(*route), path.join(PWD, *route)) for route in tdata]
+    print(lnfiles)
     dirs = [path.join(PWD, *route[:-1]) for route in tdata]
-    # for thingy in set(dirs):
-    #     os.makedirs(thingy, exist_ok=True)
+    for thingy in set(dirs):
+        os.makedirs(thingy, exist_ok=True)
 
     print(dirs)
     # for uno, dos in lnfiles:
@@ -62,6 +67,7 @@ def test_linkin():
         # print(tmpdir)
         # print(os.listdir(tmpdir))
         lnfiles_links = [link for link, target in lnfiles]
+        breakpoint()
         assert set(lnfiles_links) == set(linkedfiles)
     assert not path.exists(tmp_dirpath)
     for link, target in lnfiles:

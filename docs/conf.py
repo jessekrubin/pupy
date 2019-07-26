@@ -4,9 +4,6 @@ from __future__ import unicode_literals
 import os
 import sys
 
-
-import os
-
 with open(os.path.join('..', 'pyproject.toml'), 'r') as f:
     version = [l for l in f.read().splitlines(keepends=False) if 'version' in l][0].split(' ')[-1].strip('\"')
 this_files_path = os.path.abspath(__file__)

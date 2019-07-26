@@ -3,7 +3,8 @@ from os import path
 from shutil import rmtree
 
 from pupy.foreign import dirs_gen
-from pupy.foreign import files_gen, walk_gen
+from pupy.foreign import files_gen
+from pupy.foreign import walk_gen
 from pupy.savings_n_loads import touch
 
 
@@ -34,7 +35,8 @@ def test_files_gen():
     dirs = list(sorted(dirs_gen("dir")))
     assert expected_dirs == dirs
     files_and_dirs = list(sorted(walk_gen("dir")))
-    assert set(expected_dirs+expected_files) == set(files_and_dirs)
+    expected = set(expected_dirs + expected_files)
+    got = set(files_and_dirs)
+    print(expected, got)
+    assert set(expected_dirs + expected_files) == set(files_and_dirs)
     rmtree("dir")
-
-

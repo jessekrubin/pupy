@@ -8,6 +8,7 @@ from typing import Optional
 from typing import Set
 from typing import Tuple
 
+
 class SodokuError(ValueError):
     message: Any = ...
     def __init__(self, message: str, row: None = ..., col: None = ...) -> None: ...

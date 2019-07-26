@@ -77,6 +77,7 @@ def walk_gen(dirpath: str = getcwd(), abspath: bool = True) -> Paths:
         for fpath in (
             chain.from_iterable(
                 (
+                    (pwd,),
                     (path.join(pwd, _dir) for _dir in dirs),
                     (path.join(pwd, _file) for _file in files),
                 )

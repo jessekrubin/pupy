@@ -51,7 +51,7 @@ def environ_dict():
 def linked_tmp_dir(
     suffix=None, prefix=None, dir=None, mkdirs=[], lndirs=[], lnfiles=[]
 ):
-    temp_dir = mkdtemp(suffix=suffix, prefix=prefix, dir=dir)
+    temp_dir = mkdtemp(suffix, prefix, dir)
     lnfiles = [
         (path.join(temp_dir, _rel_link), target) for _rel_link, target in lnfiles
     ]
