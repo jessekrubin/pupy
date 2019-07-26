@@ -1,11 +1,9 @@
 *.py[cod]
-*.lock
 
 # C extensions
 *.so
 
 # Packages
-*.lock
 *.egg
 *.egg-info
 dist
