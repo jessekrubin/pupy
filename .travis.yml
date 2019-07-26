@@ -1,43 +1,26 @@
 language: python
-dist: xenial
 python:
     - "3.6"
     - "3.7"
     - "3.6-dev"  # 3.6 development branch
     - "3.7-dev"  # 3.7 development branch
 
-stages:
-    - test
-#    - deploy
-
 before_install:
     - pip install -U pip
     - pip install -U virtualenv
-    - pip install -U poetry
+    - pip install poetry
     - pip install pyparsing==2.4.0
 
 install:
-#    - pip install -U aiofiles
-#    - pip install -U ruamel.yaml
-#    - pip install -U toml
-#    - pip install -U msgpack
-#    - pip install -U pupy
-#    - pip install -U pytest
-#    - pip install -U pytest-cov
+    #    - pip install -U aiofiles
+    #    - pip install -U ruamel.yaml
+    #    - pip install -U toml
+    #    - pip install -U msgpack
+    #    - pip install -U pupy
+    #    - pip install -U pytest
+    #    - pip install -U pytest-cov
     - poetry install -v
 
-jobs:
-    include:
-        - stage: test
-          script:
-              - poetry run pytest tests
-#        - stage: deploy
-#          script: skip
-#          deploy:
-#              provider: script
-#              script:
-#                  - poetry --build -u $PYPI_USERNAME -p $PYPI_PASSWORD publish
-#              skip_cleanup: true
-#              on:
-#                  tags: true
-#          if: tag IS present
+script:
+    - poetry run pytest tests
+
