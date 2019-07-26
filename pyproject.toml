@@ -47,7 +47,6 @@ pytest-cov = "^2.6"
 mypy = "^0.701.0"
 tox = "^3.11"
 flake8 = "^3.7"
-recommonmark = "^0.5.0"
 
 [tool.poetry.extras]
 io = ["toml", "ujson", "msgpack", "ruamel.yaml", "aiofiles"]
