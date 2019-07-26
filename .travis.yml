@@ -1,4 +1,5 @@
 language: python
+dist: xenial
 python:
     - "3.6"
     - "3.7"
@@ -9,26 +10,28 @@ stages:
     - test
     - deploy
 
+before_install:
+    - pip install -U pip
+    - pip install -U poetry
+
+install:
+    - pip install -U aiofiles
+    - pip install -U ruamel.yaml
+    - pip install -U toml
+    - pip install -U msgpack
+    - pip install -U pupy
+    - poetry config settings.virtualenvs.create false
+    - pip install -U pytest
+    - pip install -U pytest-cov
+    - poetry install -v
+
 jobs:
     include:
         - stage: test
-          install:
-              - pip install -U pip
-              - pip install -U poetry
-              - pip install -U aiofiles
-              - pip install -U ruamel.yaml
-              - pip install -U toml
-              - pip install -U msgpack
-              - pip install -U pupy
-              - poetry config settings.virtualenvs.create false
-              - poetry install -v
-              - pip install -U pytest
-              - pip install -U pytest-cov
           script:
               - pytest tests --cov
               - pip install -U python-rapidjson
               - pytest tests
-
         - stage: deploy
           script: skip
           before_deploy:
