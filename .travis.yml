@@ -12,6 +12,7 @@ stages:
 
 before_install:
     - pip install -U pip
+    - pip install -U virtualenv
     - pip install -U poetry
 
 install:
