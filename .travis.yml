@@ -5,20 +5,42 @@ python:
     - "3.6-dev"  # 3.6 development branch
     - "3.7-dev"  # 3.7 development branch
 
-before_install:
-    - pip install -U pip
-#    - pip install poetry
-install:
-    - pip install -U aiofiles
-    - pip install -U ruamel.yaml
-    - pip install -U toml
-    - pip install -U msgpack
-    - pip install -U pupy
-    - pip install pytest
-    - pip install pytest-cov
+stages:
+    - test
+    - deploy
 
-script:
-    - pytest tests
-    - pip install -U python-rapidjson
-    - pytest tests
+jobs:
+    include:
+        - stage: test
+          install:
+              - pip install -U pip
+              - pip install -U aiofiles
+              - pip install -U ruamel.yaml
+              - pip install -U toml
+              - pip install -U msgpack
+              - pip install -U pupy
+              - pip install pytest
+              - pip install pytest-cov
+              - pip install poetry
+              #              - poetry install -v
+          script:
+              - pytest tests --cov
+              - pip install -U python-rapidjson
+              - pytest tests
+
+        - stage: deploy
+          script: skip
+          before_deploy:
+              - pip install -U poetry
+              - poetry install -v
+              - poetry config http-basic.pypi $PYPI_USERNAME $PYPI_PASSWORD
+              - poetry build
+          deploy:
+              provider: script
+              script: poetry publish
+              skip_cleanup: true
+              on:
+                  tags: true
+          if: tag IS present
+
 
