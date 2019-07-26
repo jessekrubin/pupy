@@ -8,7 +8,7 @@ python:
 
 stages:
     - test
-    - deploy
+#    - deploy
 
 before_install:
     - pip install -U pip
@@ -29,16 +29,14 @@ jobs:
     include:
         - stage: test
           script:
-              - poetry run pytest tests --cov
-        - stage: deploy
-          script: skip
-          deploy:
-              provider: script
-              script:
-                  - poetry --build -u $PYPI_USERNAME -p $PYPI_PASSWORD publish
-              skip_cleanup: true
-              on:
-                  tags: true
-          if: tag IS present
-
-
+              - poetry run pytest tests
+#        - stage: deploy
+#          script: skip
+#          deploy:
+#              provider: script
+#              script:
+#                  - poetry --build -u $PYPI_USERNAME -p $PYPI_PASSWORD publish
+#              skip_cleanup: true
+#              on:
+#                  tags: true
+#          if: tag IS present
