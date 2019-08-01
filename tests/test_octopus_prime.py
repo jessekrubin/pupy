@@ -140,17 +140,20 @@ p_gt50_lt200 = [
     199,
 ]
 
+
 def test_is_prime():
     """
 
     """
     assert all(is_prime(n) for n in p_lt200)
 
+
 def test_pfactors_gen():
     """
 
     """
     assert [pf for pf in prime_factors_gen(12)] == [2, 3]
+
 
 class TestOctopusPrimeMethods(object):
     def test_lt100_no_save_load(self):
@@ -159,6 +162,7 @@ class TestOctopusPrimeMethods(object):
         """
         op = OctopusPrime(plim=100)
         assert all(a == b for a, b in zip(p_lt100, op))
+
     def test_primes_gt50_lt200(self):
         """
 
@@ -166,17 +170,20 @@ class TestOctopusPrimeMethods(object):
         op = OctopusPrime(plim=100)
         assert p_gt50_lt200 == op.primes_between(50, 200)
 
+
 class TestPrimeSieve(object):
     def test_prime_seive_gen(self):
         """
         test_pupy if can generate primes below 100
         """
         assert p_lt100 == [p for p in prime_gen(100)]
+
     def test_use_prime_list(self):
         """
         testing if the dictionary recreation is good
         """
         assert list(prime_gen(200, kprimes=p_lt100)) == p_gt100_lt200
+
     def test_small_primes(self):
         """
         testing the generator with smaller primes
@@ -186,6 +193,7 @@ class TestPrimeSieve(object):
         assert list(prime_gen(5)) == [2, 3, 5]
         assert list(prime_gen(7)) == [2, 3, 5, 7]
         assert list(prime_gen(11)) == [2, 3, 5, 7, 11]
+
     def test_small_ub_large_known_primes(self):
         """
         test_pupy handling an upper_bound < max prime

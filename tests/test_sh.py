@@ -8,9 +8,10 @@ from pupy.foreign import dirs_gen
 from pupy.foreign import files_gen
 from pupy.foreign import walk_gen
 from pupy.savings_n_loads import touch
-from pupy.sh import cd
+from pupy.sh import cd, rm
 from pupy.sh import mv
 
+import os
 def test_mv_uno(tmpdir):
     filepath_parts = [
         ("dir", "file1.txt"),
@@ -76,3 +77,35 @@ def test_mv_multi(tmpdir):
     # print(expected)
     # print(got)
     assert expected == got
+
+
+def test_rm_multi(tmpdir):
+    os.chdir(tmpdir)
+    test_files = ["q","w","e","r","t","y","u","i","o","a","s","d"]
+    mkdir("test_env")
+    cd("test_env")
+    test_files = [x+".txt" for x in test_files]
+    for x in test_files:
+        with open(x, "w") as f:
+            f.write(" ")
+    expected = []
+    cd(tmpdir)
+    rm("test_env/*.txt")
+    actual = os.listdir("test_env")
+    assert expected == actual
+
+    
+def test_rm_para(tmpdir):
+    os.chdir(tmpdir)
+    test_files = ["q","w","e"]
+    mkdir("test_env")
+    cd("test_env")
+    test_files = [x+".txt" for x in test_files]
+    for x in test_files:
+        with open(x, "w") as f:
+            f.write(" ")
+    expected = []
+    cd(tmpdir)
+    actual = os.listdir("test_env")
+    rm("-rfv","test_env", "h.txt")
+    assert not os.path.exists('test_env')

@@ -27,9 +27,10 @@ from pupy.savings_n_loads import syaml
 from pupy.savings_n_loads import touch
 
 JASM_DICT = {"Jason": ["Green", "Berg"], "Jasm": ["Grundle", "Bug"]}
+
+
 @pytest.mark.parametrize(
-    "save_funk,load_funk",
-    [[sstring, lstring], [savings, lstring], [sstr, lstr]],
+    "save_funk,load_funk", [[sstring, lstring], [savings, lstring], [sstr, lstr]]
 )
 def test_savings_n_loads_methods(save_funk, load_funk):
     fp = "somefile.txt"
@@ -38,6 +39,7 @@ def test_savings_n_loads_methods(save_funk, load_funk):
     s = load_funk(fp)
     assert s == string
     remove(fp)
+
 
 @pytest.mark.parametrize(
     "save_funk,load_funk",
@@ -59,6 +61,7 @@ def test_ljson_n_sjson(save_funk: callable, load_funk: callable):
     loaded_data = load_funk(fp)
     assert loaded_data == JASM_DICT
     remove(fp)
+
 
 @pytest.mark.parametrize(
     "save_funk,load_funk",
@@ -86,9 +89,9 @@ def test_ljson_n_sjson_safe_save(save_funk: callable, load_funk: callable):
     assert loaded_data == JASM_DICT
     remove(fp2)
 
+
 @pytest.mark.parametrize(
-    "save_funk,load_funk",
-    [[save_jasm, load_jasm], [sjson, ljson], [sjasm, ljasm]],
+    "save_funk,load_funk", [[save_jasm, load_jasm], [sjson, ljson], [sjasm, ljasm]]
 )
 def test_ljson_n_sjson_min(save_funk: callable, load_funk: callable):
     """
@@ -99,6 +102,7 @@ def test_ljson_n_sjson_min(save_funk: callable, load_funk: callable):
     loaded_data = load_funk(fp)
     assert loaded_data == JASM_DICT
     remove(fp)
+
 
 @pytest.mark.parametrize(
     "fdpath",
@@ -120,6 +124,7 @@ def test_touch(fdpath):
         rmtree(root)
     elif path.isfile(root):
         remove(root)
+
 
 def test_safepath():
     filepath = "afile.txt"

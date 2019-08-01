@@ -454,15 +454,41 @@ def ls_files_dirs(
 ) -> Tuple[List[str], List[str]]:
     return ls_files(dirpath, abs=abs), ls_dirs(dirpath, abs=abs)
 
-def rm(*args, r=False):
-    for _path_str in args:
-        if path.isfile(_path_str):
-            remove(_path_str)
-        elif path.isdir(_path_str):
-            if r:
-                rmtree(_path_str)
-            else:
-                print("{} is dir; use rm(..., r=True)".format(_path_str))
+def rm(f_arg, *args):
+    '''
+    ***rm takes a serious of arguements (in this case files) and deletes them***
+
+    If you wish to use native rm bash commands then follow the steps below:
+
+    F_arg should be one of the following (↓↓↓) if you wish to use these arguements. However if you chose not to use 
+    these commands then simply fill in the parameter args with the files you wish to remove.
+    -f, --force           ignore nonexistent files, never prompt
+    -i, --interactive     prompt before any removal **** Not currently created, seems useless for our intentions
+    -r, -R, --recursive   remove directories and their contents recursively
+    -v, --verbose         explain what is being done
+
+    Example: -rf
+    '''
+    b2p = {"f":False,"r":False,"i":False,"v":False}
+    if f_arg.startswith("-"):
+        for sub_command in f_arg.lower()[1:]:
+            if sub_command in b2p:
+                b2p[sub_command] = True
+    else:
+        args = list(args)
+        args.insert(0,f_arg)
+    for arg in args:
+        for _path_str in iglob(arg, recursive=True):
+            if b2p["v"]:
+                print("Removing: " + _path_str)
+            if path.isfile(_path_str):    
+                if path.exists(_path_str) or (not b2p["f"]):
+                    remove(_path_str)
+            elif path.isdir(_path_str):
+                if b2p["r"]:
+                    rmtree(_path_str)
+                else:
+                    print("cannot remove directory {}: Is a directory".format(repr(_path_str)))
 
 def basename(path_str: str) -> str:
     """Get the parent-directory for a file or directory path as a string
