@@ -12,6 +12,7 @@ from pupy import files_gen
 
 PWD = path.split(path.realpath(__file__))[0]
 
+
 def test_mkdirs():
     dirs = [("something",), ("something", "else")]
     expected = [path.join(*route) for route in dirs]
@@ -26,6 +27,7 @@ def test_mkdirs():
         )
         assert set(dirs) == set(expected)
     assert all(not path.exists(d) for d in dirs)
+
 
 def test_linkin():
 
@@ -73,6 +75,7 @@ def test_linkin():
     #     rmtree(path.join(PWD, 'dummy_dir'))
     # except:
     #     pass
+
 
 if __name__ == "__main__":
     pass
