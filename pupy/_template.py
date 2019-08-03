@@ -95,7 +95,7 @@ def main():
     ARGV = PARSER.parse_args()
     input_str = ARGV.strinput or ARGV.input.read()
     ARGV.output.write(input_str)
-    ARGV.output.write("OUTPUT\n")
+    ARGV.output.write("OUTPUT")
 
 
 if __name__ == "__main__":

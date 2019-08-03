@@ -3,6 +3,7 @@ from os import path
 from pupy import sstr
 from pupy.fmt import filesize
 from pupy.fmt import nseconds
+from pupy.fmt import strip_comments
 from pupy.fmt import term_table
 
 TOP_BABY_NAMES = [
@@ -719,6 +720,15 @@ def test_term_table_col_wise_2():
     assert line_vals == expected
 
 
+def test_ftime_0seconds():
+    """
+
+    """
+    ti = 5.4321
+    tf = 5.4321
+    assert nseconds(ti, tf) == "0 sec"
+
+
 def test_ftime_seconds():
     """
 
@@ -762,3 +772,29 @@ def test_filesize(tmpdir):
     filepath = path.join(tmpdir, "somefile.txt")
     sstr(path.join(tmpdir, "somefile.txt"), "12342312312")
     assert filesize(filepath) == "11.0 bytes"
+
+
+something = """
+# this func does a thing
+def thisfunc():
+    pass # and here we have a comment
+# another comment
+
+a = 2.3+4
+b = 'pood'
+
+"""
+something_no_comments: str = """
+
+def thisfunc():
+    pass 
+
+
+a = 2.3+4
+b = 'pood'
+"""
+
+
+def test_strip_comments():
+    no_comments = strip_comments(something)
+    assert no_comments == something_no_comments

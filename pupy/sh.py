@@ -5,7 +5,9 @@
 Shell-ish
 =========
 """
+from glob import iglob
 from os import chdir
+from os import environ
 from os import getcwd
 from os import listdir
 from os import lstat
@@ -25,7 +27,8 @@ from subprocess import PIPE
 from subprocess import run
 from typing import List
 from typing import Tuple
-from glob import iglob
+from typing import Union
+
 
 class LIN:
     @staticmethod
@@ -98,6 +101,7 @@ class LIN:
             dest,
         ]
         return list(filter(None, _args))
+
     @staticmethod
     def rsync(src, dest, delete=False, exclude=[], include=[], dry_run=False):
         """Sheldon rsync wrapper for syncing tdirs
@@ -146,36 +150,46 @@ class LIN:
             args=list(filter(None, rsync_args)), stdout=PIPE, stderr=PIPE
         )
         return subproc
+
     @staticmethod
     def link_dir(linkpath, targetpath):
         symlink(targetpath, linkpath)
+
     @staticmethod
     def link_dirs(link_target_tuples):
         for link, target in link_target_tuples:
             LIN.link_dir(link, target)
+
     @staticmethod
     def link_file(linkpath: str, targetpath: str) -> None:
         makedirs(path.split(linkpath)[0], exist_ok=True)
         symlink(targetpath, linkpath)
+
     @staticmethod
     def link_files(link_target_tuples):
         for link, target in link_target_tuples:
             LIN.link_file(link, target)
+
     @staticmethod
     def unlink_dir(link):
         unlink(link)
+
     @staticmethod
     def unlink_dirs(links):
         for link in links:
             unlink(link)
+
     @staticmethod
     def unlink_file(link):
         unlink(link)
+
     @staticmethod
     def unlink_files(links):
         for link in links:
             unlink(link)
+
     sync = rsync
+
 
 class WIN:
 
@@ -236,6 +250,7 @@ class WIN:
         if dry_run:
             _args.append("/L")
         return list(filter(None, _args))
+
     @staticmethod
     def robocopy(
         src,
@@ -282,6 +297,7 @@ class WIN:
         )
         subproc = run(args=_args, stdout=PIPE, stderr=PIPE)
         return subproc
+
     @staticmethod
     def link_dir(link, target):
         makedirs(link, exist_ok=True)
@@ -291,6 +307,7 @@ class WIN:
             stderr=PIPE,
             shell=True,
         )
+
     @staticmethod
     def link_dirs(link_target_tuples):
         def _check_link_target(link, target):
@@ -315,6 +332,7 @@ class WIN:
             except:
                 pass
             return True
+
         _exists = [
             "mklink /D {} {}".format(link, target)
             for link, target in link_target_tuples
@@ -331,10 +349,12 @@ class WIN:
         #     makedirs(link, exist_ok=True)
         #     link_args.extend(["mklink", "/D", link, target, "&&"])
         # run(args=link_args[:-1], stdout=PIPE, stderr=PIPE, shell=True)
+
     @staticmethod
     def link_file(link, target):
         makedirs(path.split(link)[0], exist_ok=True)
         run(args=["mklink", link, target], stdout=PIPE, stderr=PIPE, shell=True)
+
     @staticmethod
     def link_files(link_target_tuples):
         def _check_link_target(link, target):
@@ -354,6 +374,7 @@ class WIN:
             except Exception as e:
                 print(e, type(e))
             return False
+
         _exists = [
             "mklink {} {}".format(link, target)
             for link, target in link_target_tuples
@@ -365,25 +386,31 @@ class WIN:
             stderr=PIPE,
             shell=True,
         )
+
     @staticmethod
     def unlink_dir(link):
         run(args=["RD", link], stdout=PIPE, stderr=PIPE, shell=True)
+
     @staticmethod
     def unlink_dirs(links):
         cmd_args = " && ".join("RD {}".format(link) for link in links).split(
             " "
         )
         run(args=cmd_args, stdout=PIPE, stderr=PIPE, shell=True)
+
     @staticmethod
     def unlink_file(link):
         run(args=["Del", link], stdout=PIPE, stderr=PIPE, shell=True)
+
     @staticmethod
     def unlink_files(links):
         cmd_args = " && ".join("Del {}".format(link) for link in links).split(
             " "
         )
         run(args=cmd_args, stdout=PIPE, stderr=PIPE, shell=True)
+
     sync = robocopy
+
 
 # _OS = system().lower()
 _OS = WIN if "windows" in system().lower() else LIN
@@ -391,9 +418,11 @@ _OS = WIN if "windows" in system().lower() else LIN
 pwd = getcwd
 cd = chdir
 
+
 def mv(src, dst):
     for file in iglob(src, recursive=True):
         move(file, dst)
+
 
 def cp(src, dst, r=False, symlinks=False, ignore=None):
     makedirs(dst, exist_ok=True)
@@ -432,10 +461,12 @@ def cp(src, dst, r=False, symlinks=False, ignore=None):
         else:
             copy2(_src_pth, _dest_pth)
 
+
 def ls(dirpath: str = ".", abs: bool = False) -> List[str]:
     if abs:
         return [path.join(dirpath, item) for item in listdir(dirpath)]
     return listdir(dirpath)
+
 
 def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
     files = (file for file in ls(dirpath, abs=True) if path.isfile(file))
@@ -443,16 +474,19 @@ def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
         return list(map(lambda el: el.replace(dirpath, "."), files))
     return list(files)
 
+
 def ls_dirs(dirpath: str = ".", abs: bool = False) -> List[str]:
     dirs = (dir for dir in ls(dirpath, abs=True) if path.isdir(dir))
     if not abs:
         return list(map(lambda el: el.replace(dirpath, "."), dirs))
     return list(dirs)
 
+
 def ls_files_dirs(
     dirpath: str = ".", abs: bool = False
 ) -> Tuple[List[str], List[str]]:
     return ls_files(dirpath, abs=abs), ls_dirs(dirpath, abs=abs)
+
 
 def rm(f_arg, *args):
     '''
@@ -469,19 +503,19 @@ def rm(f_arg, *args):
 
     Example: -rf
     '''
-    b2p = {"f":False,"r":False,"i":False,"v":False}
+    b2p = {"f": False, "r": False, "i": False, "v": False}
     if f_arg.startswith("-"):
         for sub_command in f_arg.lower()[1:]:
             if sub_command in b2p:
                 b2p[sub_command] = True
     else:
         args = list(args)
-        args.insert(0,f_arg)
+        args.insert(0, f_arg)
     for arg in args:
         for _path_str in iglob(arg, recursive=True):
             if b2p["v"]:
                 print("Removing: " + _path_str)
-            if path.isfile(_path_str):    
+            if path.isfile(_path_str):
                 if path.exists(_path_str) or (not b2p["f"]):
                     remove(_path_str)
             elif path.isdir(_path_str):
@@ -489,6 +523,7 @@ def rm(f_arg, *args):
                     rmtree(_path_str)
                 else:
                     print("cannot remove directory {}: Is a directory".format(repr(_path_str)))
+
 
 def basename(path_str: str) -> str:
     """Get the parent-directory for a file or directory path as a string
@@ -505,6 +540,7 @@ def basename(path_str: str) -> str:
     """
     return path.split(path.abspath(path_str))[-1]
 
+
 def dirname(fdpath: str) -> str:
     """Return the parent directory for the given file or dir path
 
@@ -520,6 +556,15 @@ def dirname(fdpath: str) -> str:
 
     """
     return path.split(fdpath)[0]
+
+
+def export(key: str, val: Union[None, str] = None) -> None:
+    if not val and '=' in key:
+        _key, *val = key.split('=')
+        export(_key, '='.join(val))
+    else:
+        environ[key] = val
+
 
 path2name = basename  # Alias for basename
 parent_dirpath = dirname  # alias for dirname

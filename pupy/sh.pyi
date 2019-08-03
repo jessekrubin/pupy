@@ -8,6 +8,7 @@ from typing import Any
 from typing import List
 from typing import Optional
 from typing import Tuple
+from typing import Union
 
 class LIN:
     @staticmethod
@@ -104,6 +105,7 @@ def ls_files_dirs(
 def rm(*args: Any, r: bool = ...) -> None: ...
 def basename(path_str: str) -> str: ...
 def dirname(fdpath: str) -> str: ...
+def export(key: str, val: Union[None, str] = None) -> None: ...
 
 path2name = basename
 parent_dirpath = dirname

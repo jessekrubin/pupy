@@ -83,16 +83,13 @@ def nseconds(t1: float, t2: Optional[float] = None) -> str:
         return nseconds((t2 - t1))
     elif t1 == 0.0:
         return "0 sec"
-    elif t1 >= 1:
-        return "%.3f sec" % t1
-    elif 1 > t1 >= 0.001:
-        return "%.3f ms" % ((10 ** 3) * t1)
-    elif 0.001 > t1 >= 0.000001:
-        return "%.3f μs" % ((10 ** 6) * t1)
     elif 0.000001 > t1 >= 0.000000001:
         return "%.3f ns" % ((10 ** 9) * t1)
-    else:
-        return nseconds((t2 - t1))
+    elif 0.001 > t1 >= 0.000001:
+        return "%.3f μs" % ((10 ** 6) * t1)
+    elif 1 > t1 >= 0.001:
+        return "%.3f ms" % ((10 ** 3) * t1)
+    return "%.3f sec" % t1
 
 def term_table(
     strings: List[str], row_wise: bool = False, filler: str = "~"

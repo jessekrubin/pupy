@@ -8,7 +8,7 @@ from pupy.foreign import dirs_gen
 from pupy.foreign import files_gen
 from pupy.foreign import walk_gen
 from pupy.savings_n_loads import touch
-from pupy.sh import cd, rm
+from pupy.sh import cd, rm, export
 from pupy.sh import mv
 
 import os
@@ -109,3 +109,21 @@ def test_rm_para(tmpdir):
     actual = os.listdir("test_env")
     rm("-rfv","test_env", "h.txt")
     assert not os.path.exists('test_env')
+
+def test_export_single_key():
+    key = 'HERM=pood'
+    from os import environ
+    assert 'HERM' not in environ
+    export(key)
+    assert 'HERM' in environ
+    assert environ['HERM'] == 'pood'
+    del environ['HERM']
+
+
+def test_export_key_val():
+    key, val = 'HERM', 'pood'
+    from os import environ
+    assert 'HERM' not in environ
+    export(key, val)
+    assert 'HERM' in environ
+    assert environ['HERM'] == 'pood'
