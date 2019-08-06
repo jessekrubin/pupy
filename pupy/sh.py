@@ -29,7 +29,6 @@ from typing import List
 from typing import Tuple
 from typing import Union
 
-
 class LIN:
     @staticmethod
     def rsync_args(
@@ -40,7 +39,7 @@ class LIN:
         exclude=[],
         include=[],
         dry_run=False,
-    ):
+        ):
         """Sheldon rsync wrapper for syncing tdirs
 
         Args:
@@ -99,7 +98,7 @@ class LIN:
             *(("--dry-run", "-i") if dry_run else (None,)),
             src,
             dest,
-        ]
+            ]
         return list(filter(None, _args))
 
     @staticmethod
@@ -145,10 +144,10 @@ class LIN:
             exclude=exclude,
             include=include,
             dry_run=dry_run,
-        )
+            )
         subproc = run(
             args=list(filter(None, rsync_args)), stdout=PIPE, stderr=PIPE
-        )
+            )
         return subproc
 
     @staticmethod
@@ -190,7 +189,6 @@ class LIN:
 
     sync = rsync
 
-
 class WIN:
 
     # def rsync_args(src, dest,
@@ -204,7 +202,7 @@ class WIN:
         exclude_files=[],
         exclude_dirs=[],
         dry_run=False,
-    ):
+        ):
         """Robocopy for sheldon
 
         Args:
@@ -242,7 +240,7 @@ class WIN:
             "/mt",
             "/W:1",
             "/R:1",
-        ]
+            ]
         if exclude_dirs:
             _args.extend(["/XD", *exclude_dirs])
         if exclude_files:
@@ -259,7 +257,7 @@ class WIN:
         exclude_files=[],
         exclude_dirs=[],
         dry_run=False,
-    ):
+        ):
         """Robocopy for sheldon
 
         :param dest: path to local tdir
@@ -294,7 +292,7 @@ class WIN:
             exclude_files=exclude_files,
             exclude_dirs=exclude_dirs,
             dry_run=dry_run,
-        )
+            )
         subproc = run(args=_args, stdout=PIPE, stderr=PIPE)
         return subproc
 
@@ -306,7 +304,7 @@ class WIN:
             stdout=PIPE,
             stderr=PIPE,
             shell=True,
-        )
+            )
 
     @staticmethod
     def link_dirs(link_target_tuples):
@@ -321,8 +319,8 @@ class WIN:
                 print(
                     "Link target not found; unable to create link:\n    {} => {}".format(
                         link, target
+                        )
                     )
-                )
                 return False
             except Exception as e:
                 print(e, type(e))
@@ -337,13 +335,13 @@ class WIN:
             "mklink /D {} {}".format(link, target)
             for link, target in link_target_tuples
             if _check_link_target(link, target)
-        ]
+            ]
         run(
             args=" && ".join(_exists).split(" "),
             stdout=PIPE,
             stderr=PIPE,
             shell=True,
-        )
+            )
         # link_args = []
         # for link, target in link_target_tuples:
         #     makedirs(link, exist_ok=True)
@@ -369,8 +367,8 @@ class WIN:
                 print(
                     "Link target not found; unable to create link:\n    {} => {}".format(
                         link, target
+                        )
                     )
-                )
             except Exception as e:
                 print(e, type(e))
             return False
@@ -379,13 +377,13 @@ class WIN:
             "mklink {} {}".format(link, target)
             for link, target in link_target_tuples
             if _check_link_target(link, target)
-        ]
+            ]
         run(
             args=" && ".join(_exists).split(" "),
             stdout=PIPE,
             stderr=PIPE,
             shell=True,
-        )
+            )
 
     @staticmethod
     def unlink_dir(link):
@@ -395,7 +393,7 @@ class WIN:
     def unlink_dirs(links):
         cmd_args = " && ".join("RD {}".format(link) for link in links).split(
             " "
-        )
+            )
         run(args=cmd_args, stdout=PIPE, stderr=PIPE, shell=True)
 
     @staticmethod
@@ -406,11 +404,10 @@ class WIN:
     def unlink_files(links):
         cmd_args = " && ".join("Del {}".format(link) for link in links).split(
             " "
-        )
+            )
         run(args=cmd_args, stdout=PIPE, stderr=PIPE, shell=True)
 
     sync = robocopy
-
 
 # _OS = system().lower()
 _OS = WIN if "windows" in system().lower() else LIN
@@ -418,11 +415,9 @@ _OS = WIN if "windows" in system().lower() else LIN
 pwd = getcwd
 cd = chdir
 
-
 def mv(src, dst):
     for file in iglob(src, recursive=True):
         move(file, dst)
-
 
 def cp(src, dst, r=False, symlinks=False, ignore=None):
     makedirs(dst, exist_ok=True)
@@ -455,18 +450,16 @@ def cp(src, dst, r=False, symlinks=False, ignore=None):
                     r=True,
                     symlinks=symlinks,
                     ignore=ignore,
-                )
+                    )
             else:
                 print("{} is dir; use rm(..., r=True)".format(_src_pth))
         else:
             copy2(_src_pth, _dest_pth)
 
-
 def ls(dirpath: str = ".", abs: bool = False) -> List[str]:
     if abs:
         return [path.join(dirpath, item) for item in listdir(dirpath)]
     return listdir(dirpath)
-
 
 def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
     files = (file for file in ls(dirpath, abs=True) if path.isfile(file))
@@ -474,36 +467,83 @@ def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
         return list(map(lambda el: el.replace(dirpath, "."), files))
     return list(files)
 
-
 def ls_dirs(dirpath: str = ".", abs: bool = False) -> List[str]:
     dirs = (dir for dir in ls(dirpath, abs=True) if path.isdir(dir))
     if not abs:
         return list(map(lambda el: el.replace(dirpath, "."), dirs))
     return list(dirs)
 
-
 def ls_files_dirs(
     dirpath: str = ".", abs: bool = False
-) -> Tuple[List[str], List[str]]:
+    ) -> Tuple[List[str], List[str]]:
     return ls_files(dirpath, abs=abs), ls_dirs(dirpath, abs=abs)
 
-
 def rm(f_arg, *args):
-    '''
-    ***rm takes a serious of arguements (in this case files) and deletes them***
+    """rm takes a serious of arguements (in this case files) and deletes them
+
+    :param f_arg:
+    :type f_arg:
+    :param args:
+    :type args:
+    :return:
+    :rtype:
 
     If you wish to use native rm bash commands then follow the steps below:
 
-    F_arg should be one of the following (↓↓↓) if you wish to use these arguements. However if you chose not to use 
+    F_arg should be one of the following (↓↓↓) if you wish to use these arguements. However if you chose not to use
     these commands then simply fill in the parameter args with the files you wish to remove.
     -f, --force           ignore nonexistent files, never prompt
     -i, --interactive     prompt before any removal **** Not currently created, seems useless for our intentions
     -r, -R, --recursive   remove directories and their contents recursively
     -v, --verbose         explain what is being done
 
-    Example: -rf
-    '''
-    b2p = {"f": False, "r": False, "i": False, "v": False}
+    ----------------------
+    Bash rm --help message
+    ----------------------
+
+    ..
+
+        Usage: rm [OPTION]... FILE...
+        Remove (unlink) the FILE(s).
+
+          -f, --force           ignore nonexistent files, never prompt
+          -i                    prompt before every removal
+          -I                    prompt once before removing more than three files, or
+                                  when removing recursively.  Less intrusive than -i,
+                                  while still giving protection against most mistakes
+              --interactive[=WHEN]  prompt according to WHEN: never, once (-I), or
+                                  always (-i).  Without WHEN, prompt always
+              --one-file-system  when removing a hierarchy recursively, skip any
+                                  directory that is on a file system different from
+                                  that of the corresponding command line argument
+              --no-preserve-root  do not treat `/' specially
+              --preserve-root   do not remove `/' (default)
+          -r, -R, --recursive   remove directories and their contents recursively
+          -v, --verbose         explain what is being done
+              --help     display this help and exit
+              --version  output version information and exit
+
+        By default, rm does not remove directories.  Use the --recursive (-r or -R)
+        option to remove each listed directory, too, along with all of its contents.
+
+        To remove a file whose name starts with a `-', for example `-foo',
+        use one of these commands:
+          rm -- -foo
+
+          rm ./-foo
+
+        Note that if you use rm to remove a file, it is usually possible to recover
+        the contents of that file.  If you want more assurance that the contents are
+        truly unrecoverable, consider using shred.
+
+
+    """
+    b2p = {
+        "f": False,
+        "r": False,
+        "i": False,
+        "v": False
+        }
     if f_arg.startswith("-"):
         for sub_command in f_arg.lower()[1:]:
             if sub_command in b2p:
@@ -524,7 +564,6 @@ def rm(f_arg, *args):
                 else:
                     print("cannot remove directory {}: Is a directory".format(repr(_path_str)))
 
-
 def basename(path_str: str) -> str:
     """Get the parent-directory for a file or directory path as a string
 
@@ -539,7 +578,6 @@ def basename(path_str: str) -> str:
 
     """
     return path.split(path.abspath(path_str))[-1]
-
 
 def dirname(fdpath: str) -> str:
     """Return the parent directory for the given file or dir path
@@ -557,17 +595,16 @@ def dirname(fdpath: str) -> str:
     """
     return path.split(fdpath)[0]
 
-
 def export(key: str, val: Union[None, str] = None) -> None:
-    if not val and '=' in key:
+    if val:
+        environ[key] = val
+        return;
+    if '=' in key:
         _key, *val = key.split('=')
         export(_key, '='.join(val))
-    else:
-        environ[key] = val
-
 
 path2name = basename  # Alias for basename
-parent_dirpath = dirname  # alias for dirname
+parent_dirpath = dirname  # Alias for dirname
 
 # Operating system dependent things
 link_dir = _OS.link_dir
