@@ -18,7 +18,7 @@ before_install:
     - pip install poetry
 
 install:
-    - poetry install -E io -v --no-dev
+    - poetry install -E io -v
 
 script:
     - poetry run pytest tests
