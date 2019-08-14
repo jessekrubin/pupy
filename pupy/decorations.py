@@ -137,17 +137,17 @@ def mkdirs(funk):
         try:
             makedirs(dirpath, exist_ok=True)
         except OSError as e:
-            print(e)
+            # print(e)
             pass
         except TypeError as e:
-            print(e)
+            # print(e)
             pass
         return funk(*args, **kwargs)
     return _wrapper
 
 def cash_it(funk):
     """args-2-return value cache.
-    
+
     This function is particularly useful for when you want that lru-cache,
     but you/one is working with python two.
 
@@ -171,7 +171,7 @@ def cash_it(funk):
 
 def cprof(funk):
     """"cProfiling decorator
-    
+
     src: https://zapier.com/engineering/profiling-python-boss/
 
     :param funk: funktion to decorate and 'get tha c prof of'
