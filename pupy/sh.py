@@ -28,6 +28,7 @@ from subprocess import run
 from typing import List
 from typing import Tuple
 from typing import Union
+from pathlib import Path
 
 class LIN:
     @staticmethod
@@ -409,11 +410,95 @@ class WIN:
 
     sync = robocopy
 
+class DirTree:
+    _filename_prefix_mid = "├──"
+    _filename_prefix_last = "└──"
+    _parent_prefix_middle = "    "
+    _parent_refix_last = "│   "
+
+    def __init__(self, path, parent_path, is_last):
+        self.path = Path(str(path))
+        self.parent = parent_path
+        self.is_last = is_last
+        if self.parent:
+            self.depth = self.parent.depth + 1
+        else:
+            self.depth = 0
+
+    @classmethod
+    def make_tree(cls, root, parent=None, is_last=False, criteria=None):
+        root = Path(str(root))
+        criteria = criteria or cls._default_criteria
+
+        displayable_root = cls(root, parent, is_last)
+        yield displayable_root
+
+        children = sorted(
+            list(path for path in root.iterdir() if criteria(path)),
+            key=lambda s: str(s).lower(),
+            )
+        count = 1
+        for path in children:
+            is_last = count == len(children)
+            if path.is_dir():
+                yield from cls.make_tree(
+                    path, parent=displayable_root, is_last=is_last, criteria=criteria
+                    )
+            else:
+                # print(path)
+                yield cls(path, displayable_root, is_last)
+            count += 1
+
+    @classmethod
+    def _default_criteria(cls, path_string):
+        ignore_strings = (
+            ".pyc",
+            "__pycache__",
+            )
+        return not any(
+            ignored in str(path_string).lower() for ignored in ignore_strings
+            )
+
+    @property
+    def displayname(self):
+        if self.path.is_dir():
+            return self.path.name + "/"
+        return self.path.name
+
+    def displayable(self):
+        if self.parent is None:
+            return self.displayname
+
+        _filename_prefix = (
+            self._filename_prefix_last
+            if self.is_last
+            else self._filename_prefix_mid
+        )
+
+        parts = ["{!s} {!s}".format(_filename_prefix, self.displayname)]
+
+        parent = self.parent
+        while parent and parent.parent is not None:
+            parts.append(
+                self._parent_prefix_middle
+                if parent.is_last
+                else self._parent_refix_last
+                )
+            parent = parent.parent
+
+        return "".join(reversed(parts))
+
 # _OS = system().lower()
 _OS = WIN if "windows" in system().lower() else LIN
 
 pwd = getcwd
 cd = chdir
+
+def tree(dirpath, criteria=None):
+    return '\n'.join(
+        p.displayable() for p in
+        DirTree.make_tree(Path(dirpath), criteria=criteria)
+        )
 
 def mv(src, dst):
     for file in iglob(src, recursive=True):
