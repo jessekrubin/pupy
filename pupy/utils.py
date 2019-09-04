@@ -9,6 +9,7 @@ from shutil import rmtree
 from tempfile import mkdtemp
 from typing import Any
 from typing import Optional
+from inspect import stack
 
 from pupy._alias import pp
 from pupy.sh import cd
@@ -16,7 +17,6 @@ from pupy.sh import link_dirs
 from pupy.sh import link_files
 from pupy.sh import unlink_dirs
 from pupy.sh import unlink_files
-from inspect import stack
 
 def timestamp(ts: Optional[float] = None) -> str:
     """Time stamp string w/ format yyyymmdd-HHMMSS
@@ -48,23 +48,23 @@ def environ_dict():
 @contextmanager
 def linked_tmp_dir(
     suffix=None, prefix=None, dir=None, mkdirs=[], lndirs=[], lnfiles=[]
-):
+    ):
     temp_dir = mkdtemp(suffix, prefix, dir)
     lnfiles = [
         (path.join(temp_dir, _rel_link), target)
         for _rel_link, target in lnfiles
-    ]
+        ]
     lndirs = [
         (path.join(temp_dir, _rel_link), target) for _rel_link, target in lndirs
-    ]
+        ]
     # print(mkdirs)
     _dirs2make = [
         path.join(temp_dir, e)
         for e in (
             dirpath if isinstance(dirpath, str) else path.join(*dirpath)
             for dirpath in mkdirs
-        )
-    ]
+            )
+        ]
     _dirs2make.extend((path.split(link)[0] for link, target in lnfiles))
     _dirs2make.extend((path.split(link)[0] for link, target in lndirs))
     for dirpath_route in _dirs2make:
@@ -106,7 +106,10 @@ def linked_tmp_dir(
 
 def prinfo(obj: Any) -> None:
     try:
-        pp({"object": obj, "type": obj})
+        pp({
+            "object": obj,
+            "type"  : obj
+            })
     except:
         print("object:\n{}".format(obj))
         print("type:\n{}".format(type(obj)))
@@ -116,3 +119,4 @@ def pyfilepath(split=False):
     if split:
         return path.split(_filepath)
     return _filepath
+
