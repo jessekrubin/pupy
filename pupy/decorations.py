@@ -218,52 +218,6 @@ class tictoc(object):
 
     """
 
-    def __init__(self, runs=1):
-        self.runs = runs
-
-    def __str__(self, t_total, funk, args_string):
-        _fmt_strs = (
-            "__TICTOC__",
-            "    file: {}".format(getfile(funk)),
-            "    funk: {}".format(funk.__name__),
-            "    args: {}".format(args_string),
-            "    time: {}".format(nseconds(t_total)),
-            "    runs: {}".format(self.runs),
-        )
-        return "\n".join(_fmt_strs)
-
-    def __call__(self, time_funk, printing=True):
-        @wraps(time_funk)
-        def time_wrapper(*args, **kwargs):
-            """
-
-            :param args:
-            :param kwargs:
-            :return:
-            """
-            self.args = str(args)
-            ts = time()
-            for i in range(self.runs):
-                result = time_funk(*args, **kwargs)
-            te = time()
-            t_total = (te - ts) / self.runs
-            try:
-                if printing:
-                    print(self.__str__(t_total, time_funk, self.args))
-            except Exception as e:
-                pass
-            return result
-
-        return time_wrapper
-
-
-class tictoc(object):
-    """Timing decorator object
-
-    :param runs: # of runs to time over (defaults to 1)
-
-    """
-
     def __init__(self, runs=1, show_args=False, indent=True):
         self.runs = runs
         self.show_args = show_args
