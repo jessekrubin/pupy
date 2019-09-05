@@ -50,7 +50,7 @@ def test_tictoc(capfd):
 
     _funk()
     out, err = capfd.readouterr()
-    assert "funk: _funk" in out
+    assert "_funk" in out
     assert "__TICTOC__" in out
 
 

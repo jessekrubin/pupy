@@ -8,6 +8,7 @@ from os import makedirs
 from os import path
 from shutil import rmtree
 from tempfile import mkdtemp
+from time import time
 from typing import Any
 from typing import Optional
 
@@ -118,3 +119,56 @@ def pyfilepath(split=False):
     if split:
         return path.split(_filepath)
     return _filepath
+
+
+def time_funk(funk, *args, **kwargs):
+    ti = time()
+    _ret = funk(*args, **kwargs)
+    tf = time()
+    return _ret, tf - ti
+
+
+def cmp_funks(f1, f2, runs=1, *args, **kwargs):
+    f1_time = 0
+    f2_time = 0
+    for i in range(runs):
+        r1, f1t = time_funk(f1, *args, **kwargs)
+        f1_time += f1t
+        r2, f2t = time_funk(f2, *args, **kwargs)
+        f2_time += f2t
+    f1_time = f1_time / runs
+    f2_time = f2_time / runs
+    return {
+        "f1": str(f1.__name__),
+        "f2": str(f2.__name__),
+        "f1-time": f1_time,
+        "f2-time": f2_time,
+        "f1/f2": f1_time / f2_time,
+    }
+
+
+def time_funk(funk, *args, **kwargs):
+    ti = time()
+    _ret = funk(*args, **kwargs)
+    tf = time()
+    return _ret, tf - ti
+
+
+def cmp_funks(f1, f2, runs, *args, **kwargs):
+    f1_time = 0
+    f2_time = 0
+    for i in range(runs):
+        r1, f1t = time_funk(f1, *args, **kwargs)
+        f1_time += f1t
+        r2, f2t = time_funk(f2, *args, **kwargs)
+        f2_time += f2t
+    f1_time = f1_time / runs
+    f2_time = f2_time / runs
+    return {
+        "f1": str(f1.__name__),
+        "f2": str(f2.__name__),
+        "f1-time": f1_time,
+        "f2-time": f2_time,
+        "f1/f2": f1_time / f2_time,
+        "runs": runs,
+    }

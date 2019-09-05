@@ -11,8 +11,10 @@ from os import getcwd
 from os import makedirs
 from os import mkdir
 from os import path
+from pstats import SortKey
 from time import time
 
+from pupy._jasm import json
 from pupy.fmt import nseconds
 
 # "%(color)s[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d]%(end_color)s %(message)s"
@@ -203,7 +205,7 @@ def cprof(funk):
             profile.disable()
         finally:
             print("__CPROFILE__")
-            profile.print_stats()
+            profile.print_stats(SortKey.CUMULATIVE)
         return ret_val
 
     return profiled_funk
@@ -229,6 +231,68 @@ class tictoc(object):
             "    runs: {}".format(self.runs),
         )
         return "\n".join(_fmt_strs)
+
+    def __call__(self, time_funk, printing=True):
+        @wraps(time_funk)
+        def time_wrapper(*args, **kwargs):
+            """
+
+            :param args:
+            :param kwargs:
+            :return:
+            """
+            self.args = str(args)
+            ts = time()
+            for i in range(self.runs):
+                result = time_funk(*args, **kwargs)
+            te = time()
+            t_total = (te - ts) / self.runs
+            try:
+                if printing:
+                    print(self.__str__(t_total, time_funk, self.args))
+            except Exception as e:
+                pass
+            return result
+
+        return time_wrapper
+
+
+class tictoc(object):
+    """Timing decorator object
+
+    :param runs: # of runs to time over (defaults to 1)
+
+    """
+
+    def __init__(self, runs=1, show_args=False, indent=True):
+        self.runs = runs
+        self.show_args = show_args
+        self.indent = indent
+
+    def _old_fmt(self, t_total, funk, args_string):
+        _fmt_strs = (
+            "__TICTOC__",
+            "    file: {}".format(getfile(funk)),
+            "    funk: {}".format(funk.__name__),
+            "    args: {}".format(str(args_string)[:24]) if self.show_args else None,
+            "    time: {}".format(nseconds(t_total)),
+            "    runs: {}".format(self.runs),
+        )
+
+        return "\n".join(filter(None, _fmt_strs))
+
+    def __str__(self, t_total, funk, args_string):
+        d = {
+            "file": getfile(funk),
+            "funk": funk.__name__,
+            "args": str(args_string)[:24] if self.show_args else None,
+            "time": nseconds(t_total),
+            "runs": self.runs,
+        }
+        d = {k: v for k, v in d.items() if v}
+        return "{} {}".format(
+            "__TICTOC__:", json.dumps(d, indent=4 if self.indent else None)
+        )
 
     def __call__(self, time_funk, printing=True):
         @wraps(time_funk)
