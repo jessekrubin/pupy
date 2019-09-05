@@ -317,11 +317,6 @@ class WIN:
             if _check_link_target(link, target)
         ]
         run(args=" && ".join(_exists).split(" "), stdout=PIPE, stderr=PIPE, shell=True)
-        # link_args = []
-        # for link, target in link_target_tuples:
-        #     makedirs(link, exist_ok=True)
-        #     link_args.extend(["mklink", "/D", link, target, "&&"])
-        # run(args=link_args[:-1], stdout=PIPE, stderr=PIPE, shell=True)
 
     @staticmethod
     def link_file(link, target):
