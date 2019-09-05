@@ -2,6 +2,7 @@
 # Pretty ~ Useful ~ Python
 from sys import stdout
 
+
 def yesno(question, default=True, tries=3):
     """Ask a yes/no question and return an answer as a boolean
 

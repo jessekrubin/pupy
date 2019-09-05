@@ -18,6 +18,7 @@ from os import remove
 from os import stat
 from os import symlink
 from os import unlink
+from pathlib import Path
 from platform import system
 from shutil import copy2
 from shutil import copystat
@@ -28,19 +29,13 @@ from subprocess import run
 from typing import List
 from typing import Tuple
 from typing import Union
-from pathlib import Path
+
 
 class LIN:
     @staticmethod
     def rsync_args(
-        src,
-        dest,
-        delete=False,
-        mkdirs=False,
-        exclude=[],
-        include=[],
-        dry_run=False,
-        ):
+        src, dest, delete=False, mkdirs=False, exclude=[], include=[], dry_run=False
+    ):
         """Sheldon rsync wrapper for syncing tdirs
 
         Args:
@@ -99,7 +94,7 @@ class LIN:
             *(("--dry-run", "-i") if dry_run else (None,)),
             src,
             dest,
-            ]
+        ]
         return list(filter(None, _args))
 
     @staticmethod
@@ -145,10 +140,8 @@ class LIN:
             exclude=exclude,
             include=include,
             dry_run=dry_run,
-            )
-        subproc = run(
-            args=list(filter(None, rsync_args)), stdout=PIPE, stderr=PIPE
-            )
+        )
+        subproc = run(args=list(filter(None, rsync_args)), stdout=PIPE, stderr=PIPE)
         return subproc
 
     @staticmethod
@@ -190,6 +183,7 @@ class LIN:
 
     sync = rsync
 
+
 class WIN:
 
     # def rsync_args(src, dest,
@@ -197,13 +191,8 @@ class WIN:
     #                exclude=[], include=[], dry_run=False):
     @staticmethod
     def robocopy_args(
-        src,
-        dest,
-        delete=False,
-        exclude_files=[],
-        exclude_dirs=[],
-        dry_run=False,
-        ):
+        src, dest, delete=False, exclude_files=[], exclude_dirs=[], dry_run=False
+    ):
         """Robocopy for sheldon
 
         Args:
@@ -241,7 +230,7 @@ class WIN:
             "/mt",
             "/W:1",
             "/R:1",
-            ]
+        ]
         if exclude_dirs:
             _args.extend(["/XD", *exclude_dirs])
         if exclude_files:
@@ -252,13 +241,8 @@ class WIN:
 
     @staticmethod
     def robocopy(
-        src,
-        dest,
-        delete=False,
-        exclude_files=[],
-        exclude_dirs=[],
-        dry_run=False,
-        ):
+        src, dest, delete=False, exclude_files=[], exclude_dirs=[], dry_run=False
+    ):
         """Robocopy for sheldon
 
         :param dest: path to local tdir
@@ -293,19 +277,14 @@ class WIN:
             exclude_files=exclude_files,
             exclude_dirs=exclude_dirs,
             dry_run=dry_run,
-            )
+        )
         subproc = run(args=_args, stdout=PIPE, stderr=PIPE)
         return subproc
 
     @staticmethod
     def link_dir(link, target):
         makedirs(link, exist_ok=True)
-        run(
-            args=["mklink", "/D", link, target],
-            stdout=PIPE,
-            stderr=PIPE,
-            shell=True,
-            )
+        run(args=["mklink", "/D", link, target], stdout=PIPE, stderr=PIPE, shell=True)
 
     @staticmethod
     def link_dirs(link_target_tuples):
@@ -320,8 +299,8 @@ class WIN:
                 print(
                     "Link target not found; unable to create link:\n    {} => {}".format(
                         link, target
-                        )
                     )
+                )
                 return False
             except Exception as e:
                 print(e, type(e))
@@ -336,13 +315,8 @@ class WIN:
             "mklink /D {} {}".format(link, target)
             for link, target in link_target_tuples
             if _check_link_target(link, target)
-            ]
-        run(
-            args=" && ".join(_exists).split(" "),
-            stdout=PIPE,
-            stderr=PIPE,
-            shell=True,
-            )
+        ]
+        run(args=" && ".join(_exists).split(" "), stdout=PIPE, stderr=PIPE, shell=True)
         # link_args = []
         # for link, target in link_target_tuples:
         #     makedirs(link, exist_ok=True)
@@ -368,8 +342,8 @@ class WIN:
                 print(
                     "Link target not found; unable to create link:\n    {} => {}".format(
                         link, target
-                        )
                     )
+                )
             except Exception as e:
                 print(e, type(e))
             return False
@@ -378,13 +352,8 @@ class WIN:
             "mklink {} {}".format(link, target)
             for link, target in link_target_tuples
             if _check_link_target(link, target)
-            ]
-        run(
-            args=" && ".join(_exists).split(" "),
-            stdout=PIPE,
-            stderr=PIPE,
-            shell=True,
-            )
+        ]
+        run(args=" && ".join(_exists).split(" "), stdout=PIPE, stderr=PIPE, shell=True)
 
     @staticmethod
     def unlink_dir(link):
@@ -392,9 +361,7 @@ class WIN:
 
     @staticmethod
     def unlink_dirs(links):
-        cmd_args = " && ".join("RD {}".format(link) for link in links).split(
-            " "
-            )
+        cmd_args = " && ".join("RD {}".format(link) for link in links).split(" ")
         run(args=cmd_args, stdout=PIPE, stderr=PIPE, shell=True)
 
     @staticmethod
@@ -403,27 +370,23 @@ class WIN:
 
     @staticmethod
     def unlink_files(links):
-        cmd_args = " && ".join("Del {}".format(link) for link in links).split(
-            " "
-            )
+        cmd_args = " && ".join("Del {}".format(link) for link in links).split(" ")
         run(args=cmd_args, stdout=PIPE, stderr=PIPE, shell=True)
 
     sync = robocopy
 
-class DirTree:
-    _filename_prefix_mid = "├──"
-    _filename_prefix_last = "└──"
-    _parent_prefix_middle = "    "
-    _parent_refix_last = "│   "
 
-    def __init__(self, path, parent_path, is_last):
+class DirTree:
+    _filename_prefix_mid: str = "├──"
+    _filename_prefix_last: str = "└──"
+    _parent_prefix_middle: str = "    "
+    _parent_refix_last: str = "│   "
+
+    def __init__(self, path: str, parent_path: str, is_last: bool):
         self.path = Path(str(path))
         self.parent = parent_path
         self.is_last = is_last
-        if self.parent:
-            self.depth = self.parent.depth + 1
-        else:
-            self.depth = 0
+        self.depth: int = self.parent.depth + 1 if self.parent else 0
 
     @classmethod
     def make_tree(cls, root, parent=None, is_last=False, criteria=None):
@@ -434,16 +397,16 @@ class DirTree:
         yield displayable_root
 
         children = sorted(
-            list(path for path in root.iterdir() if criteria(path)),
+            list(path for path in root.iterdir() if criteria(str(path))),
             key=lambda s: str(s).lower(),
-            )
+        )
         count = 1
         for path in children:
             is_last = count == len(children)
             if path.is_dir():
                 yield from cls.make_tree(
                     path, parent=displayable_root, is_last=is_last, criteria=criteria
-                    )
+                )
             else:
                 # print(path)
                 yield cls(path, displayable_root, is_last)
@@ -451,13 +414,10 @@ class DirTree:
 
     @classmethod
     def _default_criteria(cls, path_string):
-        ignore_strings = (
-            ".pyc",
-            "__pycache__",
-            )
+        ignore_strings = (".pyc", "__pycache__")
         return not any(
             ignored in str(path_string).lower() for ignored in ignore_strings
-            )
+        )
 
     @property
     def displayname(self):
@@ -470,9 +430,7 @@ class DirTree:
             return self.displayname
 
         _filename_prefix = (
-            self._filename_prefix_last
-            if self.is_last
-            else self._filename_prefix_mid
+            self._filename_prefix_last if self.is_last else self._filename_prefix_mid
         )
 
         parts = ["{!s} {!s}".format(_filename_prefix, self.displayname)]
@@ -483,10 +441,11 @@ class DirTree:
                 self._parent_prefix_middle
                 if parent.is_last
                 else self._parent_refix_last
-                )
+            )
             parent = parent.parent
 
         return "".join(reversed(parts))
+
 
 # _OS = system().lower()
 _OS = WIN if "windows" in system().lower() else LIN
@@ -494,15 +453,17 @@ _OS = WIN if "windows" in system().lower() else LIN
 pwd = getcwd
 cd = chdir
 
+
 def tree(dirpath, criteria=None):
-    return '\n'.join(
-        p.displayable() for p in
-        DirTree.make_tree(Path(dirpath), criteria=criteria)
-        )
+    return "\n".join(
+        p.displayable() for p in DirTree.make_tree(Path(dirpath), criteria=criteria)
+    )
+
 
 def mv(src, dst):
     for file in iglob(src, recursive=True):
         move(file, dst)
+
 
 def cp(src, dst, r=False, symlinks=False, ignore=None):
     makedirs(dst, exist_ok=True)
@@ -529,22 +490,18 @@ def cp(src, dst, r=False, symlinks=False, ignore=None):
                 pass
         elif path.isdir(_src_pth):
             if r:
-                cp(
-                    _src_pth,
-                    _dest_pth,
-                    r=True,
-                    symlinks=symlinks,
-                    ignore=ignore,
-                    )
+                cp(_src_pth, _dest_pth, r=True, symlinks=symlinks, ignore=ignore)
             else:
                 print("{} is dir; use rm(..., r=True)".format(_src_pth))
         else:
             copy2(_src_pth, _dest_pth)
 
+
 def ls(dirpath: str = ".", abs: bool = False) -> List[str]:
     if abs:
         return [path.join(dirpath, item) for item in listdir(dirpath)]
     return listdir(dirpath)
+
 
 def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
     files = (file for file in ls(dirpath, abs=True) if path.isfile(file))
@@ -552,19 +509,22 @@ def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
         return list(map(lambda el: el.replace(dirpath, "."), files))
     return list(files)
 
+
 def ls_dirs(dirpath: str = ".", abs: bool = False) -> List[str]:
     dirs = (dir for dir in ls(dirpath, abs=True) if path.isdir(dir))
     if not abs:
         return list(map(lambda el: el.replace(dirpath, "."), dirs))
     return list(dirs)
 
-def ls_files_dirs(
-    dirpath: str = ".", abs: bool = False
-    ) -> Tuple[List[str], List[str]]:
+
+def ls_files_dirs(dirpath: str = ".", abs: bool = False) -> Tuple[List[str], List[str]]:
     return ls_files(dirpath, abs=abs), ls_dirs(dirpath, abs=abs)
 
+
 def rm(f_arg, *args):
-    """rm takes a serious of arguements (in this case files) and deletes them
+    """rm should act like the (ba)sh-rm
+
+    This function was implemented by my cousin Matty-Ice (AKA Matt Bommer)
 
     :param f_arg:
     :type f_arg:
@@ -623,12 +583,7 @@ def rm(f_arg, *args):
 
 
     """
-    b2p = {
-        "f": False,
-        "r": False,
-        "i": False,
-        "v": False
-        }
+    b2p = {"f": False, "r": False, "i": False, "v": False}
     if f_arg.startswith("-"):
         for sub_command in f_arg.lower()[1:]:
             if sub_command in b2p:
@@ -647,7 +602,12 @@ def rm(f_arg, *args):
                 if b2p["r"]:
                     rmtree(_path_str)
                 else:
-                    print("cannot remove directory {}: Is a directory".format(repr(_path_str)))
+                    print(
+                        "cannot remove directory {}: Is a directory".format(
+                            repr(_path_str)
+                        )
+                    )
+
 
 def basename(path_str: str) -> str:
     """Get the parent-directory for a file or directory path as a string
@@ -663,6 +623,7 @@ def basename(path_str: str) -> str:
 
     """
     return path.split(path.abspath(path_str))[-1]
+
 
 def dirname(fdpath: str) -> str:
     """Return the parent directory for the given file or dir path
@@ -680,13 +641,15 @@ def dirname(fdpath: str) -> str:
     """
     return path.split(fdpath)[0]
 
+
 def export(key: str, val: Union[None, str] = None) -> None:
     if val:
         environ[key] = val
-        return;
-    if '=' in key:
-        _key, *val = key.split('=')
-        export(_key, '='.join(val))
+        return
+    if "=" in key:
+        _key, *val = key.split("=")
+        export(_key, "=".join(val))
+
 
 path2name = basename  # Alias for basename
 parent_dirpath = dirname  # Alias for dirname

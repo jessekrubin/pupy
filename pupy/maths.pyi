@@ -11,6 +11,7 @@ from typing import Tuple
 from typing import Type
 from typing import Union
 
+
 def partitions_gen(
     numero: int, min_p: int = ..., max_p: Optional[int] = ...
 ) -> Any: ...
@@ -38,8 +39,7 @@ def disjoint(
     b: Union[List[int], List[Union[str, int]]],
 ) -> bool: ...
 def set_cmp(
-    a: Union[Collection[Any], Iterator[Any]],
-    b: Union[Collection[Any], Iterator[Any]],
+    a: Union[Collection[Any], Iterator[Any]], b: Union[Collection[Any], Iterator[Any]]
 ) -> Tuple[Set[Any], Set[Any], Set[Any]]: ...
 def n_choose_r(n: Any, r: Any): ...
 

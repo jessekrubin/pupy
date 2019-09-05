@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
+
 def _json():
     for mod in ("rapidjson", "ujson", "json"):
         try:
@@ -14,5 +15,6 @@ def _json():
         "   ~ ujson; 'pip install python-rapidjson'\n"
         "   ~ json; this should have come with python\n"
     )
+
 
 json = _json()

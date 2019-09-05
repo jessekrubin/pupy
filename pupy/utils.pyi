@@ -6,6 +6,7 @@ from typing import Optional
 from typing import Tuple
 from typing import Union
 
+
 def timestamp(ts: Optional[float] = ...) -> str: ...
 def environ_dict(): ...
 def linked_tmp_dir(
