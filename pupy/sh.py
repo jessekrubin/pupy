@@ -5,6 +5,7 @@
 Shell-ish
 =========
 """
+from distutils.dir_util import copy_tree
 from glob import iglob
 from os import chdir
 from os import environ
@@ -492,6 +493,37 @@ def cp(src, dst, r=False, symlinks=False, ignore=None):
             copy2(_src_pth, _dest_pth)
 
 
+def cp_file(source: str, target: str) -> None:
+    dirname = path.dirname(target)
+    makedirs(dirname, exist_ok=True)
+    copy2(source, target)
+
+
+def cp_dir(source: str, target: str) -> None:
+    if not path.exists(target):
+        makedirs(target)
+    copy_tree(source, target)
+
+
+def _cp_dest(source: str, target: str) -> str:
+    if path.isfile(source) and path.isdir(target):
+        return path.join(target, path.basename(source))
+    return target
+
+
+def cp(source: str, target: str, f: bool = True, r: bool = False) -> None:
+    """Copy the directory/file src to the directory/file target"""
+    if (path.exists(target) and not f) or source == target:
+        return
+    if path.isdir(source) and not r:
+        raise ValueError("Source ({}) is directory; use r=True")
+    target = _cp_dest(source, target)
+    if path.isfile(source) or path.islink(source):
+        cp_file(source, target)
+    if path.isdir(source):
+        cp_dir(source, target)
+
+
 def ls(dirpath: str = ".", abs: bool = False) -> List[str]:
     if abs:
         return [path.join(dirpath, item) for item in listdir(dirpath)]
@@ -516,7 +548,7 @@ def ls_files_dirs(dirpath: str = ".", abs: bool = False) -> Tuple[List[str], Lis
     return ls_files(dirpath, abs=abs), ls_dirs(dirpath, abs=abs)
 
 
-def rm(f_arg, *args):
+def rm(path_string: str, r: bool = False, v: bool = False):
     """rm should act like the (ba)sh-rm
 
     This function was implemented by my cousin Matty-Ice (AKA Matt Bommer)
@@ -528,80 +560,20 @@ def rm(f_arg, *args):
     :return:
     :rtype:
 
-    If you wish to use native rm bash commands then follow the steps below:
-
-    F_arg should be one of the following (↓↓↓) if you wish to use these arguements. However if you chose not to use
-    these commands then simply fill in the parameter args with the files you wish to remove.
-    -f, --force           ignore nonexistent files, never prompt
-    -i, --interactive     prompt before any removal **** Not currently created, seems useless for our intentions
-    -r, -R, --recursive   remove directories and their contents recursively
-    -v, --verbose         explain what is being done
-
-    ----------------------
-    Bash rm --help message
-    ----------------------
-
-    ..
-
-        Usage: rm [OPTION]... FILE...
-        Remove (unlink) the FILE(s).
-
-          -f, --force           ignore nonexistent files, never prompt
-          -i                    prompt before every removal
-          -I                    prompt once before removing more than three files, or
-                                  when removing recursively.  Less intrusive than -i,
-                                  while still giving protection against most mistakes
-              --interactive[=WHEN]  prompt according to WHEN: never, once (-I), or
-                                  always (-i).  Without WHEN, prompt always
-              --one-file-system  when removing a hierarchy recursively, skip any
-                                  directory that is on a file system different from
-                                  that of the corresponding command line argument
-              --no-preserve-root  do not treat `/' specially
-              --preserve-root   do not remove `/' (default)
-          -r, -R, --recursive   remove directories and their contents recursively
-          -v, --verbose         explain what is being done
-              --help     display this help and exit
-              --version  output version information and exit
-
-        By default, rm does not remove directories.  Use the --recursive (-r or -R)
-        option to remove each listed directory, too, along with all of its contents.
-
-        To remove a file whose name starts with a `-', for example `-foo',
-        use one of these commands:
-          rm -- -foo
-
-          rm ./-foo
-
-        Note that if you use rm to remove a file, it is usually possible to recover
-        the contents of that file.  If you want more assurance that the contents are
-        truly unrecoverable, consider using shred.
-
-
     """
-    b2p = {"f": False, "r": False, "i": False, "v": False}
-    if f_arg.startswith("-"):
-        for sub_command in f_arg.lower()[1:]:
-            if sub_command in b2p:
-                b2p[sub_command] = True
-    else:
-        args = list(args)
-        args.insert(0, f_arg)
-    for arg in args:
-        for _path_str in iglob(arg, recursive=True):
-            if b2p["v"]:
-                print("Removing: " + _path_str)
-            if path.isfile(_path_str):
-                if path.exists(_path_str) or (not b2p["f"]):
-                    remove(_path_str)
-            elif path.isdir(_path_str):
-                if b2p["r"]:
-                    rmtree(_path_str)
-                else:
-                    print(
-                        "cannot remove directory {}: Is a directory".format(
-                            repr(_path_str)
-                        )
-                    )
+    for _path_str in iglob(path_string, recursive=True):
+        try:
+            remove(_path_str)
+            if v:
+                print("Removed file: {}".format(_path_str))
+
+        except Exception as e:
+            if r:
+                rmtree(_path_str)
+                if v:
+                    print("Removed dir: {}".format(_path_str))
+            else:
+                raise ValueError(_path_str + " is a directory -- use r=True")
 
 
 def basename(path_str: str) -> str:
