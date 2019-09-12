@@ -1,11 +1,9 @@
-all: say_hello generate
+all: prod
 
-say_hello:
-	@echo "Hello World"
-
-generate:
-	@echo "Creating empty text files..."
-	touch file-{1..10}.txt
+prod:
+	poetry config settings.virtualenvs.create true
+	poetry config settings.virtualenvs.in-project false
+	poetry install 
 
 dev:
 	poetry config settings.virtualenvs.create true

@@ -111,7 +111,7 @@ def test_rm_para(tmpdir):
     expected = []
     cd(tmpdir)
     actual = os.listdir("test_env")
-    rm("-rfv", "test_env", "h.txt")
+    rm("test_env", r=True)
     assert not os.path.exists('test_env')
 
 

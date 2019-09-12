@@ -9,6 +9,7 @@ from typing import Optional
 from typing import Tuple
 from typing import Union
 
+
 class LIN:
     @staticmethod
     def rsync_args(

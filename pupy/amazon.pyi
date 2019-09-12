@@ -8,6 +8,7 @@ from typing import Iterator
 from typing import List
 from typing import Union
 
+
 def prime_gen(
     plim: int = ..., kprimes: Union[None, Iterable[int]] = ...
 ) -> Iterator[int]: ...

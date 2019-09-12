@@ -4,6 +4,7 @@
 from typing import Any
 from typing import Optional
 
+
 def timestamp(ts: Optional[float] = ...) -> str: ...
 def environ_dict(): ...
 def linked_tmp_dir(

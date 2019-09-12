@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 from os import lstat
 from os import mkdir
+from time import time
+
+import aiofiles
 
 from pupy import aio
-import aiofiles
-import asyncio
+from pupy import sh
 from pupy.foreign import dirs_gen
 from pupy.foreign import files_gen
-from concurrent.futures import ThreadPoolExecutor
+
 
 async def lstat_async(filepath):
     return await lstat(filepath)
@@ -78,8 +82,6 @@ def dir_diff(src, dest):
 
 
 
-from pupy import sh
-from time import time
 
 # ta = time()
 # sync('./docs', './docs_2')
