@@ -19,9 +19,11 @@ from os import remove
 from os import stat
 from os import symlink
 from os import unlink
-from pathlib import Path
 from platform import system
+
+from pathlib import Path
 from shutil import copy2
+from functools import lru_cache
 from shutil import copystat
 from shutil import move
 from shutil import rmtree
@@ -31,12 +33,13 @@ from typing import List
 from typing import Tuple
 from typing import Union
 
+from pupy.foreign import chunks
 
 class LIN:
     @staticmethod
     def rsync_args(
         src, dest, delete=False, mkdirs=False, exclude=[], include=[], dry_run=False
-    ):
+        ):
         """Sheldon rsync wrapper for syncing tdirs
 
         Args:
@@ -95,7 +98,7 @@ class LIN:
             *(("--dry-run", "-i") if dry_run else (None,)),
             src,
             dest,
-        ]
+            ]
         return list(filter(None, _args))
 
     @staticmethod
@@ -141,7 +144,7 @@ class LIN:
             exclude=exclude,
             include=include,
             dry_run=dry_run,
-        )
+            )
         subproc = run(args=list(filter(None, rsync_args)), stdout=PIPE, stderr=PIPE)
         return subproc
 
@@ -184,6 +187,48 @@ class LIN:
 
     sync = rsync
 
+@lru_cache(maxsize=None)
+def _check_link_target_files(link, target):
+    # for link, target in link_target_tuples:
+    try:
+        assert path.exists(target)
+        makedirs(path.split(link)[0], exist_ok=True)
+        # _exists.extend(["mklink", link, target, "&&"])
+        return True
+        # _exists.extend(["mklink", link, target, "&&"])
+    except AssertionError as e:
+        print(
+            "Link target not found; unable to create link:\n    {} => {}".format(
+                link, target
+                )
+            )
+    except Exception as e:
+        print(e, type(e))
+    return False
+
+@lru_cache(maxsize=None)
+def _check_link_target_dirs(link, target):
+    # for link, target in link_target_tuples:
+    try:
+        assert path.exists(target) and path.isdir(target)
+        # makedirs(path.split(link)[0], exist_ok=True)
+        # _exists.extend(["mklink", link, target, "&&"])
+        # _exists.extend(["mklink", link, target, "&&"])
+    except AssertionError as e:
+        print(
+            "Link target not found; unable to create link:\n    {} => {}".format(
+                link, target
+                )
+            )
+        return False
+    except Exception as e:
+        print(e, type(e))
+    try:
+        rmtree(link)
+
+    except:
+        pass
+    return True
 
 class WIN:
 
@@ -193,7 +238,7 @@ class WIN:
     @staticmethod
     def robocopy_args(
         src, dest, delete=False, exclude_files=[], exclude_dirs=[], dry_run=False
-    ):
+        ):
         """Robocopy for sheldon
 
         Args:
@@ -231,7 +276,7 @@ class WIN:
             "/mt",
             "/W:1",
             "/R:1",
-        ]
+            ]
         if exclude_dirs:
             _args.extend(["/XD", *exclude_dirs])
         if exclude_files:
@@ -243,7 +288,7 @@ class WIN:
     @staticmethod
     def robocopy(
         src, dest, delete=False, exclude_files=[], exclude_dirs=[], dry_run=False
-    ):
+        ):
         """Robocopy for sheldon
 
         :param dest: path to local tdir
@@ -278,7 +323,7 @@ class WIN:
             exclude_files=exclude_files,
             exclude_dirs=exclude_dirs,
             dry_run=dry_run,
-        )
+            )
         subproc = run(args=_args, stdout=PIPE, stderr=PIPE)
         return subproc
 
@@ -289,35 +334,17 @@ class WIN:
 
     @staticmethod
     def link_dirs(link_target_tuples):
-        def _check_link_target(link, target):
-            # for link, target in link_target_tuples:
-            try:
-                assert path.exists(target) and path.isdir(target)
-                # makedirs(path.split(link)[0], exist_ok=True)
-                # _exists.extend(["mklink", link, target, "&&"])
-                # _exists.extend(["mklink", link, target, "&&"])
-            except AssertionError as e:
-                print(
-                    "Link target not found; unable to create link:\n    {} => {}".format(
-                        link, target
-                    )
-                )
-                return False
-            except Exception as e:
-                print(e, type(e))
-            try:
-                rmtree(link)
-
-            except:
-                pass
-            return True
-
         _exists = [
             "mklink /D {} {}".format(link, target)
             for link, target in link_target_tuples
-            if _check_link_target(link, target)
-        ]
-        run(args=" && ".join(_exists).split(" "), stdout=PIPE, stderr=PIPE, shell=True)
+            if _check_link_target_dirs(link, target)
+            ]
+        _proc = run(args=" && ".join(_exists).split(" "), stdout=PIPE, stderr=PIPE, shell=True)
+        stderr = _proc.stderr.decode()
+        if 'too' in stderr and 'long' in stderr:
+            tuple_chunks = list(chunks(link_target_tuples, len(link_target_tuples) // 2))
+            for tuple_chunk in tuple_chunks:
+                WIN.link_dirs(tuple_chunk)
 
     @staticmethod
     def link_file(link, target):
@@ -326,30 +353,19 @@ class WIN:
 
     @staticmethod
     def link_files(link_target_tuples):
-        def _check_link_target(link, target):
-            # for link, target in link_target_tuples:
-            try:
-                assert path.exists(target)
-                makedirs(path.split(link)[0], exist_ok=True)
-                # _exists.extend(["mklink", link, target, "&&"])
-                return True
-                # _exists.extend(["mklink", link, target, "&&"])
-            except AssertionError as e:
-                print(
-                    "Link target not found; unable to create link:\n    {} => {}".format(
-                        link, target
-                    )
-                )
-            except Exception as e:
-                print(e, type(e))
-            return False
-
+        link_target_tuples = list(link_target_tuples)
         _exists = [
             "mklink {} {}".format(link, target)
             for link, target in link_target_tuples
-            if _check_link_target(link, target)
-        ]
-        run(args=" && ".join(_exists).split(" "), stdout=PIPE, stderr=PIPE, shell=True)
+            if _check_link_target_files(link, target)
+            ]
+        _proc = run(args=" && ".join(_exists).split(' '), stdout=PIPE, stderr=PIPE, shell=True)
+        stdout = _proc.stdout.decode()
+        stderr = _proc.stderr.decode()
+        if 'too' in stderr and 'long' in stderr:
+            tuple_chunks = list(chunks(link_target_tuples, len(link_target_tuples) // 2))
+            for tuple_chunk in tuple_chunks:
+                WIN.link_files(tuple_chunk)
 
     @staticmethod
     def unlink_dir(link):
@@ -370,7 +386,6 @@ class WIN:
         run(args=cmd_args, stdout=PIPE, stderr=PIPE, shell=True)
 
     sync = robocopy
-
 
 class DirTree:
     _filename_prefix_mid: str = "├──"
@@ -395,14 +410,14 @@ class DirTree:
         children = sorted(
             list(path for path in root.iterdir() if criteria(str(path))),
             key=lambda s: str(s).lower(),
-        )
+            )
         count = 1
         for path in children:
             is_last = count == len(children)
             if path.is_dir():
                 yield from cls.make_tree(
                     path, parent=displayable_root, is_last=is_last, criteria=criteria
-                )
+                    )
             else:
                 # print(path)
                 yield cls(path, displayable_root, is_last)
@@ -413,7 +428,7 @@ class DirTree:
         ignore_strings = (".pyc", "__pycache__")
         return not any(
             ignored in str(path_string).lower() for ignored in ignore_strings
-        )
+            )
 
     @property
     def displayname(self):
@@ -437,11 +452,10 @@ class DirTree:
                 self._parent_prefix_middle
                 if parent.is_last
                 else self._parent_refix_last
-            )
+                )
             parent = parent.parent
 
         return "".join(reversed(parts))
-
 
 # _OS = system().lower()
 _OS = WIN if "windows" in system().lower() else LIN
@@ -449,17 +463,14 @@ _OS = WIN if "windows" in system().lower() else LIN
 pwd = getcwd
 cd = chdir
 
-
 def tree(dirpath, criteria=None):
     return "\n".join(
         p.displayable() for p in DirTree.make_tree(Path(dirpath), criteria=criteria)
-    )
-
+        )
 
 def mv(src, dst):
     for file in iglob(src, recursive=True):
         move(file, dst)
-
 
 def cp(src, dst, r=False, symlinks=False, ignore=None):
     makedirs(dst, exist_ok=True)
@@ -492,24 +503,20 @@ def cp(src, dst, r=False, symlinks=False, ignore=None):
         else:
             copy2(_src_pth, _dest_pth)
 
-
 def cp_file(source: str, target: str) -> None:
     dirname = path.dirname(target)
     makedirs(dirname, exist_ok=True)
     copy2(source, target)
-
 
 def cp_dir(source: str, target: str) -> None:
     if not path.exists(target):
         makedirs(target)
     copy_tree(source, target)
 
-
 def _cp_dest(source: str, target: str) -> str:
     if path.isfile(source) and path.isdir(target):
         return path.join(target, path.basename(source))
     return target
-
 
 def cp(source: str, target: str, f: bool = True, r: bool = False) -> None:
     """Copy the directory/file src to the directory/file target"""
@@ -523,12 +530,10 @@ def cp(source: str, target: str, f: bool = True, r: bool = False) -> None:
     if path.isdir(source):
         cp_dir(source, target)
 
-
 def ls(dirpath: str = ".", abs: bool = False) -> List[str]:
     if abs:
         return [path.join(dirpath, item) for item in listdir(dirpath)]
     return listdir(dirpath)
-
 
 def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
     files = (file for file in ls(dirpath, abs=True) if path.isfile(file))
@@ -536,17 +541,14 @@ def ls_files(dirpath: str = ".", abs: bool = False) -> List[str]:
         return list(map(lambda el: el.replace(dirpath, "."), files))
     return list(files)
 
-
 def ls_dirs(dirpath: str = ".", abs: bool = False) -> List[str]:
     dirs = (dir for dir in ls(dirpath, abs=True) if path.isdir(dir))
     if not abs:
         return list(map(lambda el: el.replace(dirpath, "."), dirs))
     return list(dirs)
 
-
 def ls_files_dirs(dirpath: str = ".", abs: bool = False) -> Tuple[List[str], List[str]]:
     return ls_files(dirpath, abs=abs), ls_dirs(dirpath, abs=abs)
-
 
 def rm(path_string: str, r: bool = False, v: bool = False):
     """rm should act like the (ba)sh-rm
@@ -575,7 +577,6 @@ def rm(path_string: str, r: bool = False, v: bool = False):
             else:
                 raise ValueError(_path_str + " is a directory -- use r=True")
 
-
 def basename(path_str: str) -> str:
     """Get the parent-directory for a file or directory path as a string
 
@@ -590,7 +591,6 @@ def basename(path_str: str) -> str:
 
     """
     return path.split(path.abspath(path_str))[-1]
-
 
 def dirname(fdpath: str) -> str:
     """Return the parent directory for the given file or dir path
@@ -608,7 +608,6 @@ def dirname(fdpath: str) -> str:
     """
     return path.split(fdpath)[0]
 
-
 def export(key: str, val: Union[None, str] = None) -> None:
     if val:
         environ[key] = val
@@ -616,7 +615,6 @@ def export(key: str, val: Union[None, str] = None) -> None:
     if "=" in key:
         _key, *val = key.split("=")
         export(_key, "=".join(val))
-
 
 path2name = basename  # Alias for basename
 parent_dirpath = dirname  # Alias for dirname
