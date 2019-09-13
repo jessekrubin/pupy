@@ -29,9 +29,9 @@ dummy_dir/
 
 
 def test_tree():
-    tree_string = tree(path.join(PWD, 'dummy_dir'))
+    tree_string = tree(path.join(PWD, "dummy_dir"))
     print(tree_string)
-    assert tree_string.strip('\n') == expected_dummy_dir_tree_full.strip('\n')
+    assert tree_string.strip("\n") == expected_dummy_dir_tree_full.strip("\n")
 
 
 expected_dummy_dir_tree_keep_a_dir = """
@@ -44,10 +44,10 @@ dummy_dir/
 
 
 def test_tree_keep_a_dir():
-    _ignore_funk = lambda s: 'a_dir' in s
-    tree_string = tree(path.join(PWD, 'dummy_dir'), criteria=_ignore_funk)
+    _ignore_funk = lambda s: "a_dir" in s
+    tree_string = tree(path.join(PWD, "dummy_dir"), criteria=_ignore_funk)
     print(tree_string)
-    assert tree_string.strip('\n') == expected_dummy_dir_tree_keep_a_dir.strip('\n')
+    assert tree_string.strip("\n") == expected_dummy_dir_tree_keep_a_dir.strip("\n")
 
 
 expected_dummy_dir_tree_ignore_a_dir = """
@@ -61,7 +61,7 @@ dummy_dir/
 
 
 def test_tree_ignore_a_dir():
-    _ignore_funk = lambda s: 'a_dir' not in s
-    tree_string = tree(path.join(PWD, 'dummy_dir'), criteria=_ignore_funk)
+    _ignore_funk = lambda s: "a_dir" not in s
+    tree_string = tree(path.join(PWD, "dummy_dir"), criteria=_ignore_funk)
     print(tree_string)
-    assert tree_string.strip('\n') == expected_dummy_dir_tree_ignore_a_dir.strip('\n')
+    assert tree_string.strip("\n") == expected_dummy_dir_tree_ignore_a_dir.strip("\n")

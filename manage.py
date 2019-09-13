@@ -70,7 +70,7 @@ def main():
         mkstubs()
     if "cleanup" in argv:
         cleanup_src()
-    if "redoc" in argv or True:
+    if "redoc" in argv:
         redoc()
 
 if __name__ == "__main__":

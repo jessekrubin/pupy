@@ -11,7 +11,6 @@ from typing import Tuple
 from typing import Type
 from typing import Union
 
-
 def partitions_gen(
     numero: int, min_p: int = ..., max_p: Optional[int] = ...
 ) -> Any: ...

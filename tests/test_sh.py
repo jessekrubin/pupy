@@ -36,9 +36,7 @@ def test_mv_uno(tmpdir):
     mkdir("out")
     mv("dir", "out")
     files = list(
-        sorted(
-            (e.replace(str(tmpdir), "").strip(sep) for e in files_gen(tmpdir))
-        )
+        sorted((e.replace(str(tmpdir), "").strip(sep) for e in files_gen(tmpdir)))
     )
     print(files)
 
@@ -68,14 +66,11 @@ def test_mv_multi(tmpdir):
     mkdir("out")
     mv("dir/*", "out")
     files = list(
-        sorted(
-            (e.replace(str(tmpdir), "").strip(sep) for e in files_gen(tmpdir))
-        )
+        sorted((e.replace(str(tmpdir), "").strip(sep) for e in files_gen(tmpdir)))
     )
     # print(files)
     expected = set(
-        path.join("out", *f).replace(sep + "dir" + sep, sep)
-        for f in filepath_parts
+        path.join("out", *f).replace(sep + "dir" + sep, sep) for f in filepath_parts
     )
     got = set(files)
     # print(expected)
@@ -112,22 +107,24 @@ def test_rm_para(tmpdir):
     cd(tmpdir)
     actual = os.listdir("test_env")
     rm("test_env", r=True)
-    assert not os.path.exists('test_env')
+    assert not os.path.exists("test_env")
 
 
 def test_export_single_key():
-    key = 'HERM=pood'
+    key = "HERM=pood"
     from os import environ
-    assert 'HERM' not in environ
+
+    assert "HERM" not in environ
     export(key)
-    assert 'HERM' in environ
-    assert environ['HERM'] == 'pood'
-    del environ['HERM']
+    assert "HERM" in environ
+    assert environ["HERM"] == "pood"
+    del environ["HERM"]
 
 
 def test_export_key_val():
-    key, val = 'HERM', 'pood'
+    key, val = "HERM", "pood"
     from os import environ
-    assert 'HERM' not in environ
+
+    assert "HERM" not in environ
     export(key, val)
-    assert 'HERM' in environ
+    assert "HERM" in environ

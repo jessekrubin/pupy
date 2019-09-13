@@ -204,7 +204,7 @@ def cprof(funk):
             profile.disable()
         finally:
             print("__CPROFILE__")
-            profile.print_stats('cumulative')
+            profile.print_stats("cumulative")
         return ret_val
 
     return profiled_funk
