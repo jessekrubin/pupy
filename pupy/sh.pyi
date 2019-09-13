@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
-from os import chdir
-from os import getcwd
-from typing import Any
-from typing import List
-from typing import Optional
-from typing import Tuple
-from typing import Union
+from os import chdir, getcwd
+from typing import Any, List, Optional, Tuple, Union
 
 class LIN:
     @staticmethod
@@ -16,8 +11,8 @@ class LIN:
         dest: Any,
         delete: bool = ...,
         mkdirs: bool = ...,
-        exclude: Any = ...,
-        include: Any = ...,
+        exclude: Optional[Any] = ...,
+        include: Optional[Any] = ...,
         dry_run: bool = ...,
     ): ...
     @staticmethod
@@ -25,8 +20,8 @@ class LIN:
         src: Any,
         dest: Any,
         delete: bool = ...,
-        exclude: Any = ...,
-        include: Any = ...,
+        exclude: Optional[Any] = ...,
+        include: Optional[Any] = ...,
         dry_run: bool = ...,
     ): ...
     @staticmethod
@@ -53,8 +48,8 @@ class WIN:
         src: Any,
         dest: Any,
         delete: bool = ...,
-        exclude_files: Any = ...,
-        exclude_dirs: Any = ...,
+        exclude_files: Optional[Any] = ...,
+        exclude_dirs: Optional[Any] = ...,
         dry_run: bool = ...,
     ): ...
     @staticmethod
@@ -62,18 +57,18 @@ class WIN:
         src: Any,
         dest: Any,
         delete: bool = ...,
-        exclude_files: Any = ...,
-        exclude_dirs: Any = ...,
+        exclude_files: Optional[Any] = ...,
+        exclude_dirs: Optional[Any] = ...,
         dry_run: bool = ...,
     ): ...
     @staticmethod
     def link_dir(link: Any, target: Any) -> None: ...
     @staticmethod
-    def link_dirs(link_target_tuples: Any): ...
+    def link_dirs(link_target_tuples: Any) -> None: ...
     @staticmethod
     def link_file(link: Any, target: Any) -> None: ...
     @staticmethod
-    def link_files(link_target_tuples: Any): ...
+    def link_files(link_target_tuples: Any) -> None: ...
     @staticmethod
     def unlink_dir(link: Any) -> None: ...
     @staticmethod

@@ -19,8 +19,9 @@ from os import sep
 from os import walk
 from typing import Any
 from typing import Callable
-from typing import Iterable, Sized
+from typing import Iterable
 from typing import List
+from typing import Sized
 from typing import Tuple
 from typing import Union
 

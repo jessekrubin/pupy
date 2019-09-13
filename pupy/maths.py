@@ -19,6 +19,7 @@ from typing import Set
 from typing import Tuple
 from typing import Type
 from typing import Union
+
 from pupy._typing import Flint
 from pupy.decorations import cash_it
 from pupy.foreign import iter_product

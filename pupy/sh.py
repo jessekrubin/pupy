@@ -28,7 +28,7 @@ from shutil import move
 from shutil import rmtree
 from subprocess import PIPE
 from subprocess import run
-from typing import List, Union
+from typing import List
 from typing import Tuple
 from typing import Union
 
@@ -255,7 +255,7 @@ def _check_link_target_files(link, target):
                 link, target
             )
         )
-        print("Exception: "+str(e))
+        print("Exception: " + str(e))
     except Exception as e:
         print(e, type(e))
     return False
@@ -275,7 +275,7 @@ def _check_link_target_dirs(link, target):
                 link, target
             )
         )
-        print("Exception: "+str(e))
+        print("Exception: " + str(e))
         return False
     except Exception as e:
         print(e, type(e))
@@ -456,7 +456,9 @@ class WIN:
         )
         stdout = _proc.stdout.decode()
         stderr = _proc.stderr.decode()
-        if ("too" in stderr and "long" in stderr) or ("too" in stderr and "long" in stdout):
+        if ("too" in stderr and "long" in stderr) or (
+            "too" in stderr and "long" in stdout
+        ):
             tuple_chunks = list(
                 chunks(link_target_tuples, len(link_target_tuples) // 2)
             )
@@ -504,6 +506,7 @@ class DirTree:
     """
 
     """
+
     _filename_prefix_mid: str = "├──"
     _filename_prefix_last: str = "└──"
     _parent_prefix_middle: str = "    "

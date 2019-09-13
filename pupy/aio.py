@@ -10,7 +10,9 @@ from functools import partial
 from functools import wraps
 
 from pupy._jasm import json
-from pupy._typing import JASM, cast, F
+from pupy._typing import JASM
+from pupy._typing import F
+from pupy._typing import cast
 
 try:
     import aiofiles
@@ -33,12 +35,13 @@ except ImportError:
     pass
 
 
-def asyncify(funk:F) -> F:
+def asyncify(funk: F) -> F:
     """
 
     :param funk:
     :return:
     """
+
     @asyncio.coroutine
     @wraps(funk)
     def afunk(*args, loop=None, executor=None, **kwargs):

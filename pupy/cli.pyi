@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
-from typing import Any
-from typing import Optional
+from typing import Any, List, Optional
 
 def base_cmd(args: Any) -> None: ...
 def unescaped_str(arg_str: Any): ...
@@ -13,4 +12,4 @@ PARSER: Any
 SUBPARSERS: Any
 NEW_SUBPARSER: Any
 
-def main(ARGS: Optional[Any] = ...) -> None: ...
+def main(ARGS: Optional[List[str]] = ...) -> None: ...

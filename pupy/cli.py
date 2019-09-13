@@ -10,12 +10,13 @@ from argparse import ArgumentParser
 from codecs import decode
 from os import makedirs
 from os import path as _path
+from typing import List
+from typing import Optional
 
 from pupy._template import _IO_PKG_CLI
 from pupy._template import _IO_SCRIPT
 from pupy._template import _PKG_INIT
 from pupy._template import _PKG_MAIN
-from typing import Optional, List
 from pupy._template import _PKG_UTILS
 from pupy._version import __version__
 from pupy.savings_n_loads import sstring
@@ -104,7 +105,7 @@ NEW_SUBPARSER.add_argument(
 NEW_SUBPARSER.set_defaults(func=new_cmd)
 
 
-def main(ARGS:Optional[List[str]]=None) -> None:
+def main(ARGS: Optional[List[str]] = None) -> None:
     """
 
     :param ARGS:

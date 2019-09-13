@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
-from typing import Any
-from typing import Iterator
-from typing import List
-from typing import Optional
-
 from pupy._typing import Flint
+from typing import Any, Iterator, List, Optional
 
 def nbytes(num: Flint) -> str: ...
 def filesize(filepath: str) -> str: ...

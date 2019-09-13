@@ -2,11 +2,7 @@
 # Pretty ~ Useful ~ Python
 
 from collections.abc import MutableSequence
-from typing import Any
-from typing import Iterable
-from typing import Iterator
-from typing import List
-from typing import Union
+from typing import Any, Iterable, Iterator, List, Union
 
 def prime_gen(
     plim: int = ..., kprimes: Union[None, Iterable[int]] = ...

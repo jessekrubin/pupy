@@ -10,9 +10,14 @@ from shutil import rmtree
 from tempfile import mkdtemp
 from time import time
 from typing import Any
-from typing import Optional, Union
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Tuple
+from typing import Union
 
 from pupy._alias import pp
+from pupy._typing import F
 from pupy.sh import cd
 from pupy.sh import link_dirs
 from pupy.sh import link_files
@@ -45,7 +50,7 @@ def timestamp(ts: Optional[Union[float, datetime]] = None) -> str:
         return ts.strftime("%Y%m%d-%H%M%S")
 
 
-def environ_dict():
+def environ_dict() -> Dict[str, str]:
     """
 
     :return:
@@ -55,8 +60,13 @@ def environ_dict():
 
 @contextmanager
 def linked_tmp_dir(
-    suffix=None, prefix=None, dir=None, mkdirs=None, lndirs=None, lnfiles=None
-):
+    suffix: Optional[str] = None,
+    prefix: Optional[str] = None,
+    dir: Optional[str] = None,
+    mkdirs: Optional[List[str]] = None,
+    lndirs: Optional[List[Tuple[str, str]]] = None,
+    lnfiles: Optional[List[Tuple[str, str]]] = None,
+) -> Any:
     """
 
     :param suffix:
@@ -137,7 +147,7 @@ def prinfo(obj: Any) -> None:
         print("type:\n{}".format(type(obj)))
 
 
-def pyfilepath(split=False):
+def pyfilepath(split: bool = False) -> str:
     """
 
     :param split:
@@ -149,7 +159,7 @@ def pyfilepath(split=False):
     return _filepath
 
 
-def time_funk(funk, *args, **kwargs):
+def time_funk(funk: F, *args, **kwargs):
     """
 
     :param funk:
@@ -163,7 +173,9 @@ def time_funk(funk, *args, **kwargs):
     return _ret, tf - ti
 
 
-def cmp_funks(f1, f2, runs=1, *args, **kwargs):
+def cmp_funks(
+    f1: F, f2: F, runs: int, *args, **kwargs
+) -> Dict[str, Union[str, float, int]]:
     """
 
     :param f1:
@@ -180,55 +192,13 @@ def cmp_funks(f1, f2, runs=1, *args, **kwargs):
         f1_time += f1t
         r2, f2t = time_funk(f2, *args, **kwargs)
         f2_time += f2t
-    f1_time = f1_time / runs
-    f2_time = f2_time / runs
+    f1_time_avg: float = f1_time / runs
+    f2_time_avg: float = f2_time / runs
     return {
         "f1": str(f1.__name__),
         "f2": str(f2.__name__),
-        "f1-time": f1_time,
-        "f2-time": f2_time,
-        "f1/f2": f1_time / f2_time,
-    }
-
-
-def time_funk(funk, *args, **kwargs):
-    """
-
-    :param funk:
-    :param args:
-    :param kwargs:
-    :return:
-    """
-    ti = time()
-    _ret = funk(*args, **kwargs)
-    tf = time()
-    return _ret, tf - ti
-
-
-def cmp_funks(f1, f2, runs, *args, **kwargs):
-    """
-
-    :param f1:
-    :param f2:
-    :param runs:
-    :param args:
-    :param kwargs:
-    :return:
-    """
-    f1_time = 0
-    f2_time = 0
-    for i in range(runs):
-        r1, f1t = time_funk(f1, *args, **kwargs)
-        f1_time += f1t
-        r2, f2t = time_funk(f2, *args, **kwargs)
-        f2_time += f2t
-    f1_time = f1_time / runs
-    f2_time = f2_time / runs
-    return {
-        "f1": str(f1.__name__),
-        "f2": str(f2.__name__),
-        "f1-time": f1_time,
-        "f2-time": f2_time,
-        "f1/f2": f1_time / f2_time,
+        "f1-time": f1_time_avg,
+        "f2-time": f2_time_avg,
+        "f1/f2": f1_time_avg / f2_time_avg,
         "runs": runs,
     }
