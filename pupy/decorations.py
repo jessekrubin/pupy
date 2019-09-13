@@ -11,7 +11,6 @@ from os import getcwd
 from os import makedirs
 from os import mkdir
 from os import path
-from pstats import SortKey
 from time import time
 
 from pupy._jasm import json
@@ -205,7 +204,7 @@ def cprof(funk):
             profile.disable()
         finally:
             print("__CPROFILE__")
-            profile.print_stats(SortKey.CUMULATIVE)
+            profile.print_stats('cumulative')
         return ret_val
 
     return profiled_funk
