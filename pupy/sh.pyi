@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
-from os import chdir, getcwd
-from typing import Any, List, Optional, Tuple, Union
+from os import chdir
+from os import getcwd
+from typing import Any
+from typing import List
+from typing import Optional
+from typing import Tuple
+from typing import Union
+
 
 class LIN:
     @staticmethod

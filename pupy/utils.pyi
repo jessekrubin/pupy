@@ -2,8 +2,15 @@
 # Pretty ~ Useful ~ Python
 
 from datetime import datetime
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Tuple
+from typing import Union
+
 from pupy._typing import F
-from typing import Any, Dict, List, Optional, Tuple, Union
+
 
 def timestamp(ts: Optional[Union[float, datetime]] = ...) -> str: ...
 def environ_dict() -> Dict[str, str]: ...

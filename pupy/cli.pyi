@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
-from typing import Any, List, Optional
+from typing import Any
+from typing import List
+from typing import Optional
+
 
 def base_cmd(args: Any) -> None: ...
 def unescaped_str(arg_str: Any): ...

@@ -18,6 +18,7 @@ fmt:
 	black pupy/*.py
 	black pupy/*.pyi
 	isort -sl -y pupy/*.py
+	isort -sl -y pupy/*.pyi
 	black tests/*.py
 	isort -sl -y tests/*.py
 

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
-from typing import Any, Optional
+from typing import Any
+from typing import Optional
 
 logging_config: Any
 logger: Any

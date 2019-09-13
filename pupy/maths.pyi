@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
 # Pretty ~ Useful ~ Python
 
-from typing import Any, Collection, Iterator, List, Optional, Set, Tuple, Type, Union
+from typing import Any
+from typing import Collection
+from typing import Iterator
+from typing import List
+from typing import Optional
+from typing import Set
+from typing import Tuple
+from typing import Type
+from typing import Union
+
 
 def partitions_gen(
     numero: int, min_p: int = ..., max_p: Optional[int] = ...
