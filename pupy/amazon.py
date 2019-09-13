@@ -285,7 +285,7 @@ class OctopusPrime(MutableSequence):
         """
         if upper_bound > self[-1]:
             self._transform(upper_bound)
-        return self[bisect_right(self, lower_bound) : bisect(self, upper_bound)]
+        return self[bisect_right(self, lower_bound): bisect(self, upper_bound)]
 
     def __len__(self) -> int:
         return len(self._list)
@@ -306,7 +306,7 @@ class OctopusPrime(MutableSequence):
         :param object: 
 
         """
-        self._list.insert(index)
+        self._list.insert(index, object)
 
     def __str__(self):
         return str(self._list)

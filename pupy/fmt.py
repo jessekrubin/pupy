@@ -164,6 +164,11 @@ def binary_string(number: int) -> str:
 
 
 def strip_comments(string: str) -> str:
+    """
+
+    :param string:
+    :return:
+    """
     filelines = string.splitlines(keepends=False)
     r = _compile(r'(?:"(?:[^"\\]|\\.)*"|[^"#])*(#|$)')
     return "\n".join((line[: r.match(line).start(1)] for line in filelines))

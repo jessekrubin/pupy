@@ -84,7 +84,7 @@ def sbytes(filepath: str, bytes: Union[bytes, bytearray]) -> None:
 
     """
     with open(filepath, "wb") as file:
-        return file.write(bytes)
+        file.write(bytes)
 
 
 @mkdirs
@@ -222,7 +222,13 @@ def shebang(filepath: str) -> Union[None, str]:
         return first if "#!" in first[:2] else None
 
 
-def stoml(filepath: str, data: JASM) -> None:
+def stoml(filepath: str, data: JASM) -> str:
+    """
+
+    :param filepath:
+    :param data:
+    :return:
+    """
     try:
         filepath = filepath if "." in filepath else "{}.toml".format(filepath)
         sstring(filepath, toml_dumps(data))
@@ -232,6 +238,11 @@ def stoml(filepath: str, data: JASM) -> None:
 
 
 def ltoml(filepath: str) -> JASM:
+    """
+
+    :param filepath:
+    :return:
+    """
     try:
         with open(filepath) as f:
             return toml_load(f)
@@ -241,7 +252,13 @@ def ltoml(filepath: str) -> JASM:
         return toml_loads(lstring(filepath))
 
 
-def spak(filepath: str, data: JASM) -> None:
+def spak(filepath: str, data: JASM) -> str:
+    """
+
+    :param filepath:
+    :param data:
+    :return:
+    """
     try:
         filepath = filepath if "." in filepath else "{}.pak".format(filepath)
         with open(filepath, "wb") as outfile:
@@ -252,6 +269,12 @@ def spak(filepath: str, data: JASM) -> None:
 
 
 def lpak(filepath: str, raw: bool = False) -> JASM:
+    """
+
+    :param filepath:
+    :param raw:
+    :return:
+    """
     try:
         with open(filepath, "rb") as data_file:
             return unpack(data_file, raw=raw)
@@ -259,7 +282,13 @@ def lpak(filepath: str, raw: bool = False) -> JASM:
         raise EnvironmentError("'pip install msgpack' if you wanna use this!")
 
 
-def syaml(filepath: str, data: JASM) -> None:
+def syaml(filepath: str, data: JASM) -> str:
+    """
+
+    :param filepath:
+    :param data:
+    :return:
+    """
     try:
         filepath = filepath if "." in filepath else "{}.yml".format(filepath)
         with open(filepath, "w") as data_file:
@@ -270,6 +299,11 @@ def syaml(filepath: str, data: JASM) -> None:
 
 
 def lyaml(filepath: str) -> JASM:
+    """
+
+    :param filepath:
+    :return:
+    """
     try:
         with open(filepath) as data_file:
             return _yaml_loader.load(data_file)

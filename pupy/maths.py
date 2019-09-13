@@ -19,7 +19,7 @@ from typing import Set
 from typing import Tuple
 from typing import Type
 from typing import Union
-
+from pupy._typing import Flint
 from pupy.decorations import cash_it
 from pupy.foreign import iter_product
 
@@ -566,7 +566,7 @@ class Vuple(tuple):
     def __isub__(self, k):
         return self.__sub__(k)
 
-    def __mul__(self, k: Union[int, Any]) -> Union[int, Any]:
+    def __mul__(self, k: Union[int, float, Any]) -> Union[int, float, Any]:
         """Multiply by a scalar for each element or cross product if also iterable of same length
 
         :param k: scalar ot other iterable to do the cross producting with

@@ -10,7 +10,7 @@ from functools import partial
 from functools import wraps
 
 from pupy._jasm import json
-from pupy._typing import JASM
+from pupy._typing import JASM, cast, F
 
 try:
     import aiofiles
@@ -33,20 +33,34 @@ except ImportError:
     pass
 
 
-def asyncify(funk):
+def asyncify(funk:F) -> F:
+    """
+
+    :param funk:
+    :return:
+    """
     @asyncio.coroutine
     @wraps(funk)
     def afunk(*args, loop=None, executor=None, **kwargs):
+        """
+
+        :param args:
+        :param loop:
+        :param executor:
+        :param kwargs:
+        :return:
+        """
         loop = loop if loop else asyncio.get_event_loop()
         pfunc = partial(funk, *args, **kwargs)
         return loop.run_in_executor(executor, pfunc)
 
-    return afunk
+    return cast(F, afunk)
 
 
 async def sabytes(filepath: str, _bytes: bytes) -> None:
     """Read bytes from file path
 
+    :param _bytes:
     :param filepath: filepath as as string to read bites from
     :return: some bytes...
     """
@@ -73,6 +87,11 @@ async def labytes(filepath: str) -> bytes:
 
 
 async def sastring(filepath: str, string: str) -> None:
+    """
+
+    :param filepath:
+    :param string:
+    """
     try:
         async with aiofiles.open(filepath, mode="w", encoding="utf-8") as f:
             await f.write(string)
@@ -86,6 +105,11 @@ async def sastring(filepath: str, string: str) -> None:
 
 
 async def lastring(filepath: str) -> str:
+    """
+
+    :param filepath:
+    :return:
+    """
     try:
         async with aiofiles.open(filepath, mode="r", encoding="utf-8") as f:
             _file_string = await f.read()
@@ -127,6 +151,11 @@ async def lajson(filepath: str) -> JASM:
 
 
 async def latoml(filepath: str) -> JASM:
+    """
+
+    :param filepath:
+    :return:
+    """
     try:
         _toml_str = await lastring(filepath)
         return toml_loads(_toml_str)
@@ -135,6 +164,11 @@ async def latoml(filepath: str) -> JASM:
 
 
 async def satoml(filepath: str, data: JASM) -> None:
+    """
+
+    :param filepath:
+    :param data:
+    """
     try:
         filepath = filepath if "." in filepath else "{}.toml".format(filepath)
         _toml_str = toml_dumps(data)

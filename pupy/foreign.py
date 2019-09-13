@@ -19,7 +19,7 @@ from os import sep
 from os import walk
 from typing import Any
 from typing import Callable
-from typing import Iterable
+from typing import Iterable, Sized
 from typing import List
 from typing import Tuple
 from typing import Union
@@ -61,6 +61,12 @@ def dirs_gen(dirpath: str = getcwd(), abspath: bool = True) -> Paths:
 def files_dirs_gen(
     dirpath: str = getcwd(), abspath: bool = True
 ) -> Tuple[Paths, Paths]:
+    """
+
+    :param dirpath:
+    :param abspath:
+    :return:
+    """
     return (files_gen(dirpath, abspath=abspath), dirs_gen(dirpath, abspath=abspath))
 
 
@@ -239,7 +245,7 @@ def rotate(rlist: List[int], rn: int = 1, left_rotate: bool = True) -> List[int]
     return _left_rotate(rlist, rn) if left_rotate else _right_rotate(rlist, rn)
 
 
-def rotations_gen(rlist: Iterable[Any]) -> Iterable[Any]:
+def rotations_gen(rlist: Sized) -> Iterable[Any]:
     """Yields all rotations of a list
 
     :param rlist:

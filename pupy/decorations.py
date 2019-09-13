@@ -234,6 +234,7 @@ class tictoc(object):
 
         return "\n".join(filter(None, _fmt_strs))
 
+
     def __str__(self, t_total, funk, args_string):
         d = {
             "file": getfile(funk),
@@ -286,6 +287,11 @@ def prop(fn):
 
 
 def requires(package):
+    """
+
+    :param package:
+    :return:
+    """
     def _requires(_funk):
         @wraps(_funk)
         def _wrapper(*args, **kwargs):

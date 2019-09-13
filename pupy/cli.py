@@ -15,6 +15,7 @@ from pupy._template import _IO_PKG_CLI
 from pupy._template import _IO_SCRIPT
 from pupy._template import _PKG_INIT
 from pupy._template import _PKG_MAIN
+from typing import Optional, List
 from pupy._template import _PKG_UTILS
 from pupy._version import __version__
 from pupy.savings_n_loads import sstring
@@ -22,6 +23,10 @@ from pupy.sh import pwd
 
 
 def base_cmd(args):
+    """
+
+    :param args:
+    """
     if args.version:
         print("pupy version: {}".format(__version__))
 
@@ -36,6 +41,11 @@ def unescaped_str(arg_str):
 
 
 def new_package(relative_path):
+    """
+
+    :param relative_path:
+    :return:
+    """
     try:
         makedirs(relative_path, exist_ok=False)
         relative_path
@@ -58,10 +68,14 @@ def new_package(relative_path):
         print("Created package: {}".format(relative_path))
     except:
         raise ValueError("{} already exists".format(relative_path))
-        return
 
 
 def new_cmd(args):
+    """
+
+    :param args:
+    :return:
+    """
     if args.package:
         for relpath in args.path:
             new_package(relpath)
@@ -90,7 +104,7 @@ NEW_SUBPARSER.add_argument(
 NEW_SUBPARSER.set_defaults(func=new_cmd)
 
 
-def main(ARGS=None):
+def main(ARGS:Optional[List[str]]=None) -> None:
     """
 
     :param ARGS:

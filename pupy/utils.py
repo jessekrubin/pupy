@@ -10,7 +10,7 @@ from shutil import rmtree
 from tempfile import mkdtemp
 from time import time
 from typing import Any
-from typing import Optional
+from typing import Optional, Union
 
 from pupy._alias import pp
 from pupy.sh import cd
@@ -20,7 +20,7 @@ from pupy.sh import unlink_dirs
 from pupy.sh import unlink_files
 
 
-def timestamp(ts: Optional[float] = None) -> str:
+def timestamp(ts: Optional[Union[float, datetime]] = None) -> str:
     """Time stamp string w/ format yyyymmdd-HHMMSS
 
     :return: timestamp string
@@ -46,13 +46,32 @@ def timestamp(ts: Optional[float] = None) -> str:
 
 
 def environ_dict():
+    """
+
+    :return:
+    """
     return {k: environ[k] for k in environ}
 
 
 @contextmanager
 def linked_tmp_dir(
-    suffix=None, prefix=None, dir=None, mkdirs=[], lndirs=[], lnfiles=[]
+    suffix=None, prefix=None, dir=None, mkdirs=None, lndirs=None, lnfiles=None
 ):
+    """
+
+    :param suffix:
+    :param prefix:
+    :param dir:
+    :param mkdirs:
+    :param lndirs:
+    :param lnfiles:
+    """
+    if lndirs is None:
+        lndirs = []
+    if lnfiles is None:
+        lnfiles = []
+    if mkdirs is None:
+        mkdirs = []
     temp_dir = mkdtemp(suffix, prefix, dir)
     lnfiles = [
         (path.join(temp_dir, _rel_link), target) for _rel_link, target in lnfiles
@@ -107,6 +126,10 @@ def linked_tmp_dir(
 
 
 def prinfo(obj: Any) -> None:
+    """
+
+    :param obj:
+    """
     try:
         pp({"object": obj, "type": obj})
     except:
@@ -115,6 +138,11 @@ def prinfo(obj: Any) -> None:
 
 
 def pyfilepath(split=False):
+    """
+
+    :param split:
+    :return:
+    """
     _filepath = path.abspath(stack()[1][1])
     if split:
         return path.split(_filepath)
@@ -122,6 +150,13 @@ def pyfilepath(split=False):
 
 
 def time_funk(funk, *args, **kwargs):
+    """
+
+    :param funk:
+    :param args:
+    :param kwargs:
+    :return:
+    """
     ti = time()
     _ret = funk(*args, **kwargs)
     tf = time()
@@ -129,6 +164,15 @@ def time_funk(funk, *args, **kwargs):
 
 
 def cmp_funks(f1, f2, runs=1, *args, **kwargs):
+    """
+
+    :param f1:
+    :param f2:
+    :param runs:
+    :param args:
+    :param kwargs:
+    :return:
+    """
     f1_time = 0
     f2_time = 0
     for i in range(runs):
@@ -148,6 +192,13 @@ def cmp_funks(f1, f2, runs=1, *args, **kwargs):
 
 
 def time_funk(funk, *args, **kwargs):
+    """
+
+    :param funk:
+    :param args:
+    :param kwargs:
+    :return:
+    """
     ti = time()
     _ret = funk(*args, **kwargs)
     tf = time()
@@ -155,6 +206,15 @@ def time_funk(funk, *args, **kwargs):
 
 
 def cmp_funks(f1, f2, runs, *args, **kwargs):
+    """
+
+    :param f1:
+    :param f2:
+    :param runs:
+    :param args:
+    :param kwargs:
+    :return:
+    """
     f1_time = 0
     f2_time = 0
     for i in range(runs):
