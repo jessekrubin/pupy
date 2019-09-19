@@ -4,7 +4,6 @@ import os
 from os import chdir
 from os import path
 from os import sep
-from shutil import rmtree
 
 import pupy.utils
 from pupy import dirs_gen
@@ -30,7 +29,6 @@ def test_mkdirs():
 
 
 def test_linkin():
-
     tdata = [
         ["dummy_dir", "a_file.txt"],
         ["dummy_dir", "b_file.txt"],
@@ -39,7 +37,6 @@ def test_linkin():
         ["dummy_dir", "b_dir", "e_file.txt"],
         ["dummy_dir", "b_dir", "f_file.txt"],
     ]
-    from pupy.savings_n_loads import touch
 
     chdir(PWD)
 

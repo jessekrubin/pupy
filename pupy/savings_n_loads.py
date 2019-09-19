@@ -5,9 +5,9 @@
 Savings & Loads
 ===============
 
-Common funks for ur everyday savings and loads. 
+Common funks for ur everyday savings and loads.
 
-If you are a friend of Jasm/Json/Jason-Greenberg like myself, 
+If you are a friend of Jasm/Json/Jason-Greenberg like myself,
 'pip install ujson' for a better time.
 
 If you need it... you can always...
@@ -15,11 +15,9 @@ pip install (msgpack, toml, ruamel.yaml) for the whole shebang.
 
 """
 
-from codecs import getwriter
 from io import open
 from itertools import count
 from os import path
-from os import utime
 from typing import Union
 
 from pupy._jasm import json
@@ -185,41 +183,6 @@ def load_jasm(filepath: str) -> JASM:
 def ljasm(filepath: str) -> JASM:
     """Alias for ljson (which stands for 'load-json')"""
     return ljson(filepath)
-
-
-@mkdirs
-def touch(filepath: str) -> None:
-    """Touches a file just like touch on the command line
-
-    :param filepath: filepath to 'touch' in a unix-y sense
-    :return: None
-    """
-    with open(filepath, "a"):
-        utime(filepath, None)
-
-
-def shebang(filepath: str) -> Union[None, str]:
-    """returns the shebang path given a filepath or None if it does not exist.
-
-    :param filepath: path to a file w/ a shebange line
-    :return: shebang line or None
-
-    .. doctest::python
-
-        >>> from inspect import getabsfile
-        >>> script = 'ashellscript.sh'
-        >>> with open(script, 'w') as f:
-        ...     f.write('#!/bin/bash\\necho "howdy"\\n')
-        25
-        >>> shebang(script)
-        '#!/bin/bash'
-        >>> from os import remove
-        >>> remove(script)
-
-    """
-    with open(filepath, "r") as f:
-        first = f.readline().strip("\n")
-        return first if "#!" in first[:2] else None
 
 
 def stoml(filepath: str, data: JASM) -> str:

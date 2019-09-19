@@ -11,7 +11,6 @@ from typing import Union
 
 from pupy._typing import F
 
-
 def timestamp(ts: Optional[Union[float, datetime]] = ...) -> str: ...
 def environ_dict() -> Dict[str, str]: ...
 def linked_tmp_dir(

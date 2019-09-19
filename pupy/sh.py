@@ -8,22 +8,20 @@ Shell-ish
 from distutils.dir_util import copy_tree
 from functools import lru_cache
 from glob import iglob
+from io import open
 from os import chdir
 from os import environ
 from os import getcwd
 from os import listdir
-from os import lstat
 from os import makedirs
 from os import path
-from os import readlink
 from os import remove
-from os import stat
 from os import symlink
 from os import unlink
+from os import utime
 from pathlib import Path
 from platform import system
 from shutil import copy2
-from shutil import copystat
 from shutil import move
 from shutil import rmtree
 from subprocess import PIPE
@@ -32,6 +30,7 @@ from typing import List
 from typing import Tuple
 from typing import Union
 
+from pupy import mkdirs
 from pupy.foreign import chunks
 
 
@@ -621,54 +620,16 @@ def mv(src, dst):
         move(file, dst)
 
 
-def cp(src, dst, r=False, symlinks=False, ignore=None):
-    """
-
-    :param src:
-    :param dst:
-    :param r:
-    :param symlinks:
-    :param ignore:
-    """
-    makedirs(dst, exist_ok=True)
-    if not path.exists(dst):
-        makedirs(dst, exist_ok=True)
-        copystat(src, dst)
-    _listdir = listdir(src)
-    if ignore:
-        _listdir = [x for x in _listdir if x not in set(ignore(src, _listdir))]
-    for item in _listdir:
-        _src_pth = path.join(src, item)
-        _dest_pth = path.join(dst, item)
-        if symlinks and path.islink(_src_pth):
-            if path.lexists(_dest_pth):
-                remove(_dest_pth)
-            symlink(readlink(_src_pth), _dest_pth)
-            try:
-                from os import lchmod
-
-                st = lstat(_src_pth)
-                mode = stat.S_IMODE(st.st_mode)
-                lchmod(_dest_pth, mode)
-            except:
-                pass
-        elif path.isdir(_src_pth):
-            if r:
-                cp(_src_pth, _dest_pth, r=True, symlinks=symlinks, ignore=ignore)
-            else:
-                print("{} is dir; use rm(..., r=True)".format(_src_pth))
-        else:
-            copy2(_src_pth, _dest_pth)
-
-
 def cp_file(source: str, target: str) -> None:
     """
 
     :param source:
     :param target:
     """
-    dirname = path.dirname(target)
-    makedirs(dirname, exist_ok=True)
+    try:
+        makedirs(path.dirname(target), exist_ok=True)
+    except FileNotFoundError:
+        pass
     copy2(source, target)
 
 
@@ -683,23 +644,25 @@ def cp_dir(source: str, target: str) -> None:
     copy_tree(source, target)
 
 
-def _cp_dest(source: str, target: str) -> str:
-    if path.isfile(source) and path.isdir(target):
-        return path.join(target, path.basename(source))
-    return target
-
-
-def cp(source: str, target: str, f: bool = True, r: bool = False) -> None:
+def cp(src: str, target: str, f: bool = True, r: bool = False) -> None:
     """Copy the directory/file src to the directory/file target"""
-    if (path.exists(target) and not f) or source == target:
-        return
-    if path.isdir(source) and not r:
-        raise ValueError("Source ({}) is directory; use r=True")
-    target = _cp_dest(source, target)
-    if path.isfile(source) or path.islink(source):
-        cp_file(source, target)
-    if path.isdir(source):
-        cp_dir(source, target)
+    source_dirname = path.dirname(src)
+    for source in iglob(src, recursive=True):
+        print("source", source, source_dirname)
+        print("thing", source.replace(source_dirname, path.dirname(target)))
+        _dest = target
+        if (path.exists(target) and not f) or source == target:
+            return
+        if path.isdir(source) and not r:
+            raise ValueError("Source ({}) is directory; use r=True")
+        if path.isfile(source) and path.isdir(target):
+            _dest = path.join(target, path.basename(source))
+        if path.isfile(source) or path.islink(source):
+            print(source.replace(source_dirname, _dest))
+            # cp_file(source, source.replace(source_dirname, _dest))
+            cp_file(source, _dest)
+        if path.isdir(source):
+            cp_dir(source, _dest)
 
 
 def ls(dirpath: str = ".", abs: bool = False) -> List[str]:
@@ -825,9 +788,43 @@ def export(key: str, val: Union[None, str] = None) -> None:
         export(_key, "=".join(val))
 
 
+@mkdirs
+def touch(filepath: str) -> None:
+    """Touches a file just like touch on the command line
+
+    :param filepath: filepath to 'touch' in a unix-y sense
+    :return: None
+    """
+    with open(filepath, "a"):
+        utime(filepath, None)
+
+
+def shebang(filepath: str) -> Union[None, str]:
+    """returns the shebang path given a filepath or None if it does not exist.
+
+    :param filepath: path to a file w/ a shebange line
+    :return: shebang line or None
+
+    .. doctest::python
+
+        >>> from inspect import getabsfile
+        >>> script = 'ashellscript.sh'
+        >>> with open(script, 'w') as f:
+        ...     f.write('#!/bin/bash\\necho "howdy"\\n')
+        25
+        >>> shebang(script)
+        '#!/bin/bash'
+        >>> from os import remove
+        >>> remove(script)
+
+    """
+    with open(filepath, "r") as f:
+        first = f.readline().strip("\n")
+        return first if "#!" in first[:2] else None
+
+
 path2name = basename  # Alias for basename
 parent_dirpath = dirname  # Alias for dirname
-
 # Operating system dependent things
 link_dir = _OS.link_dir
 link_dirs = _OS.link_dirs
